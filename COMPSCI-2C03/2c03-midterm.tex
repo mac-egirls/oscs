@@ -211,6 +211,28 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
 
     \subsection{Quicksort}
 
+    \section{Priority Queues}
+    Supports insertion and removing/popping the priority (largest or smallest) item.
+
+    Implementations:
+    \begin{list}{}{}
+        \item Sorted Array - O(n) insert, O(1) pop
+        \item Unsorted Array - O(1) insert, O(n) pop
+        \item Binary Heap - O(log n) insert and sort
+    \end{list}
+
+    \section{Binary Heaps \& Heapsort}
+    A max binary heap is a complete binary tree where the keys are in the nodes and each parent's key $\geq$ each child's key. This requirement is called the max heap property.
+    \\
+    Binary Heaps:
+    \begin{itemize}
+        \item Can be represented as array or tree/nodes.
+        \item Insertion: We insert at the end of the array, then "swim up" the value.
+        \item Swimming up - exchange a given node with it's parent until the binary max property is fulfilled.
+        \item Popping - swap the first node (the max) with the last node, remove it, then "sink" the first node.
+        \item Sinking - exchange a given node with the max of it's children until the binary max property is fulfilled.
+    \end{itemize}
+
 \end{multicols*}
 
 \end{document}
