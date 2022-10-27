@@ -72,7 +72,7 @@
 \tiny
 
 \begin{center}
-    {\textbf{2LC3 - Jason Huang}} \\
+    {\textbf{2C03}} \\
 \end{center}
 \begin{multicols*}{5}
     \setlength{\premulticols}{1pt}
@@ -107,7 +107,7 @@ class Node {
         \bottomrule
     \end{tabular}
 
-    \section{Runtime}
+    \section{Runtime Analysis}
     \begin{tabular}[!ht]{@{}lc@{}} \toprule
         constant     & 1          \\
         logarithmic  & $\log N$   \\
@@ -119,7 +119,7 @@ class Node {
         \bottomrule
     \end{tabular}
 
-    Proving:
+    \subsection{Proving}
     For any pair of constants, $c, n_0$, consider $n = X[c \cdot n_0]$,
     where $X$ is another arbitrarily chosen constant.
 
@@ -140,6 +140,9 @@ class Node {
     Must satisfy both Big-O and Big-$\Omega$.
 
     $\lim_{n \to \infty} \frac{f(n)}{g(n)} \not\in \{0, \infty\}$
+
+    \subsection{Recurrance Equations}
+    % TODO: fixme
 
     \section{Union-Find}
     Key learnings:
