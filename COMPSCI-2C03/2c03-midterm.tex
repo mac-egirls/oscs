@@ -101,21 +101,21 @@ class Node {
     \end{lstlisting}
     \subsubsection{Operations}
     \begin{tabular}[!ht]{@{}ll@{}} \toprule
-        Search & O(N) \\
+        Search           & O(N) \\
         Prepend / Append & O(1) \\
-        Delete & O(N) \\
+        Delete           & O(N) \\
         \bottomrule
     \end{tabular}
 
     \section{Runtime}
     \begin{tabular}[!ht]{@{}lc@{}} \toprule
-        constant & 1 \\
-        logarithmic & $\log N$ \\
-        linear & $N$ \\
+        constant     & 1          \\
+        logarithmic  & $\log N$   \\
+        linear       & $N$        \\
         linearithmic & $N \log N$ \\
-        quadratic & $N^2$ \\
-        cubic & $N^3$ \\
-        exponential & $2^N$ \\
+        quadratic    & $N^2$      \\
+        cubic        & $N^3$      \\
+        exponential  & $2^N$      \\
         \bottomrule
     \end{tabular}
 
@@ -145,9 +145,9 @@ class Node {
     Key learnings:
     \begin{itemize}
         \item Generally, either optimize for adding data into Data Structure,
-        or optimize for processing the Data Structure for desired results.
+              or optimize for processing the Data Structure for desired results.
 
-        \item 
+        \item
     \end{itemize}
 
     \section{Bad Sorts}
@@ -172,7 +172,7 @@ class Node {
     \section{Good Sorts}
     \subsection{Mergesort}
     Divide array in half recursively, until it is down to 1 element.
-    Merge array together, 
+    Merge array together,
     making sure each side is sorted as it is merged together.
 
     \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
@@ -194,7 +194,7 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
     }
 }
     \end{lstlisting}
-    
+
     \subsection{Quicksort}
 
 \end{multicols*}
