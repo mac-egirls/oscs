@@ -91,9 +91,11 @@
     \textbf{LLs:}
     Dynamic data sets,
     insertion \& deletion more important than random access.
-    % TODO: Probably don't need LLs,
-    % pretty easy to reason through
 
+
+    % REVIEW: Probably don't need LLs,
+    % pretty easy to reason through
+    % REVIEW: Are there any other basic data structures that need more detail? 
     \subsection{Linked Lists}
     \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 class Node {
@@ -129,6 +131,10 @@ class Node {
         \bottomrule
     \end{tabular}
 
+    \hl{If you're seeing this, please contribute!}
+    % FIXME: ADD THIS
+
+    % REVIEW: Look back through this explanation
     \subsection{Proving}
     For any pair of constants, $c, n_0$, consider $n = X[c \cdot n_0]$,
     where $X$ is another arbitrarily chosen constant.
@@ -151,6 +157,8 @@ class Node {
 
     $\lim_{n \to \infty} \frac{f(n)}{g(n)} \not\in \{0, \infty\}$
 
+    % REVIEW: Are there any other algs 
+    % that we need to document for memory complexity?
     \subsection{Memory Complexity}
     \textbf{In-place algorithms:} $N + O(\log N)$
     \textbf{Mergesort:}
@@ -211,6 +219,7 @@ class Node {
     Pick every $n$ elements and put them in a subarray,
     sort them, and put them back.
     (If you only use indicies you don't need to make a new array.)
+    % FIXME: Add time complexity
 
     \section{Good Sorts}
     \subsection{Mergesort}
@@ -218,6 +227,7 @@ class Node {
     Merge array together,
     making sure each side is sorted as it is merged together.
 
+    % code from slides
     \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
   // copy
@@ -255,6 +265,8 @@ public static void sort(Comparable[] a) {
     \textbf{Memory Complexity:} $O(\log N)$
 
     \subsection{Quicksort}
+    \hl{If you're seeing this, please contribute!}
+    % FIXME: ADD THIS
 
     \section{Priority Queues}
     Supports insertion and removing/popping the priority (largest or smallest) item.
