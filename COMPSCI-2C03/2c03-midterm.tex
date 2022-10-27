@@ -91,7 +91,7 @@
     insertion \& deletion more important than random access.
     % TODO: Probably don't need LLs,
     % pretty easy to reason through
-    
+
     \subsection{Linked Lists}
     \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 class Node {
@@ -232,6 +232,8 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
         \item Popping - swap the first node (the max) with the last node, remove it, then "sink" the first node.
         \item Sinking - exchange a given node with the max of it's children until the binary max property is fulfilled.
     \end{itemize}
+
+    Heapsort relies on the binary heap data structure to sort data. Once a max heap has been constructed, you can perform a single for loop and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
 
 \end{multicols*}
 
