@@ -1,0 +1,476 @@
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.25in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage}
+  {\endminipage\par\medskip}
+
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+% \tymin=37pt
+% \tymax=\maxdimen
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+\newcommand{\To}{\Rightarrow}
+
+\title{2LC3}
+
+\begin{document}
+
+\raggedright
+\tiny
+
+\begin{center}
+    {\textbf{2LC3 - Jason Huang}} \\
+\end{center}
+\begin{multicols*}{3}
+    \setlength{\premulticols}{1pt}
+    \setlength{\postmulticols}{1pt}
+    \setlength{\multicolsep}{1pt}
+    \setlength{\columnsep}{2pt}
+
+    \section{Theorems}
+    \tiny
+    \subsection{Equivalence and true}
+    \begin{tabular}{@{}lll@{}}
+        (3.1) & Axiom, Associativity of $\equiv$ & $((p \equiv q) \equiv r) \equiv (p \equiv (q \equiv r))$ \\
+        (3.2) & Axiom, Symmetry of $\equiv$      & $p \equiv q \equiv q \equiv p$                           \\
+        (3.3) & Axiom, Identity of $\equiv$      & $\textit{true} \equiv q \equiv q$                        \\
+        (3.4) &                                  & \textit{true}                                            \\
+        (3.5) & Reflexivity of $\equiv$          & $p \equiv p$                                             \\
+    \end{tabular}
+
+    \subsection{Negation, inequivalence, and false}
+    \begin{tabular}{@{}lll@{}}
+        (3.8)  & Axiom, Definition of \textit{false}           & $\textit{false} \equiv \neg \textit{true}$                                  \\
+        (3.9)  & Axiom, Distributivity of $\neg$ over $\equiv$ & $\neg (p \equiv q) \ \equiv \ \neg \equiv q$                                \\
+        (3.10) & Axiom, Definition of $\not\equiv$             & $(p \not\equiv q) \ \equiv \ \neg(p \equiv q)$                              \\
+        (3.11) &                                               & $\neg p \equiv q \equiv p \equiv \neg q$                                    \\
+        (3.12) & Double negation                               & $\neg \neg p \equiv p$                                                      \\
+        (3.13) & Negation of \textit{false}                    & $\neg \textit{false} \equiv \textit{true}$                                  \\
+        (3.14) &                                               & $(p \not\equiv q) \ \equiv \ \neg p \equiv q$                               \\
+        (3.15) &                                               & $(\neg p \equiv p \equiv false)$                                            \\
+        (3.16) & Symmetry of $\not\equiv$                      & $(p \not\equiv q) \ \equiv \ (q \not\equiv p)$                              \\
+        (3.17) & Associativity of $\not\equiv$                 & $((p \not\equiv q) \not\equiv r) \ \equiv \ (p \not\equiv(q \not\equiv r))$ \\
+        (3.18) & Mutual Associativity                          & $((p \not\equiv q) \equiv r) \ \equiv \ (p \not\equiv (q \equiv r))$        \\
+        (3.19) & Mutual interchangeability                     & $p \not\equiv q \equiv r \ \equiv \ p \equiv q \not\equiv r$                \\
+    \end{tabular}
+
+    \subsection{Disjunction}
+    \begin{tabular}{@{}lll@{}}
+        (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
+        (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
+        (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
+        (3.27) & Axiom, Distributivity of $\lor$ over $\equiv$ & $p \lor(q \equiv r) \equiv p \lor q \equiv p \lor r$  \\
+        (3.28) & Axiom, Excluded Middle                        & $p \lor \neg p$                                       \\
+        (3.29) & Zero of $\lor$                                & $p \lor \textit{true} \equiv \textit{true}$           \\
+        (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
+        (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
+        (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
+    \end{tabular}
+
+    \subsection{Conjunction}
+    \begin{tabular}{@{}lll@{}}
+        (3.35) & Axiom, Golden rule                     & $p \land q \equiv p \equiv q \equiv p \lor q$                                  \\
+        (3.36) & Symmetry of $\land$                    & $p \land q \equiv q \land p$                                                   \\
+        (3.37) & Associativity of $\land$               & $(p \land q) \land r \equiv p \land(q \land r)$                                \\
+        (3.38) & Idempotency of $\land$                 & $p \land p \equiv p$                                                           \\
+        (3.39) & Identity of $\land$                    & $p \land \textit{true} \equiv p$                                               \\
+        (3.40) & Zero of $\land$                        & $p \land \textit{false} \equiv \textit{false} $                                \\
+        (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
+        (3.42) & Contradiction                          & $p \land \neg p \equiv \textit{false}$                                         \\
+        (3.43) & Absorption                             & (a) $p \land (p \lor q) \equiv p$                                              \\
+               &                                        & (b) $p \lor (p \land q) \equiv p$                                              \\
+        (3.44) & Absorption                             & (a) $p \land (\neg p \lor q) \equiv p \land q$                                 \\
+               &                                        & (b) $p \lor (\neg p \land q) \equiv p \lor q$                                  \\
+        (3.45) & Distributivity of $\lor$ over $\land$  & $p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)$                        \\
+        (3.46) & Distributivity of $\land$ over $\lor$  & $p \land (q \lor r) \equiv (p \land q) \lor (p \land r)$                       \\
+        (3.47) & De Morgan                              & (a) $\neg (p \land q) \equiv \neg p \lor \neg q)$                              \\
+               &                                        & (b) $\neg (p \lor q) \equiv \neg p \land \neg q)$                              \\
+        (3.48) &                                        & $p \land q \equiv p \land \neg q \equiv \neg p$                                \\
+        (3.49) &                                        & $p \land (q \equiv r) \equiv p \land q \equiv p \land r \equiv p$              \\
+        (3.50) &                                        & $p \land (q \equiv p) \equiv p \land q$                                        \\
+        (3.51) & Replacement                            & $(p \equiv q) \land (r \equiv p) \ \equiv \ (p \equiv q) \lor (r \equiv q)$    \\
+        (3.52) & Definition of $\equiv$                 & $p \equiv q \equiv (p \land q) \lor (\neg p \land \neg q)$                     \\
+        (3.53) & Exclusive or                           & $p \not\equiv q \equiv (\neg p \land q) \lor (p \land \neg q)$                 \\
+        (3.55) &                                        & $(p \land q) \land r \equiv \ p \equiv q \equiv r$                             \\
+               &                                        & \quad $\equiv p \lor q \equiv q \lor r \equiv r \lor p \equiv p \lor q \lor r$ \\
+    \end{tabular}
+
+    \subsection{Implication}
+    \begin{tabular}{@{}lll@{}}
+        (3.57) & Axiom, Definition of Implication      & $p \To q \equiv p \lor q \equiv q$                      \\
+        (3.58) & Axiom, Consequence                    & $p \Leftarrow q \equiv q \To p$                         \\
+        (3.59) & Definition of implication             & $p \To q \equiv \neg p \lor q$                          \\
+        (3.60) & Definition of implication             & $p \To q \equiv p \land q \equiv p$                     \\
+        (3.61) & Contrapositive                        & $p \To q \equiv \neg q \To \neg p$                      \\
+        (3.62) &                                       & $p \To (q \equiv r) \equiv p \land q \equiv p \land r$  \\
+        (3.63) & Distributivity of $\To$ over $\equiv$ & $p \To (q \equiv r) \equiv p \To q \equiv p \To r$      \\
+        (3.64) &                                       & $p \To (q \To r) \equiv (p \To q) \To (p \To r)$        \\
+        (3.65) & Shunting                              & $p \land q \To r \equiv p \To (q \To r)$                \\
+        (3.66) &                                       & $p \land (p \To q) \equiv p \land q$                    \\
+        (3.67) &                                       & $p \land (q \To p) \equiv p$                            \\
+        (3.68) &                                       & $p \lor (p \To q) \equiv \textit{true}$                 \\
+        (3.69) &                                       & $p \lor (q \To p) \equiv q \To p$                       \\
+        (3.70) &                                       & $p \lor q \To p \land q \equiv p \equiv q$              \\
+        (3.71) & Reflexivity of $\To$                  & $p \To p \equiv \textit{true}$                          \\
+        (3.72) & Right zero of $\To$                   & $p \To \textit{true} \equiv \textit{true}$              \\
+        (3.73) & Left identity of $\To$                & $\textit{true} \To p \equiv p$                          \\
+        (3.74) &                                       & $p \To \textit{false} \equiv \neg p$                    \\
+        (3.75) &                                       & $\textit{false} \To p \equiv true$                      \\
+        (3.76) & Weakening/strengthening               & (a) $p \To p \lor q$                                    \\
+               &                                       & (b) $p \land q \To p$                                   \\
+               &                                       & (c) $p \land q \To p \lor q$                            \\
+               &                                       & (d) $p \lor (q \land r) \To p \lor q$                   \\
+               &                                       & (e) $p \land q \To p \land (q \lor r)$                  \\
+        (3.77) & Modus ponens                          & $p \land (p \To q) \To q$                               \\
+        (3.78) &                                       & $(p \To r) \land (q \To r) \ \equiv \ (p \lor q \To r)$ \\
+        (3.79) &                                       & $(p \To r) \land (\neg p \To r) \ \equiv \ r$           \\
+        (3.80) & Mutual implication                    & $(p \To q) \land (q \To p) \equiv (p \equiv q)$         \\
+        (3.81) & Antisymmetry                          & $(p \To q) \land (q \To p) \To (p \equiv q)$            \\
+        (3.82) & Transitivity                          & (a) $(p \To q) \land (q \To r) \To (p \To r)$           \\
+               &                                       & (b) $(p \equiv q) \land (q \To r) \To (p \To r)$        \\
+               &                                       & (c) $(p \To q) \land (q \equiv r) \To (p \To r)$        \\
+    \end{tabular}
+
+    \subsection{Leibniz as an axiom}
+    \begin{tabulary}{\linewidth}{@{}llL@{}}
+        (3.83) & Axiom, Leibniz            & $e = f \ \To \ E_e^z = E_f^z$                                                         \\
+        (3.84) & Substitution              & (a) $(e = f) \land E_e^z \ \equiv \ (e = f) \land E_f^z$                              \\
+               &                           & (b) $(e = f) \To E_e^z \ \equiv \ (e = f) \To E_f^z$                                  \\
+               &                           & (c) $q \land (e = f) \To E_e^z \ \equiv \ q \land (e = f) \To E_f^z$                  \\
+        (3.85) & Replace by \textit{true}  & (a) $p \To E_b^z \ \equiv \ p \To E_\textit{true}^z$                                  \\
+               &                           & (b) $q \land p \To E_p^z \ \equiv \ q \land p \To E_\textit{true}^z$                  \\
+        (3.86) & Replace by \textit{false} & (a) $E_p^z \To p \ \equiv \ E_\textit{false}^z \To p$                                 \\
+               &                           & (b) $E_p^z \To p \lor q \ \equiv \ E_\textit{false}^z \To p \lor q$                   \\
+        (3.87) & Replace by \textit{true}  & $p \land E_p^z \ \equiv \ p \land E_\textit{true}^z$                                  \\
+        (3.88) & Replace by \textit{false} & $p \lor E_p^z \ \equiv \ p \lor E_\textit{false}^z$                                   \\
+        (3.89) & Shannon                   & $E_p^z \ \equiv \ (p \land E_\textit{true}^z) \lor (\neg p \land E_\textit{false}^z)$ \\
+        (4.1)  &                           & $p \To (q \To p)$                                                                     \\
+        (4.2)  & Monotonicity of $\lor$    & $(p \To q) \To (p \lor r \To q \lor r)$                                               \\
+        (4.3)  & Monotonicity of $\land$   & $(p \To q) \To (p \land r \To q \land r)$                                             \\
+    \end{tabulary}
+
+    \subsection{Proof techniques}
+    \begin{tabulary}{\linewidth}{@{}llL@{}}
+        (4.4)  & Deduction               & To prove $P \To Q$, assume $P$ and prove $Q$.                                  \\
+        (4.5)  & Case analysis           & If $E_\textit{true}^z$, $E_\textit{false}^z$ are theorems, then so is $E_P^z$. \\
+        (4.6)  & Case analysis           & $(p \lor q \lor r) \land (p \To s) \land (q \To s) \land(r \To s) \To \ s$     \\
+        (4.7)  & Mutual implication      & To prove $P \equiv Q$, prove $P \To Q$ and $Q \To P$.                          \\
+        (4.9)  & Proof by contradiction  & To prove $P$, prove $\neg P \To \textit{false}$.                               \\
+        (4.12) & Proof by contrapositive & To prove $P \To Q$, prove $\neg Q \To \neg P$                                  \\
+    \end{tabulary}
+
+    \section{General Laws of Quantification}
+    For symmetric and associative binary operator $\star $ with identity $u$.
+    \begin{tabulary}{\linewidth}{@{}lL@{}}
+        (8.13) & \textbf{Axiom, Empty range:} $(\star x | false : P) = u$                                                                                                                                                                                   \\
+        (8.14) & \textbf{Axiom, One-point rule:} Provided $\neg occurs(`x\textrm', `E\textrm')$, $(\star x | x = E : P) = P[x := E]$                                                                                                                        \\
+        (8.15) & \textbf{Axiom, Distributivity:} Provided each quantification is defined, $(\star x | R:P) \star  (\star x | R : Q) = (\star x | R : P \star  Q)$                                                                                           \\
+        (8.16) & \textbf{Axiom, Range split:} Provided $R \land S \equiv false$ and each quantification is defined, $(\star x | R \lor S : P) = (\star x | R \land S : P) = (\star x | R : P) \star  (\star X | S : P)$                                     \\
+        (8.17) & \textbf{Axiom, Range split:} Provided each quantification is defined, $(\star x | R \lor S : P) \star  (\star x | R \land S : P) = (\star x | R : P) \star  (\star x | S : P)$                                                             \\
+        (8.18) & \textbf{Axiom, Range split for idempotent $\star$:} Prov. each quant. is defined, $(\star x | R \lor S : P) = (\star x | R : P) \star (\star x | S : P)$                                                                                   \\
+        (8.19) & \textbf{Axiom, Interchange of dummies:} Provided each quantification is defined, $\neg occurs(`y\textrm', `R\textrm')$, and $\neg occurs(`x\textrm', `Q\textrm')$, $(\star x | R : (\star y | Q : P)) = (\star y | Q : (\star x | R : P))$ \\
+        (8.20) & \textbf{Axiom, Nesting:} Provided $\neg occurs(`y\textrm', `R\textrm')$, $(\star x, y | R \land Q : P) = (\star x | R : (\star y | Q : P))$                                                                                                \\
+        (8.21) & \textbf{Axiom, Dummy renaming:} Provided $\neg occurs(`y\textrm', `R, P\textrm')$, $(\star x | R : P) = (\star y | R[x := y] : P [x := y])$                                                                                                \\
+        (8.22) & \textbf{Change of dummy:} Provided $\neg occurs(`y\textrm', `R, P\textrm')$, and $f$ has an inverse, $(\star x | R : P) = (\star y | R[x := f.y] : P[x := f.y])$                                                                           \\
+        (8.23) & \textbf{Split off term:} $(\star i | 0 \leq i < n + 1 : P) = (\star i | 0 \leq i < n : P) \star P_n^i$                                                                                                                                     \\
+    \end{tabulary}
+
+    \section{Theorems of the Predicate Calculus}
+    \subsection{Universal quantification}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (9.2)  & \textbf{Axiom, Trading:}                                  & $(\forall x | R : P) \equiv (\forall x |: R \To P)$                                                                                              \\
+        (9.3)  & \textbf{Trading:}                                         & (a) $(\forall x | R : P) \equiv (\forall x |: \neg R \lor P)$                                                                                    \\
+               &                                                           & (b) $(\forall x | R : P) \equiv (\forall x |: R \land P \equiv R)$                                                                               \\
+               &                                                           & (c) $(\forall x | R : P) \equiv (\forall x |: R \lor P \equiv P)$                                                                                \\
+        (9.4)  & \textbf{Trading:}                                         & (a) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \To P)$                                                                               \\
+               &                                                           & (b) $(\forall x | Q \land R : P) \equiv (\forall x | Q : \neg R \lor P)$                                                                         \\
+               &                                                           & (c) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \land P \equiv R)$                                                                    \\
+               &                                                           & (d) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \lor P \equiv P)$                                                                     \\
+        (9.5)  & \textbf{Axiom, Distributivity of $\lor $ over $\forall$:} & Prov. $\neg occurs(`x\textrm', `P\textrm')$, $P \lor (\forall x | R : Q) \equiv (\forall x | R : P \lor Q)$                                      \\
+        (9.6)  &                                                           & Provided $\neg occurs(`x\textrm', `P\textrm')$, $(\forall x | R : P) \equiv P \lor (\forall x |: \neg R)$                                        \\
+        (9.7)  & \textbf{Distributivity of $\land$ over $\forall$:}        & Provided $\neg occurs(`x\textrm', `P\textrm')$, $\neg(\forall x |: \neg R) \To ((\forall x | R : P \land Q) \equiv P \land (\forall x | R : Q))$ \\
+        (9.8)  &                                                           & $(\forall x | R : true) \equiv true$                                                                                                             \\
+        (9.9)  &                                                           & $(\forall x | R : P \equiv Q) \To ((\forall x | R : P) \equiv (\forall x | R : Q))$                                                              \\
+        (9.10) & \textbf{Range weakening/strengthening:}                   & $(\forall x | Q \lor R : P) \To (\forall x | Q : P)$                                                                                             \\
+        (9.11) & \textbf{Body weakening/strengthening:}                    & $(\forall x | R : P \land Q) \To (\forall x | R : P)$                                                                                            \\
+        (9.12) & \textbf{Monotonicity of $\forall$:}                       & $(\forall x | R : Q \To P) \To ((\forall x | R : Q) \To (\forall x | R : P))$                                                                    \\
+        (9.13) & \textbf{Instantiation:}                                   & $(\forall x |: P) \To P[x := e]$                                                                                                                 \\
+        (9.16) &                                                           & $P$ is a theorem iff $(\forall x |: P)$ is a theorem.                                                                                            \\
+    \end{tabulary}
+
+    \subsection{Existential quantification}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (9.17) & \textbf{Axiom, Generalized De Morgan:}             & $(\exists x | R : P) \equiv \neg (\forall x | R : \neg P)$                                                                                                                 \\
+        (9.18) & \textbf{Generalized De Morgan:}                    & (a) $\neg (\exists x | R : \neg P) \equiv (\forall x | R : P)$                                                                                                             \\
+               &                                                    & (b) $\neg(\exists x | R : P) \equiv (\forall x | R : \neg P)$                                                                                                              \\
+               &                                                    & (c) $(\exists x | R : \neg P) \equiv \neg(\forall x | R : P)$                                                                                                              \\
+        (9.19) & \textbf{Trading:}                                  & $(\exists x | R : P) \equiv (\exists x |: R \land P)$                                                                                                                      \\
+        (9.20) & \textbf{Trading:}                                  & $(\exists | Q \land R : P) \equiv (\exists x | Q : R \land P)$                                                                                                             \\
+        (9.21) & \textbf{Distributivity of $\land$ over $\exists$:} & Provided $\neg occurs(`x\textrm', `P\textrm')$, $P \land (\exists x | R : Q) \equiv (\exists x | R : P \land Q)$                                                           \\
+        (9.22) &                                                    & $(\exists x | R : false) \equiv false$                                                                                                                                     \\
+        (9.23) & \textbf{Distributivity of $\lor$ over $\exists$:}  & Provided $\neg occurs(`x\textrm', `P\textrm')$, $(\equiv x |: R) \To ((\equiv x | R : P \lor Q) \equiv P \lor (\exists x | R : Q))$                                        \\
+        (9.24) &                                                    & $(\exists x | R : false) \equiv false$                                                                                                                                     \\
+        (9.25) & \textbf{Range weakening/strengthening:}            & $(\exists x | R : P) \To (\exists x | Q \lor R : P)$                                                                                                                       \\
+        (9.26) & \textbf{Body weakening/strengthening:}             & $(\exists x | R : P) \To (\exists x | R : P \lor Q)$                                                                                                                       \\
+        (9.27) & \textbf{Monotonicity of $\exists$:}                & $(\forall x | R : Q \To P) \To ((\exists x | R : Q) \To (\exists x | R : P ))$                                                                                             \\
+        (9.28) & \textbf{$\exists$-Introduction:}                   & $P[x := E] \To (\exists x |: P)$                                                                                                                                           \\
+        (9.29) & \textbf{Interchange of quantifications:}           & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`x\textrm', `Q\textrm')$, $(\exists x | R: (\forall y | Q : P)) \To (\forall y | Q : (\exists x | R : P))$ \\
+        (9.30) &                                                    & Provided $\neg occurs(`\hat{x}\textrm', `Q\textrm')$, $(\exists x | R : P) \To Q \text{ is a theorem iff } (R \land P)[x := \hat{x}] \To Q \text{ is a theorem}$           \\
+    \end{tabulary}
+
+    \section{LN1}
+    Inference rule: $\dfrac{P_1,...,P_k}{C}$, where $P_i$ - premises or hypoth., C is concl.
+
+    Inference rule asserts that if the premises are theorems, then the conclusion is a theorem.
+
+    Inference rule Substitution: E-expression, v - list of variables, F - list of expressions. $\dfrac{E}{E[v:=F]}$.
+
+    Laws: Reflexivity. $x=x$, Symmetry. $(x = y) = (y= x)$, Transitivity $\dfrac{X=Y, Y = Z}{X =Z}$, Leibnitz $\dfrac{X=Y}{E[z := X]=E[z := Y]}$
+
+    A precondition of a statement is an assertion about the
+    program variables in a state in which the statement may be
+    executed. A postcondition is an assertion about the states in which it
+    may terminate.
+
+    Hoare Triple - a notation: $\{P\} S \{Q\}$
+    Assignment := $\{R[x := E]\} x := E \{R\}$.
+
+    \section{LN2}
+
+    The \textit{dual} $P_D$ of a boolean expression $P$ is constructed by swapping:
+    $true$ and $false$,
+    $\land$ and $\lor$,
+    $\equiv$ and $\not\equiv$,
+    $\Rightarrow$ and $\nLeftarrow$,
+    $\Leftarrow$ and $\nRightarrow$.
+
+    \begin{center}
+        \begin{tabulary}{\linewidth}{@{}LLL@{}}
+            \toprule
+            and, but                & becomes & $\land$   \\
+            or                      & becomes & $\lor$    \\
+            not                     & becomes & $\neg$    \\
+            it is not the case that & becomes & $\neg$    \\
+            if $p$ then $q$         & becomes & $p \To q$ \\
+            means                   & becomes & $\equiv$  \\
+            however                 & becomes & $\land$   \\
+            ;                       & becomes & $\land$   \\
+            \bottomrule
+        \end{tabulary}
+        \begin{tabulary}{\linewidth}{@{}C|CCCC@{}}
+            \toprule
+              &   & id & $\neg$ &   \\
+            \midrule
+            F & F & F  & T      & T \\
+            T & F & T  & F      & T \\
+            \bottomrule
+        \end{tabulary}
+        \begin{tabulary}{\linewidth}{@{}CC|CCCCCCCCCCCCCCCC}
+            \toprule
+              &   &   & $\land$ &   &   &   &   & $\overset{\not\equiv}{\neq}$ & $\lor$ & \rotatebox{90}{nor} & $\overset{\equiv}{=}$ &   & $\Leftarrow$ &   & $\Rightarrow$ & \rotatebox{90}{nand} &   \\
+            \midrule
+            F & F & F & F       & F & F & F & F & F                            & F      & T                   & T                     & T & T            & T & T             & T                    & T \\
+            F & T & F & F       & F & F & T & T & T                            & T      & F                   & F                     & F & F            & T & T             & T                    & T \\
+            T & F & F & F       & T & T & F & F & T                            & T      & F                   & F                     & T & T            & F & F             & T                    & T \\
+            T & T & F & T       & F & T & F & T & F                            & T      & F                   & T                     & F & T            & F & T             & F                    & T \\
+            \bottomrule
+        \end{tabulary}
+    \end{center}
+    \subsection{Definitions}
+    \begin{multicols*}{2}
+        Expression is \textbf{satisfied} in state $s$ iff evaluates to \textit{true} in state s. \\
+        Expression is \textbf{valid} iff it is satisfied in every state. \\
+        Valid expression is called a \textbf{tautology} \\
+        Expression is \textbf{satisfiable} iff there is a state in which it is satisfied. \\
+        Expression is a \textbf{contradiction} iff it evaluates to \textit{false} in every state. \\
+        Two expressions are \textbf{logically equivalent} iff they evaluate to same truth value in every state. \\
+    \end{multicols*}
+
+    \section{LN3}
+    Propositional Calculus = Axioms + Inference Rules, Inference Rules: $\dfrac{P}{P[r:=Q]}$. A theorem of our propositional calculus is either
+    1 an axiom, 2 the conclusion of an inference rule whose premises are
+    theorems, or 3 a boolean expression that, using the inference rules, is proved equal to an axiom or a previously proved theorem. Heuristic: Identify applicable theorems by matching the structure of expressions or sub-expressions. The operators that appear in a boolean expression and the shape of its sub-expressions can focus the choice of theorems to be used in
+    manipulating it. Principle: Structure proofs to avoid repeating the same
+    sub-expression on many lines.\\
+
+    \section{LN4}
+    See: Proof techniques
+
+    \section{LN5}
+    A formal logical system, or logic, is a set of rules defined in terms
+    of a set of symbols, a set of formulas constructed from the symbols,
+    a set of distinguished formulas called axioms, and a set of inference rules.
+    The set of formulas is called the language of the logic.
+    The language is defined syntactically;
+    there is no notion of meaning or semantics in a logic per se.
+    A formula is a theorem of the logic, if it is one of the following:
+    an axiom, can be generated from the axioms and already proved theorems
+    using the inference rules.
+    A proof that a formula is a theorem is an argument that shows
+    how the inference rules are used to generate the formula.
+    A logic is consistent if at least one of its formulas is a theorem
+    and at least one is not; otherwise, the logic is inconsistent.
+    Models: We give the formulas a meaning with respect to this domain,
+    1 by defining which formulas are true statements about the domain,
+    2 by defining which formulas are false statements about the domain.
+    An interpretation assigns meaning to the: operators of a logic,
+    constants of a logic and variables of a logic.
+    Standard interpretation of expressions of
+    (a) propositional logic For an expression P without variables,
+    let eval(P) be the value of P. Let Q be any expression,
+    and let s be a state that gives values to all the variables of Q.
+    Define Q(s) to be a copy of Q in which all its variables are
+    replaced by their corresponding values in state $s$.
+    Then function f given by f (Q) = eval(Q(s)) is an interpretation for Q.\\
+
+    \subsection{Definitions}
+    Let S be a set of interpretations for a logic and F be a formula of the logic.
+    F is \textbf{satisfiable} (under S) iff at least one interpretation of S maps F to true.
+    F is \textbf{valid} (under S) iff every interpretation in S maps F to true.
+    An \textbf{interpretation} is a model for a logic iff
+    every theorem is mapped to true by the interpretation.
+    A logic is \textbf{sound} iff every theorem is valid.
+    A logic is \textbf{complete} iff every valid formula is a theorem.
+    \textbf{Soundness} means that the theorems are true statements
+    about the domain of discourse,
+    \textbf{Completeness} means that every valid formula can be proved.
+    A \textbf{sound and complete logic} allows exactly the valid formulas to be proved.
+    A boolean expression is \textbf{satisfied} in state s
+    iff it evaluates to true in state s.
+    A boolean expression is \textbf{valid} iff it is satisfied in every state.
+    A valid boolean expression is called a \textbf{tautology}.
+    A boolean expression is \textbf{satisfiable}
+    iff there is a state in which it is satisfied.
+    The atomic proposition is a type of statement,
+    which contains a truth value that can be true or false.\\
+
+    \subsection{Peano Arithmetic}
+    Symbols: S, o, +, ·, <, = Formulas: $\varphi$ \\
+    Axioms: The axioms of PA are:
+    (1) $\forall x (Sx \not = 0)$\\
+    (2) $\forall x,y ((Sx = Sy) \xrightarrow{} x =y)$\\
+    (3) $( \varphi[0] \land \forall x(\varphi[x] \xrightarrow{} \varphi[Sx])) \xrightarrow{} \forall x (\varphi[x]),$ for any formula $\varphi$ in PA.\\
+    (4) $\forall x (x + 0) =x$ (5) $\forall x,y(x + Sy = S(x+y))$ (6) $\forall (x \cdot 0 = 0)$\\
+    (7) $\forall x,y(x \cdot Sy = (x \cdot y) + x)$ \\
+    Natural Deduction is a version of Propositional Logic often
+    better suited for formal proofs.
+    Logicians express this relationship between a theorem
+    and the formulas assumed for its proof as the sequent:
+    $A_0,...,A_n \vdash Q$ or $\vdash Q$,
+    where L is the name of the logic with axioms $A_0,...,A_n$.
+    Symbol $\vdash$ is called the "turnstile",
+    and the $A_i$ are called the premises of the sequent.
+    The sequent $A_0,...,A_0 \vdash$ Q is read
+    as Q is provable from $A_0,...,A_n$
+    (The order of the $A_i$ is immaterial.)
+    The sequent $\vdash_L$ Q is read as "Q is provable in logic L" -
+    i.e. using the axioms of L.\\
+
+    \subsection{Constructive Propositional Logic}
+    (1) A proof of $p \land q$ is given by presenting a proof of p and a
+    proof of q (2) A proof of $p \lor q$ is given by presenting either a proof of p or a proof of q (3) A proof of $p \xrightarrow{} q$ is a procedure that permits us to transform a proof of p into a proof of q. (4) The constant false, which is a contradiction, has no proof. (5) A proof of $\neg p$ is a procedure that transforms any hypothetical proof of p into a proof of a contradiction ($p \vdash false$ i.e., false is provable from p).\\
+    \textbf{Rules for Constructive Natural Deduction:}\\
+    Introduction rules: \\
+    ||\\
+    $\land-I$: $\dfrac{\vdash P, \vdash Q}{\vdash P \land Q}$ $\lor-I_l$: $\dfrac{\vdash P}{\vdash P \lor Q}$ $\lor-I_r$: $\dfrac{\vdash Q}{\vdash P \lor Q}$\\
+    $\xrightarrow{}-I$: $\dfrac{P_1,...,P_n \vdash Q}{\vdash P_1 \land ... \land P_n \rightarrow Q}$ $false-I$: (none)\\
+    ||\\
+    Elimination Rules:\\
+    ||\\
+    $\land-E \dfrac{P \land Q}{P}, \dfrac{P \land Q}{Q}$ $\lor-E \dfrac{P \land Q, P \xrightarrow{} R, Q \xrightarrow{} R}{R}$ $\xrightarrow{}-E \dfrac{P, P \xrightarrow{} Q}{Q}$\\
+    $\equiv-E_l \dfrac{\vdash P \land Q}{\vdash P}, \land-E_r \dfrac{\vdash P \land Q}{Q}$ $\lor-E \dfrac{\vdash P \lor Q, P \vdash R, Q \vdash R}{\vdash R}$ $\xrightarrow{}-E: \dfrac{\vdash P, \vdash P ]\xrightarrow{} Q}{\vdash Q} F-E \dfrac{\vdash F}{\vdash P}$\\
+    $P \equiv Q \text{ denotes } (P \xrightarrow{} Q) \land (Q \xrightarrow{} P) $ || $\neg P \text{ denotes } P \xrightarrow{} F$ $T \text{ denotes } \neg F$\\
+    $\neg \neg p \xrightarrow{} p $ is NOT a theorem $p \xrightarrow{} \neg \neg p $ is a theorem \\ $p \lor \neg p $ is NOT a theorem $\neg \neg (p \lor \neg p)$ is a theorem.\\
+    Theorem-Soundness: An inference rule is considered sound if a formula derived using it is valid whenever the premises used in the inference are theorems. Model-Soundness: An inference rule is considered sound if a
+    formula derived using it is valid whenever the premises used in the inference are valid.\\
+
+    \section{LN6}
+    In a textual substitution $E[x := F], x$ and $F$ must have the same type. a notion of subtypes: for example, the natural numbers $\mathbf{N}$ are a subset of the integers $\mathbf{Z}$, so l : $\mathbf{Z}$ and l : $\mathbf{N}$ are both suitable declarations. a notion overloading: we need a notion of subtypes, as well as a notion of overloading of both constants and operators, so that the same constants and operators can be used in more than one way. a notion of polymorphism: we also need a notion of
+    polymorphism; as an example function =: t $\times$ t $\xrightarrow{} \mathbf{B}$ is polymorphic because it is defined for any type t.\\
+    $\Sigma^{n}_{i=1} e$ is any expression. $\Sigma(i | 1 \leq i < n: e)$ Linear notation\\
+    Let $*$ be any binary operator that satisfy:\\
+    Sym/Comm: $b * c = c * b$ Assoc.: $(b * c) * d = b * (c * d)$\\
+    Id. u: $u * b = b = b * u$ A set of values together with an operator $*$ that satisfy the above is called an Abelian monoid.\\
+    The general form of a quantification over $*$ is exemplified by
+    $*(x : t1, y : t2 | R : P )$ Variables x and y are distinct. They are called the bound variables or dummies of the quantification. t1 and t2 are the types of dummies x and y If t1 and t2 are the same type, we may write
+    $*(x, y : t1 | R : P )$ R, a boolean expression, is the range of the quantification R may refer to dummies x and y. If the range is omitted, as in $*(x, y : t1 |: P )$ , then the range true is meant. P, an expression, is the body of the quantification. P may refer to dummies x and y. Expression $*(x : X | R : P )$ denotes the application of operator $*$ to the values P for all x in X for which range R is true.\\
+    Free and Bound occurrences in a variable:\\
+    The occurrence of i in the expression i is free. Suppose an occurrence of i in expression E is free. Then that same occurrence of i is free in (E), in function application $f (..., E,...)$, and in $*(x | E : F )$ and $*(x | F : E)$ provided i is not one of the dummies in list x.\\
+    Let an occurrence of i be free in an expression E. That occurrence of i is bound (to dummy i) in the expression $*x | E : F )$ and $*(x | F : E )$ if i is one of the dummies in list x. Suppose an occurrence of i is bound in expression E. Then it is also bound (to the same dummy) in (E), in function application f (..., E,...) , and in $*(x | E : F )$ and $*(x | F : E )$.\\
+    \subsection{Textual Substitution}
+    Provided $\neg occurs('y','x, F')$, i.e. a dummy of list y will have to
+    be replaced by a fresh variable if that dummy occurs free in x or F.
+    $*(y | R : P )[x := F] = *(y | R[x := F] : P[x := F])$\\
+    Assume that the operator $*$ is symmetric and associative and has
+    an identity u. Two additional inferences rules allow substitution of equals for equals in the range and body of a quantification (Leibniz).\\
+    $\dfrac{P = Q}{*(x |E[z:= P] : S) = *(x |E[z:= Q] : S)}$\\
+    $\dfrac{R \xrightarrow{} P = Q}{*(x | R : E[z:= P]) = *(x | R: E[z:= Q])}$\\
+    Operation $*$ is idempotent iff $x * x = x$ for all x. Quantifiers '$\lor$', '$\land$', '$\cup$', '$\cap$' are idempotent, while '+' and '$\cdot$' are not.\\
+    \section{LN7}
+    A predicate-calculus formula is a boolean expression in which some boolean variables may have been replaced by: Predicates : applications of boolean functions whose arguments may be of types other than $\mathbf{B}$, Universal and existential quantification.\\
+
+    \section{LN7a}
+    $R_i(x_1,...,x_n)$ - atomic formula, n is and arity of the relational symbol $R_i$. All appearances of $R_i$ must have the same arity.\\
+    $\Phi$ is a formula iff: $\Phi$ is atomic. $\Phi = \Phi _1 \land \Phi _2, \Phi = \Phi _1 \lor \Phi _2, \Phi = \Phi \neg \Phi$ where $\Phi _1$ and $\Phi _2$ are formulas. $\Phi$ = $\exists [\Phi], \Phi = \forall [\Phi]$\\
+    Prenex Normal Form: All quantifiers appear in the front of
+    the formula. We assume all our formulas are in prenex normal form.
+    It can be proved that every formula has its equivalent prenex normal form. Free variable: not bound by any quantifier Sentence, statement: no free variables.\\
+    A model (interpretation, structure) is a tuple $M = (U,P_1,...,P_k )$,
+    where U is a universe over which the variables may take values, $P_i$ is a relation assigned to the symbol $R_i$. A language of a model is the set of all formulas of the model. If the formula $\Phi$ is true in a model M, we say that M is a Model of $\Phi$.\\
+    $\Phi = \forall x.\forall y. R_1(x, y) \lor R_1(y, x)$
+    Model $M_1: U$ - natural numbers, P1 is $\leq$ (we write $a \leq b$ instead of $\leq (a, b)$ or $P_1(a, b)) \Phi M_1 = \forall x. \forall y. x \leq y \lor y \leq x$ - the formula $\Phi M_1$ is true so $M_1$ is a model of $\Phi$. Model $M_2$: U - natural numbers, $P_1$ is < (we write $a < b$ instead of $< (a, b)$ or $ P_1(a, b))$ $\Phi M_2 = \forall x.\forall y. x < y \lor y < x$, the formula $\Phi M_2$ is false so $M_2$ is not a model of $\Phi$.\\
+    Examples of English to Predicate logic:\\
+    (a) The natural number 1  is the only natural number that is smaller than positive integer $p$ and divides $p$. $(\forall d | 1 < d < p : \neg (\exists v | 0 \leq v : d \cdot v = p))$
+    (c) Adding two odd integers yields an even number. (Use only addition and multiplication; do not use division, mod, or predicates even.x and odd.x) $(\forall x, y : \mathbf{Z} | (\exists i, j: \mathbf{Z} |: x = 2 \cdot i + 1 \land y = 2 \cdot j +1) : (\exists k: \mathbf{Z}|: x + y = 2 \cdot k))$
+    $\forall$ Everybody, $\exists$ Somebody, $\neg \exists$ Nobody.\\
+    (a) Everybody loves everybody. $(\forall x :P|:(\forall y: P|: loves(x,y)))$ (b) Nobody loves everybody. $\neg (\exists x: P|: (\forall y: P|: loves(x,y)))$ (c) Somebody loves nobody. $(\exists x : P|: \neg (\exists y :P|: loves(x,y)))$
+\end{multicols*}
+
+\end{document}
