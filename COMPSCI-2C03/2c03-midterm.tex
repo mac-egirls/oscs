@@ -91,6 +91,7 @@
     insertion \& deletion more important than random access.
     % TODO: Probably don't need LLs,
     % pretty easy to reason through
+    
     \subsection{Linked Lists}
     \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 class Node {
@@ -141,8 +142,18 @@ class Node {
 
     $\lim_{n \to \infty} \frac{f(n)}{g(n)} \not\in \{0, \infty\}$
 
-    \subsection{Recurrance Equations}
-    % TODO: fixme
+    \subsection{Memory Complexity}
+    \textbf{In-place algorithms:} $N + O(\log N)$
+    \textbf{Mergesort:}
+    Original input array: $N$.
+    Aux array for merging: $N$.
+    Local variables: $Const$.
+    Function call stack: $\log N$.
+    Total: $2N + O(\log N)$.
+
+    \subsection{Recurrence Equations}
+    If you're seeing this, please contribute!
+    % FIXME: ADD THIS
 
     \section{Union-Find}
     Key learnings:
