@@ -120,6 +120,13 @@ class Node {
         \bottomrule
     \end{tabular}
 
+    \subsection{Common Algorithm Time Complexities}
+    \begin{tabular}[!ht]{@{}lccc@{}} \toprule
+        algorithm & $O(N)$ & $\Omega(N)$ & $\Theta(N)$ \\
+        \midrule
+        \bottomrule
+    \end{tabular}
+
     \subsection{Proving}
     For any pair of constants, $c, n_0$, consider $n = X[c \cdot n_0]$,
     where $X$ is another arbitrarily chosen constant.
@@ -227,6 +234,9 @@ public static void sort(Comparable[] a) {
   sort(a, aux, 0, a.length - 1);
 }
     \end{lstlisting}
+    \textbf{Time Complexity:} $O(n \log n)$
+
+    \textbf{Memory Complexity:} $O(\log N)$
 
     \subsection{Quicksort}
 
