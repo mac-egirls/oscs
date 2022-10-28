@@ -264,11 +264,13 @@ class Node {
   \end{lstlisting}
 
   \subsection{Quick-Union}
-  Quick-Union also uses an array to represent the graph, but is interpreted differently. The indices still represent node ids, but the values now also represent node ids. The values point to the node's parent node. This representation forms a tree structure, where the root node points to itself. This means we can use the id of root nodes as component ids.
+  - Associate nodes with other nodes \\
+  - nodes point to their parent node, which lead to the root node/union id \\
+  - root nodes point to themselves
   \subsubsection{Initialization}
-  Create array of length N, iterate through it and initialize each element to the value of it's index
+  Initialize a length N array \lstinline{arr} with \lstinline{arr[i] = i}.
   \subsubsection{Union}
-  Takes an indices p and q, finds the root nodes. If they are not equal, make one point to the other.
+  Takes indices p and q, finds the root nodes. If they are not equal, make one point to the other.
   \subsubsection{Find}
   Takes an index i, finds arr[i] until the root node. Returns the root node id.
   \subsubsection{Connected}
@@ -330,25 +332,39 @@ public class WeightedQuickUnionWithPC {
     \item Find min element
     \item Swap min \& first element
     \item Examine array, skipping first element.
+    \item \textbf{Used when}: you have no RAM
   \end{enumerate}
   $\Theta(N^2)$
+
   \subsection{Insertion Sort}
-  Start from 2 elements, build up sorted subarray,
-  "inserting" a new element each iteration by swapping
-  until it is in the right position.
-  The number of operations it takes to sort an array
-  depends on the degree of disorder (how unsorted the array is).
-  This makes it an adaptive algorithm.
+  \begin{itemize}
+    \item
+      Start from 2 elements, build up sorted subarray,
+      "inserting" a new element each iteration by swapping
+      until it is in the right position.
+    \item
+      \# of operations depends on the degree 
+      of disorder (how unsorted the array is).
+    \item
+      low degree of disorder
+  \end{itemize}
   \begin{center}
     \includegraphics[width=\linewidth]{insertion-sort.png}
   \end{center}
 
   $\Omega(N), O(n^2)$
   \subsection{Shellsort}
-  Pick every $n$ elements and put them in a subarray,
-  sort the subarrays using insertion sort, and put the elements back. Then reduce the gap from $n$.
-  Repeat the process till $n$ is 1.
-  (If you only use indicies you don't need to make a new array.)
+  \begin{itemize}
+    \item
+      Pick every $h$ elements and put them in a subarray.
+    \item
+      Sort the subarrays using insertion sort.
+    \item
+      Repeat until $h = 1$.
+    \item
+      \textbf{Used when}: in embedded systems applications from
+      using small program size and memory efficiency
+  \end{itemize}
   \begin{center}
     \includegraphics[width=\linewidth]{shellsort.png}
   \end{center}
