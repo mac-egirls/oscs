@@ -264,11 +264,27 @@ class Node {
   \subsection{Shellsort}
   Pick every $n$ elements and put them in a subarray,
   sort the subarrays using insertion sort, and put the elements back. Then reduce the gap from $n$.
-  Repeate the process till $n$ is 1.
+  Repeat the process till $n$ is 1.
   (If you only use indicies you don't need to make a new array.)
   \begin{center}
     \includegraphics[width=.8\linewidth]{shellsort.png}
   \end{center}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class Shell {
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+    int h = 1;
+    while (h < N/3) h = 3 * h + 1;
+    while (h >= 1) {
+      for (int i = h; i < N; i++) {
+        for (int j = i; j >= h && less(a[j], a[j-h]); j -= h)
+          exch(a, j, j-h);
+      }
+      h = h / 3;
+    }
+  }
+}
+  \end{lstlisting}
   % FIXME: Add time complexity
 
   \section{Good Sorts}
