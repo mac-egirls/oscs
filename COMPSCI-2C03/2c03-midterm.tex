@@ -211,33 +211,127 @@ class Node {
   % FIXME: ADD THIS
 
   \section{Union-Find}
+  WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
+  In a network of nodes, mutually connected are called components. Union find has the following api:
+  \begin{itemize}
+      \item \textbf{Connected}: takes two nodes, return true if nodes are in the same component
+      \item \textbf{Union}: if not connected, connects two nodes
+      \item \textbf{Find}: takes node id, returns the component the node is in
+      \item \textbf{Count}: return number of components
+  \end{itemize}
+  Rather than classes or data structures, we can optimize the api by using a structure that allows us to just perform our operations.
   Key learnings:
   \begin{itemize}
-    \item Generally, either optimize for adding data into Data Structure,
-          or optimize for processing the Data Structure for desired results.
+      \item Generally, either optimize for adding data into Data Structure,
+            or optimize for processing the Data Structure for desired results.
 
-    \item
+      \item
   \end{itemize}
 
   \subsection{Time Complexity}
-  \begin{tabular}[!ht]{@{}lll@{}} \toprule
-    Algo           & Q-F    & Q-U    \\
-    \midrule
-    Initialization & $O(N)$ & $O(N)$ \\
-    Find           & $O(1)$ & $O(N)$ \\
-    Connected      & $O(1)$ & $O(N)$ \\
-    Union          & $O(N)$ & $O(N)$ \\
-    \bottomrule
+  \begin{tabular}[!ht]{@{}llll@{}} \toprule
+      Algo           & Q-F    & Q-U    & WQ-U       \\
+      \midrule
+      Initialization & $O(N)$ & $O(N)$ & $O(N)$     \\
+      Find           & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
+      Connected      & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
+      Union          & $O(N)$ & $O(N)$ & $O(lg(N))$ \\
+      \bottomrule
   \end{tabular}
 
-  \subsection{Quick-Union}
-  \hl{If you're seeing this, please contribute!}
-  % FIXME: ADD THIS
-
-
   \subsection{Quick-Find}
-  \hl{If you're seeing this, please contribute!}
-  % FIXME: ADD THIS
+  For Quick-Find, instead of associating nodes with connections, we associate them with components. We can represent the graph with an array. Indices of the array act as the node ids and the values act as the component ids. We also need a count variable.
+  \subsubsection{Initialization}
+  Create array of length N, iterate through it and initialize each element to the value of it's index
+  \subsubsection{Union}
+  Takes two indices, p and q. Iterate through array and change every occurrence of arr[p] to arr[q], or vice versa.
+  \subsubsection{Find}
+  Takes an index, returns value at index
+  \subsubsection{Connected}
+  Takes two indices, p and q, returns if arr[p] = arr[q]\\
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class QuickFind {
+  private int[] id;
+  
+  public QuickFind(int N) {
+      count = N;
+      id = new int[N];
+      for(int i = 0; i < N; i++)
+          id[i] = i;
+  }
+  public int find(int p) {
+      return id[p];
+  }
+  public void union(int p, int q) {
+      int pid = id[p];
+      int qid = id[q];
+      for(int i = 0; i < id.length;i++)
+          if(id[i] == pid) id[i] = qid;
+  }
+  public boolean connected(int p, int q) {
+      return id[p] == id[q];
+  }
+}
+  \end{lstlisting}
+  
+  \subsection{Quick-Union}
+  Quick-Union also uses an array to represent the graph, but is interpreted differently. The indices still represent node ids, but the values now also represent node ids. The values point to the node's parent node. This representation forms a tree structure, where the root node points to itself. This means we can use the id of root nodes as component ids.
+  \subsubsection{Initialization}
+  Create array of length N, iterate through it and initialize each element to the value of it's index
+  \subsubsection{Union}
+  Takes an indices p and q, finds the root nodes. If they are not equal, make one point to the other.
+  \subsubsection{Find}
+  Takes an index i, finds arr[i] until the root node. Returns the root node id.
+  \subsubsection{Connected}
+  Takes an indices p and q, finds the root nodes. Returns true if they are equal.
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class QuickUnion {
+  private int[] id;
+  
+  public QuickUnion(int N) {
+      id = new int[N];
+      for(int i = 0; i < N; i++)
+          id[i] = i;
+  }
+  public int find(int i) {
+      while (i != id[i]) {
+          i = id[i]
+      }
+      return i;
+  }
+  public void union(int p, int q) {
+      int i = find(p);
+      int j = find(q);
+      id[i] = j;
+  }
+  public boolean connected(int p, int q) {
+      return find(p) == find(q);
+  }
+}
+  \end{lstlisting}
+  
+  \subsection{Weighted Quick-Union}
+  To optimize Quick-Union, we try to create the flattest trees possible. We need another array to count the number of nodes rooted at an index. Union now links the root of the smaller tree to the root of the larger tree. This can be further optimized with path compression, which can be tacked on to find. To do this, we change each node to point at it's grandparent.
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class WeightedQuickUnionWithPC {
+  private int[] id;
+  private int[] sz;
+  
+  public void union(int p, int q) {
+      int i = find(p);
+      int j = find(q);
+      id[i] = j;
+      if (sz[i] < sz[j])   { id[i] = j; sz[j] += sz[i] }
+      else (sz[i] < sz[j]) { id[j] = i; sz[i] += sz[j] }
+  }
+  public int find(int p) {
+      while (i != id[i]) {
+          id[i] = id[id[i]];
+          i = id[i];
+      }
+      return i;
+  }
+  \end{lstlisting}
 
   % FIXME: For *all* the sorts, add pros and cons if possible!
   \section{Bad Sorts}
