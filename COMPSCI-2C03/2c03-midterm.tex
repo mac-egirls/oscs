@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{soul}
+\usepackage{clrscode3e}
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
@@ -60,7 +61,7 @@
 }
 
 % Shorthand definitions
-\newcommand{\To}{\Rightarrow}
+% \newcommand{\To}{\Rightarrow}
 
 % condense itemize & enumerate
 \let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
@@ -471,6 +472,34 @@ public static void sort(Comparable[] a) {
 
   $N = 2^h$, where $h$ is the height of the tree and $N$ is the number of nodes in the tree.
   To go the other way around, $\log_2(N) = h$.
+
+  \section{Pseudocode}
+  \begin{codebox}
+  \Procname{$\proc{Insertion-Sort}(A)$}
+  \li \For $j \gets 2$ \To $\attrib{A}{length}$
+  \li   \Do
+          $\id{key} \gets A[j]$
+  \li     \Comment Insert $A[j]$ into the sorted sequence
+            $A[1 \twodots j-1]$.
+  \li     $i \gets j-1$
+  \li     \While $i > 0$ and $A[i] > \id{key}$
+  \li       \Do
+              $A[i+1] \gets A[i]$
+  \li         $i \gets i-1$
+            \End
+  \li     $A[i+1] \gets \id{key}$
+        \End
+  \end{codebox}
+  Reminders:
+  \begin{itemize}
+    \item Attributes can be accessed via \verb|x.prev|.
+    \item Class functions \textbf{do not exist in pseudocode}.
+    Instead of calling \verb|x.sort()|, call \verb|sort(x)|.
+    \item Use \verb|NIL| instead of \verb|null|.
+    \item State assumptions like passing by value or passing by reference
+    in the pseudocode.
+    \item Use \verb|error| for throwing an error, but what happens is not specified.
+  \end{itemize}
 
 \end{multicols*}
 
