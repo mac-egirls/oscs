@@ -74,197 +74,181 @@
 \tiny
 
 \begin{center}
-    {\textbf{2C03}} \\
+  {\textbf{2C03}} \\
 \end{center}
 \begin{multicols*}{4}
-    \setlength{\premulticols}{1pt}
-    \setlength{\postmulticols}{1pt}
-    \setlength{\multicolsep}{1pt}
-    \setlength{\columnsep}{2pt}
+  \setlength{\premulticols}{1pt}
+  \setlength{\postmulticols}{1pt}
+  \setlength{\multicolsep}{1pt}
+  \setlength{\columnsep}{2pt}
 
-    \section{Basic DSes}
-    Array vs LL
+  \section{Basic DSes}
+  Array vs LL
 
-    \textbf{Arrays:}
-    Static data sets, ones where fast index-based access is needed,
-    Slow expansion, insertion, deletion.
-    \textbf{LLs:}
-    Dynamic data sets,
-    insertion \& deletion more important than random access.
+  \textbf{Arrays:}
+  Static data sets, ones where fast index-based access is needed,
+  Slow expansion, insertion, deletion.
+  \textbf{LLs:}
+  Dynamic data sets,
+  insertion \& deletion more important than random access.
 
 
-    % REVIEW: Probably don't need LLs,
-    % pretty easy to reason through
-    % REVIEW: Are there any other basic data structures that need more detail? 
-    \subsection{Linked Lists}
-    \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+  % REVIEW: Probably don't need LLs,
+  % pretty easy to reason through
+  % REVIEW: Are there any other basic data structures that need more detail? 
+  \subsection{Linked Lists}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 class Node {
     Item item;
     Node next;
     Node prev; // for DLL
 }
     \end{lstlisting}
-    \subsubsection{Operations}
-    \begin{tabular}[!ht]{@{}ll@{}} \toprule
-        Search           & O(N) \\
-        Prepend / Append & O(1) \\
-        Delete           & O(N) \\
-        \bottomrule
-    \end{tabular}
+  \subsubsection{Operations}
+  \begin{tabular}[!ht]{@{}ll@{}} \toprule
+    Search           & O(N) \\
+    Prepend / Append & O(1) \\
+    Delete           & O(N) \\
+    \bottomrule
+  \end{tabular}
 
-    \section{Runtime Analysis}
-    \begin{tabular}[!ht]{@{}lc@{}} \toprule
-        constant     & 1          \\
-        logarithmic  & $\log N$   \\
-        linear       & $N$        \\
-        linearithmic & $N \log N$ \\
-        quadratic    & $N^2$      \\
-        cubic        & $N^3$      \\
-        exponential  & $2^N$      \\
-        \bottomrule
-    \end{tabular}
+  \section{Runtime Analysis}
+  \begin{tabular}[!ht]{@{}lc@{}} \toprule
+    constant     & 1          \\
+    logarithmic  & $\log N$   \\
+    linear       & $N$        \\
+    linearithmic & $N \log N$ \\
+    quadratic    & $N^2$      \\
+    cubic        & $N^3$      \\
+    exponential  & $2^N$      \\
+    \bottomrule
+  \end{tabular}
 
-    % REVIEW: Make sure there are no errors, and that there are no important algos missed
-    \subsection{Sorting Algorithm Info}
-    \begin{tabular}[!ht]{@{}llll@{}} \toprule
-        Algorithm      & $O(N)$        & $\Omega(N)$        & $\Theta(N)$        \\
-        \midrule
-        Selection Sort & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
-        Insertion Sort & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
-        Shellsort      & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
-        Mergesort      & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
-        Quicksort      & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
-        Heapsort       & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
-        \bottomrule
-    \end{tabular}
-    \begin{tabulary}{\linewidth}{@{}LlllL@{}} \toprule
-        Algorithm      & Stbl? & In-Place? & Extra Space & Notes                     \\
-        \midrule
-        Selection Sort & N       & Y         & 1           &                           \\
-        Insertion Sort & Y       & Y         & 1           & depends on order of items \\
-        Shellsort      & N       & Y         & 1           &                           \\
-        Quicksort      & N       & Y         & $\lg N$     & probabilistic guarantee   \\
-        Mergesort      & Y       & N         & $N$         &                           \\
-        Heapsort       & N       & Y         & 1           &                           \\
-    \end{tabulary}
+  % REVIEW: Make sure there are no errors, and that there are no important algos missed
+  \subsection{Sorting Algorithm Info}
+  \begin{tabular}[!ht]{@{}llll@{}} \toprule
+    Algorithm      & $O(N)$        & $\Omega(N)$        & $\Theta(N)$        \\
+    \midrule
+    Selection Sort & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
+    Insertion Sort & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
+    Shellsort      & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
+    Mergesort      & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+    Quicksort      & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+    Heapsort       & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
+    \bottomrule
+  \end{tabular}
+  \begin{tabulary}{\linewidth}{@{}LlllL@{}} \toprule
+    Algorithm      & Stbl? & In-Place? & Extra Space & Notes                     \\
+    \midrule
+    Selection Sort & N       & Y         & 1           &                           \\
+    Insertion Sort & Y       & Y         & 1           & depends on order of items \\
+    Shellsort      & N       & Y         & 1           &                           \\
+    Quicksort      & N       & Y         & $\lg N$     & probabilistic guarantee   \\
+    Mergesort      & Y       & N         & $N$         &                           \\
+    Heapsort       & N       & Y         & 1           &                           \\
+  \end{tabulary}
 
-    % REVIEW: Look back through this explanation
-    \subsection{Proving}
-    For any pair of constants, $c, n_0$, consider $n = X[c \cdot n_0]$,
-    where $X$ is another arbitrarily chosen constant.
+  % REVIEW: Look back through this explanation
+  \subsection{Proving}
+  For any pair of constants, $c, n_0$, consider $n = X[c \cdot n_0]$,
+  where $X$ is another arbitrarily chosen constant.
 
-    If a pair can be found that satisfies these constants, then list them.
-    If a pair cannot be found, prove that there exists a contradiction.
+  If a pair can be found that satisfies these constants, then list them.
+  If a pair cannot be found, prove that there exists a contradiction.
 
-    \subsection{Big-O}
-    Upper limit, function must be $\leq O(n)$
+  \subsection{Big-O}
+  Upper limit, function must be $\leq O(n)$
 
-    $\lim_{n \to \infty} \frac{f(n)}{g(n)} \neq \infty$
+  $\lim_{n \to \infty} \frac{f(n)}{g(n)} \neq \infty$
 
-    \subsection{Big-\texorpdfstring{$\Omega$}{Omega}}
-    Lower limit, function must be $\geq \Omega(n)$
+  \subsection{Big-\texorpdfstring{$\Omega$}{Omega}}
+  Lower limit, function must be $\geq \Omega(n)$
 
-    $\lim_{n \to \infty} \frac{f(n)}{g(n)} \neq 0$
+  $\lim_{n \to \infty} \frac{f(n)}{g(n)} \neq 0$
 
-    \subsection{Big-\texorpdfstring{$\Theta$}{Theta}}
-    Must satisfy both Big-O and Big-$\Omega$.
+  \subsection{Big-\texorpdfstring{$\Theta$}{Theta}}
+  Must satisfy both Big-O and Big-$\Omega$.
 
-    $\lim_{n \to \infty} \frac{f(n)}{g(n)} \not\in \{0, \infty\}$
+  $\lim_{n \to \infty} \frac{f(n)}{g(n)} \not\in \{0, \infty\}$
 
-    % REVIEW: Are there any other algs 
-    % that we need to document for memory complexity?
-    \subsection{Memory Complexity}
-    \textbf{In-place algorithms:} $N + O(\log N)$
-    \textbf{Mergesort:}
-    Original input array: $N$.
-    Aux array for merging: $N$.
-    Local variables: $Const$.
-    Function call stack: $\log N$.
-    Total: $2N + O(\log N)$.
+  % REVIEW: Are there any other algs 
+  % that we need to document for memory complexity?
+  \subsection{Memory Complexity}
+  \textbf{In-place algorithms:} $N + O(\log N)$
+  \textbf{Mergesort:}
+  Original input array: $N$.
+  Aux array for merging: $N$.
+  Local variables: $Const$.
+  Function call stack: $\log N$.
+  Total: $2N + O(\log N)$.
 
-    \subsection{Recurrence Equations}
-    % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio, 
-    % the sum of each layer is always n, so the time complexity is 
-    % $n * \log{\text{depth of the tree}} n$. 
-    % The 9/10 side will run out of nodes slower, 
-    % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left 
-    % because $10/9 * 9/10 = 1$. \\
-    % - youcef
+  \subsection{Recurrence Equations}
+  \hl{If you're seeing this, please contribute!}
+  % FIXME: ADD THIS
 
-    \textbf{Deriving from a Tree:}
-    Represent the recurrence equation as a binary tree,
-    where each layer is one layer deeper in the recursion.
-    Eg if the equation is $T(N) = T(N/2) + T(N/2)$,
-    there will be 2 branches on the second layer, each as $T(N/2)$,
-    4 branches on the third layer, each as $T(N/4)$, and so on.
-    If it's a binary tree, with $x$ layers,
-    it will have a time complexity of $n \log x$.
+  \section{Union-Find}
+  Key learnings:
+  \begin{itemize}
+    \item Generally, either optimize for adding data into Data Structure,
+          or optimize for processing the Data Structure for desired results.
 
-    \hl{If you're seeing this, please contribute!}
-    % FIXME: ADD THIS
+    \item
+  \end{itemize}
 
-    \section{Union-Find}
-    Key learnings:
-    \begin{itemize}
-        \item Generally, either optimize for adding data into Data Structure,
-              or optimize for processing the Data Structure for desired results.
+  \subsection{Time Complexity}
+  \begin{tabular}[!ht]{@{}lll@{}} \toprule
+    Algo           & Q-F    & Q-U    \\
+    \midrule
+    Initialization & $O(N)$ & $O(N)$ \\
+    Find           & $O(1)$ & $O(N)$ \\
+    Connected      & $O(1)$ & $O(N)$ \\
+    Union          & $O(N)$ & $O(N)$ \\
+    \bottomrule
+  \end{tabular}
 
-        \item
-    \end{itemize}
-
-    \subsection{Time Complexity}
-    \begin{tabular}[!ht]{@{}lll@{}} \toprule
-        Algo           & Q-F    & Q-U    \\
-        \midrule
-        Initialization & $O(N)$ & $O(N)$ \\
-        Find           & $O(1)$ & $O(N)$ \\
-        Connected      & $O(1)$ & $O(N)$ \\
-        Union          & $O(N)$ & $O(N)$ \\
-        \bottomrule
-    \end{tabular}
-
-    \subsection{Quick-Union}
-    \hl{If you're seeing this, please contribute!}
-    % FIXME: ADD THIS
+  \subsection{Quick-Union}
+  \hl{If you're seeing this, please contribute!}
+  % FIXME: ADD THIS
 
 
-    \subsection{Quick-Find}
-    \hl{If you're seeing this, please contribute!}
-    % FIXME: ADD THIS
+  \subsection{Quick-Find}
+  \hl{If you're seeing this, please contribute!}
+  % FIXME: ADD THIS
 
-    % FIXME: For *all* the sorts, add pros and cons if possible!
-    \section{Bad Sorts}
-    \subsection{Selection Sort}
-    Build up a sorted section of array, by
-    \begin{enumerate}
-        \item Find min element
-        \item Swap min \& first element
-        \item Examine array, skipping first element.
-    \end{enumerate}
-    $\Theta(N^2)$
-    \subsection{Insertion Sort}
-    Start from 2 elements, build up sorted subarray,
-    "inserting" a new element each iteration by swapping
-    until it is in the right position.
-    $\Omega(N), O(n^2)$
-    \subsection{Shellsort}
-    Pick every $n$ elements and put them in a subarray,
-    sort them, and put them back.
-    (If you only use indicies you don't need to make a new array.)
-    % FIXME: Add time complexity
+  % FIXME: For *all* the sorts, add pros and cons if possible!
+  \section{Bad Sorts}
+  \subsection{Selection Sort}
+  Build up a sorted section of array, by
+  \begin{enumerate}
+    \item Find min element
+    \item Swap min \& first element
+    \item Examine array, skipping first element.
+  \end{enumerate}
+  $\Theta(N^2)$
+  \subsection{Insertion Sort}
+  Start from 2 elements, build up sorted subarray,
+  "inserting" a new element each iteration by swapping
+  until it is in the right position. The number of operations it takes to sort an array depends on the degree of disorder (how unsorted the array is).
+  $\Omega(N), O(n^2)$
+  \subsection{Shellsort}
+  Pick every $n$ elements and put them in a subarray,
+  sort the subarrays using insertion sort, and put the elements back. Then reduce the gap from $n$.
+  Repeate the process till $n$ is 1.
+  (If you only use indicies you don't need to make a new array.)
+  % FIXME: Add time complexity
 
-    \section{Good Sorts}
-    \subsection{Mergesort}
-    Divide array in half recursively, until it is down to 1 element.
-    Merge array together,
-    making sure each side is sorted as it is merged together.
+  \section{Good Sorts}
+  \subsection{Mergesort}
+  Divide array in half recursively, until it is down to 1 element.
+  Merge array together,
+  making sure each side is sorted as it is merged together.
 
-    \textbf{Time Complexity:} $O(n \log n)$ \\
-    \textbf{Memory Complexity:} $O(\log N)$
+  \textbf{Time Complexity:} $O(n \log n)$ \\
+  \textbf{Memory Complexity:} $O(\log N)$
 
-    \subsubsection{Bottom-up}
-    % code from slides
-    \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+  \subsubsection{Bottom-up}
+  % code from slides
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
   // copy
   for (int k = lo; k <= hi; k++)
@@ -297,36 +281,36 @@ public static void sort(Comparable[] a) {
 }
     \end{lstlisting}
 
-    \subsubsection{Top-down}
-    % STUB: FINISH THIS
+  \subsubsection{Top-down}
+  % STUB: FINISH THIS
 
-    \subsection{Quicksort}
-    \hl{If you're seeing this, please contribute!}
-    % FIXME: ADD THIS
+  \subsection{Quicksort}
+  \hl{If you're seeing this, please contribute!}
+  % FIXME: ADD THIS
 
-    \section{Priority Queues}
-    Supports insertion and removing/popping the priority (largest or smallest) item.
+  \section{Priority Queues}
+  Supports insertion and removing/popping the priority (largest or smallest) item.
 
-    Implementations:
-    \begin{list}{}{}
-        \item Sorted Array - O(n) insert, O(1) pop
-        \item Unsorted Array - O(1) insert, O(n) pop
-        \item Binary Heap - O(log n) insert and sort
-    \end{list}
+  Implementations:
+  \begin{list}{}{}
+    \item Sorted Array - O(n) insert, O(1) pop
+    \item Unsorted Array - O(1) insert, O(n) pop
+    \item Binary Heap - O(log n) insert and sort
+  \end{list}
 
-    \section{Binary Heaps \& Heapsort}
-    A max binary heap is a complete binary tree where the keys are in the nodes and each parent's key $\geq$ each child's key. This requirement is called the max heap property.
-    \\
-    Binary Heaps:
-    \begin{itemize}
-        \item Can be represented as array or tree/nodes.
-        \item Insertion: We insert at the end of the array, then "swim up" the value.
-        \item Swimming up - exchange a given node with it's parent until the binary max property is fulfilled.
-        \item Popping - swap the first node (the max) with the last node, remove it, then "sink" the first node.
-        \item Sinking - exchange a given node with the max of it's children until the binary max property is fulfilled.
-    \end{itemize}
+  \section{Binary Heaps \& Heapsort}
+  A max binary heap is a complete binary tree where the keys are in the nodes and each parent's key $\geq$ each child's key. This requirement is called the max heap property.
+  \\
+  Binary Heaps:
+  \begin{itemize}
+    \item Can be represented as array or tree/nodes.
+    \item Insertion: We insert at the end of the array, then "swim up" the value.
+    \item Swimming up - exchange a given node with it's parent until the binary max property is fulfilled.
+    \item Popping - swap the first node (the max) with the last node, remove it, then "sink" the first node.
+    \item Sinking - exchange a given node with the max of it's children until the binary max property is fulfilled.
+  \end{itemize}
 
-    Heapsort relies on the binary heap data structure to sort data. Once a max heap has been constructed, you can perform a single for loop and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
+  Heapsort relies on the binary heap data structure to sort data. Once a max heap has been constructed, you can perform a single for loop and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
 
 \end{multicols*}
 
