@@ -225,12 +225,13 @@ class Node {
 
   \section{Union-Find}
   WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
-  In a network of nodes, mutually connected are called components. Union find has the following api:
+  Mutually connected nodes are called components.
+  \subsection{API}
   \begin{itemize}
-    \item \textbf{Connected}: takes two nodes, return true if nodes are in the same component
-    \item \textbf{Union}: if not connected, connects two nodes
-    \item \textbf{Find}: takes node id, returns the component the node is in
-    \item \textbf{Count}: return number of components
+    \item \textbf{Connected(n_id1, n_id2)}: returns true if \lstinline{n_id1} and \lstinline{n_id2} are connected.
+    \item \textbf{Union(n_id1, n_id2)}: if not connected, connects two nodes
+    \item \textbf{Find(n_id)}: takes node id, returns union \lstinline{n_id} is in
+    \item \textbf{Count(n_id)}: return the size of \lstinline{n_id}'s union
   \end{itemize}
   Rather than classes or data structures, we can optimize the api by using a structure that allows us to just perform our operations.
   Key learnings:
