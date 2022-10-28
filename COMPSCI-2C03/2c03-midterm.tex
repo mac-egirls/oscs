@@ -124,15 +124,29 @@ class Node {
         \bottomrule
     \end{tabular}
 
-    \subsection{Common Algorithm Time Complexities}
-    \begin{tabular}[!ht]{@{}lccc@{}} \toprule
-        Algorithm & $O(N)$ & $\Omega(N)$ & $\Theta(N)$ \\
+    % REVIEW: Make sure there are no errors, and that there are no important algos missed
+    \subsection{Sorting Algorithm Info}
+    \begin{tabular}[!ht]{@{}llll@{}} \toprule
+        Algorithm      & $O(N)$        & $\Omega(N)$        & $\Theta(N)$        \\
         \midrule
+        Selection Sort & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
+        Insertion Sort & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
+        Shellsort      & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
+        Mergesort      & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+        Quicksort      & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+        Heapsort       & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
         \bottomrule
     \end{tabular}
-
-    \hl{If you're seeing this, please contribute!}
-    % FIXME: ADD THIS
+    \begin{tabulary}{\linewidth}{@{}LlllL@{}} \toprule
+        Algorithm      & Stbl? & In-Place? & Extra Space & Notes                     \\
+        \midrule
+        Selection Sort & N       & Y         & 1           &                           \\
+        Insertion Sort & Y       & Y         & 1           & depends on order of items \\
+        Shellsort      & N       & Y         & 1           &                           \\
+        Quicksort      & N       & Y         & $\lg N$     & probabilistic guarantee   \\
+        Mergesort      & Y       & N         & $N$         &                           \\
+        Heapsort       & N       & Y         & 1           &                           \\
+    \end{tabulary}
 
     % REVIEW: Look back through this explanation
     \subsection{Proving}
@@ -228,6 +242,10 @@ class Node {
     Merge array together,
     making sure each side is sorted as it is merged together.
 
+    \textbf{Time Complexity:} $O(n \log n)$ \\
+    \textbf{Memory Complexity:} $O(\log N)$
+
+    \subsubsection{Bottom-up}
     % code from slides
     \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
@@ -261,9 +279,9 @@ public static void sort(Comparable[] a) {
   sort(a, aux, 0, a.length - 1);
 }
     \end{lstlisting}
-    \textbf{Time Complexity:} $O(n \log n)$
 
-    \textbf{Memory Complexity:} $O(\log N)$
+    \subsubsection{Top-down}
+    % STUB: FINISH THIS
 
     \subsection{Quicksort}
     \hl{If you're seeing this, please contribute!}
