@@ -331,6 +331,10 @@ public class WeightedQuickUnionWithPC {
     \item Swap min \& first element
     \item Examine array, skipping first element.
   \end{enumerate}
+  \textbf{Pros:}
+  Minimal number of write operations (eg tiny RAM?)
+  \textbf{Cons:}
+  Slow as shit
   $\Theta(N^2)$
   \subsection{Insertion Sort}
   Start from 2 elements, build up sorted subarray,
@@ -339,6 +343,10 @@ public class WeightedQuickUnionWithPC {
   The number of operations it takes to sort an array
   depends on the degree of disorder (how unsorted the array is).
   This makes it an adaptive algorithm.
+  \textbf{Pros:}
+  If the array has a low degree of disorder, it is faster.
+  \textbf{Cons:}
+  Worst case is still slow as shit.
   \begin{center}
     \includegraphics[width=\linewidth]{insertion-sort.png}
   \end{center}
