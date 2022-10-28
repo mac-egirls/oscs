@@ -462,33 +462,20 @@ public class MergeBU {
           one selecting those larger. Put them on either side of the pivot
     \item Recurse for each side of the pivot until everything is sorted.
   \end{enumerate}
-  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-public class Quick {
-  public static void sort(Comparable[] a) {
-    StdRandom.shuffle(a);
-    sort(a, 0, a.length - 1);
-  }
-  private static void sort(Comparable[] a, int lo, int hi) {
-    if (hi <= lo) return;
-    int j = partition(a, lo, hi);
-    // sort left side a[lo .. j-1]
-    sort(a, lo, j-1);
-    // sort right side a[j+1 .. hi]
-    sort(a, j+1, hi);
-  }
-  private static int partition(Comparable[] a, int lo, int hi) {
-    int i = lo, j = hi + 1;
-    Comparable v = a[lo];
-    while (true) {
-      while (less(a[++i], v)) if (j == hi) break;
-      while (less(v, a[--j])) if (j == lo) break;
-      if (i >= j) break;
-      exch(a, i, j);
-    }
-    exch(a, lo, j);
-    return j;
-  }
-}
+  \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    partition (arr, lo, hi):
+      pivot = hi
+      i = lo
+      for j from lo+1 to hi:
+        if arr[j]<pivot:
+          swap(arr[i], arr[j])
+          i++
+
+    quicksort (arr, lo, hi) {
+      if lo<hi:
+        pivot = partition(arr, lo, hi)
+        quicksort(arr, lo, pivot-1)
+        quicksort(arr, pivot+1, hi)
   \end{lstlisting}
   \begin{itemize}
     \item Fastest for disordered arrays, slowest for already sorted arrays
