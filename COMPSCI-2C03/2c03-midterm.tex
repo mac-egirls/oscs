@@ -396,14 +396,12 @@ public class Shell {
   \section{Good Sorts}
   \subsection{Mergesort}
   Divide array in half recursively, until it is down to 1 element.
-  Merge array together,
-  making sure each side is sorted as it is merged together.
+  Merge array together like a zipper.
 
   \textbf{Time Complexity:} $O(n \log n)$ \\
   \textbf{Memory Complexity:} $O(N)$
 
-  \subsubsection{Bottom-up}
-  % code from slides
+  \subsubsection{Code}
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
   // copy
@@ -436,9 +434,45 @@ public static void sort(Comparable[] a) {
   sort(a, aux, 0, a.length - 1);
 }
     \end{lstlisting}
+  \subsubsection{Top-down vs Bottom-up TL;DR}
+  Top-down uses recursion: starts at \textbf{top} of tree and proceeds \textbf{downwards}.
+  Bottom-up does not use recursion: starts at \textbf{bottom} of tree and iterates over pieces moving \textbf{upwards}.
 
-  \subsubsection{Top-down}
-  % STUB: FINISH THIS
+  \subsubsection{Bottom-up}
+  Pass through array, merging as we go to double size of sorted subarrays. Keep performing the passes and merging subarrays, until you do a merge that encompasses the whole array.\\
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class MergeBU {
+  private static Comparable[] aux;
+  // see above for merge() code
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+    aux = new Comparable[N];
+    for (int sz = 1; sz < N; sz = sz + sz) // sz: subarray size
+      for (int lo = 0; lo < N - sz; lo += sz + sz) // lo: subarray index
+        merge(a, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));
+  }
+}
+  \end{lstlisting}
+
+
+  \textbf{Min Top-down Comparisons}\\
+  \textit{Proposition: Top-down mergesort uses between $1/2N log N$ and $N log N$ comparisons}.\\
+  Let the total number of comparisons be C(N): $C(\lceil N/2 \rceil)$ = left recursion, $C(\lfloor N/2 \rfloor)$ = right recursion, $cN$ = comparisons at this level, $C (N) \leq C(\lceil N/2 \rceil) + C(\lfloor N / 2 \rfloor ) + cN$. The smallest number of comparisons made by \textit{MERGE} is $N/2$. If one sub-array contains all the smallest elements, we only walk that array before appending the other. If you sort a sorted array, this would be the case at every level. Solving the above recursion with $c = 1/2$ yields $C(N) = 1/2 N log N$\\
+  \textbf{Max top-down Comparisons:}\\
+  Similarly, the maximum number of comparisons is made when both sub-arrays must be fully examined. If the input array is of size $N$ , then at most $N$ comparisons are made. If the above happens at every level of the recursion, the total number of comparisons at each level is at most $N$. By solving the same recurrance equation with $c = 1$, we get $C(N ) = N log N$\\
+  % code from slides
+
+  \textbf{Max top-down Accesses:}\\
+  \textit{Proposition. Top-down mergesort uses at most $6N log N$ array accesses to sort an array of length $N$.} Each merge uses at most 6N array accesses
+  $2N$ to copy the sub arrays initially
+  $2N$ to put the values back (in order)
+  At most $N$ comparisons, each accessing two array elements $(2N)$Hence the total number of array accesses after solving the recurrence is most $6N log N$.\\
+  \textbf{Min/Max Bottom Up Comparisons/Accesses:}
+  \textit{Proposition. Bottom-up mergesort uses between $1/2N log N$ and $N log N$
+  compares and at most $6N log N$ array accesses to sort an array of length $N$.}
+  The number of passes through the array is precisely $log N$ . For each pass, by the same argument made as in the case of the
+  top-down mergesort approach, the number of array accesses is exactly $6N$ and the number of compares is at most N and no less than $N/2$. Therefore, bottom-up mergesort uses between $1/2N log N$ and $N log N$ compares and at most $6N log N$ array accesses to sort an array of length
+  $N$.\\
 
   \subsection{Quicksort}
   \begin{enumerate}
