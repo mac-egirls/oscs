@@ -183,6 +183,23 @@ class Node {
     Total: $2N + O(\log N)$.
 
     \subsection{Recurrence Equations}
+    % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio, 
+    % the sum of each layer is always n, so the time complexity is 
+    % $n * \log{\text{depth of the tree}} n$. 
+    % The 9/10 side will run out of nodes slower, 
+    % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left 
+    % because $10/9 * 9/10 = 1$. \\
+    % - youcef
+
+    \textbf{Deriving from a Tree:}
+    Represent the recurrence equation as a binary tree,
+    where each layer is one layer deeper in the recursion.
+    Eg if the equation is $T(N) = T(N/2) + T(N/2)$,
+    there will be 2 branches on the second layer, each as $T(N/2)$,
+    4 branches on the third layer, each as $T(N/4)$, and so on.
+    If it's a binary tree, with $x$ layers,
+    it will have a time complexity of $n \log x$.
+
     \hl{If you're seeing this, please contribute!}
     % FIXME: ADD THIS
 
