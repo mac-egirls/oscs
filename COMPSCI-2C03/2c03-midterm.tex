@@ -167,6 +167,10 @@ class Node {
   - $\Omega(g(n))$ -- lower limit \\
   - $\Theta(g(n))$ -- upper and lower limit \\
 
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{time-complexity-loops.png}
+  \end{center}
+
   Let $c_1, c_2 > 0$ and $n_0 \ge 0$ s.t. for all $n \ge n_0$,
   \begin{align*}
     0 \le &f(n) \le c_1 g(n) &\Rightarrow f(n) \in O(g(n)) \\
@@ -211,6 +215,7 @@ class Node {
   4 branches on the third layer, each as $T(N/4)$, and so on.
   If it's a binary tree, with $x$ layers,
   it will have a time complexity of $n \log x$.
+  \includegraphics[width=\linewidth]{recurrence-tree.png}
   \hl{If you're seeing this, please contribute!}
   % FIXME: ADD THIS
 
@@ -368,7 +373,8 @@ public class WeightedQuickUnionWithPC {
   \end{itemize}
   \textbf{Pros:}
       \textbf{Used when}: in embedded systems applications from
-      using small program size and memory efficiency
+      using small program size and memory efficiency.
+    Reduces large amounts of disorder quickly.
   \textbf{Cons:} Slow
 
   \begin{center}
