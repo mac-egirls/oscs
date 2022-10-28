@@ -334,6 +334,10 @@ public class WeightedQuickUnionWithPC {
     \item Examine array, skipping first element.
     \item \textbf{Used when}: you have no RAM
   \end{enumerate}
+  \textbf{Pros:}
+  Minimal number of write operations (eg tiny RAM?)
+  \textbf{Cons:}
+  Slow as shit
   $\Theta(N^2)$
 
   \subsection{Insertion Sort}
@@ -345,9 +349,10 @@ public class WeightedQuickUnionWithPC {
     \item
       \# of operations depends on the degree 
       of disorder (how unsorted the array is).
-    \item
-      low degree of disorder
   \end{itemize}
+  \textbf{Pros:} If the array has a low degree of disorder, it is faster.
+  \textbf{Cons:} Worst case is still slow as shit.
+
   \begin{center}
     \includegraphics[width=\linewidth]{insertion-sort.png}
   \end{center}
