@@ -139,16 +139,18 @@ class Node {
     Heapsort       & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
     \bottomrule
   \end{tabular}
-  \begin{tabulary}{\linewidth}{@{}LlllL@{}} \toprule
-    Algorithm      & Stbl? & In-Place? & Extra Space & Notes                     \\
+  \begin{tabulary}{\linewidth}{@{}LllL@{}} \toprule
+    Algorithm       & Stbl? & In-Place? & Space \\
     \midrule
-    Selection Sort & N     & Y         & 1           &                           \\
-    Insertion Sort & Y     & Y         & 1           & depends on order of items \\
-    Shellsort      & N     & Y         & 1           &                           \\
-    Quicksort      & N     & Y         & $\lg N$     & probabilistic guarantee   \\
-    Mergesort      & Y     & N         & $N$         &                           \\
-    Heapsort       & N     & Y         & 1           &                           \\
-  \end{tabulary}
+    Selection Sort  & N     & Y         & O(1) \\
+    *Insertion Sort & Y     & Y         & O(1) \\
+    Shellsort       & N     & Y         & O(1) \\
+    **Quicksort     & N     & Y         & O($\log N$) \\
+    Mergesort       & Y     & N         & O($N$) \\
+    Heapsort        & N     & Y         & O(1) \\
+  \end{tabulary} \\
+  * depends on order of items \\
+  ** probabilistic guarantee
 
   \subsection{Tilde Approximation}
   $\lim_{n \to \infty} \frac{~f(n)}{f(n)} = 1$
