@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{soul}
+\usepackage{clrscode3e}
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
@@ -60,7 +61,7 @@
 }
 
 % Shorthand definitions
-\newcommand{\To}{\Rightarrow}
+% \newcommand{\To}{\Rightarrow}
 
 % condense itemize & enumerate
 \let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
@@ -148,6 +149,7 @@ class Node {
     **Quicksort     & N     & Y         & O($\log N$) \\
     Mergesort       & Y     & N         & O($N$) \\
     Heapsort        & N     & Y         & O(1) \\
+    \bottomrule
   \end{tabulary} \\
   * depends on order of items \\
   ** probabilistic guarantee
@@ -219,33 +221,42 @@ class Node {
   \hl{If you're seeing this, please contribute!}
   % FIXME: ADD THIS
 
+  \subsubsection{Master Theorem}
+  For an RR with the form $T(n) = aT(n/b) + f(n)$,
+  for constants $a(\geq 1)$ and $b(>q)$ with f asymptotically positive,
+  the following statements are true:
+
+  \textbf{Case 1} If $f(n) = O(n^{\log_b a-\epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$. \\
+  \textbf{Case 2} If $f(n) = \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log n)$. \\
+  \textbf{Case 3} If $f(n) = \Omega(n^{\log_b a+\epsilon})$ for some $\epsilon > 0$ (and $af(n/b) \leq c f(n)$ for some $c<1$ for all $n$ sufficiently large), then $T(n) = \Theta(f(n))$. \\
+
   \section{Union-Find}
   WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
   In a network of nodes, mutually connected are called components. Union find has the following api:
   \begin{itemize}
-      \item \textbf{Connected}: takes two nodes, return true if nodes are in the same component
-      \item \textbf{Union}: if not connected, connects two nodes
-      \item \textbf{Find}: takes node id, returns the component the node is in
-      \item \textbf{Count}: return number of components
+    \item \textbf{Connected}: takes two nodes, return true if nodes are in the same component
+    \item \textbf{Union}: if not connected, connects two nodes
+    \item \textbf{Find}: takes node id, returns the component the node is in
+    \item \textbf{Count}: return number of components
   \end{itemize}
   Rather than classes or data structures, we can optimize the api by using a structure that allows us to just perform our operations.
   Key learnings:
   \begin{itemize}
-      \item Generally, either optimize for adding data into Data Structure,
-            or optimize for processing the Data Structure for desired results.
+    \item Generally, either optimize for adding data into Data Structure,
+          or optimize for processing the Data Structure for desired results.
 
-      \item
+    \item
   \end{itemize}
 
   \subsection{Time Complexity}
   \begin{tabular}[!ht]{@{}llll@{}} \toprule
-      Algo           & Q-F    & Q-U    & WQ-U       \\
-      \midrule
-      Initialization & $O(N)$ & $O(N)$ & $O(N)$     \\
-      Find           & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
-      Connected      & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
-      Union          & $O(N)$ & $O(N)$ & $O(lg(N))$ \\
-      \bottomrule
+    Algo           & Q-F    & Q-U    & WQ-U       \\
+    \midrule
+    Initialization & $O(N)$ & $O(N)$ & $O(N)$     \\
+    Find           & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
+    Connected      & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
+    Union          & $O(N)$ & $O(N)$ & $O(lg(N))$ \\
+    \bottomrule
   \end{tabular}
 
   \subsection{Quick-Find}
@@ -438,6 +449,42 @@ public static void sort(Comparable[] a) {
   % STUB: FINISH THIS
 
   \subsection{Quicksort}
+  \begin{enumerate}
+    \item Shuffle array to reduce impact of order on sorting speed
+    \item Pick first element of array as pivot
+    \item Create two sub arrays from remaining elements, one selecting those smaller,
+    one selecting those larger. Put them on either side of the pivot
+    \item Recurse for each side of the pivot until everything is sorted.
+  \end{enumerate}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class Quick {
+  public static void sort(Comparable[] a) {
+    StdRandom.shuffle(a);
+    sort(a, 0, a.length - 1);
+  }
+  private static void sort(Comparable[] a, int lo, int hi) {
+    if (hi <= lo) return;
+    int j = partition(a, lo, hi);
+    // sort left side a[lo .. j-1]
+    sort(a, lo, j-1);
+    // sort right side a[j+1 .. hi]
+    sort(a, j+1, hi);
+  }
+  private static int partition(Comparable[] a, int lo, int hi) {
+    int i = lo, j = hi + 1;
+    Comparable v = a[lo];
+    while (true) {
+      while (less(a[++i], v)) if (j == hi) break;
+      while (less(v, a[--j])) if (j == lo) break;
+      if (i >= j) break;
+      exch(a, i, j);
+    }
+    exch(a, lo, j);
+    return j;
+  }
+}
+  \end{lstlisting}
+
   \hl{If you're seeing this, please contribute!}
   % FIXME: ADD THIS
 
@@ -452,7 +499,9 @@ public static void sort(Comparable[] a) {
   \end{list}
 
   \section{Binary Heaps \& Heapsort}
-  A max binary heap is a complete binary tree where the keys are in the nodes and each parent's key $\geq$ each child's key. This requirement is called the max heap property.
+  A max binary heap is a complete binary tree where
+  the keys are in the nodes and each parent's key $\geq$ each child's key.
+  This requirement is called the max heap property.
   \\
   Binary Heaps:
   \begin{itemize}
@@ -463,18 +512,99 @@ public static void sort(Comparable[] a) {
     \item Sinking - exchange a given node with the max of it's children until the binary max property is fulfilled.
   \end{itemize}
 
-  Heapsort relies on the binary heap data structure to sort data. Once a max heap has been constructed, you can perform a single for loop and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
+  Heapsort relies on the binary heap data structure to sort data.
+  Once a max heap has been constructed, you can perform a single for loop
+  and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
+
+  \subsection{Code}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class MaxPQ<Key extends Comparable<Key>> {
+  private Key[] pq;
+  private int n;
+
+  public MaxPQ(int capacity) {
+    // fixed capacity for simplicity
+    pq = (Key[]) new Comparable[capacity+1];
+  }
+  public boolean isEmpty() {
+    return n == 0;
+  }
+  public void insert(Key x) {
+    pq[++n] = x;
+    swim(n);
+  }
+  public Key delMax() {
+    Key max = pq[1];
+    exch(1, n--);
+    sink(1);
+    pq[n+1] == null;
+    return max;
+  }
+
+  private void swim(int k) {
+    // parent of node at k is at k/2
+    while (k > 1 && less(k/2, k)) {
+      exch(k, k/2);
+      k = k/2;
+    }
+  }
+  private void sink(int k) {
+    while (2*k <= n) {
+      int j = 2*k;
+      // children of node at k are 2*k and 2*k+1
+      if (j < n && less(j, j+1)) j++;
+      if (!less(k, j)) break;
+      exch(k, j);
+      k = j;
+    }
+  }
+}
+  \end{lstlisting}
 
   \section{Binary Trees}
   \textbf{Binary Tree:} A tree where each internal node has at most two children.
   \textbf{Full Binary Tree:} A binary tree where each internal node has exactly two children.
   \textbf{Complete Binary Tree:} A complete binary tree is which every level,
   except possibly the last, is completely filled, and all nodes are as far left as possible.
+  \textbf{Internal Node:} Any node that has children
+  
   $L = N - 1$, where $L$ is the number of the internal node in the tree,
   and $N$ is the number of leaves.
 
   $N = 2^h$, where $h$ is the height of the tree and $N$ is the number of nodes in the tree.
   To go the other way around, $\log_2(N) = h$.
+
+  \textbf{Maximum height:} $n - 1$
+  \textbf{Minimum height:} $\text{floor}(\lg n)$
+
+  \section{Pseudocode}
+  \begin{codebox}
+  \Procname{$\proc{Insertion-Sort}(A)$}
+  \li \For $j \gets 2$ \To $\attrib{A}{length}$
+  \li   \Do
+          $\id{key} \gets A[j]$
+  \li     \Comment Insert $A[j]$ into the sorted sequence
+            $A[1 \twodots j-1]$.
+  \li     $i \gets j-1$
+  \li     \While $i > 0$ and $A[i] > \id{key}$
+  \li       \Do
+              $A[i+1] \gets A[i]$
+  \li         $i \gets i-1$
+            \End
+  \li     $A[i+1] \gets \id{key}$
+        \End
+  \end{codebox}
+  Reminders:
+  \begin{itemize}
+    \item Attributes can be accessed via \verb|x.prev|.
+    \item Class functions \textbf{do not exist in pseudocode}.
+    Instead of calling \verb|x.sort()|, call \verb|sort(x)|.
+    \item Use \verb|NIL| instead of \verb|null|.
+    \item State assumptions like passing by value or passing by reference
+    in the pseudocode.
+    \item Multiple values can be passed in a \verb|return| statement.
+    \item Use \verb|error| for throwing an error, but what happens is not specified.
+  \end{itemize}
 
 \end{multicols*}
 
