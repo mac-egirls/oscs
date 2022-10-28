@@ -228,18 +228,10 @@ class Node {
   Mutually connected nodes are called components.
   \subsection{API}
   \begin{itemize}
-    \item \textbf{Connected(n_id1, n_id2)}: returns true if \lstinline{n_id1} and \lstinline{n_id2} are connected.
-    \item \textbf{Union(n_id1, n_id2)}: if not connected, connects two nodes
-    \item \textbf{Find(n_id)}: takes node id, returns union \lstinline{n_id} is in
-    \item \textbf{Count(n_id)}: return the size of \lstinline{n_id}'s union
-  \end{itemize}
-  Rather than classes or data structures, we can optimize the api by using a structure that allows us to just perform our operations.
-  Key learnings:
-  \begin{itemize}
-    \item Generally, either optimize for adding data into Data Structure,
-          or optimize for processing the Data Structure for desired results.
-
-    \item
+    \item \textbf{Connected(n\_id1, n\_id2)}: returns true if \lstinline{n_id1} and \lstinline{n_id2} are connected.
+    \item \textbf{Union(n\_id1, n\_id2)}: if not connected, connects two nodes
+    \item \textbf{Find(n\_id)}: takes node id, returns union \lstinline{n_id} is in
+    \item \textbf{Count(n\_id)}: return the size of \lstinline{n_id}'s union
   \end{itemize}
 
   \subsection{Time Complexity}
@@ -254,17 +246,21 @@ class Node {
   \end{tabular}
 
   \subsection{Quick-Find}
-  For Quick-Find, instead of associating nodes with connections, we associate them with components. We can represent the graph with an array. Indices of the array act as the node ids and the values act as the component ids. We also need a count variable.
+  - Associate nodes with unions \\
+  - represented with an array \\
+  - Indices are node ids \\
+  - Values are union ids (we choose one node id for the union id)
   \subsubsection{Initialization}
-  Create array of length N, iterate through it and initialize each element to the value of it's index
-  \subsubsection{Union}
-  Takes two indices, p and q. Iterate through array and change every occurrence of arr[p] to arr[q], or vice versa.
-  \subsubsection{Find}
-  Takes an index, returns value at index
+  Initialize an length N array \lstinline{arr} with \lstinline{arr[i] = i}.
+  \subsubsection{Union(n\_id1, n\_id2)}
+  Change every occurance of \lstinline{n_id1} to \lstinline{n_id2} in \lstinline{arr}.
+  \subsubsection{Find(n\_id)}
+  returns \lstinline{arr[n_id]}.
   \subsubsection{Connected}
-  Takes two indices, p and q, returns if arr[p] = arr[q]\\
+  returns if \lstinline{arr[n_id1] == arr[n_id2]}.
+
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-    
+
   \end{lstlisting}
 
   \subsection{Quick-Union}
