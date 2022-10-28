@@ -414,7 +414,7 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
     aux[k] = a[k];
   // merge
   int i = lo, j = mid + 1;
-  for (knt i = lo; k <= hi; k++) {
+  for (int i = lo; k <= hi; k++) {
     if (i > mid)
       a[k] = aux[j++];
     else if
