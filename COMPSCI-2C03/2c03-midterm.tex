@@ -163,31 +163,23 @@ class Node {
 
   \subsection{Time Complexity}
   \subsubsection{Notation Definitions}
+  - $O(g(n))$ -- upper limit \\
+  - $\Omega(g(n))$ -- lower limit \\
+  - $\Theta(g(n))$ -- upper and lower limit \\
+
   Let $c_1, c_2 > 0$ and $n_0 \ge 0$ s.t. for all $n \ge n_0$,
   \begin{align*}
     0 \le &f(n) \le c_1 g(n) &\Rightarrow f(n) \in O(g(n)) \\
     c_1 g(n) \le &f(n) &\Rightarrow f(n) \in \Omega(g(n)) \\
-    c_1 g(n) \le &f(n) \le c_2 g(n) &\Rightarrow f(n) \in \Theta(g(n)) \\
+    c_1 g(n) \le &f(n) \le c_2 g(n) &\Rightarrow f(n) \in \Theta(g(n))
   \end{align*}
 
   \subsubsection{Limit Definitions}
   \begin{align*}
     \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq \infty &\Rightarrow f(n) \in O(g(n)) \\
-    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq 0 &\Rightarrow f(n) \in \Omega(g(n)) \\
-    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\not\in \{0, \infty\} &\Rightarrow f(n) \in \Theta(g(n)) \\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq 0 &\Rightarrow f(n) \in \Omega(g(n))\\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\not\in \{0, \infty\} &\Rightarrow f(n) \in \Theta(g(n))
   \end{align*}
-
-  \subsection{Big-O}
-  Upper limit, function must be $\leq O(n)$
-
-
-  \subsection{Big-\texorpdfstring{$\Omega$}{Omega}}
-  Lower limit, function must be $\geq \Omega(n)$
-
-
-  \subsection{Big-\texorpdfstring{$\Theta$}{Theta}}
-  Must satisfy both Big-O and Big-$\Omega$.
-
 
   % REVIEW: Are there any other algs
   % that we need to document for memory complexity?
