@@ -332,7 +332,6 @@ public class WeightedQuickUnionWithPC {
     \item Find min element
     \item Swap min \& first element
     \item Examine array, skipping first element.
-    \item \textbf{Used when}: you have no RAM
   \end{enumerate}
   \textbf{Pros:}
   Minimal number of write operations (eg tiny RAM?)
@@ -347,7 +346,7 @@ public class WeightedQuickUnionWithPC {
       "inserting" a new element each iteration by swapping
       until it is in the right position.
     \item
-      \# of operations depends on the degree 
+      \# of operations depends on the degree
       of disorder (how unsorted the array is).
   \end{itemize}
   \textbf{Pros:} If the array has a low degree of disorder, it is faster.
@@ -366,10 +365,12 @@ public class WeightedQuickUnionWithPC {
       Sort the subarrays using insertion sort.
     \item
       Repeat until $h = 1$.
-    \item
+  \end{itemize}
+  \textbf{Pros:}
       \textbf{Used when}: in embedded systems applications from
       using small program size and memory efficiency
-  \end{itemize}
+  \textbf{Cons:} Slow
+
   \begin{center}
     \includegraphics[width=\linewidth]{shellsort.png}
   \end{center}
