@@ -184,16 +184,15 @@ class Node {
   % REVIEW: Are there any other algs
   % that we need to document for memory complexity?
   \subsection{Memory Complexity}
-  \textbf{In-place algorithms:} $N + O(\log N)$
-  \textbf{Mergesort:}
-  Original input array: $N$.
-  Aux array for merging: $N$.
-  Local variables: $Const$.
-  Function call stack: $\log N$.
-  Total: $2N + O(\log N)$.
+  \textbf{In-place algorithms:} $O(N \log N)$ \\
+  \textbf{Mergesort:} \\
+  - Original input array: $N$. \\
+  - Aux array for merging: $O(N)$. \\
+  - Local variables: $Const$. \\
+  - Function call stack: $O(\log N)$. \\
+  - Total: $O(2 N\log N)$.
 
   \subsection{Recurrence Relations}
-
   % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio,
   % the sum of each layer is always n, so the time complexity is
   % $n * \log{\text{depth of the tree}} n$.
@@ -201,8 +200,10 @@ class Node {
   % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left
   % because $10/9 * 9/10 = 1$. \\
   % - youcef
+  \textbf{Recurrence Relation} --
+  a recursive equation.
 
-  \textbf{Deriving from a Tree:}
+  \textbf{Deriving from a Tree} --
   Represent the recurrence equation as a binary tree,
   where each layer is one layer deeper in the recursion.
   Eg if the equation is $T(N) = T(N/2) + T(N/2)$,
@@ -559,7 +560,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \textbf{Complete Binary Tree:} A complete binary tree is which every level,
   except possibly the last, is completely filled, and all nodes are as far left as possible.
   \textbf{Internal Node:} Any node that has children
-  
+
   $L = N - 1$, where $L$ is the number of the internal node in the tree,
   and $N$ is the number of leaves.
 
