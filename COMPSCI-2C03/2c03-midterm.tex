@@ -83,7 +83,7 @@
   \setlength{\columnsep}{2pt}
 
   \section{Algorithms}
-  
+
   \section{Basic DSes}
   Array vs LL
 
@@ -97,7 +97,7 @@
 
   % REVIEW: Probably don't need LLs,
   % pretty easy to reason through
-  % REVIEW: Are there any other basic data structures that need more detail? 
+  % REVIEW: Are there any other basic data structures that need more detail?
   \subsection{Linked Lists}
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 class Node {
@@ -153,36 +153,41 @@ class Node {
   ** probabilistic guarantee
 
   \subsection{Tilde Approximation}
-  $\lim_{n \to \infty} \frac{~f(n)}{f(n)} = 1$
+  $$\lim_{n \to \infty} \frac{\sim f(n)}{f(n)} = 1$$
   TL;DR drop everything but the most significant factor in terms of $n$.
 
-  \subsection{Order of Growth}
-  Just drop the constant from the tilde approximation
+  \textbf{Order of growth}
+  -- Just drop the constant from the tilde approximation
 
-  % REVIEW: Look back through this explanation
-  \subsection{Proving}
-  For any pair of constants, $c, n_0$, consider $n = X[c \cdot n_0]$,
-  where $X$ is another arbitrarily chosen constant.
+  \subsection{Time Complexity}
+  \subsubsection{Notation Definitions}
+  Let $c_1, c_2 > 0$ and $n_0 \ge 0$ s.t. for all $n \ge n_0$,
+  \begin{align*}
+    0 \le &f(n) \le c_1 g(n) &\Rightarrow f(n) \in O(g(n)) \\
+    c_1 g(n) \le &f(n) &\Rightarrow f(n) \in \Omega(g(n)) \\
+    c_1 g(n) \le &f(n) \le c_2 g(n) &\Rightarrow f(n) \in \Theta(g(n)) \\
+  \end{align*}
 
-  If a pair can be found that satisfies these constants, then list them.
-  If a pair cannot be found, prove that there exists a contradiction.
+  \subsubsection{Limit Definitions}
+  \begin{align*}
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq \infty &\Rightarrow f(n) \in O(g(n)) \\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq 0 &\Rightarrow f(n) \in \Omega(g(n)) \\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\not\in \{0, \infty\} &\Rightarrow f(n) \in \Theta(g(n)) \\
+  \end{align*}
 
   \subsection{Big-O}
   Upper limit, function must be $\leq O(n)$
 
-  $\lim_{n \to \infty} \frac{f(n)}{g(n)} \neq \infty$
 
   \subsection{Big-\texorpdfstring{$\Omega$}{Omega}}
   Lower limit, function must be $\geq \Omega(n)$
 
-  $\lim_{n \to \infty} \frac{f(n)}{g(n)} \neq 0$
 
   \subsection{Big-\texorpdfstring{$\Theta$}{Theta}}
   Must satisfy both Big-O and Big-$\Omega$.
 
-  $\lim_{n \to \infty} \frac{f(n)}{g(n)} \not\in \{0, \infty\}$
 
-  % REVIEW: Are there any other algs 
+  % REVIEW: Are there any other algs
   % that we need to document for memory complexity?
   \subsection{Memory Complexity}
   \textbf{In-place algorithms:} $N + O(\log N)$
@@ -195,11 +200,11 @@ class Node {
 
   \subsection{Recurrence Relations}
 
-  % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio, 
-  % the sum of each layer is always n, so the time complexity is 
-  % $n * \log{\text{depth of the tree}} n$. 
-  % The 9/10 side will run out of nodes slower, 
-  % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left 
+  % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio,
+  % the sum of each layer is always n, so the time complexity is
+  % $n * \log{\text{depth of the tree}} n$.
+  % The 9/10 side will run out of nodes slower,
+  % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left
   % because $10/9 * 9/10 = 1$. \\
   % - youcef
 
@@ -256,7 +261,7 @@ class Node {
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class QuickFind {
   private int[] id;
-  
+
   public QuickFind(int N) {
       count = N;
       id = new int[N];
@@ -277,7 +282,7 @@ public class QuickFind {
   }
 }
   \end{lstlisting}
-  
+
   \subsection{Quick-Union}
   Quick-Union also uses an array to represent the graph, but is interpreted differently. The indices still represent node ids, but the values now also represent node ids. The values point to the node's parent node. This representation forms a tree structure, where the root node points to itself. This means we can use the id of root nodes as component ids.
   \subsubsection{Initialization}
@@ -291,7 +296,7 @@ public class QuickFind {
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class QuickUnion {
   private int[] id;
-  
+
   public QuickUnion(int N) {
       id = new int[N];
       for(int i = 0; i < N; i++)
@@ -313,14 +318,14 @@ public class QuickUnion {
   }
 }
   \end{lstlisting}
-  
+
   \subsection{Weighted Quick-Union}
   To optimize Quick-Union, we try to create the flattest trees possible. We need another array to count the number of nodes rooted at an index. Union now links the root of the smaller tree to the root of the larger tree. This can be further optimized with path compression, which can be tacked on to find. To do this, we change each node to point at it's grandparent.
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class WeightedQuickUnionWithPC {
   private int[] id;
   private int[] sz;
-  
+
   public void union(int p, int q) {
       int i = find(p);
       int j = find(q);
@@ -404,7 +409,7 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
   // merge
   int i = lo, j = mid + 1;
   for (knt i = lo; k <= hi; k++) {
-    if (i > mid) 
+    if (i > mid)
       a[k] = aux[j++];
     else if
       (j > hi) a[k] = aux[i++];
@@ -463,7 +468,7 @@ public static void sort(Comparable[] a) {
   \section{Binary Trees}
   \textbf{Binary Tree:} A tree where each internal node has at most two children.
   \textbf{Full Binary Tree:} A binary tree where each internal node has exactly two children.
-  \textbf{Complete Binary Tree:} A complete binary tree is which every level, 
+  \textbf{Complete Binary Tree:} A complete binary tree is which every level,
   except possibly the last, is completely filled, and all nodes are as far left as possible.
   $L = N - 1$, where $L$ is the number of the internal node in the tree,
   and $N$ is the number of leaves.
