@@ -216,6 +216,15 @@ class Node {
   \hl{If you're seeing this, please contribute!}
   % FIXME: ADD THIS
 
+  \subsubsection{Master Theorem}
+  For an RR with the form $T(n) = aT(n/b) + f(n)$,
+  for constants $a(\geq 1)$ and $b(>q)$ with f asymptotically positive,
+  the following statements are true:
+
+  \textbf{Case 1} If $f(n) = O(n^{\log_b a-\epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$. \\
+  \textbf{Case 2} If $f(n) = \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log n)$. \\
+  \textbf{Case 3} If $f(n) = \Omega(n^{\log_b a+\epsilon})$ for some $\epsilon > 0$ (and $af(n/b) \leq c f(n)$ for some $c<1$ for all $n$ sufficiently large), then $T(n) = \Theta(f(n))$. \\
+
   \section{Union-Find}
   WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
   In a network of nodes, mutually connected are called components. Union find has the following api:
