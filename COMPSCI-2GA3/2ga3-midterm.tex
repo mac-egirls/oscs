@@ -86,6 +86,8 @@
 	\section{Logic Basics}
 	\subsection{Physics}
 	\textbf{Ohm's Law:} $R = \frac{U}{T}$
+	\textbf{Series Resistors:} $R = \sum_{i=1}^N R_i$
+	\textbf{Parallel Resistors:} $1/R = \sum_{i=1}^N (1/R_i)$
 	\subsection{Transistors}
 	MOSFETs have 4 components: Source, Gate, Drain, and Base
 
@@ -108,8 +110,9 @@
 		\includegraphics[width=.6\linewidth]{full-adder.png}
 		Left: Half-adder. Right: Full-adder.
 	\end{center}
+	To add more bits, just chain multiple full-adders together using the carry-out
+	bit.
 
-	
 
 \end{multicols*}
 
