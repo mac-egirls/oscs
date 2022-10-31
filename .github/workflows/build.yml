@@ -1,5 +1,8 @@
 name: Build LaTeX document
-on: [push]
+on:
+  push:
+    branches:
+    - main
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -12,8 +15,8 @@ jobs:
           root_file: "**/*.tex"
           glob_root_file: true
           work_in_root_file_dir: true
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v3
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: PDF
-          path: "**/*.pdf"
+          files: "**/*.pdf"
+          
