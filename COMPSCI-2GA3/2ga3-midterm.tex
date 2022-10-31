@@ -120,7 +120,7 @@
 	If final carry at end is 1, that signifies an overflow error.
 
 	\subsubsection{Latches}
-	\textbf{Gated D-latch / Flip-flop}
+	\textbf{Gated D-latch}
 	\begin{center}
 		\includegraphics[width=.6\linewidth]{gated-d-latch.png}
 		\begin{tabular}[!ht]{@{}cc|ccc@{}}
@@ -133,6 +133,13 @@
 			\bottomrule
 		\end{tabular}
 	\end{center}
+	Operate on the principle of propagation delay.
+
+	% REVIEW: Do we need this?
+	% seems like a lot of space dedicated to something that's trivial to derive
+	% from scratch
+	Stacking many of them can be used to create a register:
+	\includegraphics[width=\linewidth]{register.png}
 \end{multicols*}
 
 \end{document}
