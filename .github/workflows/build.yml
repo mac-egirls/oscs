@@ -23,5 +23,5 @@ jobs:
           title: "Latest Build"
           files: |
             LICENSE
-            "**/*.pdf"
+            *.pdf
           
