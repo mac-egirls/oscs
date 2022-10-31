@@ -119,7 +119,20 @@
 	bit.
 	If final carry at end is 1, that signifies an overflow error.
 
-
+	\subsubsection{Latches}
+	\textbf{Gated D-latch / Flip-flop}
+	\begin{center}
+		\includegraphics[width=.6\linewidth]{gated-d-latch.png}
+		\begin{tabular}[!ht]{@{}cc|ccc@{}}
+			\toprule
+			$E/C$ & $D$ & $Q$               & $\overline{Q}$               & Comment   \\
+			\midrule
+			0     & X   & $Q_\textit{prev}$ & $\overline{Q}_\textit{prev}$ & No change \\
+			1     & 0   & 0                 & 1                            & Reset     \\
+			1     & 1   & 1                 & 0                            & Set       \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
 \end{multicols*}
 
 \end{document}
