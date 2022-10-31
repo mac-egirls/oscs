@@ -15,13 +15,13 @@ jobs:
           root_file: "**/*.tex"
           glob_root_file: true
           work_in_root_file_dir: true
-      - name: Release
-        uses: CupOfTea696/gh-action-auto-release@v1
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          title: "Release: $version"
-          tag: "v$semver"
-          draft: false
-          regex: "/^Release: #{semver}$/i"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Latest Build"
+          files: |
+            LICENSE
+            "**/*.pdf"
           
