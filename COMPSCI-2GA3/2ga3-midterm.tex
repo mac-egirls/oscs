@@ -56,6 +56,7 @@
 % Custom siunitx defs
 \DeclareSIUnit\noop{\relax}
 \setlist[itemize]{noitemsep, leftmargin=*}
+\setlist[enumerate]{noitemsep, leftmargin=*}
 
 \NewDocumentCommand\prefixvalue{m}{%
 \qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
@@ -328,23 +329,33 @@
 
 	\subsection{Pipelines}
 	Allow for more than one instruction to be ``processed'' at the same time.
-	By moving instructions through a pipeline, non-conflicting parts of an instruction
-	can be worked on in steps.
-	Generally 5 stages: Fetch next instruction, decode \& fetch operands,
-	perform arithmetic operation, read or write memory, store result.
+	Generally 5 stages:
+   \begin{enumerate}
+      \item Fetch next instruction
+      \item decode \& fetch operands
+      \item perform arithmetic operation
+      \item read or write memory
+      \item store result
+   \end{enumerate}
 
 	\subsubsection{Pipeline Stalls}
 	Also known as hazards. 3 main types:
-	\textbf{Data Hazards:} Waiting for data from an earlier instruction.
-	Instruction must wait before fetching operands,
-	and can only complete that stage on the same cycle that the dependance is in the done stage.
-	% REVIEW: Explanation for the line above is worded kinda poorly, if anyone wants to fix it up.
-	Can be dealt with using data forwarding (allowing data to be used before it exits the pipeline),
-	re-arranging instruction order.
-	\textbf{Control Hazards:} Incorrect instruction is in the pipeline (branching).
-	Can be dealt with using conditional branch prediction, flushing pipeline if prediction is wrong.
-	\textbf{Structural Hazards:} Resource conflict (eg accessing the same register bank).
-	Can be dealt with by loading data in parallel, eg using multiple banks.
+   \begin{itemize}
+      \item
+         \textbf{Data Hazards:} Waiting for data from an earlier instruction.
+         Can be dealt with using data forwarding (allowing data to be used
+         before it exits the pipeline), re-arranging instruction order.
+      \item
+         \textbf{Control Hazards:} Incorrect instruction is in the pipeline.
+         Occurs during jump instructions/branching. Jumps are not executed
+         until the fifth stage, so instructions directly after are fetched
+         inside the pipeline.  Can be dealt with using conditional branch
+         prediction, flushing pipeline if prediction is wrong.
+      \item
+         \textbf{Structural Hazards:} Resource conflict (usually from external
+         source) (eg sombody else is accessing the same register bank). Can
+         be dealt with by loading data in parallel, eg using multiple banks.
+   \end{itemize}
 
 	\subsection{Branching}
 	Moving the instruction pointer to a different location in program.
