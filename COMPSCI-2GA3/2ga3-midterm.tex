@@ -179,6 +179,10 @@
 
 	\subsection{Decoders}
 	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
+	
+	\subsection{Feedback Loops}
+	\includegraphics[width=\linewidth]{Feedback_loop.png}
+	Here the clock keeps changing b/w 0 and 1 which causes the counter to increment whenever 0 changes to 1, this causes the decoder to move to the next instruction. When the decoder comes to `stop` this causes this loop to stop because the output from the clock does not change the state of this circuit due to the added gates so this `stop` feedback prevents it from being in an infinite loop.
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
