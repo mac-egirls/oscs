@@ -244,6 +244,16 @@
 		\item Perform the arithmetic operation specified by the \textbf{opcode}
 		\item Perform memory read or write, if needed
 		\item Store the result back to the registers
+		\item go to next instruction, Repeat forever.
+	\end{itemize}
+
+	\subsection{Program Translation}
+	\includegraphics[width=\linewidth]{program-translation.png}
+	\begin{itemize}
+		\item \textbf{Preprocessor} : Expands macros, , producing modified source program.
+		\item \textbf{Compiler} : Translates it to assembly.
+		\item \textbf{Assembler} : Translates it to relocatable object code which contains references to external library functions.
+		\item \textbf{Linker} : Replaces external function references with its code.
 	\end{itemize}
 
 
