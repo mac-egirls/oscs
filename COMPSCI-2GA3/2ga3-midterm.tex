@@ -312,7 +312,7 @@
 	Allow for more than one instruction to be ``processed'' at the same time.
 	By moving instructions through a pipeline, non-conflicting parts of an instruction
 	can be worked on in steps.
-	Generally 5 stages: Fetch next instruction, decode \& fetch operands, 
+	Generally 5 stages: Fetch next instruction, decode \& fetch operands,
 	perform arithmetic operation, read or write memory, store result.
 
 	\subsubsection{Pipeline Stalls}
@@ -334,6 +334,26 @@
 	% REVIEW: idk what else needs to be added here,
 	% this seems pretty trivial
 
+	\section{Instruction Sets}
+	Generally has the following parts:
+	Operation number, registers, offset.
+	\includegraphics[width=\linewidth]{isa-example.png}
+
+	\subsection{Design choices}
+	\subsubsection{Encoding length}
+	\textbf{Variable-length} encoding can improve instruction density,
+	but \textbf{fixed-length} instructions are simpler to implement in hardware,
+	and are thus more performant. Unused bits are ignored by the instruction.
+
+	Offsets are used to encode immediate values (generally used for jumping).
+
+	\subsubsection{Number of Operands}
+	\textbf{Zero operands:} Stack architecture, using push and pop. All operands are implicit.
+	\textbf{One operand:} Implicit destination (usually a special accumulator register)
+	\textbf{Two operands:} Specified destination, but uniary operations (eg \verb|add rA, rB #rA=rA+rB|)
+	\textbf{Three operands:} Specified destination, binary operations
+	TL;DR, more operands = more flexible instructions, but more space taken up by operands
+	
 \end{multicols*}
 
 \end{document}
