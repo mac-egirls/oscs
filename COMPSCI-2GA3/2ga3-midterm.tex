@@ -183,6 +183,13 @@
 	For each column, do $c \cdot b^n$, where $c$ is the value of the column,
 	and $b$ is the base value in base 10.
 
+	% REVIEW: if anyone can explain this better feel free to update this
+	\subsection{Fraction to Binary}
+	Convert fraction into decimal.
+	While (n != 0), $n \cdot 2$,
+	if $n \geq 1$ add 1 to end of decimal, and subtract 1 from $n$,
+	else, add 0 to end of decimal.
+
 	\subsection{Signed Integers}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
 	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$,
