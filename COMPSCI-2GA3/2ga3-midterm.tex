@@ -84,16 +84,16 @@
 	\setlength{\columnsep}{2pt}
 
 	\section{Logic Basics}
-	\subsection{Physics}
-	\textbf{Ohm's Law:} $R = \frac{U}{T}$\\
-	\textbf{Series:} \\
-	$R_T = \sum_{i=1}^N R_i$ \\
-	$V_T = \sum_{i=1}^N V_i$ \\
-	$I_T = I_1 = I_2 = \dots = I_N$\\
-	\textbf{Parallel:} \\
-	$1/R = \sum_{i=1}^N (1/R_i)$\\
-	$V_T = V_1 = V_2 = \dots = V_N$\\
-	$I_T = \sum_{i=1}^N I_i$ \\
+	% \subsection{Physics}
+	% \textbf{Ohm's Law:} $R = \frac{U}{T}$\\
+	% \textbf{Series:} \\
+	% $R_T = \sum_{i=1}^N R_i$ \\
+	% $V_T = \sum_{i=1}^N V_i$ \\
+	% $I_T = I_1 = I_2 = \dots = I_N$\\
+	% \textbf{Parallel:} \\
+	% $1/R = \sum_{i=1}^N (1/R_i)$\\
+	% $V_T = V_1 = V_2 = \dots = V_N$\\
+	% $I_T = \sum_{i=1}^N I_i$ \\
 
 	\subsection{Transistors}
 	% REVIEW: Do we want an image here?
@@ -106,6 +106,8 @@
 	a positive voltage, or a zero voltage (1 or 0, on or off).
 	If output is not pulled to one of these,
 	the output is floating and is indeterminate in voltage.
+
+	\includegraphics[width=\linewidth]{transistor-types.png}
 
 	\subsection{Logic Circuits}
 	\subsubsection{Symbols}
@@ -239,9 +241,9 @@
 	\end{itemize}
 	\textbf{Harvard architecture:}
 	\begin{itemize}
-		\item  2 separate memory. One is used for instruction, one is used for data.
-		\item inflexible, as u cannot use part of the instructional memory to store data and vise versa.
-		\item no \textbf{Von Neumann bottleneck}
+		\item 2 separate memory. One is used for instruction, one is used for data.
+		\item Inflexible, as u cannot use part of the instructional memory to store data and vise versa.
+		\item No \textbf{Von Neumann bottleneck}
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
 
@@ -292,6 +294,46 @@
 		\item \textbf{Linker:} Replaces external function references with its code.
 	\end{itemize}
 
+	\subsection{CISC vs RISC}
+	\textbf{CISC}
+	\begin{itemize}
+		\item Each instruction performs a complex operation
+		\item Instructions may take multiple clock cycles
+		\item Fewer instruction calls
+	\end{itemize}
+	\textbf{RISC}
+	\begin{itemize}
+		\item Each instruction performs a simple operation
+		\item Instructions all take the same number of clock cycles
+		\item Many instruction calls needed
+		\item Allows for pipelining, as each part of the instruction takes the same amount of time
+	\end{itemize}
+
+	\subsection{Pipelines}
+	Allow for more than one instruction to be ``processed'' at the same time.
+	By moving instructions through a pipeline, non-conflicting parts of an instruction
+	can be worked on in steps.
+	Generally 5 stages: Fetch next instruction, decode \& fetch operands, 
+	perform arithmetic operation, read or write memory, store result.
+
+	\subsubsection{Pipeline Stalls}
+	Also known as hazards. 3 main types:
+	\textbf{Data Hazards:} Waiting for data from an earlier instruction.
+	Instruction must wait before fetching operands,
+	and can only complete that stage on the same cycle that the dependance is in the done stage.
+	% REVIEW: Explanation for the line above is worded kinda poorly, if anyone wants to fix it up.
+	Can be dealt with using data forwarding (allowing data to be used before it exits the pipeline),
+	re-arranging instruction order.
+	\textbf{Control Hazards:} Incorrect instruction is in the pipeline (branching).
+	Can be dealt with using conditional branch prediction, flushing pipeline if prediction is wrong.
+	\textbf{Structural Hazards:} Resource conflict (eg accessing the same register bank).
+	Can be dealt with by loading data in parallel, eg using multiple banks.
+
+	\subsection{Branching}
+	Moving the instruction pointer to a different location in program.
+	Can be either absolute branch, or relative branch.
+	% REVIEW: idk what else needs to be added here,
+	% this seems pretty trivial
 
 \end{multicols*}
 
