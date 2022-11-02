@@ -236,6 +236,16 @@
 		\item \textbf{External interface}: Handles all communication between the processor and the rest of the computer system.
 	\end{itemize}
 
+	\subsection{Fetch execute cycle}
+	There is a \textbf{instruction pointer} which moves through the program performing every step. The cycle never ends while the system is runing.
+	\begin{itemize}
+		\item Fetch the next instruction
+		\item Decode the instruction and fetch operands from registers
+		\item Perform the arithmetic operation specified by the \textbf{opcode}
+		\item Perform memory read or write, if needed
+		\item Store the result back to the registers
+	\end{itemize}
+
 
 \end{multicols*}
 
