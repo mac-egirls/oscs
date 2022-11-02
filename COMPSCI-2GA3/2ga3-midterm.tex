@@ -201,16 +201,20 @@
 	For each column, do $c \cdot b^n$, where $c$ is the value of the column,
 	and $b$ is the base value in base 10.
 
+	\textbf{Important bases table}
+
+	\includegraphics[width=.7\linewidth]{hex2bin.png}
+
+
 	% REVIEW: if anyone can explain this better feel free to update this
 	\subsection{Fraction to Binary}
-	Convert fraction into decimal.
-	While (n != 0), $n \cdot 2$,
-	if $n \geq 1$ add 1 to end of decimal, and subtract 1 from $n$,
-	else, add 0 to end of decimal.
-
+	Convert integer part directly to binary, for fractional part, multiply fraction by 2 keeping notice of the resulting integer and fractional part. Continue multiplying by 2 until you get a resulting fractional part equal to zero. Then just write out the integer parts from the results of each multiplication.
+	Eg : 3.375 = ? (binary)
+	(0.375 * 2 = 0 + 0.75) (0.75 * 2 = 1 + 0.5)(0.5 * 2 = 1 + 0)
+	Resuling binary will be 11.011
 	\subsection{Signed Integers}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
-	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$,
+	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$, 0 sign means positive number,
 	but has a positive and negative zero.
 	\textbf{One's complement:} Invert all the bits to get negative number.
 	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
@@ -311,7 +315,7 @@
 	Allow for more than one instruction to be ``processed'' at the same time.
 	By moving instructions through a pipeline, non-conflicting parts of an instruction
 	can be worked on in steps.
-	Generally 5 stages: Fetch next instruction, decode \& fetch operands, 
+	Generally 5 stages: Fetch next instruction, decode \& fetch operands,
 	perform arithmetic operation, read or write memory, store result.
 
 	\subsubsection{Pipeline Stalls}
