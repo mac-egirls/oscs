@@ -112,6 +112,17 @@
 	\subsection{Logic Circuits}
 	\subsubsection{Symbols}
 
+	\begin{center}
+		\begin{tabular}{llllllll}
+			\hline
+			\multicolumn{1}{|l|}{p} & \multicolumn{1}{l|}{q} & \multicolumn{1}{l|}{and} & \multicolumn{1}{l|}{nand} & \multicolumn{1}{l|}{or} & \multicolumn{1}{l|}{nor} & \multicolumn{1}{l|}{xor} & \multicolumn{1}{l|}{invert p} \\ \hline
+			1                       & 1                      & 1                        & 0                         & 1                       & 0                        & 0                        & 0                             \\
+			1                       & 0                      & 0                        & 1                         & 1                       & 0                        & 1                        & 0                             \\
+			0                       & 1                      & 0                        & 1                         & 1                       & 0                        & 1                        & 1                             \\
+			0                       & 0                      & 0                        & 1                         & 0                       & 1                        & 0                        & 1
+		\end{tabular}
+	\end{center}
+
 	% REVIEW: No clue if these are readable, needs to be printed
 	% and double checked before release
 	\begin{center}
@@ -122,6 +133,7 @@
 		\includegraphics[width=.3\linewidth]{half-adder.png}
 		\includegraphics[width=.6\linewidth]{full-adder.png}
 		Left: Half-adder. Right: Full-adder.
+		\includegraphics[width=0.8\linewidth]{n-adder.png}
 	\end{center}
 	% REVIEW: Is there anything else that needs to be added here?
 	Half adders have no way to carry input from previous sums.
@@ -163,7 +175,11 @@
 	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
 
 	\subsection{Multiplexer / Demultiplexer}
-	Turns $n$ signals into a single signal, and back on the other end.
+	Multiplexer turns $n$ signals into a single signal, and Demultiplexer does the opposite
+
+	\subsection{Software vs Hardware Design}
+	Unlike software, which uses iteration, hardware uses replication. The advantages of replication are increased elegance, higher speed, and increased reliability.
+	Hardware also uses gate minimization, abstraction and power optimization.
 
 	\subsection{Fixed \& Programmable Logic}
 	\textbf{Fixed logic circuits:} Pre-determined function.
