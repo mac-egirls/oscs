@@ -237,11 +237,18 @@
 	To calculate from IEEE, do $m_2 \times 2^{e_2}$.
 	(Convert out of base 2 first).
 	\includegraphics[width=\linewidth]{ieee-754.png}
-	\subsubsection{Special Values}
-	All bits being zero = zero.
-	Exponent having all ones and mantissa having all zeroes = positive / negative infinity.
-	Exponent having all ones and mantissa having something else = other error.
 
+	\subsubsection{Special Values}
+   \begin{center}\begin{tabular}[!ht]{@{}cc|c@{}}
+      \toprule
+      Exponent & Mantissa & Value \\
+      \midrule
+      all 1s   & all 0s   & $\pm \infty$ \\
+      all 1s   & not all 0s & NaN \\
+      all 0s   & not all 0s & denormalized \\
+      all 0s   & all 0s   & $\pm 0$ \\
+      \bottomrule
+   \end{tabular}\end{center}
 
 	\subsection{Types of architecture}
 	\textbf{Von Neumann architecture:}
