@@ -55,6 +55,8 @@
 
 % Custom siunitx defs
 \DeclareSIUnit\noop{\relax}
+\setlist[itemize]{noitemsep, leftmargin=*}
+\setlist[enumerate]{noitemsep, leftmargin=*}
 
 \NewDocumentCommand\prefixvalue{m}{%
 \qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
@@ -96,10 +98,9 @@
 	% $I_T = \sum_{i=1}^N I_i$ \\
 
 	\subsection{Transistors}
-	% REVIEW: Do we want an image here?
 	MOSFETs have 4 components: Source, Gate, Drain, and Base
 
-	\textbf{PNP/NMOS:} Is on when gate is positive. Does not have circle.\\
+	\textbf{PNP/NMOS:} Is on when gate is positive. No circle. \\
 	\textbf{NPN/PMOS:} Is on when gate is negative. Has circle.
 
 	Generally, transistors are used to pull the output to either
@@ -113,40 +114,40 @@
 	\subsubsection{Symbols}
 
 	\begin{center}
-		\begin{tabular}{llllllll}
-			\hline
-			\multicolumn{1}{|l|}{p} & \multicolumn{1}{l|}{q} & \multicolumn{1}{l|}{and} & \multicolumn{1}{l|}{nand} & \multicolumn{1}{l|}{or} & \multicolumn{1}{l|}{nor} & \multicolumn{1}{l|}{xor} & \multicolumn{1}{l|}{invert p} \\ \hline
-			1                       & 1                      & 1                        & 0                         & 1                       & 0                        & 0                        & 0                             \\
-			1                       & 0                      & 0                        & 1                         & 1                       & 0                        & 1                        & 0                             \\
-			0                       & 1                      & 0                        & 1                         & 1                       & 0                        & 1                        & 1                             \\
-			0                       & 0                      & 0                        & 1                         & 0                       & 1                        & 0                        & 1
+		\begin{tabular}{@{}ll|llllll@{}}
+			\toprule
+			p & q & and & nand & or & nor & xor & invert p \\
+			\midrule
+			1 & 1 & 1   & 0    & 1  & 0   & 0   & 0        \\
+			1 & 0 & 0   & 1    & 1  & 0   & 1   & 0        \\
+			0 & 1 & 0   & 1    & 1  & 0   & 1   & 1        \\
+			0 & 0 & 0   & 1    & 0  & 1   & 0   & 1        \\
+			\bottomrule
 		\end{tabular}
 	\end{center}
 
-	% REVIEW: No clue if these are readable, needs to be printed
-	% and double checked before release
 	\begin{center}
 		\includegraphics[width=.8\linewidth]{logic-gates.png}
 	\end{center}
 	\subsubsection{Adders}
+	Left: Half-adder. Right: Full-adder.
 	\begin{center}
-		\includegraphics[width=.3\linewidth]{half-adder.png}
-		\includegraphics[width=.6\linewidth]{full-adder.png}
-		Left: Half-adder. Right: Full-adder.
+		\includegraphics[width=.5\linewidth]{half-adder.png} \\
+		\includegraphics[width=.9\linewidth]{full-adder.png} \\
 		\includegraphics[width=0.8\linewidth]{n-adder.png}
 	\end{center}
 	% REVIEW: Is there anything else that needs to be added here?
-	Half adders have no way to carry input from previous sums.
-	To add more bits, just chain multiple full-adders together using the carry-out
-	bit.
-	If final carry at end is 1, that signifies an overflow error.
+	Unlike half-adders, full-adders can recieve carry-in bits.
+	To add more bits, chain multiple full-adders together.
+	If final carry at end is 1, there's an overflow error.
 
 	\subsubsection{Latches \& Flip-flops}
 	\textbf{Flip-flop}
-	Every time the input switches from 0 to 1, the output switches to the opposite.
+	Every time the input switches from 0 to 1, the output switches to
+	the opposite.
 	% TODO: Add more detail about flip-flops
 
-	\textbf{Gated D-latch}
+	\textbf{Gated D-latch} \\
 	\begin{center}
 		\includegraphics[width=.6\linewidth]{gated-d-latch.png}
 		\begin{tabular}[!ht]{@{}cc|ccc@{}}
@@ -159,23 +160,35 @@
 			\bottomrule
 		\end{tabular}
 	\end{center}
-	Operate on the principle of propagation delay.
+	\begin{itemize}
+		\item Q - The stored bit
+		\item D - Data/bit to write to Q
+		\item E - The enabler (Must be 1 to enable writing, otherwise nothing changes)
+		\item Operate on the principle of propagation delay.
+		\item Stacking many of them can be used to create a register:
+	\end{itemize}
 
 	% REVIEW: Do we need this?
 	% seems like a lot of space dedicated to something that's trivial to derive
 	% from scratch
-	Stacking many of them can be used to create a register:
 	\includegraphics[width=\linewidth]{register.png}
 
 	\subsection{Counters}
-	For each transition from \textbf{low to high}, the counter increments the binary output by 1.
-	(Counting the transition from high to low does the same thing, but the lecture used rising-edge counters).
+	For each transition from \textbf{low to high}, the counter increments
+	the binary output by 1. (Counting the transition from high to low does
+	the same thing, but the lecture used rising-edge counters).
 
 	\subsection{Decoders}
 	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
 
+	\subsection{Feedback Loops}
+	\includegraphics[width=\linewidth]{Feedback_loop.png}
+	Here the clock keeps changing b/w 0 and 1 which causes the counter to increment whenever 0 changes to 1, this causes the decoder to move to the next instruction. When the decoder comes to `stop` this causes this loop to stop because the output from the clock does not change the state of this circuit due to the added gates so this `stop` feedback prevents it from being in an infinite loop.
+
 	\subsection{Multiplexer / Demultiplexer}
-	Multiplexer turns $n$ signals into a single signal, and Demultiplexer does the opposite
+	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
+	which signal to let through. \textbf{Demultiplexer} turns a single signal
+	into $n$ signals. The single signal chooses which signal to output.
 
 	\subsection{Software vs Hardware Design}
 	Unlike software, which uses iteration, hardware uses replication. The advantages of replication are increased elegance, higher speed, and increased reliability.
@@ -229,11 +242,18 @@
 	To calculate from IEEE, do $m_2 \times 2^{e_2}$.
 	(Convert out of base 2 first).
 	\includegraphics[width=\linewidth]{ieee-754.png}
-	\subsubsection{Special Values}
-	All bits being zero = zero.
-	Exponent having all ones and mantissa having all zeroes = positive / negative infinity.
-	Exponent having all ones and mantissa having something else = other error.
 
+	\subsubsection{Special Values}
+	\begin{center}\begin{tabular}[!ht]{@{}cc|c@{}}
+			\toprule
+			Exponent & Mantissa   & Value        \\
+			\midrule
+			all 1s   & all 0s     & $\pm \infty$ \\
+			all 1s   & not all 0s & NaN          \\
+			all 0s   & not all 0s & denormalized \\
+			all 0s   & all 0s     & $\pm 0$      \\
+			\bottomrule
+		\end{tabular}\end{center}
 
 	\subsection{Types of architecture}
 	\textbf{Von Neumann architecture:}
@@ -313,23 +333,33 @@
 
 	\subsection{Pipelines}
 	Allow for more than one instruction to be ``processed'' at the same time.
-	By moving instructions through a pipeline, non-conflicting parts of an instruction
-	can be worked on in steps.
-	Generally 5 stages: Fetch next instruction, decode \& fetch operands,
-	perform arithmetic operation, read or write memory, store result.
+	Generally 5 stages:
+	\begin{enumerate}
+		\item Fetch next instruction
+		\item decode \& fetch operands
+		\item perform arithmetic operation
+		\item read or write memory
+		\item store result
+	\end{enumerate}
 
 	\subsubsection{Pipeline Stalls}
 	Also known as hazards. 3 main types:
-	\textbf{Data Hazards:} Waiting for data from an earlier instruction.
-	Instruction must wait before fetching operands,
-	and can only complete that stage on the same cycle that the dependance is in the done stage.
-	% REVIEW: Explanation for the line above is worded kinda poorly, if anyone wants to fix it up.
-	Can be dealt with using data forwarding (allowing data to be used before it exits the pipeline),
-	re-arranging instruction order.
-	\textbf{Control Hazards:} Incorrect instruction is in the pipeline (branching).
-	Can be dealt with using conditional branch prediction, flushing pipeline if prediction is wrong.
-	\textbf{Structural Hazards:} Resource conflict (eg accessing the same register bank).
-	Can be dealt with by loading data in parallel, eg using multiple banks.
+	\begin{itemize}
+		\item
+		      \textbf{Data Hazards:} Waiting for data from an earlier instruction.
+		      Can be dealt with using data forwarding (allowing data to be used
+		      before it exits the pipeline), re-arranging instruction order.
+		\item
+		      \textbf{Control Hazards:} Incorrect instruction is in the pipeline.
+		      Occurs during jump instructions/branching. Jumps are not executed
+		      until the fifth stage, so instructions directly after are fetched
+		      inside the pipeline.  Can be dealt with using conditional branch
+		      prediction, flushing pipeline if prediction is wrong.
+		\item
+		      \textbf{Structural Hazards:} Resource conflict (usually from external
+		      source) (eg sombody else is accessing the same register bank). Can
+		      be dealt with by loading data in parallel, eg using multiple banks.
+	\end{itemize}
 
 	\subsection{Branching}
 	Moving the instruction pointer to a different location in program.
@@ -337,6 +367,61 @@
 	% REVIEW: idk what else needs to be added here,
 	% this seems pretty trivial
 
+	\section{Instruction Sets}
+	Generally has the following parts:
+	Operation number, registers, offset.
+	\includegraphics[width=\linewidth]{isa-example.png}
+
+	\subsection{Design choices}
+	\subsubsection{Encoding length}
+	\textbf{Variable-length} encoding can improve instruction density,
+	but \textbf{fixed-length} instructions are simpler to implement in hardware,
+	and are thus more performant. Unused bits are ignored by the instruction.
+
+	Offsets are used to encode immediate values (generally used for jumping).
+
+	\subsubsection{Number of Operands}
+	\textbf{Zero operands:} Stack architecture, using push and pop. All operands are implicit.
+	\textbf{One operand:} Implicit destination (usually a special accumulator register)
+	\textbf{Two operands:} Specified destination, but uniary operations (eg \verb|add rA, rB #rA=rA+rB|)
+	\textbf{Three operands:} Specified destination, binary operations
+	TL;DR, more operands = more flexible instructions, but more space taken up by operands
+
+	\subsubsection{Implicit vs Explicit Encoding}
+	\textbf{Implicit Encoding:} Operand types are always the same for a given opcode.
+	Different opcodes are used for different types.
+	\textbf{Explicit Encoding:} Operand field specifies what type of operands are being provided.
+
+	\subsubsection{Operand Adressing Modes}
+	\includegraphics[width=\linewidth]{operand-addressing-modes.png}
+
+	\subsubsection{Orthogonality}
+	Each instruction should perform a \textit{unique task},
+	without duplicating or overlapping the functionality of other instructions.
+	Advantages: Orthogonal instructions can be understood more easily,
+	and programmers don't need to pick between functions that perform the same task.
+
+	\subsection{Registers}
+	\textbf{General Registers}
+	Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
+	Numbered from 0 to $N-1$.
+	\textbf{Floating Point Registers}
+	Separate set of registers holding floats, but numbering overlaps.
+	Floating point registers are automatically used if instruction requires FP.
+	\textbf{Special Registers}
+	The program counter (\textit{pc}) and accumulator (\textit{acc}) are
+	common special registers found on some architectures.
+	The program counter stores the address of the next instruction to execute,
+	and the accumulator is used on zero and one-operand architectures
+	to store the output of commands.
+
+	\subsubsection{Register Banks}
+	Multiple banks, or sets of registers are used to allow access to multiple operands at once.
+	To resolve this, either registers must be re-assigned, or a copy instruction must be added.
+
+	\subsubsection{Register Conflicts}
+	Accessing 2 registers from the same bank simultaneously causes a register conflict.
+	Best case, it causes a stall in the pipeline. Worst case, it causes the system to crash.
 \end{multicols*}
 
 \end{document}
