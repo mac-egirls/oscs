@@ -96,7 +96,6 @@
 	% $I_T = \sum_{i=1}^N I_i$ \\
 
 	\subsection{Transistors}
-	% REVIEW: Do we want an image here?
 	MOSFETs have 4 components: Source, Gate, Drain, and Base
 
 	\textbf{PNP/NMOS:} Is on when gate is positive. No circle. \\
@@ -125,8 +124,6 @@
 		\end{tabular}
 	\end{center}
 
-	% REVIEW: No clue if these are readable, needs to be printed
-	% and double checked before release
 	\begin{center}
 		\includegraphics[width=.8\linewidth]{logic-gates.png}
 	\end{center}
@@ -144,10 +141,11 @@
 
 	\subsubsection{Latches \& Flip-flops}
 	\textbf{Flip-flop}
-	Every time the input switches from 0 to 1, the output switches to the opposite.
+	Every time the input switches from 0 to 1, the output switches to
+   the opposite.
 	% TODO: Add more detail about flip-flops
 
-	\textbf{Gated D-latch}
+	\textbf{Gated D-latch} \\
 	\begin{center}
 		\includegraphics[width=.6\linewidth]{gated-d-latch.png}
 		\begin{tabular}[!ht]{@{}cc|ccc@{}}
@@ -160,6 +158,9 @@
 			\bottomrule
 		\end{tabular}
 	\end{center}
+   Q - The stored bit \\
+   D - Data/bit to write to Q \\
+   E - The enabler (Must be 1 to enable writing, otherwise nothing changes) \\
 	Operate on the principle of propagation delay.
 
 	% REVIEW: Do we need this?
@@ -353,7 +354,7 @@
 	\textbf{Two operands:} Specified destination, but uniary operations (eg \verb|add rA, rB #rA=rA+rB|)
 	\textbf{Three operands:} Specified destination, binary operations
 	TL;DR, more operands = more flexible instructions, but more space taken up by operands
-	
+
 \end{multicols*}
 
 \end{document}
