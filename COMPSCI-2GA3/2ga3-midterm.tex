@@ -197,7 +197,14 @@
 	Separated into \textbf{sign, exponent, and mantissa}.
 	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
 	where $b$ is the number of exponent bits.
-	
+	To calculate from IEEE, do $mantissa_2 \cdot 2^{exponent_2}$.
+	(Convert out of base 2 first).
+	\subsubsection{Special Values}
+	All bits being zero = zero.
+	Exponent having all ones and mantissa having all zeroes = positive / negative infinity.
+	Exponent having all ones and mantissa having something else = other error.
+
+
 	\subsection{Types of architecture}
 	\textbf{Von Neumann architecture:}
 	\begin{itemize}
