@@ -118,10 +118,10 @@
 			\toprule
 			p & q & and & nand & or & nor & xor & invert p \\
 			\midrule
-			1 & 1 & 1   & 0    & 1  & 0   & 0   & 0         \\
-			1 & 0 & 0   & 1    & 1  & 0   & 1   & 0         \\
-			0 & 1 & 0   & 1    & 1  & 0   & 1   & 1         \\
-			0 & 0 & 0   & 1    & 0  & 1   & 0   & 1         \\
+			1 & 1 & 1   & 0    & 1  & 0   & 0   & 0        \\
+			1 & 0 & 0   & 1    & 1  & 0   & 1   & 0        \\
+			0 & 1 & 0   & 1    & 1  & 0   & 1   & 1        \\
+			0 & 0 & 0   & 1    & 0  & 1   & 0   & 1        \\
 			\bottomrule
 		\end{tabular}
 	\end{center}
@@ -130,7 +130,7 @@
 		\includegraphics[width=.8\linewidth]{logic-gates.png}
 	\end{center}
 	\subsubsection{Adders}
-   Left: Half-adder. Right: Full-adder.
+	Left: Half-adder. Right: Full-adder.
 	\begin{center}
 		\includegraphics[width=.5\linewidth]{half-adder.png} \\
 		\includegraphics[width=.9\linewidth]{full-adder.png} \\
@@ -144,7 +144,7 @@
 	\subsubsection{Latches \& Flip-flops}
 	\textbf{Flip-flop}
 	Every time the input switches from 0 to 1, the output switches to
-   the opposite.
+	the opposite.
 	% TODO: Add more detail about flip-flops
 
 	\textbf{Gated D-latch} \\
@@ -161,12 +161,12 @@
 		\end{tabular}
 	\end{center}
 	\begin{itemize}
-      \item Q - The stored bit
-      \item D - Data/bit to write to Q
-      \item E - The enabler (Must be 1 to enable writing, otherwise nothing changes)
-      \item Operate on the principle of propagation delay.
-      \item Stacking many of them can be used to create a register:
-   \end{itemize}
+		\item Q - The stored bit
+		\item D - Data/bit to write to Q
+		\item E - The enabler (Must be 1 to enable writing, otherwise nothing changes)
+		\item Operate on the principle of propagation delay.
+		\item Stacking many of them can be used to create a register:
+	\end{itemize}
 
 	% REVIEW: Do we need this?
 	% seems like a lot of space dedicated to something that's trivial to derive
@@ -175,16 +175,20 @@
 
 	\subsection{Counters}
 	For each transition from \textbf{low to high}, the counter increments
-   the binary output by 1. (Counting the transition from high to low does
-   the same thing, but the lecture used rising-edge counters).
+	the binary output by 1. (Counting the transition from high to low does
+	the same thing, but the lecture used rising-edge counters).
 
 	\subsection{Decoders}
 	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
 
+	\subsection{Feedback Loops}
+	\includegraphics[width=\linewidth]{Feedback_loop.png}
+	Here the clock keeps changing b/w 0 and 1 which causes the counter to increment whenever 0 changes to 1, this causes the decoder to move to the next instruction. When the decoder comes to `stop` this causes this loop to stop because the output from the clock does not change the state of this circuit due to the added gates so this `stop` feedback prevents it from being in an infinite loop.
+
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
-   which signal to let through. \textbf{Demultiplexer} turns a single signal
-   into $n$ signals. The single signal chooses which signal to output.
+	which signal to let through. \textbf{Demultiplexer} turns a single signal
+	into $n$ signals. The single signal chooses which signal to output.
 
 	\subsection{Software vs Hardware Design}
 	Unlike software, which uses iteration, hardware uses replication. The advantages of replication are increased elegance, higher speed, and increased reliability.
@@ -210,20 +214,20 @@
 	For each column, do $c \cdot b^n$, where $c$ is the value of the column,
 	and $b$ is the base value in base 10.
 
+	\textbf{Important bases table}
+
+	\includegraphics[width=.7\linewidth]{hex2bin.png}
+
+
 	% REVIEW: if anyone can explain this better feel free to update this
 	\subsection{Fraction to Binary}
-   \begin{itemize}
-      \item Let $x$ be the decimal part of our fraction.
-      \item Let $b$ be our binary output
-      \item Multiply $x$ by 2.
-      \item If $x \geq 1$, subtract 1 from $x$ and append 1 to $b$.
-      \item If $x < 1$, append 0 to $b$.
-      \item Repeat until $x != 0$.
-   \end{itemize}
-
+	Convert integer part directly to binary, for fractional part, multiply fraction by 2 keeping notice of the resulting integer and fractional part. Continue multiplying by 2 until you get a resulting fractional part equal to zero. Then just write out the integer parts from the results of each multiplication.
+	Eg : 3.375 = ? (binary)
+	(0.375 * 2 = 0 + 0.75) (0.75 * 2 = 1 + 0.5)(0.5 * 2 = 1 + 0)
+	Resuling binary will be 11.011
 	\subsection{Signed Integers}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
-	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$,
+	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$, 0 sign means positive number,
 	but has a positive and negative zero.
 	\textbf{One's complement:} Invert all the bits to get negative number.
 	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
@@ -240,16 +244,16 @@
 	\includegraphics[width=\linewidth]{ieee-754.png}
 
 	\subsubsection{Special Values}
-   \begin{center}\begin{tabular}[!ht]{@{}cc|c@{}}
-      \toprule
-      Exponent & Mantissa & Value \\
-      \midrule
-      all 1s   & all 0s   & $\pm \infty$ \\
-      all 1s   & not all 0s & NaN \\
-      all 0s   & not all 0s & denormalized \\
-      all 0s   & all 0s   & $\pm 0$ \\
-      \bottomrule
-   \end{tabular}\end{center}
+	\begin{center}\begin{tabular}[!ht]{@{}cc|c@{}}
+			\toprule
+			Exponent & Mantissa   & Value        \\
+			\midrule
+			all 1s   & all 0s     & $\pm \infty$ \\
+			all 1s   & not all 0s & NaN          \\
+			all 0s   & not all 0s & denormalized \\
+			all 0s   & all 0s     & $\pm 0$      \\
+			\bottomrule
+		\end{tabular}\end{center}
 
 	\subsection{Types of architecture}
 	\textbf{Von Neumann architecture:}
@@ -330,32 +334,32 @@
 	\subsection{Pipelines}
 	Allow for more than one instruction to be ``processed'' at the same time.
 	Generally 5 stages:
-   \begin{enumerate}
-      \item Fetch next instruction
-      \item decode \& fetch operands
-      \item perform arithmetic operation
-      \item read or write memory
-      \item store result
-   \end{enumerate}
+	\begin{enumerate}
+		\item Fetch next instruction
+		\item decode \& fetch operands
+		\item perform arithmetic operation
+		\item read or write memory
+		\item store result
+	\end{enumerate}
 
 	\subsubsection{Pipeline Stalls}
 	Also known as hazards. 3 main types:
-   \begin{itemize}
-      \item
-         \textbf{Data Hazards:} Waiting for data from an earlier instruction.
-         Can be dealt with using data forwarding (allowing data to be used
-         before it exits the pipeline), re-arranging instruction order.
-      \item
-         \textbf{Control Hazards:} Incorrect instruction is in the pipeline.
-         Occurs during jump instructions/branching. Jumps are not executed
-         until the fifth stage, so instructions directly after are fetched
-         inside the pipeline.  Can be dealt with using conditional branch
-         prediction, flushing pipeline if prediction is wrong.
-      \item
-         \textbf{Structural Hazards:} Resource conflict (usually from external
-         source) (eg sombody else is accessing the same register bank). Can
-         be dealt with by loading data in parallel, eg using multiple banks.
-   \end{itemize}
+	\begin{itemize}
+		\item
+		      \textbf{Data Hazards:} Waiting for data from an earlier instruction.
+		      Can be dealt with using data forwarding (allowing data to be used
+		      before it exits the pipeline), re-arranging instruction order.
+		\item
+		      \textbf{Control Hazards:} Incorrect instruction is in the pipeline.
+		      Occurs during jump instructions/branching. Jumps are not executed
+		      until the fifth stage, so instructions directly after are fetched
+		      inside the pipeline.  Can be dealt with using conditional branch
+		      prediction, flushing pipeline if prediction is wrong.
+		\item
+		      \textbf{Structural Hazards:} Resource conflict (usually from external
+		      source) (eg sombody else is accessing the same register bank). Can
+		      be dealt with by loading data in parallel, eg using multiple banks.
+	\end{itemize}
 
 	\subsection{Branching}
 	Moving the instruction pointer to a different location in program.
