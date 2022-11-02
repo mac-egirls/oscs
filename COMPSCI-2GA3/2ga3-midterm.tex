@@ -221,10 +221,15 @@
 
 	% REVIEW: if anyone can explain this better feel free to update this
 	\subsection{Fraction to Binary}
-	Convert integer part directly to binary, for fractional part, multiply fraction by 2 keeping notice of the resulting integer and fractional part. Continue multiplying by 2 until you get a resulting fractional part equal to zero. Then just write out the integer parts from the results of each multiplication.
-	Eg : 3.375 = ? (binary)
-	(0.375 * 2 = 0 + 0.75) (0.75 * 2 = 1 + 0.5)(0.5 * 2 = 1 + 0)
-	Resuling binary will be 11.011
+   \begin{enumerate}
+      \item Let $x$ be the decimal part of our fraction.
+      \item Let $b$ be our binary output.
+      \item Multiply $x$ by 2.
+      \item If $x \ge 1$, subtract 1 from $x$ and append 1 to $b$.
+      \item If $x < 1$, append 0 to $b$.
+      \item Goto step 3 until $x != 0$.
+   \end{enumerate}
+ 
 	\subsection{Signed Integers}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
 	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$, 0 sign means positive number,
