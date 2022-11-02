@@ -113,13 +113,15 @@
 	\subsubsection{Symbols}
 
 	\begin{center}
-		\begin{tabular}{llllllll}
-			\hline
-			\multicolumn{1}{|l|}{p} & \multicolumn{1}{l|}{q} & \multicolumn{1}{l|}{and} & \multicolumn{1}{l|}{nand} & \multicolumn{1}{l|}{or} & \multicolumn{1}{l|}{nor} & \multicolumn{1}{l|}{xor} & \multicolumn{1}{l|}{invert p} \\ \hline
-			1                       & 1                      & 1                        & 0                         & 1                       & 0                        & 0                        & 0                             \\
-			1                       & 0                      & 0                        & 1                         & 1                       & 0                        & 1                        & 0                             \\
-			0                       & 1                      & 0                        & 1                         & 1                       & 0                        & 1                        & 1                             \\
-			0                       & 0                      & 0                        & 1                         & 0                       & 1                        & 0                        & 1
+		\begin{tabular}{@{}ll|llllll@{}}
+			\toprule
+			p & q & and & nand & or & nor & xor & invert p \\
+			\midrule
+			1 & 1 & 1   & 0    & 1  & 0   & 0   & 0         \\
+			1 & 0 & 0   & 1    & 1  & 0   & 1   & 0         \\
+			0 & 1 & 0   & 1    & 1  & 0   & 1   & 1         \\
+			0 & 0 & 0   & 1    & 0  & 1   & 0   & 1         \\
+			\bottomrule
 		\end{tabular}
 	\end{center}
 
