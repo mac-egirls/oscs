@@ -291,6 +291,27 @@
 		\item Allows for pipelining, as each part of the instruction takes the same amount of time
 	\end{itemize}
 
+	\subsection{Pipelines}
+	Allow for more than one instruction to be "processed" at the same time.
+	By moving instructions through a pipeline, non-conflicting parts of an instruction
+	can be worked on in steps.
+	Generally 5 stages: Fetch next instruction, decode & fetch operands, 
+	perform arithmetic operation, read or write memory, store result.
+
+	\subsubsection{Pipeline Stalls}
+	Also known as hazards. 3 main types:
+	\textbf{Data Hazards:} Waiting for data from an earlier instruction.
+	Instruction must wait before fetching operands,
+	and can only complete that stage on the same cycle that the dependance is in the done stage.
+	% REVIEW: Explanation for the line above is worded kinda poorly, if anyone wants to fix it up.
+	Can be dealt with using data forwarding (allowing data to be used before it exits the pipeline),
+	re-arranging instruction order.
+	\textbf{Control Hazards:} Incorrect instruction is in the pipeline (branching).
+	Can be dealt with using conditional branch prediction, flushing pipeline if prediction is wrong.
+	\textbf{Structural Hazards:} Resource conflict (eg accessing the same register bank).
+	Can be dealt with by loading data in parallel, eg using multiple banks.
+
+
 \end{multicols*}
 
 \end{document}
