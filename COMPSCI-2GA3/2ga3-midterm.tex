@@ -380,6 +380,19 @@
 	\subsubsection{Operand Adressing Modes}
 	\includegraphics[width=\linewidth]{operand-addressing-modes.png}
 
+	\subsection{Registers}
+	\textbf{General Registers}
+	Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
+	Numbered from 0 to $N-1$.
+	\textbf{Floating Point Registers}
+	Separate set of registers holding floats, but numbering overlaps.
+	Floating point registers are automatically used if instruction requires FP.
+	\textbf{Special Registers}
+	The program counter (\textit{pc}) and accumulator (\textit{acc}) are
+	common special registers found on some architectures.
+	The program counter stores the address of the next instruction to execute,
+	and the accumulator is used on zero and one-operand architectures
+	to store the output of commands.
 \end{multicols*}
 
 \end{document}
