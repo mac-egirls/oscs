@@ -420,6 +420,14 @@
 	and the accumulator is used on zero and one-operand architectures
 	to store the output of commands.
 
+	\subsubsection{Subroutines and Register Windows}
+	When calling a subroutine, registers in use will partially shift down,
+	making some of them unaccessible, some new registers available,
+	and keeping some between both calls.
+	This allows for values to be passed to and from the subroutine,
+	while keeping some values separated.
+	\includegraphics[width=\linewidth]{register-windows.png}
+
 	\subsubsection{Register Banks}
 	Multiple banks, or sets of registers are used to allow access to multiple operands at once.
 	To resolve this, either registers must be re-assigned, or a copy instruction must be added.
