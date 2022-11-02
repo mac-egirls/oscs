@@ -223,9 +223,9 @@
 	\end{itemize}
 	\textbf{Harvard architecture:}
 	\begin{itemize}
-		\item  2 separate memory. One is used for instruction, one is used for data.
-		\item inflexible, as u cannot use part of the instructional memory to store data and vise versa.
-		\item no \textbf{Von Neumann bottleneck}
+		\item 2 separate memory. One is used for instruction, one is used for data.
+		\item Inflexible, as u cannot use part of the instructional memory to store data and vise versa.
+		\item No \textbf{Von Neumann bottleneck}
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
 
@@ -276,6 +276,20 @@
 		\item \textbf{Linker:} Replaces external function references with its code.
 	\end{itemize}
 
+	\subsection{CISC vs RISC}
+	\textbf{CISC}
+	\begin{itemize}
+		\item Each instruction performs a complex operation
+		\item Instructions may take multiple clock cycles
+		\item Fewer instruction calls
+	\end{itemize}
+	\textbf{RISC}
+	\begin{itemize}
+		\item Each instruction performs a simple operation
+		\item Instructions all take the same number of clock cycles
+		\item Many instruction calls needed
+		\item Allows for pipelining, as each part of the instruction takes the same amount of time
+	\end{itemize}
 
 \end{multicols*}
 
