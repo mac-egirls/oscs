@@ -353,6 +353,11 @@
 	\textbf{Two operands:} Specified destination, but uniary operations (eg \verb|add rA, rB #rA=rA+rB|)
 	\textbf{Three operands:} Specified destination, binary operations
 	TL;DR, more operands = more flexible instructions, but more space taken up by operands
+
+	\subsubsection{Implicit vs Explicit Encoding}
+	\textbf{Implicit Encoding:} Operand types are always the same for a given opcode.
+	Different opcodes are used for different types.
+	\textbf{Explicit Encoding:} Operand field specifies what type of operands are being provided.
 	
 \end{multicols*}
 
