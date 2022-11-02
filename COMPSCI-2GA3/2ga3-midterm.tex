@@ -85,15 +85,22 @@
 
 	\section{Logic Basics}
 	\subsection{Physics}
-	\textbf{Ohm's Law:} $R = \frac{U}{T}$
-	\textbf{Series Resistors:} $R = \sum_{i=1}^N R_i$
-	\textbf{Parallel Resistors:} $1/R = \sum_{i=1}^N (1/R_i)$
+	\textbf{Ohm's Law:} $R = \frac{U}{T}$\\
+	\textbf{Series:} \\
+	$R_T = \sum_{i=1}^N R_i$ \\
+	$V_T = \sum_{i=1}^N V_i$ \\
+	$I_T = I_1 = I_2 = \dots = I_N$\\
+	\textbf{Parallel:} \\
+	$1/R = \sum_{i=1}^N (1/R_i)$\\
+	$V_T = V_1 = V_2 = \dots = V_N$\\
+	$I_T = \sum_{i=1}^N I_i$ \\
+
 	\subsection{Transistors}
 	% REVIEW: Do we want an image here?
 	MOSFETs have 4 components: Source, Gate, Drain, and Base
 
-	\textbf{PNP:} Is on when gate is positive. Does not have circle.
-	\textbf{NPN:} Is on when gate is negative. Has circle.
+	\textbf{PNP/NMOS:} Is on when gate is positive. Does not have circle.\\
+	\textbf{NPN/PMOS:} Is on when gate is negative. Has circle.
 
 	Generally, transistors are used to pull the output to either
 	a positive voltage, or a zero voltage (1 or 0, on or off).
@@ -155,7 +162,7 @@
 
 	\subsection{Multiplexer / Demultiplexer}
 	Turns $n$ signals into a single signal, and back on the other end.
-	
+
 	\subsection{Fixed \& Programmable Logic}
 	\textbf{Fixed logic circuits:} Pre-determined function.
 	\textbf{Programmable logic:} FPGAs (reprogrammable, but still a significant cost to switching functions).
@@ -164,7 +171,7 @@
 	1 Byte = 8 bits.
 	1 \textbf{Byte} encodes a character, integer, or pointer.
 	1 \textbf{Word} is $n$ bytes, determined by the architecture.
-	
+
 	\subsection{Converting between bases}
 	\textbf{Base 10 to Base N}
 	Divide decimal \# by \# of new base.
@@ -190,6 +197,70 @@
 	Separated into \textbf{sign, exponent, and mantissa}.
 	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
 	where $b$ is the number of exponent bits.
+	
+	\subsection{Types of architecture}
+	\textbf{Von Neumann architecture:}
+	\begin{itemize}
+		\item Single memory block which contains both instructions and data.
+		\item Offers complete flexibility: at any time, owner can change how much of the memory is devoted to programs and how much to data.
+		\item Need to wait for the current instructions to be finished to load the next instructions \textbf{Von Neumann bottleneck}
+		\item More popular.
+	\end{itemize}
+	\textbf{Harvard architecture:}
+	\begin{itemize}
+		\item  2 separate memory. One is used for instruction, one is used for data.
+		\item inflexible, as u cannot use part of the instructional memory to store data and vise versa.
+		\item no \textbf{Von Neumann bottleneck}
+		\item Less popular. Sometimes used in small embedded systems.
+	\end{itemize}
+
+	\subsection{Types of processors}
+
+	\textbf{Categories based on logic:} \\
+	\begin{itemize}
+		\item \textbf{Fixed logic}: Function fixed in hardware, performs a single task
+		\item \textbf{Selectable logic}: Choose one of several fixed functions.
+		\item \textbf{Parametrizable logic}: Accepts a set of parameters that control the computation of fixed functions.
+		\item \textbf{Programmable logic}: list of instructions provided at runtime (you can code them)
+	\end{itemize}
+
+	\textbf{Categories based on Complexity:} \\
+	\begin{itemize}
+		\item \textbf{Co-processors}: Dedicated function. Usually performs a single task at high speed. Fixed/Selectable logic.
+		\item \textbf{Microcontrollers}: Direct hardware control. Used in -> Elevator doors. Programmable logic.
+		\item \textbf{Embedded System Processors}: real-time OS, dedicated hardware. usually more powerful than microcontrollers. Used in -> smart phone Programmable logic.
+		\item \textbf{General-purpose Processors}: compatible for multiple systems. Used in -> CPU in a PC. Programmable logic.
+	\end{itemize}
+
+	\subsection{Parts of a processor}
+	\begin{itemize}
+		\item \textbf{Controller}: Responsible for program execution. Steps through the program and coordinates the actions of all other units.
+		\item \textbf{Arithmetic logic unit}: Performs all computational tasks. Performs one operation at a time according to controller.
+		\item \textbf{Local storage (registers)}: Hold data values such as operands for arithmetic operations and the result.
+		\item \textbf{Internal connections}: Transfers data values between units, like from local storage to the ALU. AKA data paths/Bus/Control lines
+		\item \textbf{External interface}: Handles all communication between the processor and the rest of the computer system.
+	\end{itemize}
+
+	\subsection{Fetch execute cycle}
+	There is a \textbf{instruction pointer} which moves through the program performing every step. The cycle never ends while the system is runing.
+	\begin{itemize}
+		\item Fetch the next instruction
+		\item Decode the instruction and fetch operands from registers
+		\item Perform the arithmetic operation specified by the \textbf{opcode}
+		\item Perform memory read or write, if needed
+		\item Store the result back to the registers
+		\item go to next instruction, Repeat forever.
+	\end{itemize}
+
+	\subsection{Program Translation}
+	\includegraphics[width=\linewidth]{program-translation.png}
+	\begin{itemize}
+		\item \textbf{Preprocessor} : Expands macros, , producing modified source program.
+		\item \textbf{Compiler} : Translates it to assembly.
+		\item \textbf{Assembler} : Translates it to relocatable object code which contains references to external library functions.
+		\item \textbf{Linker} : Replaces external function references with its code.
+	\end{itemize}
+
 
 \end{multicols*}
 
