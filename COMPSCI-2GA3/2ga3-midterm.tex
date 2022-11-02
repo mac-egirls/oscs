@@ -218,8 +218,6 @@
 
 	\includegraphics[width=.7\linewidth]{hex2bin.png}
 
-
-	% REVIEW: if anyone can explain this better feel free to update this
 	\subsection{Fraction to Binary}
    \begin{enumerate}
       \item Let $x$ be the decimal part of our fraction.
@@ -229,7 +227,7 @@
       \item If $x < 1$, append 0 to $b$.
       \item Goto step 3 until $x != 0$.
    \end{enumerate}
- 
+
 	\subsection{Signed Integers}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
 	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$, 0 sign means positive number,
@@ -285,7 +283,7 @@
 		\item Inflexible, as u cannot use part of the instructional memory to store data and vise versa.
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
-	
+
 	\subsubsection{Von Neumann Bottleneck}
 	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
 	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
@@ -428,18 +426,29 @@
 	and programmers don't need to pick between functions that perform the same task.
 
 	\subsection{Registers}
-	\textbf{General Registers}
-	Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
-	Numbered from 0 to $N-1$.
-	\textbf{Floating Point Registers}
-	Separate set of registers holding floats, but numbering overlaps.
-	Floating point registers are automatically used if instruction requires FP.
-	\textbf{Special Registers}
-	The program counter (\textit{pc}) and accumulator (\textit{acc}) are
-	common special registers found on some architectures.
-	The program counter stores the address of the next instruction to execute,
-	and the accumulator is used on zero and one-operand architectures
-	to store the output of commands.
+   \begin{itemize}
+      \item 
+         \textbf{General Registers}:
+         Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
+         Numbered from 0 to $N-1$.
+      \item
+         \textbf{Floating Point Registers}:
+         Separate set of registers holding floats, but numbering overlaps.
+         Floating point registers are automatically used if instruction requires FP.
+      \item
+         \textbf{Special Registers}:
+         \begin{itemize}
+            \item
+               \textbf{Program Counter (\textit{pc})} - Stores the address of the
+               next instruction to fetch.
+            \item
+               \textbf{Comparer (\textit{cmp})} - Stores the result of the last
+               comparison operation. (1 for true, 0 for false).
+            \item
+               \textbf{Accumulator (\textit{acc})} - For zero and one-operand
+               architectures to store the result of the last command.
+         \end{itemize}
+   \end{itemize}
 
 	\subsubsection{Subroutines and Register Windows}
 	When calling a subroutine, registers in use will partially shift down,
