@@ -85,9 +85,16 @@
 
 	\section{Logic Basics}
 	\subsection{Physics}
-	\textbf{Ohm's Law:} $R = \frac{U}{T}$
-	\textbf{Series Resistors:} $R = \sum_{i=1}^N R_i$
-	\textbf{Parallel Resistors:} $1/R = \sum_{i=1}^N (1/R_i)$
+	\textbf{Ohm's Law:} $R = \frac{U}{T}$\\
+	\textbf{Series:} \\
+	$R_T = \sum_{i=1}^N R_i$ \\
+	$V_T = \sum_{i=1}^N V_i$ \\
+	$I_T = I_1 = I_2 = \dots = I_N$\\
+	\textbf{Parallel:} \\
+	$1/R = \sum_{i=1}^N (1/R_i)$\\
+	$V_T = V_1 = V_2 = \dots = V_N$\\
+	$I_T = \sum_{i=1}^N I_i$ \\
+
 	\subsection{Transistors}
 	% REVIEW: Do we want an image here?
 	MOSFETs have 4 components: Source, Gate, Drain, and Base
@@ -155,7 +162,7 @@
 
 	\subsection{Multiplexer / Demultiplexer}
 	Turns $n$ signals into a single signal, and back on the other end.
-	
+
 	\subsection{Fixed \& Programmable Logic}
 	\textbf{Fixed logic circuits:} Pre-determined function.
 	\textbf{Programmable logic:} FPGAs (reprogrammable, but still a significant cost to switching functions).
@@ -164,7 +171,7 @@
 	1 Byte = 8 bits.
 	1 \textbf{Byte} encodes a character, integer, or pointer.
 	1 \textbf{Word} is $n$ bytes, determined by the architecture.
-	
+
 	\subsection{Converting between bases}
 	\textbf{Base 10 to Base N}
 	Divide decimal \# by \# of new base.
