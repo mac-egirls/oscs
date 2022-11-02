@@ -393,6 +393,14 @@
 	The program counter stores the address of the next instruction to execute,
 	and the accumulator is used on zero and one-operand architectures
 	to store the output of commands.
+
+	\subsubsection{Register Banks}
+	Multiple banks, or sets of registers are used to allow access to multiple operands at once.
+	To resolve this, either registers must be re-assigned, or a copy instruction must be added.
+
+	\subsubsection{Register Conflicts}
+	Accessing 2 registers from the same bank simultaneously causes a register conflict.
+	Best case, it causes a stall in the pipeline. Worst case, it causes the system to crash.
 \end{multicols*}
 
 \end{document}
