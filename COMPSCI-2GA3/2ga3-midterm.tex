@@ -277,7 +277,7 @@
 	\subsection{Cast from Ints}
 	You might want to cast a lets say 8 bit int, to a 16 bit int. How you do that? \\
 	\textbf{sign-magnitude}: Copy the MSB to the bigger ints MSB. Then take the remaining bits and fill them from the right to left. \\
-	\textbf{one's complement and two's complement}: 
+	\textbf{one's complement and two's complement}:
 	Copy the Lowest order bits (the bits except the sign defining bit) and copy them to the other ints lowest order bits. \\
 	Take the MSB and make all the remaining bits in the new int the MSB.
 	\subsection{IEEE-754 Floats}
@@ -448,16 +448,15 @@
 	Generally has the following parts:
 	Operation number, registers, offset.
    \begin{itemize}
-      \item \textbf{Opcode}: Specifies the operation to be performed.
-      \item \textbf{Registers}: Specifies the operands and the destination.
-      \item \textbf{Offset}: Specifies the address of the data to be operated on.
+      \item \textbf{Opcode (operation code)}:
+         Specifies the operation to be performed.
+      \item \textbf{Registers}:
+         Specifies the operands and the destination.
+      \item \textbf{Offset}:
+         Think of it like array indexes. Can be a signed integer to
+         move backwords.
    \end{itemize}
 	\includegraphics[width=\linewidth]{isa-example.png}
-
-	\subsection{Opcodes}
-	AKA operation code.
-	A binary number indicating which instruction to run.
-	Statically assigned when the instruction set was designed.
 
 	\subsection{Design choices}
 	\subsubsection{Encoding length}
