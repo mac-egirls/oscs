@@ -183,11 +183,11 @@
 
 	\subsection{Feedback Loops}
 	\includegraphics[width=\linewidth]{Feedback_loop.png}
-   \begin{itemize}
-      \item Counter increments each time the clock changes from 0 to 1
-      \item Decoder moves to the next instruction each time
-      \item Stop sends a signal back to the and gate which stops counter
-   \end{itemize}
+	\begin{itemize}
+		\item Counter increments each time the clock changes from 0 to 1
+		\item Decoder moves to the next instruction each time
+		\item Stop sends a signal back to the and gate which stops counter
+	\end{itemize}
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
@@ -261,15 +261,15 @@
 	\end{enumerate}
 
 	\subsection{Signed Integers}
-   \begin{itemize}
-      \item \textbf{Two's complement:} Flip all bits, add 1.
-         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$
-      \item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
-         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
-      \item \textbf{One's complement:} Flip all bits.
-         Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
-         Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
-   \end{itemize}
+	\begin{itemize}
+		\item \textbf{Two's complement:} Flip all bits, add 1.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$
+		\item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+		\item \textbf{One's complement:} Flip all bits.
+		      Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
+		      Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
+	\end{itemize}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
 	but has a positive and negative zero.
 	\textbf{One's complement:} Invert all the bits to get negative number.
@@ -373,6 +373,15 @@
 		\item \textbf{Assembler:} Translates it to relocatable object code which contains references to external library functions.
 		\item \textbf{Linker:} Replaces external function references with its code.
 	\end{itemize}
+
+	% Needs review and addition of more details maybe
+	\subsection{Fetch execute cycle notes}
+	\begin{itemize}
+		\item Instructions are stored as binary data defined in a instruction set.
+		\item The program starts at a constant point in memory which could be 0 or any other point, that part of memory should always have the necessary instructions to boot the system.
+		\item Fetch execute cycle runs indefinitely, that's why in general purpose computers an OS is running at all times that manages the execution of programs.
+	\end{itemize}
+
 
 	\subsection{CISC vs RISC}
 	\textbf{CISC}
