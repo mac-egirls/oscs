@@ -178,6 +178,8 @@
 	the binary output by 1. (Counting the transition from high to low does
 	the same thing, but the lecture used rising-edge counters).
 
+	\subsection{Propagation Delay}
+	The rate at which a transistor switches. Typical 100 ps (picoseconds)
 	\subsection{Decoders}
 	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
 
@@ -298,7 +300,7 @@
 	\subsection{Binary-coded decimals}
 	Instead of representing decimals using a float,
 	use an arbitrarily long string of bytes, usually as binary ints.
-	Efficiency can be improved using packed BCDs, by putting 2 ints in one byte 
+	Efficiency can be improved using packed BCDs, by putting 2 ints in one byte
 	(each digit occupying a nibble).
 	\verb|0x2D| is used by the textbook to represent a negative, placed at the end of the BCD.
 	For a packed BCD, drop the 2.
