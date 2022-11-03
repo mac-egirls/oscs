@@ -274,6 +274,12 @@
 		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
 	\end{itemize}
 
+	\subsection{Cast from Ints}
+	You might want to cast a lets say 8 bit int, to a 16 bit int. How you do that? \\
+	\textbf{sign-magnitude}: Copy the MSB to the bigger ints MSB. Then take the remaining bits and fill them from the right to left. \\
+	\textbf{one's complement and two's complement}: 
+	Copy the Lowest order bits (the bits except the sign defining bit) and copy them to the other ints lowest order bits. \\
+	Take the MSB and make all the remaining bits in the new int the MSB.
 	\subsection{IEEE-754 Floats}
 	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
 	If double precision is used then the range is $2^{-1022}$ to $2^{1023}$ which is $10^{-308}$ to $10^{308}$ in decimal.
