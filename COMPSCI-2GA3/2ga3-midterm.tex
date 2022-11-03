@@ -342,8 +342,8 @@
 		\item Inflexible, as you cannot use part of the instructional memory to store data and vise versa.
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
-	\includegraphics[width=0.5\linewidth]{vn-arch.png}
-	\includegraphics[width=0.5\linewidth]{harvard-arch.png}
+	\includegraphics[width=0.49\linewidth]{vn-arch.png}
+	\includegraphics[width=0.49\linewidth]{harvard-arch.png}
 	\subsubsection{Von Neumann Bottleneck}
 	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
 	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
@@ -444,6 +444,8 @@
 	\subsection{Branching}
 	Moving the instruction pointer to a different location in program.
 	Can be either absolute branch, or relative branch.
+	Branch prediction can be used to try to run code from a branch before
+	the processor has the data needed to evaluate it, speeding up runtime.
 	% REVIEW: idk what else needs to be added here,
 	% this seems pretty trivial
 
