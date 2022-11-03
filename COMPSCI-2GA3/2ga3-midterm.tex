@@ -183,11 +183,11 @@
 
 	\subsection{Feedback Loops}
 	\includegraphics[width=\linewidth]{Feedback_loop.png}
-   \begin{itemize}
-      \item Counter increments each time the clock changes from 0 to 1
-      \item Decoder moves to the next instruction each time
-      \item Stop sends a signal back to the and gate which stops counter
-   \end{itemize}
+	\begin{itemize}
+		\item Counter increments each time the clock changes from 0 to 1
+		\item Decoder moves to the next instruction each time
+		\item Stop sends a signal back to the and gate which stops counter
+	\end{itemize}
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
@@ -261,15 +261,15 @@
 	\end{enumerate}
 
 	\subsection{Signed Integers}
-   \begin{itemize}
-      \item \textbf{Two's complement:} Flip all bits, add 1.
-         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$
-      \item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
-         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
-      \item \textbf{One's complement:} Flip all bits.
-         Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
-         Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
-   \end{itemize}
+	\begin{itemize}
+		\item \textbf{Two's complement:} Flip all bits, add 1.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$
+		\item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+		\item \textbf{One's complement:} Flip all bits.
+		      Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
+		      Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
+	\end{itemize}
 
 	\subsection{IEEE-754 Floats}
 	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
@@ -282,7 +282,8 @@
 	\includegraphics[width=\linewidth]{ieee-754.png}
 
 	\subsubsection{Special Values}
-	\begin{center}\begin{tabular}[!ht]{@{}cc|c@{}}
+	\begin{center}
+		\begin{tabular}[!ht]{@{}cc|c@{}}
 			\toprule
 			Exponent & Mantissa   & Value        \\
 			\midrule
@@ -291,7 +292,17 @@
 			all 0s   & not all 0s & denormalized \\
 			all 0s   & all 0s     & $\pm 0$      \\
 			\bottomrule
-		\end{tabular}\end{center}
+		\end{tabular}
+	\end{center}
+
+	\subsection{Binary-coded decimals}
+	Instead of representing decimals using a float,
+	use an arbitrarily long string of bytes, usually as binary ints.
+	Efficiency can be improved using packed BCDs, by putting 2 ints in one byte 
+	(each digit occupying a nibble).
+	\verb|0x2D| is used by the textbook to represent a negative, placed at the end of the BCD.
+	For a packed BCD, drop the 2.
+
 	\subsection{Endianess}
 	\textbf{Endian:} The way in which words(group of bytes) are stored in memory.
 	\textbf{Big Endian:} Most significant byte first.
@@ -514,7 +525,7 @@
 		\item Register fields used to select registers used in instructions, register unit takes fields and returns contents
 		\item M2 Multiplexer takes auxiliary adding functions (such as adding an offset) and passes it through ALU
 		\item ALU performs operation. For addresses, it's passed directly to data memory to get data out,
-		for operations, data is passed to multiplexer to be stored into register for future use.
+		      for operations, data is passed to multiplexer to be stored into register for future use.
 	\end{itemize}
 \end{multicols*}
 
