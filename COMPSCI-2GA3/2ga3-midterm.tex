@@ -215,18 +215,46 @@
 	and $b$ is the base value in base 10.
 
 	\textbf{Important bases table}
-
-	\includegraphics[width=.7\linewidth]{hex2bin.png}
+	\begin{center}
+		\begin{tabular}[!ht]{@{}lll@{}}
+			\toprule
+			Hex & Bin  & Dec \\
+			\midrule
+			0   & 0000 & 0   \\
+			1   & 0001 & 1   \\
+			2   & 0010 & 2   \\
+			3   & 0011 & 3   \\
+			4   & 0100 & 4   \\
+			5   & 0101 & 5   \\
+			6   & 0110 & 6   \\
+			7   & 0111 & 7   \\
+			\bottomrule
+		\end{tabular}
+		\begin{tabular}[!ht]{@{}lll@{}}
+			\toprule
+			Hex & Bin  & Dec \\
+			\midrule
+			8   & 1000 & 8   \\
+			9   & 1001 & 9   \\
+			A   & 1010 & 10  \\
+			B   & 1011 & 11  \\
+			C   & 1100 & 12  \\
+			D   & 1101 & 13  \\
+			E   & 1110 & 14  \\
+			F   & 1111 & 15  \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
 
 	\subsection{Fraction to Binary}
-   \begin{enumerate}
-      \item Let $x$ be the decimal part of our fraction.
-      \item Let $b$ be our binary output.
-      \item Multiply $x$ by 2.
-      \item If $x \ge 1$, subtract 1 from $x$ and append 1 to $b$.
-      \item If $x < 1$, append 0 to $b$.
-      \item Goto step 3 until $x != 0$.
-   \end{enumerate}
+	\begin{enumerate}
+		\item Let $x$ be the decimal part of our fraction.
+		\item Let $b$ be our binary output.
+		\item Multiply $x$ by 2.
+		\item If $x \ge 1$, subtract 1 from $x$ and append 1 to $b$.
+		\item If $x < 1$, append 0 to $b$.
+		\item Goto step 3 until $x != 0$.
+	\end{enumerate}
 
 	\subsection{Signed Integers}
    \begin{itemize}
@@ -431,29 +459,29 @@
 	and programmers don't need to pick between functions that perform the same task.
 
 	\subsection{Registers}
-   \begin{itemize}
-      \item 
-         \textbf{General Registers}:
-         Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
-         Numbered from 0 to $N-1$.
-      \item
-         \textbf{Floating Point Registers}:
-         Separate set of registers holding floats, but numbering overlaps.
-         Floating point registers are automatically used if instruction requires FP.
-      \item
-         \textbf{Special Registers}:
-         \begin{itemize}
-            \item
-               \textbf{Program Counter (\textit{pc})} - Stores the address of the
-               next instruction to fetch.
-            \item
-               \textbf{Comparer (\textit{cmp})} - Stores the result of the last
-               comparison operation. (1 for true, 0 for false).
-            \item
-               \textbf{Accumulator (\textit{acc})} - For zero and one-operand
-               architectures to store the result of the last command.
-         \end{itemize}
-   \end{itemize}
+	\begin{itemize}
+		\item
+		      \textbf{General Registers}:
+		      Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
+		      Numbered from 0 to $N-1$.
+		\item
+		      \textbf{Floating Point Registers}:
+		      Separate set of registers holding floats, but numbering overlaps.
+		      Floating point registers are automatically used if instruction requires FP.
+		\item
+		      \textbf{Special Registers}:
+		      \begin{itemize}
+			      \item
+			            \textbf{Program Counter (\textit{pc})} - Stores the address of the
+			            next instruction to fetch.
+			      \item
+			            \textbf{Comparer (\textit{cmp})} - Stores the result of the last
+			            comparison operation. (1 for true, 0 for false).
+			      \item
+			            \textbf{Accumulator (\textit{acc})} - For zero and one-operand
+			            architectures to store the result of the last command.
+		      \end{itemize}
+	\end{itemize}
 
 	\subsubsection{Subroutines and Register Windows}
 	When calling a subroutine, registers in use will partially shift down,
