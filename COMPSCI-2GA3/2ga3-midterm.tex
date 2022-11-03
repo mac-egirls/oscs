@@ -183,7 +183,11 @@
 
 	\subsection{Feedback Loops}
 	\includegraphics[width=\linewidth]{Feedback_loop.png}
-	Here the clock keeps changing b/w 0 and 1 which causes the counter to increment whenever 0 changes to 1, this causes the decoder to move to the next instruction. When the decoder comes to `stop` this causes this loop to stop because the output from the clock does not change the state of this circuit due to the added gates so this `stop` feedback prevents it from being in an infinite loop.
+   \begin{itemize}
+      \item Counter increments each time the clock changes from 0 to 1
+      \item Decoder moves to the next instruction each time
+      \item Stop sends a signal back to the and gate which stops counter
+   \end{itemize}
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
