@@ -289,6 +289,8 @@
 	Leading 1 is dropped from mantissa.
 	To calculate from IEEE, do $1.(m_2) \times 2^{(e_2)}$.
 	(Convert out of base 2 first).
+	Range is approximately $2^{(-2^b)+2}, 2^{2^b-1}$,
+	where $b$ is the bits dedicated to the exponent, \textbf{minus 1}.
 	\includegraphics[width=\linewidth]{ieee-754.png}
 
 	\subsubsection{Special Values}
