@@ -501,6 +501,19 @@
 	\subsubsection{Register Conflicts}
 	Accessing 2 registers from the same bank simultaneously causes a register conflict.
 	Best case, it causes a stall in the pipeline. Worst case, it causes the system to crash.
+
+	\section{Physical Implementation}
+	% REVIEW: Add more details to this if you have better ideas
+	\includegraphics[width=\linewidth]{data-paths.png}
+	\begin{itemize}
+		\item Core loop between M1, 32-bit pgm. ctr., 32-bit adder
+		\item Instruction memory returns instruction at given address
+		\item Instruction decoder takes instruction and decodes it into individual parts
+		\item Register fields used to select registers used in instructions, register unit takes fields and returns contents
+		\item M2 Multiplexer takes auxiliary adding functions (such as adding an offset) and passes it through ALU
+		\item ALU performs operation. For addresses, it's passed directly to data memory to get data out,
+		for operations, data is passed to multiplexer to be stored into register for future use.
+	\end{itemize}
 \end{multicols*}
 
 \end{document}
