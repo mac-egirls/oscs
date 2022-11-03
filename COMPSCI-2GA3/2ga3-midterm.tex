@@ -304,19 +304,20 @@
 
 
 	\subsection{Types of architecture}
-	\textbf{Von Neumann architecture:}
+	\textbf{Von Neumann architecture (left):}
 	\begin{itemize}
 		\item Single memory block which contains both instructions and data.
 		\item Offers complete flexibility: at any time, owner can change how much of the memory is devoted to programs and how much to data.
 		\item More popular.
 	\end{itemize}
-	\textbf{Harvard architecture:}
+	\textbf{Harvard architecture (right):}
 	\begin{itemize}
 		\item 2 separate memory. One is used for instruction, one is used for data.
-		\item Inflexible, as u cannot use part of the instructional memory to store data and vise versa.
+		\item Inflexible, as you cannot use part of the instructional memory to store data and vise versa.
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
-
+	\includegraphics[width=0.5\linewidth]{vn-arch.png}
+	\includegraphics[width=0.5\linewidth]{harvard-arch.png}
 	\subsubsection{Von Neumann Bottleneck}
 	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
 	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
