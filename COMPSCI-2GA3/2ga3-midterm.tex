@@ -183,7 +183,11 @@
 
 	\subsection{Feedback Loops}
 	\includegraphics[width=\linewidth]{Feedback_loop.png}
-	Here the clock keeps changing b/w 0 and 1 which causes the counter to increment whenever 0 changes to 1, this causes the decoder to move to the next instruction. When the decoder comes to `stop` this causes this loop to stop because the output from the clock does not change the state of this circuit due to the added gates so this `stop` feedback prevents it from being in an infinite loop.
+   \begin{itemize}
+      \item Counter increments each time the clock changes from 0 to 1
+      \item Decoder moves to the next instruction each time
+      \item Stop sends a signal back to the and gate which stops counter
+   \end{itemize}
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
@@ -215,25 +219,61 @@
 	and $b$ is the base value in base 10.
 
 	\textbf{Important bases table}
+	\begin{center}
+		\begin{tabular}[!ht]{@{}lll@{}}
+			\toprule
+			Hex & Bin  & Dec \\
+			\midrule
+			0   & 0000 & 0   \\
+			1   & 0001 & 1   \\
+			2   & 0010 & 2   \\
+			3   & 0011 & 3   \\
+			4   & 0100 & 4   \\
+			5   & 0101 & 5   \\
+			6   & 0110 & 6   \\
+			7   & 0111 & 7   \\
+			\bottomrule
+		\end{tabular}
+		\begin{tabular}[!ht]{@{}lll@{}}
+			\toprule
+			Hex & Bin  & Dec \\
+			\midrule
+			8   & 1000 & 8   \\
+			9   & 1001 & 9   \\
+			A   & 1010 & 10  \\
+			B   & 1011 & 11  \\
+			C   & 1100 & 12  \\
+			D   & 1101 & 13  \\
+			E   & 1110 & 14  \\
+			F   & 1111 & 15  \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
 
-	\includegraphics[width=.7\linewidth]{hex2bin.png}
-
-
-	% REVIEW: if anyone can explain this better feel free to update this
 	\subsection{Fraction to Binary}
-	Convert integer part directly to binary, for fractional part, multiply fraction by 2 keeping notice of the resulting integer and fractional part. Continue multiplying by 2 until you get a resulting fractional part equal to zero. Then just write out the integer parts from the results of each multiplication.
-	Eg : 3.375 = ? (binary)
-	(0.375 * 2 = 0 + 0.75) (0.75 * 2 = 1 + 0.5)(0.5 * 2 = 1 + 0)
-	Resuling binary will be 11.011
+	\begin{enumerate}
+		\item Let $x$ be the decimal part of our fraction.
+		\item Let $b$ be our binary output.
+		\item Multiply $x$ by 2.
+		\item If $x \ge 1$, subtract 1 from $x$ and append 1 to $b$.
+		\item If $x < 1$, append 0 to $b$.
+		\item Goto step 3 until $x != 0$.
+	\end{enumerate}
+
 	\subsection{Signed Integers}
+   \begin{itemize}
+      \item \textbf{Two's complement:} Flip all bits, add 1.
+         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$
+      \item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
+         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+      \item \textbf{One's complement:} Flip all bits.
+         Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
+         Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
+   \end{itemize}
 	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
-	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$, 0 sign means positive number,
 	but has a positive and negative zero.
 	\textbf{One's complement:} Invert all the bits to get negative number.
-	Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
 	\textbf{Two's complement:} Invert all bits, add a place value of 1 to get negative number.
-	Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
-	Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
 
 	\subsection{IEEE-754 Floats}
 	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
@@ -425,18 +465,29 @@
 	and programmers don't need to pick between functions that perform the same task.
 
 	\subsection{Registers}
-	\textbf{General Registers}
-	Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
-	Numbered from 0 to $N-1$.
-	\textbf{Floating Point Registers}
-	Separate set of registers holding floats, but numbering overlaps.
-	Floating point registers are automatically used if instruction requires FP.
-	\textbf{Special Registers}
-	The program counter (\textit{pc}) and accumulator (\textit{acc}) are
-	common special registers found on some architectures.
-	The program counter stores the address of the next instruction to execute,
-	and the accumulator is used on zero and one-operand architectures
-	to store the output of commands.
+	\begin{itemize}
+		\item
+		      \textbf{General Registers}:
+		      Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
+		      Numbered from 0 to $N-1$.
+		\item
+		      \textbf{Floating Point Registers}:
+		      Separate set of registers holding floats, but numbering overlaps.
+		      Floating point registers are automatically used if instruction requires FP.
+		\item
+		      \textbf{Special Registers}:
+		      \begin{itemize}
+			      \item
+			            \textbf{Program Counter (\textit{pc})} - Stores the address of the
+			            next instruction to fetch.
+			      \item
+			            \textbf{Comparer (\textit{cmp})} - Stores the result of the last
+			            comparison operation. (1 for true, 0 for false).
+			      \item
+			            \textbf{Accumulator (\textit{acc})} - For zero and one-operand
+			            architectures to store the result of the last command.
+		      \end{itemize}
+	\end{itemize}
 
 	\subsubsection{Subroutines and Register Windows}
 	When calling a subroutine, registers in use will partially shift down,
