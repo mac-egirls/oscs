@@ -236,6 +236,8 @@
 	Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
 
 	\subsection{IEEE-754 Floats}
+	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
+	If double precision is used then the range is $2^{-1022}$ to $2^{1023}$ which is $10^{-308}$ to $10^{308}$ in decimal.
 	Separated into \textbf{sign, exponent, and mantissa}.
 	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
 	where $b$ is the number of exponent bits.
@@ -261,7 +263,7 @@
 	Little endian is the most common method of storing data in memory.
 	\subsection{ASCII and Unicode}
 	\textbf{ASCII:} 128 characters, 7 bits.
-	\textbf{Unicode:} 1,114,112 characters, 21 bits.
+	\textbf{Unicode:} 1,114,112 characters, 21 bits. Has variable length encoding for optimization i.e has as many bytes as needed.
 	\subsection{Unicode Encoding}
 	\includegraphics*[width=\linewidth]{unicode.png}
 
@@ -280,7 +282,7 @@
 		\item Inflexible, as u cannot use part of the instructional memory to store data and vise versa.
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
-	
+
 	\subsubsection{Von Neumann Bottleneck}
 	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
 	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
