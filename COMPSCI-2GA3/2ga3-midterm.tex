@@ -286,7 +286,8 @@
 	Separated into \textbf{sign, exponent, and mantissa}.
 	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
 	where $b$ is the number of exponent bits.
-	To calculate from IEEE, do $m_2 \times 2^{e_2}$.
+	Leading 1 is dropped from mantissa.
+	To calculate from IEEE, do $1.m_2 \times 2^{e_2}$.
 	(Convert out of base 2 first).
 	\includegraphics[width=\linewidth]{ieee-754.png}
 
