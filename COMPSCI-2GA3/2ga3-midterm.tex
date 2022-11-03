@@ -183,7 +183,11 @@
 
 	\subsection{Feedback Loops}
 	\includegraphics[width=\linewidth]{Feedback_loop.png}
-	Here the clock keeps changing b/w 0 and 1 which causes the counter to increment whenever 0 changes to 1, this causes the decoder to move to the next instruction. When the decoder comes to `stop` this causes this loop to stop because the output from the clock does not change the state of this circuit due to the added gates so this `stop` feedback prevents it from being in an infinite loop.
+   \begin{itemize}
+      \item Counter increments each time the clock changes from 0 to 1
+      \item Decoder moves to the next instruction each time
+      \item Stop sends a signal back to the and gate which stops counter
+   \end{itemize}
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
@@ -266,12 +270,10 @@
          Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
          Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
    \end{itemize}
-	\textbf{Sign-magnitude:} Dedicate one bit to the sign, and the rest to the magnitude.
-	but has a positive and negative zero.
-	\textbf{One's complement:} Invert all the bits to get negative number.
-	\textbf{Two's complement:} Invert all bits, add a place value of 1 to get negative number.
 
 	\subsection{IEEE-754 Floats}
+	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
+	If double precision is used then the range is $2^{-1022}$ to $2^{1023}$ which is $10^{-308}$ to $10^{308}$ in decimal.
 	Separated into \textbf{sign, exponent, and mantissa}.
 	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
 	where $b$ is the number of exponent bits.
@@ -297,7 +299,7 @@
 	Little endian is the most common method of storing data in memory.
 	\subsection{ASCII and Unicode}
 	\textbf{ASCII:} 128 characters, 7 bits.
-	\textbf{Unicode:} 1,114,112 characters, 21 bits.
+	\textbf{Unicode:} 1,114,112 characters, 21 bits. Has variable length encoding for optimization i.e has as many bytes as needed.
 	\subsection{Unicode Encoding}
 	\includegraphics*[width=\linewidth]{unicode.png}
 
