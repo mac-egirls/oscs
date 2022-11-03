@@ -352,14 +352,14 @@
 
 	\subsection{Fetch execute cycle}
 	There is a \textbf{instruction pointer} which moves through the program performing every step. The cycle never ends while the system is runing.
-	\begin{itemize}
+	\begin{enumerate}
 		\item Fetch the next instruction
 		\item Decode the instruction and fetch operands from registers
 		\item Perform the arithmetic operation specified by the \textbf{opcode}
 		\item Perform memory read or write, if needed
 		\item Store the result back to the registers
 		\item go to next instruction, Repeat forever.
-	\end{itemize}
+	\end{enumerate}
 
 	\subsection{Program Translation}
 	\includegraphics[width=\linewidth]{program-translation.png}
@@ -424,6 +424,11 @@
 	\section{Instruction Sets}
 	Generally has the following parts:
 	Operation number, registers, offset.
+   \begin{itemize}
+      \item \textbf{Opcode}: Specifies the operation to be performed.
+      \item \textbf{Registers}: Specifies the operands and the destination.
+      \item \textbf{Offset}: Specifies the address of the data to be operated on.
+   \end{itemize}
 	\includegraphics[width=\linewidth]{isa-example.png}
 
 	\subsection{Opcodes}
@@ -494,12 +499,21 @@
 	\includegraphics[width=\linewidth]{register-windows.png}
 
 	\subsubsection{Register Banks}
-	Multiple banks, or sets of registers are used to allow access to multiple operands at once.
-	To resolve this, either registers must be re-assigned, or a copy instruction must be added.
+   \begin{itemize}
+      \item Allows parallel access within same clock cycle -> efficiency
+      \item Some operations require operands from banks
+      \item Register bank conflicts
+   \end{itemize}
 
 	\subsubsection{Register Conflicts}
 	Accessing 2 registers from the same bank simultaneously causes a register conflict.
-	Best case, it causes a stall in the pipeline. Worst case, it causes the system to crash.
+	Best case, it causes a stall in the pipeline. Worst case, it causes the system to crash. \\
+   \subsubsection{Solution}
+   \begin{itemize}
+      \item reassign
+      \item moving registers
+      \item insert an instruction to copy values to the opposite register.
+   \end{itemize}
 \end{multicols*}
 
 \end{document}
