@@ -77,7 +77,7 @@
 \tiny
 
 \begin{center}
-	{\textbf{2GA3}} \\
+	{\textbf{COMPSCI 2GA3 Cheatsheet v0.1.0 (OSCS Edition)}} \\
 \end{center}
 \begin{multicols*}{4}
 	\setlength{\premulticols}{1pt}
@@ -178,16 +178,18 @@
 	the binary output by 1. (Counting the transition from high to low does
 	the same thing, but the lecture used rising-edge counters).
 
+	\subsection{Propagation Delay}
+	The rate at which a transistor switches. Typical 100 ps (picoseconds)
 	\subsection{Decoders}
 	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
 
 	\subsection{Feedback Loops}
 	\includegraphics[width=\linewidth]{Feedback_loop.png}
-   \begin{itemize}
-      \item Counter increments each time the clock changes from 0 to 1
-      \item Decoder moves to the next instruction each time
-      \item Stop sends a signal back to the and gate which stops counter
-   \end{itemize}
+	\begin{itemize}
+		\item Counter increments each time the clock changes from 0 to 1
+		\item Decoder moves to the next instruction each time
+		\item Stop sends a signal back to the and gate which stops counter
+	\end{itemize}
 
 	\subsection{Multiplexer / Demultiplexer}
 	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
@@ -261,16 +263,23 @@
 	\end{enumerate}
 
 	\subsection{Signed Integers}
-   \begin{itemize}
-      \item \textbf{Two's complement:} Flip all bits, add 1.
-         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$
-      \item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
-         Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
-      \item \textbf{One's complement:} Flip all bits.
-         Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
-         Range is $-(2^{n-1}), +(2^{n-1} - 1)$.
-   \end{itemize}
+	\begin{itemize}
+		\item \textbf{Two's complement:} Flip all bits, add 1.
+		      Range is $-(2^{n-1}), +(2^{n-1} - 1)$
+		\item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+		\item \textbf{One's complement:} Flip all bits.
+		      Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
+				This has 2 zero, positive and negative zero.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+	\end{itemize}
 
+	\subsection{Cast from Ints}
+	You might want to cast a lets say 8 bit int, to a 16 bit int. How you do that? \\
+	\textbf{sign-magnitude}: Copy the MSB to the bigger ints MSB. Then take the remaining bits and fill them from the right to left. \\
+	\textbf{one's complement and two's complement}: 
+	Copy the Lowest order bits (the bits except the sign defining bit) and copy them to the other ints lowest order bits. \\
+	Take the MSB and make all the remaining bits in the new int the MSB.
 	\subsection{IEEE-754 Floats}
 	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
 	If double precision is used then the range is $2^{-1022}$ to $2^{1023}$ which is $10^{-308}$ to $10^{308}$ in decimal.
@@ -282,7 +291,8 @@
 	\includegraphics[width=\linewidth]{ieee-754.png}
 
 	\subsubsection{Special Values}
-	\begin{center}\begin{tabular}[!ht]{@{}cc|c@{}}
+	\begin{center}
+		\begin{tabular}[!ht]{@{}cc|c@{}}
 			\toprule
 			Exponent & Mantissa   & Value        \\
 			\midrule
@@ -291,12 +301,23 @@
 			all 0s   & not all 0s & denormalized \\
 			all 0s   & all 0s     & $\pm 0$      \\
 			\bottomrule
-		\end{tabular}\end{center}
+		\end{tabular}
+	\end{center}
+
+	\subsection{Binary-coded decimals}
+	Instead of representing decimals using a float,
+	use an arbitrarily long string of bytes, usually as binary ints.
+	Efficiency can be improved using packed BCDs, by putting 2 ints in one byte
+	(each digit occupying a nibble).
+	\verb|0x2D| is used by the textbook to represent a negative, placed at the end of the BCD.
+	For a packed BCD, drop the 2.
+
 	\subsection{Endianess}
 	\textbf{Endian:} The way in which words(group of bytes) are stored in memory.
 	\textbf{Big Endian:} Most significant byte first.
 	\textbf{Little Endian:} Least significant byte first.
 	Little endian is the most common method of storing data in memory.
+	\includegraphics[width=\linewidth]{endianness.png}
 	\subsection{ASCII and Unicode}
 	\textbf{ASCII:} 128 characters, 7 bits.
 	\textbf{Unicode:} 1,114,112 characters, 21 bits. Has variable length encoding for optimization i.e has as many bytes as needed.
@@ -306,19 +327,20 @@
 
 
 	\subsection{Types of architecture}
-	\textbf{Von Neumann architecture:}
+	\textbf{Von Neumann architecture (left):}
 	\begin{itemize}
 		\item Single memory block which contains both instructions and data.
 		\item Offers complete flexibility: at any time, owner can change how much of the memory is devoted to programs and how much to data.
 		\item More popular.
 	\end{itemize}
-	\textbf{Harvard architecture:}
+	\textbf{Harvard architecture (right):}
 	\begin{itemize}
 		\item 2 separate memory. One is used for instruction, one is used for data.
-		\item Inflexible, as u cannot use part of the instructional memory to store data and vise versa.
+		\item Inflexible, as you cannot use part of the instructional memory to store data and vise versa.
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
-
+	\includegraphics[width=0.5\linewidth]{vn-arch.png}
+	\includegraphics[width=0.5\linewidth]{harvard-arch.png}
 	\subsubsection{Von Neumann Bottleneck}
 	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
 	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
@@ -335,7 +357,7 @@
 
 	\textbf{Categories based on Complexity:} \\
 	\begin{itemize}
-		\item \textbf{Co-processors}: Dedicated function. Usually performs a single task at high speed. Fixed/Selectable logic.
+		\item \textbf{Co-processors}: Dedicated function. Usually performs a single task at high speed. Used in -> Floating point accelerator. Fixed/Selectable logic.
 		\item \textbf{Microcontrollers}: Direct hardware control. Used in -> Elevator doors. Programmable logic.
 		\item \textbf{Embedded System Processors}: real-time OS, dedicated hardware. usually more powerful than microcontrollers. Used in -> smart phone Programmable logic.
 		\item \textbf{General-purpose Processors}: compatible for multiple systems. Used in -> CPU in a PC. Programmable logic.
@@ -414,6 +436,7 @@
 		      source) (eg sombody else is accessing the same register bank). Can
 		      be dealt with by loading data in parallel, eg using multiple banks.
 	\end{itemize}
+	\includegraphics[width=\linewidth]{stall-example.png}
 
 	\subsection{Branching}
 	Moving the instruction pointer to a different location in program.
@@ -514,6 +537,18 @@
       \item moving registers
       \item insert an instruction to copy values to the opposite register.
    \end{itemize}
+
+	\section{Physical Implementation}
+	\includegraphics[width=\linewidth]{data-paths.png}
+	\begin{itemize}
+		\item Core loop between M1, 32-bit pgm. ctr., 32-bit adder
+		\item Instruction memory returns instruction at given address
+		\item Instruction decoder takes instruction and decodes it into individual parts
+		\item Register fields used to select registers used in instructions, register unit takes fields and returns contents
+		\item M2 Multiplexer takes auxiliary adding functions (such as adding an offset) and passes it through ALU
+		\item ALU performs operation. For addresses, it's passed directly to data memory to get data out,
+		      for operations, data is passed to multiplexer to be stored into register for future use.
+	\end{itemize}
 \end{multicols*}
 
 \end{document}
