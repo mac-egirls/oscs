@@ -147,6 +147,8 @@
 	the opposite.
 	% TODO: Add more detail about flip-flops
 
+	\includegraphics*[width=\linewidth]{flipflop.png}
+
 	\textbf{Gated D-latch} \\
 	\begin{center}
 		\includegraphics[width=.6\linewidth]{gated-d-latch.png}
@@ -270,7 +272,7 @@
 		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
 		\item \textbf{One's complement:} Flip all bits.
 		      Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
-				This has 2 zero, positive and negative zero.
+		      This has 2 zero, positive and negative zero.
 		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
 	\end{itemize}
 
@@ -286,8 +288,11 @@
 	Separated into \textbf{sign, exponent, and mantissa}.
 	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
 	where $b$ is the number of exponent bits.
-	To calculate from IEEE, do $m_2 \times 2^{e_2}$.
+	Leading 1 is dropped from mantissa.
+	To calculate from IEEE, do $1.(m_2) \times 2^{(e_2)}$.
 	(Convert out of base 2 first).
+	Range is approximately $2^{(-2^b)+2}, 2^{2^b-1}$,
+	where $b$ is the bits dedicated to the exponent, \textbf{minus 1}.
 	\includegraphics[width=\linewidth]{ieee-754.png}
 
 	\subsubsection{Special Values}
@@ -339,8 +344,8 @@
 		\item Inflexible, as you cannot use part of the instructional memory to store data and vise versa.
 		\item Less popular. Sometimes used in small embedded systems.
 	\end{itemize}
-	\includegraphics[width=0.5\linewidth]{vn-arch.png}
-	\includegraphics[width=0.5\linewidth]{harvard-arch.png}
+	\includegraphics[width=0.49\linewidth]{vn-arch.png}
+	\includegraphics[width=0.49\linewidth]{harvard-arch.png}
 	\subsubsection{Von Neumann Bottleneck}
 	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
 	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
@@ -441,6 +446,8 @@
 	\subsection{Branching}
 	Moving the instruction pointer to a different location in program.
 	Can be either absolute branch, or relative branch.
+	Branch prediction can be used to try to run code from a branch before
+	the processor has the data needed to evaluate it, speeding up runtime.
 	% REVIEW: idk what else needs to be added here,
 	% this seems pretty trivial
 
