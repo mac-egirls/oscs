@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>OSCS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+    <script src="event.js"></script>
+    <link rel='shortcut icon' href="./icons/icon.ico">
+</head>
+<body onload="update()">
+    <div class="title-bar">
+        OSCS - <span style="font-weight:normal;">Last Update: <span id="update-time"></span></span>
+    </div>
+    <div class="content-panel">
+        <div class="tool-bar">
+            <div class="tool" onclick="downloadFile()">
+                <div class="download-icon"></div>
+                <div>
+                    Download
+                </div>
+            </div>
+            <div class="tool" onclick="openFile()">
+                <div class="open-icon"></div>
+                <div>
+                    Open in broswer
+                </div>
+            </div>
+            <div class="tool" onclick="openGitHub()">
+                <div class="github-icon"></div>
+                <div>
+                    GitHub
+                </div>
+            </div>
+            Please refer to GitHub for latest version.
+        </div>
+        <div class="label-bar">
+            <div class="files-label">Files</div>
+            <div class="preview-label">Preview</div>
+        </div>
+        <div class="content">
+            <div class="left">
+                <ul id="list">
+                    <!-- <li onclick="select(event)" ondblclick="view(event)"><div class="pdf-icon"></div><div>2ga3-midterm.pdf</div></li>
+                    <li onclick="select(event)" ondblclick="view(event)"><div class="pdf-icon"></div><div>2me3-midterm.pdf</div></li>
+                    <li onclick="select(event)" ondblclick="view(event)"><div class="pdf-icon"></div><div>2c03-midterm.pdf</div></li>
+                    <li onclick="select(event)" ondblclick="view(event)"><div class="pdf-icon"></div><div>2lc3-midterm.pdf</div></li>
+                    <li onclick="select(event)" ondblclick="view(event)"><div class="pdf-icon"></div><div>2la3-midterm.pdf</div></li> -->
+                </ul>
+            </div>
+            <div class="right">
+                <iframe id="preview"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

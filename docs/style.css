@@ -1,0 +1,160 @@
+* { padding: 0; margin: 0; }
+
+html, body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Tahoma", "MS Sans Serif" ;
+    font-size: 12px;
+}
+.title-bar{
+    height: 33px;
+    width: 100%;
+    line-height: 33px;
+    color: white;
+    padding-left: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    background: #0c5ace;
+    box-shadow: inset 0px 1px 1px #2675E6, inset 0px 1px 1px #1F5FD1, inset 0px 3px 6px #5CA5F9, inset 0px -3px 12px #5CA5F9;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.content-panel{
+    min-height: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border-left: 4px solid #3673de;
+    border-right: 4px solid #3673de;
+    border-bottom: 4px solid #3673de;
+}
+
+.tool-bar{
+    user-select: none;
+    flex-shrink: 0;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    border-bottom:1px solid #d8d6c9;
+    background: #edead7;
+}
+.tool{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 1px;
+    /* border-right: 1px solid #d5d5cf; */
+}
+.tool:hover{
+    background-color: #d4d4c4;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 1.5px 1.5px 0px 0px #a5a59d;
+}
+.tool:active{
+    box-shadow: 1.5px 1.5px 0px 0px #a5a59d inset;
+}
+
+.download-icon{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-image: url(./icons/download.ico);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.open-icon{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-image: url(./icons/open.ico);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.github-icon{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-image: url(./icons/github.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.label-bar{
+    user-select: none;
+    flex-shrink: 0;
+    height: 20px;
+    align-items: flex-end;
+    display: flex;
+    border-top: 1px solid #faf9f4;
+    border-bottom: 1px solid #faf9f4;
+    background: #edead7;
+}
+
+.preview-label{
+    width: 800px;
+    border-left: 1px solid #faf9f4;
+    padding-left: 2px;
+}
+
+.files-label{
+    flex-grow: 1;
+    padding-left: 2px;
+}
+
+.content{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.right{
+    width: 800px;
+    border: 1px solid #edead7;
+    background:#f8f8f8;
+}
+
+.left{
+    overflow-y: scroll;
+    flex-grow: 1;
+}
+#list{
+    margin-top: 1px;
+    cursor:default;
+}
+#list>.selected{
+    background-color: #0078d7;
+    color: white;
+}
+#list>li{
+    display: flex;
+    user-select: none;
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+#list>li:not(.selected):hover{
+    background-color: #d5eaff;
+}
+
+#list>li>div:not(.pdf-icon){
+    flex-grow: 1;
+}
+#list>li>.pdf-icon{
+    margin-right: 5px;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-image: url(./icons/pdf.ico);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#preview{
+width: 100%;
+height: 100%;
+}
