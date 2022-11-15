@@ -39,7 +39,7 @@ function openFile(){
     if (selected.length != 0){
         console.log(selected);
         var link = document.createElement('a');
-        link.href = `https://www.paulduan.tk/getPDF?file=${selected[0].innerText}`
+        link.href = `https://api.paulduan.tk/oscs/getPDF?file=${selected[0].innerText}`
         link.target = "_blank"
         link.click();
     }else{
