@@ -2774,7 +2774,7 @@ function webViewerInitialized() {
   const params = (0, _ui_utils.parseQueryString)(queryString);
   // Modify here
   var fileName = params.get("file") ?? _app_options.AppOptions.get("defaultUrl");
-  var fileURL = `https://www.paulduan.tk/getPDF?file=${fileName}`;
+  var fileURL = `https://api.paulduan.tk/oscs/getPDF?file=${fileName}`;
   file = fileURL;
   validateFileURL(file);
   const fileInput = appConfig.openFileInput;
