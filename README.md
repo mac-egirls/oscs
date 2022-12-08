@@ -1,5 +1,7 @@
 # Open Source Cheat Sheets
 
+[Check out the online preview here!](https://err53.github.io/oscs/)
+
 ## Become a contributor
 Either open a pull request with the changes you want,
 open an issue asking to become a contributor,
