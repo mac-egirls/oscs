@@ -265,6 +265,19 @@
         (9.30) &                                                    & Provided $\neg occurs(`\hat{x}\textrm', `Q\textrm')$, $(\exists x | R : P) \To Q \text{ is a theorem iff } (R \land P)[x := \hat{x}] \To Q \text{ is a theorem}$           \\
     \end{tabulary}
 
+    % TODO: Add notes on chapter 10
+
+    \subsection{Set Theory}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % (11.1) & & $\{x : t \mid R : E\}$ \\
+        % (11.2) & & $\{e_0, \dots, e_{n-1} \} = \{x \mid x = e_0 \lor \dots \lor x = e_{n-1} : x \}$ \\
+        (11.3) & \textbf{Axiom, Set membership:} & Provided $\neg \textit{occurs}(`x\textrm', `F\textrm'), F \in {x \mid R : E} \equiv (\exists x \mid R : F = E)$ \\
+        (11.4) & \textbf{Axiom, Extensionality:} & $S = T \equiv (\forall x \mid : x \in S \equiv x \in T)$ \\
+        (11.5) & & $S = \{ x \mid x \in S : x \}$ \\
+        (11.6) & & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`y\textrm', `E\textrm')$, $\{ x \mid R : E \} = \{y \mid (\exists x \mid R : y = E)\}$ \\
+        (11.7) & & $x \in \{x \mid R \} \equiv R$ \\
+        (11.9) & & $\{x \mid Q \} = \{x \mid R \} \equiv (\forall x \mid : Q \equiv R)$ \\
+    \end{tabulary}
 \end{multicols*}
 
 \end{document}
