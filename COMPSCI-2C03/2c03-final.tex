@@ -1,0 +1,640 @@
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{clrscode3e}
+
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.3in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage}
+  {\endminipage\par\medskip}
+
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+% \tymin=37pt
+% \tymax=\maxdimen
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+% \newcommand{\To}{\Rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+
+\title{2C03}
+
+\begin{document}
+
+\raggedright
+\tiny
+
+\begin{center}
+  {\textbf{2C03}} \\
+\end{center}
+\begin{multicols*}{4}
+  \setlength{\premulticols}{1pt}
+  \setlength{\postmulticols}{1pt}
+  \setlength{\multicolsep}{1pt}
+  \setlength{\columnsep}{2pt}
+
+  \section{Algorithms}
+
+  \section{Basic DSes}
+  Array vs LL
+
+  \textbf{Arrays:}
+  Static data sets, ones where fast index-based access is needed,
+  Slow expansion, insertion, deletion.
+  \textbf{LLs:}
+  Dynamic data sets,
+  insertion \& deletion more important than random access.
+
+
+  % REVIEW: Probably don't need LLs,
+  % pretty easy to reason through
+  % REVIEW: Are there any other basic data structures that need more detail?
+  \subsection{Linked Lists}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+class Node {
+    Item item;
+    Node next;
+    Node prev; // for DLL
+}
+    \end{lstlisting}
+  \subsubsection{Operations}
+  \begin{tabular}[!ht]{@{}ll@{}} \toprule
+    Search           & O(N) \\
+    Prepend / Append & O(1) \\
+    Delete           & O(N) \\
+    \bottomrule
+  \end{tabular}
+
+  \section{Runtime Analysis}
+  \begin{tabular}[!ht]{@{}lc@{}} \toprule
+    constant     & 1          \\
+    logarithmic  & $\log N$   \\
+    linear       & $N$        \\
+    linearithmic & $N \log N$ \\
+    quadratic    & $N^2$      \\
+    cubic        & $N^3$      \\
+    exponential  & $2^N$      \\
+    \bottomrule
+  \end{tabular}
+
+  % REVIEW: Make sure there are no errors, and that there are no important algos missed
+  \subsection{Sorting Algorithm Info}
+  \begin{tabular}[!ht]{@{}llll@{}} \toprule
+    Algorithm      & $O(N)$        & $\Omega(N)$        & $\Theta(N)$        \\
+    \midrule
+    Selection Sort & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
+    Insertion Sort & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
+    Shellsort      & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
+    Mergesort      & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+    Quicksort      & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+    Heapsort       & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
+    \bottomrule
+  \end{tabular}
+  \begin{tabulary}{\linewidth}{@{}LllL@{}} \toprule
+    Algorithm       & Stbl? & In-Place? & Space \\
+    \midrule
+    Selection Sort  & N     & Y         & O(1) \\
+    *Insertion Sort & Y     & Y         & O(1) \\
+    Shellsort       & N     & Y         & O(1) \\
+    **Quicksort     & N     & Y         & O($\log N$) \\
+    Mergesort       & Y     & N         & O($N$) \\
+    Heapsort        & N     & Y         & O(1) \\
+    \bottomrule
+  \end{tabulary} \\
+  * depends on order of items \\
+  ** probabilistic guarantee
+
+  \subsection{Tilde Approximation}
+  $$\lim_{n \to \infty} \frac{\sim f(n)}{f(n)} = 1$$
+  TL;DR drop everything but the most significant factor in terms of $n$.
+
+  \textbf{Order of growth}
+  -- Just drop the constant from the tilde approximation
+
+  \subsection{Time Complexity}
+  \subsubsection{Notation Definitions}
+  - $O(g(n))$ -- upper limit \\
+  - $\Omega(g(n))$ -- lower limit \\
+  - $\Theta(g(n))$ -- upper and lower limit \\
+
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{time-complexity-loops.png}
+  \end{center}
+
+  Let $c_1, c_2 > 0$ and $n_0 \ge 0$ s.t. for all $n \ge n_0$,
+  \begin{align*}
+    0 \le &f(n) \le c_1 g(n) &\Rightarrow f(n) \in O(g(n)) \\
+    c_1 g(n) \le &f(n) &\Rightarrow f(n) \in \Omega(g(n)) \\
+    c_1 g(n) \le &f(n) \le c_2 g(n) &\Rightarrow f(n) \in \Theta(g(n))
+  \end{align*}
+
+  \subsubsection{Limit Definitions}
+  \begin{align*}
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq \infty &\Rightarrow f(n) \in O(g(n)) \\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq 0 &\Rightarrow f(n) \in \Omega(g(n))\\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\not\in \{0, \infty\} &\Rightarrow f(n) \in \Theta(g(n))
+  \end{align*}
+
+  % REVIEW: Are there any other algs
+  % that we need to document for memory complexity?
+  \subsection{Memory Complexity}
+  \textbf{In-place algorithms:} $O(N \log N)$ \\
+  \textbf{Mergesort:} \\
+  - Original input array: $N$. \\
+  - Aux array for merging: $O(N)$. \\
+  - Local variables: $Const$. \\
+  - Function call stack: $O(\log N)$. \\
+  - Total: $O(2 N\log N)$.
+
+%   \subsection{Recurrence Relations}
+%   % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio,
+%   % the sum of each layer is always n, so the time complexity is
+%   % $n * \log{\text{depth of the tree}} n$.
+%   % The 9/10 side will run out of nodes slower,
+%   % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left
+%   % because $10/9 * 9/10 = 1$. \\
+%   % - youcef
+%   \textbf{Recurrence Relation} --
+%   a recursive equation.
+
+%   \textbf{Deriving from a Tree} --
+%   Represent the recurrence equation as a binary tree,
+%   where each layer is one layer deeper in the recursion.
+%   Eg if the equation is $T(N) = T(N/2) + T(N/2)$,
+%   there will be 2 branches on the second layer, each as $T(N/2)$,
+%   4 branches on the third layer, each as $T(N/4)$, and so on.
+%   If it's a binary tree, with $x$ layers,
+%   it will have a time complexity of $n \log x$.
+%   \includegraphics[width=\linewidth]{recurrence-tree.png}
+%   \hl{If you're seeing this, please contribute!}
+%   % FIXME: ADD THIS
+
+%   \subsubsection{Master Theorem}
+%   For an RR with the form $T(n) = aT(n/b) + f(n)$,
+%   for constants $a(\geq 1)$ and $b(>q)$ with f asymptotically positive,
+%   the following statements are true:
+
+%   \textbf{Case 1} If $f(n) = O(n^{\log_b a-\epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$. \\
+%   \textbf{Case 2} If $f(n) = \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log n)$. \\
+%   \textbf{Case 3} If $f(n) = \Omega(n^{\log_b a+\epsilon})$ for some $\epsilon > 0$ (and $af(n/b) \leq c f(n)$ for some $c<1$ for all $n$ sufficiently large), then $T(n) = \Theta(f(n))$. \\
+
+  \section{Union-Find}
+  WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
+  Mutually connected nodes are called components.
+  \subsection{API}
+  \begin{itemize}
+    \item \textbf{Connected(n\_id1, n\_id2)}: returns true if \lstinline{n_id1} and \lstinline{n_id2} are connected.
+    \item \textbf{Union(n\_id1, n\_id2)}: if not connected, connects two nodes
+    \item \textbf{Find(n\_id)}: takes node id, returns union \lstinline{n_id} is in
+    \item \textbf{Count(n\_id)}: return the size of \lstinline{n_id}'s union
+  \end{itemize}
+
+  \subsection{Time Complexity}
+  \begin{tabular}[!ht]{@{}llll@{}} \toprule
+    Algo           & Q-F    & Q-U    & WQ-U       \\
+    \midrule
+    Initialization & $O(N)$ & $O(N)$ & $O(N)$     \\
+    Find           & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
+    Connected      & $O(1)$ & $O(N)$ & $O(lg(N))$ \\
+    Union          & $O(N)$ & $O(N)$ & $O(lg(N))$ \\
+    \bottomrule
+  \end{tabular}
+
+  \subsection{Quick-Find}
+  - Associate nodes with unions \\
+  - represented with an array \\
+  - Indices are node ids \\
+  - Values are union ids (we choose one node id for the union id)
+  \subsubsection{Initialization}
+  Initialize an length N array \lstinline{arr} with \lstinline{arr[i] = i}.
+  \subsubsection{Union(n\_id1, n\_id2)}
+  Change every occurance of \lstinline{n_id1} to \lstinline{n_id2} in \lstinline{arr}.
+  \subsubsection{Find(n\_id)}
+  returns \lstinline{arr[n_id]}.
+  \subsubsection{Connected}
+  returns if \lstinline{arr[n_id1] == arr[n_id2]}.
+
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+
+  \end{lstlisting}
+
+  \subsection{Quick-Union}
+  - Associate nodes with other nodes \\
+  - nodes point to their parent node, which lead to the root node/union id \\
+  - root nodes point to themselves
+  \subsubsection{Initialization}
+  Initialize a length N array \lstinline{arr} with \lstinline{arr[i] = i}.
+  \subsubsection{Union}
+  Takes indices p and q, finds the root nodes. If they are not equal, make one point to the other.
+  \subsubsection{Find}
+  Takes an index i, finds arr[i] until the root node. Returns the root node id.
+  \subsubsection{Connected}
+  Takes an indices p and q, finds the root nodes. Returns true if they are equal.
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class QuickUnion {
+  private int[] id;
+
+  public QuickUnion(int N) {
+      id = new int[N];
+      for(int i = 0; i < N; i++)
+          id[i] = i;
+  }
+  public int find(int i) {
+      while (i != id[i]) {
+          i = id[i]
+      }
+      return i;
+  }
+  public void union(int p, int q) {
+      int i = find(p);
+      int j = find(q);
+      id[i] = j;
+  }
+  public boolean connected(int p, int q) {
+      return find(p) == find(q);
+  }
+}
+  \end{lstlisting}
+
+  \subsection{Weighted Quick-Union}
+  To optimize Quick-Union, we try to create the flattest trees possible. We need another array to count the number of nodes rooted at an index. Union now links the root of the smaller tree to the root of the larger tree. This can be further optimized with path compression, which can be tacked on to find. To do this, we change each node to point at it's grandparent.
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class WeightedQuickUnionWithPC {
+  private int[] id;
+  private int[] sz;
+
+  public void union(int p, int q) {
+      int i = find(p);
+      int j = find(q);
+      id[i] = j;
+      if (sz[i] < sz[j])   { id[i] = j; sz[j] += sz[i] }
+      else (sz[i] < sz[j]) { id[j] = i; sz[i] += sz[j] }
+  }
+  public int find(int p) {
+      while (i != id[i]) {
+          id[i] = id[id[i]];
+          i = id[i];
+      }
+      return i;
+  }
+  \end{lstlisting}
+
+  % FIXME: For *all* the sorts, add pros and cons if possible!
+  \section{Bad Sorts}
+  \subsection{Selection Sort}
+  Build up a sorted section of array, by
+  \begin{enumerate}
+    \item Find min element
+    \item Swap min \& first element
+    \item Examine array, skipping first element.
+  \end{enumerate}
+  \textbf{Pros:}
+  Minimal number of write operations (eg tiny RAM?)
+  \textbf{Cons:}
+  Slow as shit
+  $\Theta(N^2)$
+
+  \subsection{Insertion Sort}
+  \begin{itemize}
+    \item
+      Start from 2 elements, build up sorted subarray,
+      "inserting" a new element each iteration by swapping
+      until it is in the right position.
+    \item
+      \# of operations depends on the degree
+      of disorder (how unsorted the array is).
+  \end{itemize}
+  \textbf{Pros:} If the array has a low degree of disorder, it is faster.
+  \textbf{Cons:} Worst case is still slow as shit.
+
+  \begin{center}
+    \includegraphics[width=\linewidth]{insertion-sort.png}
+  \end{center}
+
+  $\Omega(N), O(n^2)$
+  \subsection{Shellsort}
+  \begin{itemize}
+    \item
+      Pick every $h$ elements and put them in a subarray.
+    \item
+      Sort the subarrays using insertion sort.
+    \item
+      Repeat until $h = 1$.
+  \end{itemize}
+  \textbf{Pros:}
+      \textbf{Used when}: in embedded systems applications from
+      using small program size and memory efficiency.
+    Reduces large amounts of disorder quickly.
+  \textbf{Cons:} Slow
+
+  \begin{center}
+    \includegraphics[width=\linewidth]{shellsort.png}
+  \end{center}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class Shell {
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+    int h = 1;
+    while (h < N/3) h = 3 * h + 1;
+    while (h >= 1) {
+      for (int i = h; i < N; i++) {
+        for (int j = i; j >= h && less(a[j], a[j-h]); j -= h)
+          exch(a, j, j-h);
+      }
+      h = h / 3;
+    }
+  }
+}
+  \end{lstlisting}
+  % FIXME: Add time complexity
+
+  \section{Good Sorts}
+  \subsection{Mergesort}
+  Divide array in half recursively, until it is down to 1 element.
+  Merge array together like a zipper.
+
+  \textbf{Time Complexity:} $O(n \log n)$ \\
+  \textbf{Memory Complexity:} $O(N)$
+
+  \subsubsection{Code}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+  // copy
+  for (int k = lo; k <= hi; k++)
+    aux[k] = a[k];
+  // merge
+  int i = lo, j = mid + 1;
+  for (int i = lo; k <= hi; k++) {
+    if (i > mid)
+      a[k] = aux[j++];
+    else if
+      (j > hi) a[k] = aux[i++];
+    else if
+      (less(aux[j], aux[i])) a[k] = aux[j++];
+    else
+      a[k] = aux(i++);
+  }
+}
+
+private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
+  if (hi <= lo) return;
+  int mid = lo + (hi - lo) / 2;
+  sort(a, aux, lo, mid);
+  sort(a, aux, mid+1, hi);
+  merge(a, aux, lo, mid, hi);
+}
+
+public static void sort(Comparable[] a) {
+  Comparable[] aux = new Comparable[a.length];
+  sort(a, aux, 0, a.length - 1);
+}
+    \end{lstlisting}
+  \subsubsection{Top-down vs Bottom-up TL;DR}
+  Top-down uses recursion: starts at \textbf{top} of tree and proceeds \textbf{downwards}.
+  Bottom-up does not use recursion: starts at \textbf{bottom} of tree and iterates over pieces moving \textbf{upwards}.
+
+  \subsubsection{Bottom-up}
+  Pass through array, merging as we go to double size of sorted subarrays. Keep performing the passes and merging subarrays, until you do a merge that encompasses the whole array.\\
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class MergeBU {
+  private static Comparable[] aux;
+  // see above for merge() code
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+    aux = new Comparable[N];
+    for (int sz = 1; sz < N; sz = sz + sz) // sz: subarray size
+      for (int lo = 0; lo < N - sz; lo += sz + sz) // lo: subarray index
+        merge(a, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));
+  }
+}
+  \end{lstlisting}
+
+
+  \textbf{Min Top-down Comparisons}\\
+  \textit{Proposition: Top-down mergesort uses between $1/2N log N$ and $N log N$ comparisons}.\\
+  Let the total number of comparisons be C(N): $C(\lceil N/2 \rceil)$ = left recursion, $C(\lfloor N/2 \rfloor)$ = right recursion, $cN$ = comparisons at this level, $C (N) \leq C(\lceil N/2 \rceil) + C(\lfloor N / 2 \rfloor ) + cN$. The smallest number of comparisons made by \textit{MERGE} is $N/2$. If one sub-array contains all the smallest elements, we only walk that array before appending the other. If you sort a sorted array, this would be the case at every level. Solving the above recursion with $c = 1/2$ yields $C(N) = 1/2 N log N$\\
+  \textbf{Max top-down Comparisons:}\\
+  Similarly, the maximum number of comparisons is made when both sub-arrays must be fully examined. If the input array is of size $N$ , then at most $N$ comparisons are made. If the above happens at every level of the recursion, the total number of comparisons at each level is at most $N$. By solving the same recurrance equation with $c = 1$, we get $C(N ) = N log N$\\
+  % code from slides
+
+  \textbf{Max top-down Accesses:}\\
+  \textit{Proposition. Top-down mergesort uses at most $6N log N$ array accesses to sort an array of length $N$.} Each merge uses at most 6N array accesses
+  $2N$ to copy the sub arrays initially
+  $2N$ to put the values back (in order)
+  At most $N$ comparisons, each accessing two array elements $(2N)$Hence the total number of array accesses after solving the recurrence is most $6N log N$.\\
+  \textbf{Min/Max Bottom Up Comparisons/Accesses:}
+  \textit{Proposition. Bottom-up mergesort uses between $1/2N log N$ and $N log N$
+  compares and at most $6N log N$ array accesses to sort an array of length $N$.}
+  The number of passes through the array is precisely $log N$ . For each pass, by the same argument made as in the case of the
+  top-down mergesort approach, the number of array accesses is exactly $6N$ and the number of compares is at most N and no less than $N/2$. Therefore, bottom-up mergesort uses between $1/2N log N$ and $N log N$ compares and at most $6N log N$ array accesses to sort an array of length
+  $N$.\\
+
+  \subsection{Quicksort}
+  \begin{enumerate}
+    \item Shuffle array to reduce impact of order on sorting speed
+    \item Pick first element of array as pivot
+    \item Create two sub arrays from remaining elements, one selecting those smaller,
+          one selecting those larger. Put them on either side of the pivot
+    \item Recurse for each side of the pivot until everything is sorted.
+  \end{enumerate}
+  \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    partition (arr, lo, hi):
+      pivot = hi
+      i = lo
+      for j from lo+1 to hi:
+        if arr[j]<pivot:
+          swap(arr[i], arr[j])
+          i++
+
+    quicksort (arr, lo, hi) {
+      if lo<hi:
+        pivot = partition(arr, lo, hi)
+        quicksort(arr, lo, pivot-1)
+        quicksort(arr, pivot+1, hi)
+  \end{lstlisting}
+  \begin{itemize}
+    \item Fastest for disordered arrays, slowest for already sorted arrays
+    \item Randomize array or select a random piviot to prevent worst case. (Best choise of a piviot is the median)
+    \item \textbf{Best case}: The partitions are always of equal size : $\Omega(NlogN)$. Recurrence relation is $T(n) = 2T(n/2) + cn$.
+    \item \textbf{Worst case}: One partition is always of size 0 (if the array is already sorted and we are picking pivots from the ends) : $O(N^2)$. Recurrence relation is $T(n) = T(n - 1) + T(0) + cn$.
+    \item \textbf{Average case}: 1.39 $\log{N} \in \Theta(NlogN)$
+    \item Uses less memory than merge sort. Space complexity $O(n)$
+  \end{itemize}
+
+  \section{Priority Queues}
+  Supports insertion and removing/popping the priority (largest or smallest) item.
+
+  Implementations:
+  \begin{list}{}{}
+    \item Sorted Array - O(n) insert, O(1) pop
+    \item Unsorted Array - O(1) insert, O(n) pop
+    \item Binary Heap - O(log n) insert and sort
+  \end{list}
+
+  \section{Binary Heaps \& Heapsort}
+  A max binary heap is a complete binary tree where
+  the keys are in the nodes and each parent's key $\geq$ each child's key.
+  This requirement is called the max heap property.
+  \\
+  Binary Heaps:
+  \begin{itemize}
+    \item Can be represented as array or tree/nodes.
+    \item Insertion: We insert at the end of the array, then "swim up" the value.
+    \item Swimming up - exchange a given node with it's parent until the binary max property is fulfilled.
+    \item Popping - swap the first node (the max) with the last node, remove it, then "sink" the first node.
+    \item Sinking - exchange a given node with the max of it's children until the binary max property is fulfilled.
+  \end{itemize}
+
+  Heapsort relies on the binary heap data structure to sort data.
+  Once a max heap has been constructed, you can perform a single for loop
+  and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
+
+  \subsection{Code}
+  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+public class MaxPQ<Key extends Comparable<Key>> {
+  private Key[] pq;
+  private int n;
+
+  public MaxPQ(int capacity) {
+    // fixed capacity for simplicity
+    pq = (Key[]) new Comparable[capacity+1];
+  }
+  public boolean isEmpty() {
+    return n == 0;
+  }
+  public void insert(Key x) {
+    pq[++n] = x;
+    swim(n);
+  }
+  public Key delMax() {
+    Key max = pq[1];
+    exch(1, n--);
+    sink(1);
+    pq[n+1] == null;
+    return max;
+  }
+
+  private void swim(int k) {
+    // parent of node at k is at k/2
+    while (k > 1 && less(k/2, k)) {
+      exch(k, k/2);
+      k = k/2;
+    }
+  }
+  private void sink(int k) {
+    while (2*k <= n) {
+      int j = 2*k;
+      // children of node at k are 2*k and 2*k+1
+      if (j < n && less(j, j+1)) j++;
+      if (!less(k, j)) break;
+      exch(k, j);
+      k = j;
+    }
+  }
+}
+  \end{lstlisting}
+
+  \section{Binary Trees}
+  \textbf{Binary Tree:} A tree where each internal node has at most two children.
+  \textbf{Full Binary Tree:} A binary tree where each internal node has exactly two children.
+  \textbf{Complete Binary Tree:} A complete binary tree is which every level,
+  except possibly the last, is completely filled, and all nodes are as far left as possible.
+  \textbf{Internal Node:} Any node that has children
+
+  $L = N - 1$, where $L$ is the number of the internal node in the tree,
+  and $N$ is the number of leaves.
+
+  $N = 2^h$, where $h$ is the height of the tree and $N$ is the number of nodes in the tree.
+  To go the other way around, $\log_2(N) = h$.
+
+  \textbf{Maximum height:} $n - 1$
+  \textbf{Minimum height:} $\text{floor}(\lg n)$
+
+  \section{Pseudocode}
+  \begin{codebox}
+    \Procname{$\proc{Insertion-Sort}(A)$}
+    \li \For $j \gets 2$ \To $\attrib{A}{length}$
+    \li   \Do
+    $\id{key} \gets A[j]$
+    \li     \Comment Insert $A[j]$ into the sorted sequence
+    $A[1 \twodots j-1]$.
+    \li     $i \gets j-1$
+    \li     \While $i > 0$ and $A[i] > \id{key}$
+    \li       \Do
+    $A[i+1] \gets A[i]$
+    \li         $i \gets i-1$
+    \End
+    \li     $A[i+1] \gets \id{key}$
+    \End
+  \end{codebox}
+  Reminders:
+  \begin{itemize}
+    \item Attributes can be accessed via \verb|x.prev|.
+    \item Class functions \textbf{do not exist in pseudocode}.
+          Instead of calling \verb|x.sort()|, call \verb|sort(x)|.
+    \item Use \verb|NIL| instead of \verb|null|.
+    \item State assumptions like passing by value or passing by reference
+          in the pseudocode.
+    \item Multiple values can be passed in a \verb|return| statement.
+    \item Use \verb|error| for throwing an error, but what happens is not specified.
+  \end{itemize}
+
+  \section{Symbol Tables \& Binary Search Trees}
+  \section{Balanced Search Trees}
+  \section{Hash Tables}
+  \section{Undirected Graphs}
+  \section{Directed Graphs}
+  \section{MSTs}
+\end{multicols*}
+
+\end{document}
