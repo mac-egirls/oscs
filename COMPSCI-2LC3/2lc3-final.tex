@@ -356,7 +356,11 @@
     \end{tabulary}
     
     \section{Induction}
-
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
+        (12.4) & \textbf{Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \equiv (\forall n : \mathbb{N} \mid : P.n)$ \\
+        % TODO: consider adding specific induction cases? probably trivial though
+    \end{tabulary}
     \subsection{Correctness of loops}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (12.45) & \textbf{Loop Correctness Checklist} & (a) $P$ is $true$ before execution of the loop. \\
