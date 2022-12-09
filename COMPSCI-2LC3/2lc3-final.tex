@@ -277,7 +277,16 @@
         (11.6) & & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`y\textrm', `E\textrm')$, $\{ x \mid R : E \} = \{y \mid (\exists x \mid R : y = E)\}$ \\
         (11.7) & & $x \in \{x \mid R \} \equiv R$ \\
         (11.9) & & $\{x \mid Q \} = \{x \mid R \} \equiv (\forall x \mid : Q \equiv R)$ \\
+        (11.12) & \textbf{Axiom, Size:} & $\#S = (\sum x \mid x \in S : 1)$ \\
+        (11.13) & \textbf{Axiom, Subset:} & $S \subseteq T \equiv (\forall x \mid x \in S : x \in T)$ \\
+        (11.14) & \textbf{Axiom, Proper subset:} & $S \subset T \equiv S \subseteq T \ \land \ S \neq T$ \\
+        (11.17) & \textbf{Axiom, Complement:} & $v \in \sim S \equiv v \in \mathbf{U} \land v \not\in S$ \\
+        (11.20) & \textbf{Axiom, Union:} & $v \in S \cup T \equiv v \in S \lor v \in T$ \\
+        (11.21) & \textbf{Axiom, Intersection:} & $v \in S \cap T \equiv v \in S \land v \in T$ \\
+        (11.22) & \textbf{Axiom, Difference:} & $v \in S - T \equiv v \in S \land v \not\in T$ \\
+        (11.23) & \textbf{Axiom, Power set:} & $v \in \mathcal{P} S \in v \subseteq S$ \\
     \end{tabulary}
+
 \end{multicols*}
 
 \end{document}
