@@ -360,9 +360,14 @@
         (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
         (12.4) & \textbf{Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \equiv (\forall n : \mathbb{N} \mid : P.n)$ \\
         % TODO: consider adding specific induction cases? probably trivial though
+        (12.19) & \textbf{Mathematical induction over $\langle \mathbf{U}, \prec \rangle$:} & $(\forall x \mid : P.x) \equiv (\forall x \mid : (\forall y \mid y \prec x : P.y) \To P.x)$ \\
     \end{tabulary}
     \subsection{Correctness of loops}
+
+    General format: $\{Q\}\ initialization;\ \textbf{do}\ B \to S\ \textbf{od}\ \{R\}$
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (12.41) & & $\textbf{do}\ B \to S\ \textbf{od}$ \\
+        (12.43) & \textbf{Fundamental invariance theorem} & Suppose $\{P \land B\} S \{P\}$ holds and $\{P\} \textbf{ do } B \to S \textbf{ od } \{true\}$, then $\{P\} \textbf{ do } B \to S \textbf{ od } \{P \land \neg B\}$ holds. \\
         (12.45) & \textbf{Loop Correctness Checklist} & (a) $P$ is $true$ before execution of the loop. \\
         & & (b) P is a loop invariant: $\{P \land B\} S \{P\}$ \\
         & & (c) Execution of the loop terminates. \\
