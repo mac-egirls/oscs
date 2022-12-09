@@ -355,6 +355,15 @@
         & & (c) $S \subset T \land T \subset U \To S \subset U$ \\
     \end{tabulary}
     
+    \section{Induction}
+
+    \subsection{Correctness of loops}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (12.45) & \textbf{Loop Correctness Checklist} & (a) $P$ is $true$ before execution of the loop. \\
+        & & (b) P is a loop invariant: $\{P \land B\} S \{P\}$ \\
+        & & (c) Execution of the loop terminates. \\
+        & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
+    \end{tabulary}
 
 \end{multicols*}
 
