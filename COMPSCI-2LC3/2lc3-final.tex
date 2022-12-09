@@ -77,16 +77,16 @@
     \section{Theorems}
     \tiny
     \subsection{Equivalence and true}
-    \begin{tabular}{@{}lll@{}}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.1) & Axiom, Associativity of $\equiv$ & $((p \equiv q) \equiv r) \equiv (p \equiv (q \equiv r))$ \\
         (3.2) & Axiom, Symmetry of $\equiv$      & $p \equiv q \equiv q \equiv p$                           \\
         (3.3) & Axiom, Identity of $\equiv$      & $\textit{true} \equiv q \equiv q$                        \\
         (3.4) &                                  & \textit{true}                                            \\
         (3.5) & Reflexivity of $\equiv$          & $p \equiv p$                                             \\
-    \end{tabular}
+    \end{tabulary}
 
     \subsection{Negation, inequivalence, and false}
-    \begin{tabular}{@{}lll@{}}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.8)  & Axiom, Definition of \textit{false}           & $\textit{false} \equiv \neg \textit{true}$                                  \\
         (3.9)  & Axiom, Distributivity of $\neg$ over $\equiv$ & $\neg (p \equiv q) \ \equiv \ \neg \equiv q$                                \\
         (3.10) & Axiom, Definition of $\not\equiv$             & $(p \not\equiv q) \ \equiv \ \neg(p \equiv q)$                              \\
@@ -99,10 +99,10 @@
         (3.17) & Associativity of $\not\equiv$                 & $((p \not\equiv q) \not\equiv r) \ \equiv \ (p \not\equiv(q \not\equiv r))$ \\
         (3.18) & Mutual Associativity                          & $((p \not\equiv q) \equiv r) \ \equiv \ (p \not\equiv (q \equiv r))$        \\
         (3.19) & Mutual interchangeability                     & $p \not\equiv q \equiv r \ \equiv \ p \equiv q \not\equiv r$                \\
-    \end{tabular}
+    \end{tabulary}
 
     \subsection{Disjunction}
-    \begin{tabular}{@{}lll@{}}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
         (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
         (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
@@ -112,10 +112,10 @@
         (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
         (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
         (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
-    \end{tabular}
+    \end{tabulary}
 
     \subsection{Conjunction}
-    \begin{tabular}{@{}lll@{}}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.35) & Axiom, Golden rule                     & $p \land q \equiv p \equiv q \equiv p \lor q$                                  \\
         (3.36) & Symmetry of $\land$                    & $p \land q \equiv q \land p$                                                   \\
         (3.37) & Associativity of $\land$               & $(p \land q) \land r \equiv p \land(q \land r)$                                \\
@@ -140,10 +140,10 @@
         (3.53) & Exclusive or                           & $p \not\equiv q \equiv (\neg p \land q) \lor (p \land \neg q)$                 \\
         (3.55) &                                        & $(p \land q) \land r \equiv \ p \equiv q \equiv r$                             \\
                &                                        & \quad $\equiv p \lor q \equiv q \lor r \equiv r \lor p \equiv p \lor q \lor r$ \\
-    \end{tabular}
+    \end{tabulary}
 
     \subsection{Implication}
-    \begin{tabular}{@{}lll@{}}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.57) & Axiom, Definition of Implication      & $p \To q \equiv p \lor q \equiv q$                      \\
         (3.58) & Axiom, Consequence                    & $p \Leftarrow q \equiv q \To p$                         \\
         (3.59) & Definition of implication             & $p \To q \equiv \neg p \lor q$                          \\
@@ -176,10 +176,10 @@
         (3.82) & Transitivity                          & (a) $(p \To q) \land (q \To r) \To (p \To r)$           \\
                &                                       & (b) $(p \equiv q) \land (q \To r) \To (p \To r)$        \\
                &                                       & (c) $(p \To q) \land (q \equiv r) \To (p \To r)$        \\
-    \end{tabular}
+    \end{tabulary}
 
     \subsection{Leibniz as an axiom}
-    \begin{tabulary}{\linewidth}{@{}llL@{}}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.83) & Axiom, Leibniz            & $e = f \ \To \ E_e^z = E_f^z$                                                         \\
         (3.84) & Substitution              & (a) $(e = f) \land E_e^z \ \equiv \ (e = f) \land E_f^z$                              \\
                &                           & (b) $(e = f) \To E_e^z \ \equiv \ (e = f) \To E_f^z$                                  \\
@@ -278,7 +278,7 @@
         (11.3) & \textbf{Axiom, Set membership:} & Provided $\neg \textit{occurs}(`x\textrm', `F\textrm'), F \in {x \mid R : E} \equiv (\exists x \mid R : F = E)$ \\
         (11.4) & \textbf{Axiom, Extensionality:} & $S = T \equiv (\forall x \mid : x \in S \equiv x \in T)$ \\
         (11.5) & & $S = \{ x \mid x \in S : x \}$ \\
-        (11.6) & & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`y\textrm', `E\textrm')$, $\{ x \mid R : E \} = \{y \mid (\exists x \mid R : y = E)\}$ \\
+        (11.6) & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`y\textrm', `E\textrm')$, & $\{ x \mid R : E \} = \{y \mid (\exists x \mid R : y = E)\}$ \\
         (11.7) & & $x \in \{x \mid R \} \equiv R$ \\
         (11.9) & & $\{x \mid Q \} = \{x \mid R \} \equiv (\forall x \mid : Q \equiv R)$ \\
         (11.12) & \textbf{Axiom, Size:} & $\#S = (\sum x \mid x \in S : 1)$ \\
@@ -289,9 +289,72 @@
         (11.21) & \textbf{Axiom, Intersection:} & $v \in S \cap T \equiv v \in S \land v \in T$ \\
         (11.22) & \textbf{Axiom, Difference:} & $v \in S - T \equiv v \in S \land v \not\in T$ \\
         (11.23) & \textbf{Axiom, Power set:} & $v \in \mathcal{P} S \in v \subseteq S$ \\
-        (11.24) & \textbf{Definition.} For $E_s$, a set expression, $E_p$, a predicate expression can be calculated: & $0 \to false, \mathbf{U} \to true, \cup \to \lor, \cap \to \land, \sum \to \neg$ \\
+        (11.24) & \textbf{Definition.} For $E_s$, a set expression, $E_p$, a predicate expression can be calculated: & $\emptyset \to false, \mathbf{U} \to true, \cup \to \lor, \cap \to \land, \sum \to \neg$ \\
         (11.25) & \textbf{Metatheorem.} For any set expressions $E_s$ and $F_s$ & $E_s = F_s \Leftrightarrow E_p \equiv F_p, E_s \subseteq F_s \Leftrightarrow E_p \To F_p, E_s = \mathbf{U} \Leftrightarrow E_p \equiv true$ \\
     \end{tabulary}
+    \subsection{Properties of $\cup$}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % REVIEW: Most of these can be proven from the metatheorem. Consider removing or writing a mapping from theorem number to propositional theorem.
+        (11.26) & \textbf{Symmetry of $\cup$:} & $S \cup T = T \cup S$ \\
+        (11.27) & \textbf{Associativity of $\cup$:} & $(S \cup T) \cup U = S \cup (T \cup U)$ \\
+        (11.28) & \textbf{Idempotency of $\cup$:} & $S \cup S = S$ \\
+        (11.29) & \textbf{Zero of $\cup$:} & $S \cup \mathbf{U} = \mathbf{U}$ \\
+        (11.30) & \textbf{Identity of $\cup$:} & $S \cup \emptyset = S$ \\
+        (11.31) & \textbf{Weakening:} & $S \subseteq S \cup T$ \\
+        (11.32) & \textbf{Excluded middle:} & $S \cup \sim S = \mathbf{U}$ \\
+    \end{tabulary}
+    \subsection{Properties of $\cap$}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.33) & \textbf{Symmetry of $\cap$:} & $S \cap T = T \cap S$ \\
+        (11.34) & \textbf{Associativity of $\cap$:} & $(S \cap T) \cap U = S \cap (T \cap U)$ \\
+        (11.35) & \textbf{Idempotency of $\cap$:} & $S \cap S = S$ \\
+        (11.36) & \textbf{Zero of $\cap$:} & $S \cap \emptyset = \emptyset$ \\
+        (11.37) & \textbf{Identity of $\cap$:} & $S \cap \mathbf{U} = S$ \\
+        (11.38) & \textbf{Strengthening:} & $S \cap T \subseteq S$ \\
+        (11.38) & \textbf{Contradiction:} & $S \cap \sim S = \emptyset$ \\
+    \end{tabulary}
+    \subsection{Additional Properties}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.40) & \textbf{Distributivity of $\cup$ over $\cap$:} & $S \cup (T \cap U) = (S \cup T) \cap (S \cup U)$ \\
+        (11.41) & \textbf{Distributivity of $\cap$ over $\cup$:} & $S \cap (T \cup U) = (S \cap T) \cup (S \cap U)$ \\
+        (11.42) & \textbf{De Morgan:} & (a) $\sim (S \cup T) = \sim S \cap \sim T$ \\
+        & & (b) $\sim (S \cap T) = \sim S \cup \sim T$ \\
+        (11.43) & & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ \\
+        (11.44) & & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+        (11.45) & & $S \subseteq T \equiv S \cup T = T$ \\
+        (11.46) & & $S \subseteq T \equiv S \cap T = S$ \\
+        (11.47) & & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ \\
+        (11.48) & & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+    \end{tabulary}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.49) & & $S - T = S \cap \sim T$ \\
+        (11.50) & & $S - T \subseteq S$ \\
+        (11.51) & & $S - \emptyset = S$ \\
+        (11.52) & & $S \cap (T - S) = \emptyset$ \\
+        (11.53) & & $S \cup (T - S) = S \cup T$ \\
+        (11.54) & & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
+        (11.55) & & $S - (T \cap U) = (S - T) \cup (S - U)$ \\
+        (11.56) & & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
+    \end{tabulary}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.57) & \textbf{Antisymmetry:} & $S \subseteq T \land T \subseteq S \equiv S = T$ \\
+        (11.58) & \textbf{Reflexivity:} & $S \subseteq S$ \\
+        (11.59) & \textbf{Transitivity:} & $S \subseteq T \land T \subseteq U \To S \subseteq U$ \\
+        (11.60) & & $\emptyset \subseteq S$ \\
+        (11.61) & & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
+        (11.62) & & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ \\
+        (11.63) & & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+        (11.64) & & $S \not\subset S$ \\
+        (11.65) & & $S \subset T \To S \subseteq T$ \\
+        (11.66) & & $S \subset T \To T \not\subseteq S$ \\
+        (11.67) & & $S \subseteq T \To T \not\subset S$ \\
+        (11.68) & & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ \\
+        (11.69) & & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+        (11.70) & \textbf{Transitivity} & (a) $S \subseteq T \land T \subset U \To S \subset U$ \\
+        & & (b) $S \subset T \land T \subseteq U \To S \subset U$ \\
+        & & (c) $S \subset T \land T \subset U \To S \subset U$ \\
+    \end{tabulary}
+    
 
 \end{multicols*}
 
