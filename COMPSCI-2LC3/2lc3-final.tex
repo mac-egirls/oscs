@@ -325,8 +325,8 @@
         (11.46) & & $S \subseteq T \equiv S \cap T = S$ \\
         (11.47) & & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ \\
         (11.48) & & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
-    \end{tabulary}
-    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    % \end{tabulary}
+    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.49) & & $S - T = S \cap \sim T$ \\
         (11.50) & & $S - T \subseteq S$ \\
         (11.51) & & $S - \emptyset = S$ \\
@@ -335,8 +335,8 @@
         (11.54) & & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
         (11.55) & & $S - (T \cap U) = (S - T) \cup (S - U)$ \\
         (11.56) & & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
-    \end{tabulary}
-    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    % \end{tabulary}
+    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.57) & \textbf{Antisymmetry:} & $S \subseteq T \land T \subseteq S \equiv S = T$ \\
         (11.58) & \textbf{Reflexivity:} & $S \subseteq S$ \\
         (11.59) & \textbf{Transitivity:} & $S \subseteq T \land T \subseteq U \To S \subseteq U$ \\
@@ -374,6 +374,47 @@
         & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
     \end{tabulary}
 
+    \section{Tuples and cross-products}
+
+
+    \section{Operation Priority}
+    \begin{multicols}{2}
+        $[x := e]$ (textual substitution) (high precedence) \\
+        $.$ (function application) \\
+        unary prefix operators $+ - \neg \# \sim \mathcal{P}$ \\
+        $**$ \\
+        $\cdot / \div \mod \gcd$ \\
+        $+ - \cup \cap \times \circ$ \\
+        $\uparrow \downarrow$ \\
+        $\#$ \\
+        $\triangleleft \triangleright \string^$ \\
+        $= < > \in \subset \subseteq \supset \supseteq \mid$ \\
+        $\lor \land$ \\
+        $\Rightarrow \Leftarrow$ \\
+        $\equiv$ (low precedence)
+    \end{multicols}
+
+    \section{Definitions}
+    \subsection{Formal Logic System}
+    Let S be a set of interpretations for a logic and F be a formula of the logic.
+    F is \textbf{satisfiable} (under S) iff at least one interpretation of S maps F to true.
+    F is \textbf{valid} (under S) iff every interpretation in S maps F to true.
+    An \textbf{interpretation} is a model for a logic iff
+    every theorem is mapped to true by the interpretation.
+    A logic is \textbf{sound} iff every theorem is valid.
+    A logic is \textbf{complete} iff every valid formula is a theorem.
+    \textbf{Soundness} means that the theorems are true statements
+    about the domain of discourse,
+    \textbf{Completeness} means that every valid formula can be proved.
+    A \textbf{sound and complete logic} allows exactly the valid formulas to be proved.
+    A boolean expression is \textbf{satisfied} in state s
+    iff it evaluates to true in state s.
+    A boolean expression is \textbf{valid} iff it is satisfied in every state.
+    A valid boolean expression is called a \textbf{tautology}.
+    A boolean expression is \textbf{satisfiable}
+    iff there is a state in which it is satisfied.
+    The atomic proposition is a type of statement,
+    which contains a truth value that can be true or false.\\
 \end{multicols*}
 
 \end{document}
