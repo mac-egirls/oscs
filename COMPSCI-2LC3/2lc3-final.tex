@@ -288,8 +288,8 @@
         (11.20) & \textbf{Axiom, Union:} & $v \in S \cup T \equiv v \in S \lor v \in T$ \\
         (11.21) & \textbf{Axiom, Intersection:} & $v \in S \cap T \equiv v \in S \land v \in T$ \\
         (11.22) & \textbf{Axiom, Difference:} & $v \in S - T \equiv v \in S \land v \not\in T$ \\
-        (11.23) & \textbf{Axiom, Power set:} & $v \in \mathcal{P} S \in v \subseteq S$ \\
-        (11.24) & \textbf{Definition.} For $E_s$, a set expression, $E_p$, a predicate expression can be calculated: & $\emptyset \to false, \mathbf{U} \to true, \cup \to \lor, \cap \to \land, \sum \to \neg$ \\
+        (11.23) & \textbf{Axiom, Power set:} & $v \in \mathcal{P} S \equiv v \subseteq S$ \\
+        (11.24) & \textbf{Definition.} For $E_s$, a set expression, $E_p$, a predicate expression can be calculated: & $\emptyset \to false, \mathbf{U} \to true, \cup \to \lor, \cap \to \land, \sim \to \neg$ \\
         (11.25) & \textbf{Metatheorem.} For any set expressions $E_s$ and $F_s$ & $E_s = F_s \Leftrightarrow E_p \equiv F_p, E_s \subseteq F_s \Leftrightarrow E_p \To F_p, E_s = \mathbf{U} \Leftrightarrow E_p \equiv true$ \\
     \end{tabulary}
     \subsection{Properties of $\cup$}
@@ -375,8 +375,10 @@
     \end{tabulary}
 
     \section{Tuples and cross-products}
-
-
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        & \textbf{Axiom, Cartesian product:} & $S \times T = \{b, c \mid b \in S \land c \in T : (b, c)\}$ \\
+        (14.4) & \textbf{Membership)} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
+    \end{tabulary}
     \section{Operation Priority}
     \begin{multicols}{2}
         $[x := e]$ (textual substitution) (high precedence) \\
@@ -415,6 +417,10 @@
     iff there is a state in which it is satisfied.
     The atomic proposition is a type of statement,
     which contains a truth value that can be true or false.\\
+
+    \subsection{Equivalence Relations and Partial Orders}
+    An \textbf{equivalence relation} must be reflexive, symmetric, and transitive.
+
 \end{multicols*}
 
 \end{document}
