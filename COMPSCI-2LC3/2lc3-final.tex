@@ -354,7 +354,7 @@
         & & (b) $S \subset T \land T \subseteq U \To S \subset U$ \\
         & & (c) $S \subset T \land T \subset U \To S \subset U$ \\
     \end{tabulary}
-    
+
     \section{Induction}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
@@ -398,28 +398,83 @@
 
     \section{Definitions}
     \subsection{Formal Logic System}
-    Let S be a set of interpretations for a logic and F be a formula of the logic.
-    F is \textbf{satisfiable} (under S) iff at least one interpretation of S maps F to true.
-    F is \textbf{valid} (under S) iff every interpretation in S maps F to true.
-    An \textbf{interpretation} is a model for a logic iff
-    every theorem is mapped to true by the interpretation.
-    A logic is \textbf{sound} iff every theorem is valid.
-    A logic is \textbf{complete} iff every valid formula is a theorem.
-    \textbf{Soundness} means that the theorems are true statements
-    about the domain of discourse,
-    \textbf{Completeness} means that every valid formula can be proved.
-    A \textbf{sound and complete logic} allows exactly the valid formulas to be proved.
-    A boolean expression is \textbf{satisfied} in state s
-    iff it evaluates to true in state s.
-    A boolean expression is \textbf{valid} iff it is satisfied in every state.
-    A valid boolean expression is called a \textbf{tautology}.
-    A boolean expression is \textbf{satisfiable}
-    iff there is a state in which it is satisfied.
-    The atomic proposition is a type of statement,
-    which contains a truth value that can be true or false.\\
+    Let S be a set of interpretations for a logic and F be a formula of the logic. \\
+    - F is \textbf{satisfiable} (under S) iff at least one interpretation of S maps F to true. \\
+    - F is \textbf{valid} (under S) iff every interpretation in S maps F to true. \\
+    - An \textbf{interpretation} is a model for a logic iff \\
+    - every theorem is mapped to true by the interpretation. \\
+    - A logic is \textbf{sound} iff every theorem is valid. \\
+    - A logic is \textbf{complete} iff every valid formula is a theorem. \\
+    - \textbf{Soundness} means that the theorems are true statements \\
+    - about the domain of discourse, \\
+    - \textbf{Completeness} means that every valid formula can be proved. \\
+    - A \textbf{sound and complete logic} allows exactly the valid formulas to be proved. \\
+    - A boolean expression is \textbf{satisfied} in state s \\
+    - iff it evaluates to true in state s. \\
+    - A boolean expression is \textbf{valid} iff it is satisfied in every state. \\
+    - A valid boolean expression is called a \textbf{tautology}. \\
+    - A boolean expression is \textbf{satisfiable} \\
+    - iff there is a state in which it is satisfied. \\
+    - The atomic proposition is a type of statement, \\
+    - which contains a truth value that can be true or false.\\
 
     \subsection{Equivalence Relations and Partial Orders}
     An \textbf{equivalence relation} must be reflexive, symmetric, and transitive.
+
+    \section{Midterm Questions}
+    \subsection{Assignment 3, Question 11}
+    \subsubsection{Question}
+    Prove the correctness of the following loop, assiging to $F_n$ the $n$th fibonacci number:
+    \begin{align*}
+        &\{Q: n \ge 0 \} \\
+        &k, b, c := 0, 1, 0; \\
+        &\{\text{invariant } P: 0 \le k \le n \land b = F_{k-1} \land c = F_k \} \\
+        &\textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od} \\
+        &\{R: c = F_n \}
+    \end{align*}
+    \subsubsection{Solution}
+    \textbf{Prove $P$ is $true$ before execution of the loop.}
+    \begin{align*}
+        &P[k, b, c:= 0,1,0]
+        \\&\equiv \tag{Textual Substitution}
+            0 \le 0 \le n \land 1 = F_{0-1} \land 0 = F_0
+        \\&\equiv
+            0 \le n \land 1 = F_{-1} \land 0 = F_0
+        \\&\equiv
+            0 \le n
+    \end{align*}
+
+    \textbf{Prove $P$ is a loop invariant.} \\
+    \begin{align*}
+        &P[k, b, c := k+1, c, b+c]
+        \\&\equiv \tag{Textual Substitution}
+            0 \le k+1 \le n \land c = F_{k+1-1} \land b+c = F_{k+1}
+        \\&\equiv
+            -1 \le k \le n-1 \land c = F_k \land b+c = F_{k+1}
+        \\&\equiv \tag{$k \le n-1 \Rightarrow k \ne n$}
+            k \ne n \land -1 \le k \le n-1 \land c = F_k \land b = F_{k+1} -F_k
+        \\&\Leftarrow \tag{Strengthening}
+            k \ne n \land 0 \le k \le n \land c = F_k \land b = F_{k+1} -F_k
+        \\&\equiv \tag{Fibonacci}
+            k \ne n \land  \le k \le n \land c = F_k \land b = F_{k-1}
+        \\&\equiv \tag{Def. of $P \land B$}
+            P \land B
+    \end{align*}
+
+    \textbf{Prove execution of the loop terminates.} \\
+    The value of $n - k$ is always at least 0 and it decreases by 1 each iteration;
+    hence, $n-k$ becomes 0 such that the condition is false and the loop terminates. \\
+
+    \textbf{Prove $R$ holds upon termination.}
+    \begin{align*}
+        &P \land \lnot B
+        \\&\equiv
+            0 \le k \le n \land b = F_{k-1} \land c = F_{k} \land k = n
+        \\&\Rightarrow \tag{Weakening}
+            c = F_{k} \land k = n
+        \\&\equiv \tag{Leibniz substitution}
+            c = F_{n}
+    \end{align*}
 
 \end{multicols*}
 
