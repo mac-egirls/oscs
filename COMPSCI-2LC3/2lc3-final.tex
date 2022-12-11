@@ -125,13 +125,13 @@
         (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
         (3.42) & Contradiction                          & $p \land \neg p \equiv \textit{false}$                                         \\
         (3.43) & Absorption                             & (a) $p \land (p \lor q) \equiv p$                                              \\
-               &                                        & (b) $p \lor (p \land q) \equiv p$                                              \\
+        &                                        & (b) $p \lor (p \land q) \equiv p$                                              \\
         (3.44) & Absorption                             & (a) $p \land (\neg p \lor q) \equiv p \land q$                                 \\
-               &                                        & (b) $p \lor (\neg p \land q) \equiv p \lor q$                                  \\
+        &                                        & (b) $p \lor (\neg p \land q) \equiv p \lor q$                                  \\
         (3.45) & Distributivity of $\lor$ over $\land$  & $p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)$                        \\
         (3.46) & Distributivity of $\land$ over $\lor$  & $p \land (q \lor r) \equiv (p \land q) \lor (p \land r)$                       \\
         (3.47) & De Morgan                              & (a) $\neg (p \land q) \equiv \neg p \lor \neg q)$                              \\
-               &                                        & (b) $\neg (p \lor q) \equiv \neg p \land \neg q)$                              \\
+        &                                        & (b) $\neg (p \lor q) \equiv \neg p \land \neg q)$                              \\
         (3.48) &                                        & $p \land q \equiv p \land \neg q \equiv \neg p$                                \\
         (3.49) &                                        & $p \land (q \equiv r) \equiv p \land q \equiv p \land r \equiv p$              \\
         (3.50) &                                        & $p \land (q \equiv p) \equiv p \land q$                                        \\
@@ -139,7 +139,7 @@
         (3.52) & Definition of $\equiv$                 & $p \equiv q \equiv (p \land q) \lor (\neg p \land \neg q)$                     \\
         (3.53) & Exclusive or                           & $p \not\equiv q \equiv (\neg p \land q) \lor (p \land \neg q)$                 \\
         (3.55) &                                        & $(p \land q) \land r \equiv \ p \equiv q \equiv r$                             \\
-               &                                        & \quad $\equiv p \lor q \equiv q \lor r \equiv r \lor p \equiv p \lor q \lor r$ \\
+        &                                        & \quad $\equiv p \lor q \equiv q \lor r \equiv r \lor p \equiv p \lor q \lor r$ \\
     \end{tabulary}
 
     \subsection{Implication}
@@ -164,30 +164,30 @@
         (3.74) &                                       & $p \To \textit{false} \equiv \neg p$                    \\
         (3.75) &                                       & $\textit{false} \To p \equiv true$                      \\
         (3.76) & Weakening/strengthening               & (a) $p \To p \lor q$                                    \\
-               &                                       & (b) $p \land q \To p$                                   \\
-               &                                       & (c) $p \land q \To p \lor q$                            \\
-               &                                       & (d) $p \lor (q \land r) \To p \lor q$                   \\
-               &                                       & (e) $p \land q \To p \land (q \lor r)$                  \\
+        &                                       & (b) $p \land q \To p$                                   \\
+        &                                       & (c) $p \land q \To p \lor q$                            \\
+        &                                       & (d) $p \lor (q \land r) \To p \lor q$                   \\
+        &                                       & (e) $p \land q \To p \land (q \lor r)$                  \\
         (3.77) & Modus ponens                          & $p \land (p \To q) \To q$                               \\
         (3.78) &                                       & $(p \To r) \land (q \To r) \ \equiv \ (p \lor q \To r)$ \\
         (3.79) &                                       & $(p \To r) \land (\neg p \To r) \ \equiv \ r$           \\
         (3.80) & Mutual implication                    & $(p \To q) \land (q \To p) \equiv (p \equiv q)$         \\
         (3.81) & Antisymmetry                          & $(p \To q) \land (q \To p) \To (p \equiv q)$            \\
         (3.82) & Transitivity                          & (a) $(p \To q) \land (q \To r) \To (p \To r)$           \\
-               &                                       & (b) $(p \equiv q) \land (q \To r) \To (p \To r)$        \\
-               &                                       & (c) $(p \To q) \land (q \equiv r) \To (p \To r)$        \\
+        &                                       & (b) $(p \equiv q) \land (q \To r) \To (p \To r)$        \\
+        &                                       & (c) $(p \To q) \land (q \equiv r) \To (p \To r)$        \\
     \end{tabulary}
 
     \subsection{Leibniz as an axiom}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (3.83) & Axiom, Leibniz            & $e = f \ \To \ E_e^z = E_f^z$                                                         \\
         (3.84) & Substitution              & (a) $(e = f) \land E_e^z \ \equiv \ (e = f) \land E_f^z$                              \\
-               &                           & (b) $(e = f) \To E_e^z \ \equiv \ (e = f) \To E_f^z$                                  \\
-               &                           & (c) $q \land (e = f) \To E_e^z \ \equiv \ q \land (e = f) \To E_f^z$                  \\
+        &                           & (b) $(e = f) \To E_e^z \ \equiv \ (e = f) \To E_f^z$                                  \\
+        &                           & (c) $q \land (e = f) \To E_e^z \ \equiv \ q \land (e = f) \To E_f^z$                  \\
         (3.85) & Replace by \textit{true}  & (a) $p \To E_b^z \ \equiv \ p \To E_\textit{true}^z$                                  \\
-               &                           & (b) $q \land p \To E_p^z \ \equiv \ q \land p \To E_\textit{true}^z$                  \\
+        &                           & (b) $q \land p \To E_p^z \ \equiv \ q \land p \To E_\textit{true}^z$                  \\
         (3.86) & Replace by \textit{false} & (a) $E_p^z \To p \ \equiv \ E_\textit{false}^z \To p$                                 \\
-               &                           & (b) $E_p^z \To p \lor q \ \equiv \ E_\textit{false}^z \To p \lor q$                   \\
+        &                           & (b) $E_p^z \To p \lor q \ \equiv \ E_\textit{false}^z \To p \lor q$                   \\
         (3.87) & Replace by \textit{true}  & $p \land E_p^z \ \equiv \ p \land E_\textit{true}^z$                                  \\
         (3.88) & Replace by \textit{false} & $p \lor E_p^z \ \equiv \ p \lor E_\textit{false}^z$                                   \\
         (3.89) & Shannon                   & $E_p^z \ \equiv \ (p \land E_\textit{true}^z) \lor (\neg p \land E_\textit{false}^z)$ \\
@@ -227,12 +227,12 @@
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (9.2)  & \textbf{Axiom, Trading:}                                  & $(\forall x | R : P) \equiv (\forall x |: R \To P)$                                                                                              \\
         (9.3)  & \textbf{Trading:}                                         & (a) $(\forall x | R : P) \equiv (\forall x |: \neg R \lor P)$                                                                                    \\
-               &                                                           & (b) $(\forall x | R : P) \equiv (\forall x |: R \land P \equiv R)$                                                                               \\
-               &                                                           & (c) $(\forall x | R : P) \equiv (\forall x |: R \lor P \equiv P)$                                                                                \\
+        &                                                           & (b) $(\forall x | R : P) \equiv (\forall x |: R \land P \equiv R)$                                                                               \\
+        &                                                           & (c) $(\forall x | R : P) \equiv (\forall x |: R \lor P \equiv P)$                                                                                \\
         (9.4)  & \textbf{Trading:}                                         & (a) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \To P)$                                                                               \\
-               &                                                           & (b) $(\forall x | Q \land R : P) \equiv (\forall x | Q : \neg R \lor P)$                                                                         \\
-               &                                                           & (c) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \land P \equiv R)$                                                                    \\
-               &                                                           & (d) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \lor P \equiv P)$                                                                     \\
+        &                                                           & (b) $(\forall x | Q \land R : P) \equiv (\forall x | Q : \neg R \lor P)$                                                                         \\
+        &                                                           & (c) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \land P \equiv R)$                                                                    \\
+        &                                                           & (d) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \lor P \equiv P)$                                                                     \\
         (9.5)  & \textbf{Axiom, Distributivity of $\lor $ over $\forall$:} & Prov. $\neg occurs(`x\textrm', `P\textrm')$, $P \lor (\forall x | R : Q) \equiv (\forall x | R : P \lor Q)$                                      \\
         (9.6)  &                                                           & Provided $\neg occurs(`x\textrm', `P\textrm')$, $(\forall x | R : P) \equiv P \lor (\forall x |: \neg R)$                                        \\
         (9.7)  & \textbf{Distributivity of $\land$ over $\forall$:}        & Provided $\neg occurs(`x\textrm', `P\textrm')$, $\neg(\forall x |: \neg R) \To ((\forall x | R : P \land Q) \equiv P \land (\forall x | R : Q))$ \\
@@ -249,8 +249,8 @@
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (9.17) & \textbf{Axiom, Generalized De Morgan:}             & $(\exists x | R : P) \equiv \neg (\forall x | R : \neg P)$                                                                                                                 \\
         (9.18) & \textbf{Generalized De Morgan:}                    & (a) $\neg (\exists x | R : \neg P) \equiv (\forall x | R : P)$                                                                                                             \\
-               &                                                    & (b) $\neg(\exists x | R : P) \equiv (\forall x | R : \neg P)$                                                                                                              \\
-               &                                                    & (c) $(\exists x | R : \neg P) \equiv \neg(\forall x | R : P)$                                                                                                              \\
+        &                                                    & (b) $\neg(\exists x | R : P) \equiv (\forall x | R : \neg P)$                                                                                                              \\
+        &                                                    & (c) $(\exists x | R : \neg P) \equiv \neg(\forall x | R : P)$                                                                                                              \\
         (9.19) & \textbf{Trading:}                                  & $(\exists x | R : P) \equiv (\exists x |: R \land P)$                                                                                                                      \\
         (9.20) & \textbf{Trading:}                                  & $(\exists | Q \land R : P) \equiv (\exists x | Q : R \land P)$                                                                                                             \\
         (9.21) & \textbf{Distributivity of $\land$ over $\exists$:} & Provided $\neg occurs(`x\textrm', `P\textrm')$, $P \land (\exists x | R : Q) \equiv (\exists x | R : P \land Q)$                                                           \\
@@ -325,8 +325,8 @@
         (11.46) & & $S \subseteq T \equiv S \cap T = S$ \\
         (11.47) & & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ \\
         (11.48) & & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
-    % \end{tabulary}
-    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.49) & & $S - T = S \cap \sim T$ \\
         (11.50) & & $S - T \subseteq S$ \\
         (11.51) & & $S - \emptyset = S$ \\
@@ -335,8 +335,8 @@
         (11.54) & & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
         (11.55) & & $S - (T \cap U) = (S - T) \cup (S - U)$ \\
         (11.56) & & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
-    % \end{tabulary}
-    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.57) & \textbf{Antisymmetry:} & $S \subseteq T \land T \subseteq S \equiv S = T$ \\
         (11.58) & \textbf{Reflexivity:} & $S \subseteq S$ \\
         (11.59) & \textbf{Transitivity:} & $S \subseteq T \land T \subseteq U \To S \subseteq U$ \\
@@ -377,8 +377,25 @@
     \section{Tuples and cross-products}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         & \textbf{Axiom, Cartesian product:} & $S \times T = \{b, c \mid b \in S \land c \in T : (b, c)\}$ \\
-        (14.4) & \textbf{Membership)} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
+        (14.4) & \textbf{Membership} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
     \end{tabulary}
+
+    \section{Relations}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        & $\langle b, c \rangle \in \rho$ and $b \rho c$ are interchangable \\
+        (14.16) & $Dom.\rho = \{b:B| (\exists c|: b \rho c)\}$ \\
+        (14.17) & $Ran.\rho = \{c:C| (\exists b|: b \rho c)\}$ \\
+        (14.20) & $\langle b, d \rangle \in \rho \circ \sigma \equiv (\exists c| c \in C: \langle b, c \rangle \in \rho \land \langle c, d \rangle \in \sigma)$ \\
+        (14.21) & $b (\rho \circ \sigma) d \equiv (\exists c|: b \; \rho \; c \; \sigma \; d)$ \\
+        (14.22) & \textbf{Associativity of $\circ$:} \;  $\rho \circ (\sigma \circ \theta) = (\rho \circ \sigma) \circ \theta$\\
+        (14.23) & \textbf{Distributivity of $\circ$ over $\cup$:} \; $\rho \circ (\sigma \cup \theta) = \rho \circ \sigma \cup \rho \circ \theta$\\
+        & \;\;\;\;\;\;\;\; $(\sigma \cup \theta) \circ \rho = \sigma \circ \rho \cup \theta \circ \rho$\\
+        (14.24) & \textbf{Distributivity of $\circ$ over $\cap$:} \; $\rho \circ (\sigma \cap \theta) \subseteq \rho \circ \sigma \cap \rho \circ \theta$\\
+        & \;\;\;\;\;\;\;\; $(\sigma \cap \theta) \circ \rho \subseteq \sigma \circ \rho \cap \theta \circ \rho$\\
+        (14.26) & $\rho^m \circ \rho^n = \rho^{m+n}$ (for $m \geq 0,n \geq 0$) \\
+        (14.27) & $(\rho^m)^n = \rho^{m.n}$ (for $m \geq 0,n \geq 0$) \\
+    \end{tabulary}
+
     \section{Operation Priority}
     \begin{multicols}{2}
         $[x := e]$ (textual substitution) (high precedence) \\
@@ -436,70 +453,70 @@
     \subsubsection{Answers}
     \begin{enumerate}
         \item
-            $S - T \equiv \{\forall x \mid x \in S \land x \notin T\}$ by (11.22), Axiom of
-            Difference. Then $\equiv \{x \mid x \in S \land x \in \sim T \}$ by (11.18). Then
-            $\equiv S \cap \sim T$ by (11.21), Axiom of Intersection.
+              $S - T \equiv \{\forall x \mid x \in S \land x \notin T\}$ by (11.22), Axiom of
+              Difference. Then $\equiv \{x \mid x \in S \land x \in \sim T \}$ by (11.18). Then
+              $\equiv S \cap \sim T$ by (11.21), Axiom of Intersection.
         \item
-            Let $x \in S - T$ be arbitrary. Then $x \in S \land s \notin T$ by (11.22), Axiom
-            of Difference. Then $x \in S$. Thus by (11.13), Axiom of Subset, $S - T \subseteq S$.
+              Let $x \in S - T$ be arbitrary. Then $x \in S \land s \notin T$ by (11.22), Axiom
+              of Difference. Then $x \in S$. Thus by (11.13), Axiom of Subset, $S - T \subseteq S$.
         \item
-            $S - \emptyset \equiv \{\forall x \mid x \in S \land x \notin \emptyset\}$ by (11.22),
-            Axiom of Difference. Then $\equiv \{x \mid x \in S \land x \in \sim \emptyset \}$ by
-            (11.18). Then $\equiv \{x \mid x \in S \land x \in U \} \equiv \{x \mid x \in S \}
-            \equiv S$ by (11.17), Axiom of Complement. Thus $S - \emptyset = S$.
+              $S - \emptyset \equiv \{\forall x \mid x \in S \land x \notin \emptyset\}$ by (11.22),
+              Axiom of Difference. Then $\equiv \{x \mid x \in S \land x \in \sim \emptyset \}$ by
+              (11.18). Then $\equiv \{x \mid x \in S \land x \in U \} \equiv \{x \mid x \in S \}
+                  \equiv S$ by (11.17), Axiom of Complement. Thus $S - \emptyset = S$.
         \item
-            $S \cap (T - S) \equiv S \cap (T \cap \sim S)$ by (11.49). Then, $\equiv (S \cap \sim
-            S) \cap T \equiv \emptyset \cap T$ by (11.39), Contradiction, and $\equiv \emptyset$,
-            by (11.36), Zero of $\cap$.
+              $S \cap (T - S) \equiv S \cap (T \cap \sim S)$ by (11.49). Then, $\equiv (S \cap \sim
+                  S) \cap T \equiv \emptyset \cap T$ by (11.39), Contradiction, and $\equiv \emptyset$,
+              by (11.36), Zero of $\cap$.
         \item
-            Since $T - S = T \cap \sim S$, then $S \cup (T - S) \equiv S \cup (T \cap \sim S)$.
-            Consider $s \lor (t \land \lnot s)$. We have $s \lor (t \land \lnot s) \equiv (s \lor t)
-            \land (s \lor \lnot s) \equiv s \lor t$, so the result follows from Methatheorem $(11.25)$.
+              Since $T - S = T \cap \sim S$, then $S \cup (T - S) \equiv S \cup (T \cap \sim S)$.
+              Consider $s \lor (t \land \lnot s)$. We have $s \lor (t \land \lnot s) \equiv (s \lor t)
+                  \land (s \lor \lnot s) \equiv s \lor t$, so the result follows from Methatheorem $(11.25)$.
         \item
-            $S - (T \cup U) \equiv S \cap \sim(T \cup U)$ by (11.49). Now consider
-            $s \land \lnot (t \lor u)$. We have $\equiv s \land (\lnot t \lor \lnot u)$ by De Morgan's
-            Law. Then $\equiv s \land \lnot t \lor s \land \lnot u$ by distributivity, so from
-            Methatheorem $(11.25)$, we have $S \cap \sim (T \cup U) \equiv (S \cap \sim T) \cap
-            (S \cap \sim U)$, so from (11.49), we have $S - (T \cup U) \equiv (S - T) \cap (S - U)$.
+              $S - (T \cup U) \equiv S \cap \sim(T \cup U)$ by (11.49). Now consider
+              $s \land \lnot (t \lor u)$. We have $\equiv s \land (\lnot t \lor \lnot u)$ by De Morgan's
+              Law. Then $\equiv s \land \lnot t \lor s \land \lnot u$ by distributivity, so from
+              Methatheorem $(11.25)$, we have $S \cap \sim (T \cup U) \equiv (S \cap \sim T) \cap
+                  (S \cap \sim U)$, so from (11.49), we have $S - (T \cup U) \equiv (S - T) \cap (S - U)$.
     \end{enumerate}
 
     \subsection{Assignment 3, Question 11}
     \subsubsection{Question}
     Prove the correctness of the following loop, assigning to $F_n$ the $n$th fibonacci number:
     \begin{align*}
-        &\{Q: n \ge 0 \} \\
-        &k, b, c := 0, 1, 0; \\
-        &\{\text{invariant } P: 0 \le k \le n \land b = F_{k-1} \land c = F_k \} \\
-        &\textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od} \\
-        &\{R: c = F_n \}
+         & \{Q: n \ge 0 \}                                                         \\
+         & k, b, c := 0, 1, 0;                                                     \\
+         & \{\text{invariant } P: 0 \le k \le n \land b = F_{k-1} \land c = F_k \} \\
+         & \textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od}          \\
+         & \{R: c = F_n \}
     \end{align*}
     \subsubsection{Solution}
     \textbf{Prove $P$ is $true$ before execution of the loop.}
     \begin{align*}
-        &P[k, b, c:= 0,1,0]
+         & P[k, b, c:= 0,1,0]
         \\&\equiv \tag{Textual Substitution}
-            0 \le 0 \le n \land 1 = F_{0-1} \land 0 = F_0
+        0 \le 0 \le n \land 1 = F_{0-1} \land 0 = F_0
         \\&\equiv
-            0 \le n \land 1 = F_{-1} \land 0 = F_0
+        0 \le n \land 1 = F_{-1} \land 0 = F_0
         \\&\equiv
-            0 \le n
+        0 \le n
     \end{align*}
 
     \textbf{Prove $P$ is a loop invariant.} \\
     \begin{align*}
-        &P[k, b, c := k+1, c, b+c]
+         & P[k, b, c := k+1, c, b+c]
         \\&\equiv \tag{Textual Substitution}
-            0 \le k+1 \le n \land c = F_{k+1-1} \land b+c = F_{k+1}
+        0 \le k+1 \le n \land c = F_{k+1-1} \land b+c = F_{k+1}
         \\&\equiv
-            -1 \le k \le n-1 \land c = F_k \land b+c = F_{k+1}
+        -1 \le k \le n-1 \land c = F_k \land b+c = F_{k+1}
         \\&\equiv \tag{$k \le n-1 \Rightarrow k \ne n$}
-            k \ne n \land -1 \le k \le n-1 \land c = F_k \land b = F_{k+1} -F_k
+        k \ne n \land -1 \le k \le n-1 \land c = F_k \land b = F_{k+1} -F_k
         \\&\Leftarrow \tag{Strengthening}
-            k \ne n \land 0 \le k \le n \land c = F_k \land b = F_{k+1} -F_k
+        k \ne n \land 0 \le k \le n \land c = F_k \land b = F_{k+1} -F_k
         \\&\equiv \tag{Fibonacci}
-            k \ne n \land  \le k \le n \land c = F_k \land b = F_{k-1}
+        k \ne n \land  \le k \le n \land c = F_k \land b = F_{k-1}
         \\&\equiv \tag{Def. of $P \land B$}
-            P \land B
+        P \land B
     \end{align*}
 
     \textbf{Prove execution of the loop terminates.} \\
@@ -508,13 +525,13 @@
 
     \textbf{Prove $R$ holds upon termination.}
     \begin{align*}
-        &P \land \lnot B
+         & P \land \lnot B
         \\&\equiv
-            0 \le k \le n \land b = F_{k-1} \land c = F_{k} \land k = n
+        0 \le k \le n \land b = F_{k-1} \land c = F_{k} \land k = n
         \\&\Rightarrow \tag{Weakening}
-            c = F_{k} \land k = n
+        c = F_{k} \land k = n
         \\&\equiv \tag{Leibniz substitution}
-            c = F_{n}
+        c = F_{n}
     \end{align*}
 
 \end{multicols*}
