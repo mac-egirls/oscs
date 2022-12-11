@@ -422,6 +422,15 @@
     An \textbf{equivalence relation} must be reflexive, symmetric, and transitive.
 
     \section{Midterm Questions}
+
+    \subsection{Properties of set Difference}
+    \subsubsection{Question}
+    Prove $S \cup (T \setminus S) = S \cup T$
+    \subsubsection{Answer}
+    Since $T \setminus S = T \cap \sim S$, then $S \cup (T \setminus S) \equiv S \cup (T \cap \sim S)$.
+    Consider $s \lor (t \land \lnot s)$. We have $s \lor (t \land \lnot s) \equiv (s \lor t) \land 
+    (s \lor \lnot s) \equiv s \lor t$, so the result follows from Methatheorem $(11.25)$.
+
     \subsection{Assignment 3, Question 11}
     \subsubsection{Question}
     Prove the correctness of the following loop, assiging to $F_n$ the $n$th fibonacci number:
