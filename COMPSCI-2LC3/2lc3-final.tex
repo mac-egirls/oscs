@@ -75,10 +75,10 @@
     {\textbf{2LC3 - OSCS}} \\
 \end{center}
 \begin{multicols*}{3}
-    \setlength{\premulticols}{1pt}
-    \setlength{\postmulticols}{1pt}
-    \setlength{\multicolsep}{1pt}
-    \setlength{\columnsep}{2pt}
+    \setlength{\premulticols}{0pt}
+    \setlength{\postmulticols}{0pt}
+    \setlength{\multicolsep}{0pt}
+    \setlength{\columnsep}{0pt}
 
     \section{Theorems}
     \tiny
@@ -366,7 +366,7 @@
         (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
         (12.4) & \textbf{Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \equiv (\forall n : \mathbb{N} \mid : P.n)$ \\
         % TODO: consider adding specific induction cases? probably trivial though
-        (12.19) & \textbf{Mathematical induction over $\langle \mathbf{U}, \prec \rangle$:} & $(\forall x \mid : P.x) \equiv (\forall x \mid : (\forall y \mid y \prec x : P.y) \To P.x)$ \\
+        % (12.19) & \textbf{Mathematical induction over $\langle \mathbf{U}, \prec \rangle$:} & $(\forall x \mid : P.x) \equiv (\forall x \mid : (\forall y \mid y \prec x : P.y) \To P.x)$ \\
     \end{tabulary}
     \subsection{Correctness of loops}
 
@@ -404,6 +404,12 @@
         (14.27) & &$(\rho^m)^n = \rho^{m.n}$ (for $m \geq 0,n \geq 0$) \\
     \end{tabulary}
 
+    \section{Modern Algebra}
+    Element $1$ in $S$ is a \textbf{left identity} of $\circ$ over $S$
+    if $1 \circ b = b$ for all $b \in S$.
+    $1$ is a \textbf{right identity} if $b \circ 1 = b$ for all $b \in S$.
+    $1$ is an \textbf{identity} if it is both a left and right identity.
+
     \section{Operation Priority}
     \begin{multicols}{2}
         $[x := e]$ (textual substitution) (high precedence) \\
@@ -439,6 +445,9 @@
     - A boolean expression is \textbf{satisfiable} iff there is a state in which it is satisfied. \\
     - The atomic proposition is a type of statement, which contains a truth value that can be true or false.\\
 
+    \subsection{Sets}
+    A set $S$ of sets is a \textbf{partition} of a set $T$ if every element of $T$ is
+    exactly one of the elements of $S$.
     \subsection{Equivalence Relations and Partial Orders}
     An \textbf{equivalence relation} must be reflexive, symmetric, and transitive.
 
