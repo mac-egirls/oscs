@@ -519,6 +519,28 @@
             c = F_{n}
     \end{align*}
 
+    \section{Prove Axiom 9.10 and 9.11}
+    \subsection{Prove Axiom 9.10}
+    $(\forall x \mid Q \lor R : P) \equiv (\forall x \mid Q : P) \land
+    (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
+    (\forall x \mid Q : P)$ by Weakening.
+
+    \subsection{Prove Axiom 9.11}
+    $(\forall x \mid R: P \land Q) \equiv (\forall x \mid R: P) \land
+    (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
+    (\forall x \mid R: P)$ by Weakening.
+
+    \subsection{Lecture 15, Symmetric Difference}
+    \subsubsection{Question}
+    Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
+    \begin{enumerate}
+        \item
+            $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
+        \item
+            $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
+        \item
+            $b \prec_2 c \Leftrightarrow b R^{ac} c$
+    \end{enumerate}
 \end{multicols*}
 
 \end{document}
