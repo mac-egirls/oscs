@@ -486,8 +486,29 @@
         \textbf{De Morgan} & $\sim (b \oplus c) = (\sim b) \otimes (\sim c), \sim (b \otimes c) = (\sim b) \oplus (\sim c)$ \\
         & $b \oplus (\sim c) = 1 \equiv b \oplus c = b, b \otimes (\sim c) = 0 \equiv b \otimes c = b$ \\
     \end{tabulary}
+    
+    Thrm: A homomorphic image of a boolean algebra is a boolean algebra
+    Axiom: $b \leq c \equiv b \otimes c = b$ Theorem. Relation $\leq$ is a partial order.
+    Axiom: $b < c \equiv b \leq c \land b \neq c$; $b \leq c \equiv b \oplus c = c$
 
-    % TODO: FINISH ME
+    If an arbitrary boolean algebra $\langle S, \oplus, \otimes, \sim, 0, 1\rangle$ is
+    isomorphic to a power-set algebra, it must have the equivalent to the empty set and singleton sets.
+    (empty = 0, singletons = atoms)
+
+    $atom.a \equiv a \neq 0 \land (\forall b : S \mid 0 \leq b \leq a : 0 = b \lor b = a)$
+    $atom.a \To a \otimes b = 0 \lor a \times b = a$
+    $atom.a \land atom.b \land a \neq b \To a \otimes b = 0$
+    $(\forall a \mid atom.a : a \otimes b = 0) \To b = 0$
+
+    Thrm. Any element of finite boolean algebra can be written uniquely as
+    b = y, where y is a ``sum'' of atoms:
+    $y = (\oplus a \mid atom.a \land a \otimes b \neq 0 : a)$
+    Thrm. A boolean algebra with $n$ atoms has $2^n$ elements.
+    Thrm. A finite boolean algebra $A = \langle S, \oplus, \otimes, \sim, 0, 1 \rangle$
+    with $n$ atoms is isomorphic to algebra $\hat{A} = \langle \mathcal{P} \hat{S}, \cup, \cap, \sim, \emptyset, S \rangle$, where
+    $\hat{S} = 1..n$.
+
+    % TODO: check if there's anything else important that has been missed
 
 
 
