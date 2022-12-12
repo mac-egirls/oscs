@@ -576,7 +576,7 @@
 
     \subsubsection{Answers}
 
-    \textbf{Prove 1.: $\prec_1$ is a sharp partial order} \\
+    \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
 
     \begin{itemize}
     \item
@@ -588,10 +588,8 @@
     \item
         Thus $\prec_1$ is transitive, thus it's a sharp partial order.
     \end{itemize}
-\end{multicols*}
 
-    \textbf{Prove 2.: $\prec_2$ is a sharp partial order} \\
-
+    \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
     \begin{itemize}
         \item
             $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflextive.
@@ -602,4 +600,23 @@
         \item
             Thus $\prec_2$ is a sharp partial order.
     \end{itemize}
+
+    \textbf{Prove $\prec_2 \subseteq \prec_1$}
+    \begin{itemize}
+        \item
+            $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
+        \item
+            $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
+        \item
+            We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
+        \item
+            $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
+        \item
+            $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
+        \item
+            Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+    \end{itemize}
+
+\end{multicols*}
+
 \end{document}
