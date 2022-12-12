@@ -563,6 +563,34 @@
         \item
             $b \prec_2 c \Leftrightarrow b R^{ac} c$
     \end{enumerate}
+    Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
+
+    \subsubsection{Answers}
+
+    \textbf{Prove 1.: $\prec_1$ is a sharp partial order} \\
+
+    \begin{itemize}
+    \item
+        $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
+    \item
+        To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
+    \item
+        To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
+    \item
+        Thus $\prec_1$ is transitive, thus it's a sharp partial order.
+    \end{itemize}
 \end{multicols*}
 
+    \textbf{Prove 2.: $\prec_2$ is a sharp partial order} \\
+
+    \begin{itemize}
+        \item
+            $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflextive.
+        \item
+            $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflextive.
+        \item
+            Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflextive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflextive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflextive.
+        \item
+            Thus $\prec_2$ is a sharp partial order.
+    \end{itemize}
 \end{document}
