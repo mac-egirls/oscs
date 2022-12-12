@@ -437,15 +437,31 @@
     \textbf{Homomorphism} is an isomorphism but $h$ does not have to be one-to-one and/or onto.
 
     \textbf{Group Theory}
-    Semigroup is an algebra $\langle S, \circ \rangle$, where $\circ$ is a binary associative operator,
+    \textbf{Semigroup} is an algebra $\langle S, \circ \rangle$, where $\circ$ is a binary associative operator,
     and with no identity.
-    Monoid $\langle S, \circ, 1 \rangle$ is a semigroup with an identity $1$.
-    Albelian monoid is if $\circ$ is symmetric.
-    A subalgebra of a monoid that contains the identity of the monoid is a submonoid (which is also a monoid).
+    \textbf{Monoid} $\langle S, \circ, 1 \rangle$ is a semigroup with an identity $1$.
+    \textbf{Albelian monoid} is if $\circ$ is symmetric.
+    A subalgebra of a monoid that contains the identity of the monoid is a \textbf{submonoid} (which is also a monoid).
     Any semigroup can be made into a monoid by adding an identity element.
-    A group is a monoid with an inverse for every element $(b^{-1})$.
+    A \textbf{group} is a monoid with an inverse for every element $(b^{-1})$.
     A symmetric, commutative, or abelian group is an albelian monoid in which every element has an inverse.
 
+    \begin{tabulary}{\linewidth}{@{}LL@{}}
+        \textbf{Cancellation:}  & $b \circ d = c \circ d \equiv b = c$; $d \circ b = d \circ c \equiv b = c$ \\
+        \textbf{Unique solution:}   & $b \circ x = c \equiv x = b^{-1} \circ c$; $x \circ b = c \equiv x = c \circ b^{-1}$ \\
+        \textbf{One-to-one:}    & $b \neq c \equiv d \circ b \neq d \circ c$; $b \neq c \equiv b \circ d \neq c \circ d$ \\
+        \textbf{Onto:}  & $(\exists x \mid : b \circ x = c)$; $(\exists x \mid : x \circ b = c)$ \\
+    \end{tabulary}
+    \vspace{1em}
+    \begin{multicols*}{2}
+        $b^0 = 1$ \\
+        $b^m \circ b^n = b^{m+n}$ \\
+        $(b^m)^n = b^{m \cdot n}$ \\
+        $b^n = b^{n-1} \circ b$ \\
+        $b^{-n} = (b^-1)^n$ \\
+        $b^n = b^p \equiv b^n-p = 1$ \\
+    \end{multicols*}
+    % TODO: FINISH ME
 
 
 
@@ -588,6 +604,7 @@
         \\&\equiv \tag{Leibniz substitution}
         c = F_{n}
     \end{align*}
+    % TODO: add condensed programs as relations if we have space
 
     \section{Prove Axiom 9.10 and 9.11}
     \subsection{Prove Axiom 9.10}
