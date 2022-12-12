@@ -405,6 +405,7 @@
     \end{tabulary}
 
     \section{Modern Algebra}
+    \textbf{Structure of Algebras}
     An \textbf{algebra} has a set $S$, the \textbf{carrier},
     and \textbf{operations} defined on that carrier.
 
@@ -426,7 +427,26 @@
     Thrm. Let $b$ be an element of a group $\langle S, \circ, 1 \rangle$.
     Let set $S_b$ cosist of all powers of $b$ (including negative powers).
     Then $\langle S_b, \circ, 1 \rangle$ is a subgroup of $\langle S, \circ, 1 \rangle$.
-    A function $h$ is an isomorphism if it is one-to-one and onto, each pair 
+    A function $h$ is an isomorphism if it is one-to-one and onto,
+    each pair of nullary operators can be mapped to each other via $h$,
+    each pair of unary operators, $h(\sim b) = \hat{\sim} h.b$,
+    and each pair of binary operators, $h(b \circ c) = h.b \hat{\circ} h.c$.
+    $A$ and $\hat{A}$ are isomorphic and $\hat{A}$ is called the isomorphic image of $A$.
+
+    \textbf{Automorphism} is an isomorphism from $A$ to $A$.
+    \textbf{Homomorphism} is an isomorphism but $h$ does not have to be one-to-one and/or onto.
+
+    \textbf{Group Theory}
+    Semigroup is an algebra $\langle S, \circ \rangle$, where $\circ$ is a binary associative operator,
+    and with no identity.
+    Monoid $\langle S, \circ, 1 \rangle$ is a semigroup with an identity $1$.
+    Albelian monoid is if $\circ$ is symmetric.
+    A subalgebra of a monoid that contains the identity of the monoid is a submonoid (which is also a monoid).
+    Any semigroup can be made into a monoid by adding an identity element.
+    A group is a monoid with an inverse for every element $(b^{-1})$.
+    A symmetric, commutative, or abelian group is an albelian monoid in which every element has an inverse.
+
+
 
 
     \section{Operation Priority}
