@@ -457,6 +457,36 @@
         $b^{-n} = (b^-1)^n$ \\
         $b^n = b^p \equiv b^n-p = 1$ \\
     \end{multicols*}
+
+    Order of element $b$ in group with identity 1 is the least positive integer $m$
+    such that $b^m = 1$ (can be $\infty$).
+    Thrm: The order of each element in a finite group is finite.
+    Def: Subalgebra $\rho = \langle T, \circ, 1 \rangle$ of
+    group $G = \langle S, \circ, 1 \rangle$ is a subgroup of $G$ if $\rho$ is a group.
+    Thrm: Homomorphic image of a group (monoid, semigroup) is a group (monoid semigroup).
+    THe intersection of two subgroups of a group is a subgroup ($G = \langle S1 \cap S2, \circ, 1 \rangle$).
+
+    \subsection{Boolean Algebra}
+    Def: $\langle S, \oplus, \otimes, \sim, 0, 1 \rangle$ in which:
+    \textbf{a)} $\oplus$ and $\otimes$ are binary associative operators;
+    \textbf{b)} $\oplus$ and $\otimes$ are symmetric;
+    \textbf{c)} $0$ and $1$ are identities of $\oplus$ and $\otimes$;
+    \textbf{d)} unary $\sim$ satisfies $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$.
+    \textbf{e)} $\otimes$ distributes over $\oplus$: $b \otimes (c \oplus d) = (b \otimes c) \oplus (b \otimes d)$;
+    \textbf{f)} $\oplus$ distributes over $\otimes$: $b \oplus (c \otimes d) = (b \oplus c) \otimes (b \oplus d)$.
+
+    \begin{tabulary}{\linewidth}{@{}LL@{}}
+        \textbf{Idempotency} & $b \oplus b = b, b \otimes b = b$ \\
+        \textbf{Zero} & $b \oplus 1 = 1, b \otimes 0 = 0$ \\
+        \textbf{Absorption} & $b \oplus (b \otimes c) = b, b \otimes (b \oplus c) = b$ \\
+        \textbf{Cancellation} & $(b \oplus c = b \oplus d) \land (\sim b \oplus c = \sim b \oplus d) \equiv c = d$ \\
+                              & $(b \otimes c = b \otimes d) \land (\sim b \otimes c = \sim b \otimes d) \equiv c = d$ \\
+        \textbf{Unique complement} & $b \oplus c = 1 \land b \otimes c = 0 \equiv c = \sim b$ \\
+        \textbf{Constant complement} & $\sim 0 = 1, \sim 1 = 0$ \\
+        \textbf{De Morgan} & $\sim (b \oplus c) = (\sim b) \otimes (\sim c), \sim (b \otimes c) = (\sim b) \oplus (\sim c)$ \\
+        & $b \oplus (\sim c) = 1 \equiv b \oplus c = b, b \otimes (\sim c) = 0 \equiv b \otimes c = b$ \\
+    \end{tabulary}
+
     % TODO: FINISH ME
 
 
