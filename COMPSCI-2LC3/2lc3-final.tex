@@ -50,6 +50,8 @@
 
 % Custom siunitx defs
 \DeclareSIUnit\noop{\relax}
+\setlist[itemize]{noitemsep, leftmargin=*}
+\setlist[enumerate]{noitemsep, leftmargin=*}
 
 \NewDocumentCommand\prefixvalue{m}{%
 \qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
@@ -57,6 +59,10 @@
 
 % Shorthand definitions
 \newcommand{\To}{\Rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
 
 \title{2LC3}
 
