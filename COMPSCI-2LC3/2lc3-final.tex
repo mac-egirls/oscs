@@ -300,6 +300,8 @@
         (11.13) & \textbf{Axiom, Subset:} & $S \subseteq T \equiv (\forall x \mid x \in S : x \in T)$ \\
         (11.14) & \textbf{Axiom, Proper subset:} & $S \subset T \equiv S \subseteq T \ \land \ S \neq T$ \\
         (11.17) & \textbf{Axiom, Complement:} & $v \in \sim S \equiv v \in \mathbf{U} \land v \not\in S$ \\
+        (11.18) & & $v \in \sim S \equiv v \notin S$ (for $v$ in $\mathbf{U}$) \\
+        (11.19) & & $\sim \sim S = S$ \\
         (11.20) & \textbf{Axiom, Union:} & $v \in S \cup T \equiv v \in S \lor v \in T$ \\
         (11.21) & \textbf{Axiom, Intersection:} & $v \in S \cap T \equiv v \in S \land v \in T$ \\
         (11.22) & \textbf{Axiom, Difference:} & $v \in S - T \equiv v \in S \land v \not\in T$ \\
@@ -539,10 +541,10 @@
 
 
     \section{Operation Priority}
-    \begin{multicols}{2}
+    \begin{multicols}{3}
         $[x := e]$ (textual substitution) (high precedence) \\
         $.$ (function application) \\
-        unary prefix operators $+ - \neg \# \sim \mathcal{P}$ \\
+        $+ - \neg \# \sim \mathcal{P}$ (unary prefix operators) \\
         $**$ \\
         $\cdot / \div \mod \gcd$ \\
         $+ - \cup \cap \times \circ$ \\
