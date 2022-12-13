@@ -107,18 +107,18 @@
         (3.19) & Mutual interchangeability                     & $p \not\equiv q \equiv r \ \equiv \ p \equiv q \not\equiv r$                \\
     \end{tabulary}
 
-    % \subsection{Disjunction}
-    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
-    %     (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
-    %     (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
-    %     (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
-    %     (3.27) & Axiom, Distributivity of $\lor$ over $\equiv$ & $p \lor(q \equiv r) \equiv p \lor q \equiv p \lor r$  \\
-    %     (3.28) & Axiom, Excluded Middle                        & $p \lor \neg p$                                       \\
-    %     (3.29) & Zero of $\lor$                                & $p \lor \textit{true} \equiv \textit{true}$           \\
-    %     (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
-    %     (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
-    %     (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
-    % \end{tabulary}
+    \subsection{Disjunction}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
+        % (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
+        % (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
+        (3.27) & Axiom, Distributivity of $\lor$ over $\equiv$ & $p \lor(q \equiv r) \equiv p \lor q \equiv p \lor r$  \\
+        (3.28) & Axiom, Excluded Middle                        & $p \lor \neg p$                                       \\
+        % (3.29) & Zero of $\lor$                                & $p \lor \textit{true} \equiv \textit{true}$           \\
+        % (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
+        (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
+        (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
+    \end{tabulary}
 
     \subsection{Conjunction}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
@@ -128,7 +128,7 @@
         % (3.38) & Idempotency of $\land$                 & $p \land p \equiv p$                                                           \\
         % (3.39) & Identity of $\land$                    & $p \land \textit{true} \equiv p$                                               \\
         % (3.40) & Zero of $\land$                        & $p \land \textit{false} \equiv \textit{false} $                                \\
-        % (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
+        (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
         % (3.42) & Contradiction                          & $p \land \neg p \equiv \textit{false}$                                         \\
         (3.43) & Absorption                             & (a) $p \land (p \lor q) \equiv p$                                              \\
         &                                        & (b) $p \lor (p \land q) \equiv p$                                              \\
@@ -202,15 +202,15 @@
     %     (4.3)  & Monotonicity of $\land$   & $(p \To q) \To (p \land r \To q \land r)$                                             \\
     % \end{tabulary}
 
-    \subsection{Proof techniques}
-    \begin{tabulary}{\linewidth}{@{}llL@{}}
-        (4.4)  & Deduction               & To prove $P \To Q$, assume $P$ and prove $Q$.                                  \\
-        (4.5)  & Case analysis           & If $E_\textit{true}^z$, $E_\textit{false}^z$ are theorems, then so is $E_P^z$. \\
-        (4.6)  & Case analysis           & $(p \lor q \lor r) \land (p \To s) \land (q \To s) \land(r \To s) \To \ s$     \\
-        (4.7)  & Mutual implication      & To prove $P \equiv Q$, prove $P \To Q$ and $Q \To P$.                          \\
-        (4.9)  & Proof by contradiction  & To prove $P$, prove $\neg P \To \textit{false}$.                               \\
-        (4.12) & Proof by contrapositive & To prove $P \To Q$, prove $\neg Q \To \neg P$                                  \\
-    \end{tabulary}
+    % \subsection{Proof techniques}
+    % \begin{tabulary}{\linewidth}{@{}llL@{}}
+    %     (4.4)  & Deduction               & To prove $P \To Q$, assume $P$ and prove $Q$.                                  \\
+    %     (4.5)  & Case analysis           & If $E_\textit{true}^z$, $E_\textit{false}^z$ are theorems, then so is $E_P^z$. \\
+    %     (4.6)  & Case analysis           & $(p \lor q \lor r) \land (p \To s) \land (q \To s) \land(r \To s) \To \ s$     \\
+    %     (4.7)  & Mutual implication      & To prove $P \equiv Q$, prove $P \To Q$ and $Q \To P$.                          \\
+    %     (4.9)  & Proof by contradiction  & To prove $P$, prove $\neg P \To \textit{false}$.                               \\
+    %     (4.12) & Proof by contrapositive & To prove $P \To Q$, prove $\neg Q \To \neg P$                                  \\
+    % \end{tabulary}
 
     \section{General Laws of Quantification}
     For symmetric and associative binary operator $\star $ with identity $u$.
