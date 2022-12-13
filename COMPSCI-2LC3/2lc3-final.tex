@@ -16,7 +16,7 @@
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.3in} }
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.25in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -150,13 +150,13 @@
 
     \subsection{Implication}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
-        (3.57) & Axiom, Definition of Implication      & $p \To q \equiv p \lor q \equiv q$                      \\
+        (3.57) & Axiom, Def of $\Rightarrow$           & $p \To q \equiv p \lor q \equiv q$                      \\
+        (3.59) &                                       & $p \To q \equiv \neg p \lor q$                          \\
+        (3.60) &                                       & $p \To q \equiv p \land q \equiv p$                     \\
         % (3.58) & Axiom, Consequence                    & $p \Leftarrow q \equiv q \To p$                         \\
-        (3.59) & Definition of implication             & $p \To q \equiv \neg p \lor q$                          \\
-        (3.60) & Definition of implication             & $p \To q \equiv p \land q \equiv p$                     \\
         (3.61) & Contrapositive                        & $p \To q \equiv \neg q \To \neg p$                      \\
         (3.62) &                                       & $p \To (q \equiv r) \equiv p \land q \equiv p \land r$  \\
-        (3.63) & Distributivity of $\To$ over $\equiv$ & $p \To (q \equiv r) \equiv p \To q \equiv p \To r$      \\
+        (3.63) & Distr. of $\To$ over $\equiv$         & $p \To (q \equiv r) \equiv p \To q \equiv p \To r$      \\
         (3.64) &                                       & $p \To (q \To r) \equiv (p \To q) \To (p \To r)$        \\
         (3.65) & Shunting                              & $p \land q \To r \equiv p \To (q \To r)$                \\
         (3.66) &                                       & $p \land (p \To q) \equiv p \land q$                    \\
@@ -200,7 +200,7 @@
     %     (4.1)  &                           & $p \To (q \To p)$                                                                     \\
     %     (4.2)  & Monotonicity of $\lor$    & $(p \To q) \To (p \lor r \To q \lor r)$                                               \\
     %     (4.3)  & Monotonicity of $\land$   & $(p \To q) \To (p \land r \To q \land r)$                                             \\
-    % \end{tabulary}
+
 
     % \subsection{Proof techniques}
     % \begin{tabulary}{\linewidth}{@{}llL@{}}
@@ -320,7 +320,9 @@
         (11.31) & \textbf{Weakening:} & $S \subseteq S \cup T$ \\
         (11.32) & \textbf{Excluded middle:} & $S \cup \sim S = \mathbf{U}$ \\
     \end{tabulary}
+
     \subsection{Properties of $\cap$}
+
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.33) & \textbf{Symmetry of $\cap$:} & $S \cap T = T \cap S$ \\
         (11.34) & \textbf{Associativity of $\cap$:} & $(S \cap T) \cap U = S \cap (T \cap U)$ \\
@@ -430,11 +432,7 @@
         (14.4) & \textbf{Membership} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
     \end{tabulary}
 
-    % ANCHOR: FORCE PAGE BREAK
-    % MOVE THIS IF NEEDED
-    \clearpage
-
-    \section{Relations \ Functions}
+    \section{Relations  Functions}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         & $\langle b, c \rangle \in \rho$ and $b \rho c$ are interchangable \\
         (14.5) & $\langle x, y \rangle \in S \times T \equiv \langle y, x \rangle \in T \times S$ &\\
@@ -464,6 +462,10 @@
         (14.30) &Let $\rho$ be a relation. $r(\rho)$ is a refliexive closure, $s(\rho)$ is the symmetric closure, $\rho^+$ is the transitive closure, and $\rho^*$ is the refliexive transitive closure.& \\
         (14.39) &\textbf{Definition} for f and g $f \centerdot g \equiv g \circ f$ &\\
     \end{tabulary}
+
+    % ANCHOR: FORCE PAGE BREAK
+    % MOVE THIS IF NEEDED
+    \clearpage
 
     \section{Modern Algebra}
     \textbf{Structure of Algebras}
