@@ -836,18 +836,24 @@
 
     \subsection{Lecture 15, Prove Boolean Algebra}
     \subsubsection{Question }
-    Let $(S, \oplus, \otimes, \sim, 0, 1)$ be a boolean algebra. Prove taht for all $b, c, \in S$, we have $b \oplus c = 1 \land c \otimes b = 0 \Leftrightarrow c = \sim b$.
+    Let $(S, \oplus, \otimes, \sim, 0, 1)$ be a boolean algebra. Prove that for all $b, c, \in S$, we have $b \oplus c = 1 \land c \otimes b = 0 \Leftrightarrow c = \sim b$.
     \begin{itemize}
         \item
             ($\Leftarrow$): from Section Boolean Algebra d), $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$.
         \item
-            ($\Rightarrow$) We will start from $c = \sim b$ and work backwords.
+            ($\Rightarrow$) We will start from $c = \sim b$ and work backwards.
         \item
             $c = \sim b \Leftrightarrow c \otimes 1= \sim b \otimes 1 \Leftarrow c \otimes (b \oplus (\sim b)) = \sim b \otimes (b \oplus c) \Leftrightarrow (c \otimes b) \oplus (c \otimes (\sim b)) = 0 \oplus (\sim b \otimes c) \Leftrightarrow c \otimes (\sim b) = (\sim b) \otimes c$ which is true by symmetry.
         \item
             Reverse the steps to get the proper proof.
     \end{itemize}
 
+    \textbf{18.51 Absorption} \\
+    $\quad b \oplus (b \otimes c)$ \\
+    $= (b \otimes 1) \oplus (b \otimes c)$ \\
+    $= b \otimes (1 \oplus c)$ \\
+    $= b \otimes 1 <zero>$ \\
+    $= b$
 \end{multicols*}
 
 \end{document}
