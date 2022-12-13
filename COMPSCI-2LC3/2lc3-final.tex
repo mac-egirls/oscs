@@ -587,7 +587,7 @@
     % REVIEW: this could be condensed more
 
     \subsection{Properties of set Difference}
-    \subsubsection{Question}
+    \subsubsection{Question }
     Prove \\
     \begin{tabulary}{\linewidth}{@{}lL@{}}
         1. $S - T = S \cap \sim T$ & 2. $S - T \subseteq S$ \\
@@ -596,7 +596,7 @@
         7. $S - (T \cap U) = (S - T) \cup (S - U)$
     \end{tabulary}
 
-    \subsubsection{Answers}
+    \subsubsection{Answers }
     \begin{enumerate}
         \item
               $S - T \equiv \{\forall x \mid x \in S \land x \notin T\}$ by (11.22), Axiom of
@@ -629,7 +629,7 @@
     \end{enumerate}
 
     \subsection{Assignment 3, Question 11}
-    \subsubsection{Question}
+    \subsubsection{Question }
     Prove the correctness of the following loop, assigning to $F_n$ the $n$th fibonacci number:
     \begin{align*}
          & \{Q: n \ge 0 \}                                                         \\
@@ -638,7 +638,7 @@
          & \textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od}          \\
          & \{R: c = F_n \}
     \end{align*}
-    \subsubsection{Solution}
+    \subsubsection{Solution }
     \textbf{Prove $P$ is $true$ before execution of the loop.}
     \begin{align*}
          & P[k, b, c:= 0,1,0]
@@ -694,61 +694,69 @@
         (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
         (\forall x \mid R: P)$ by Weakening.
 
-    \subsection{Lecture 15, Symmetric Difference}
-    \subsubsection{Question}
-    Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
-    \begin{enumerate}
-        \item
-              $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
-        \item
-              $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
-        \item
-              $b \prec_2 c \Leftrightarrow b R^{ac} c$
-    \end{enumerate}
-    Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
+    % \subsection{Lecture 15, Symmetric Difference}
+    % \subsubsection{Question }
+    % Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
+    % \begin{enumerate}
+    %     \item
+    %           $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
+    %     \item
+    %           $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
+    %     \item
+    %           $b \prec_2 c \Leftrightarrow b R^{ac} c$
+    % \end{enumerate}
+    % Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
 
-    \subsubsection{Answers}
+    % \subsubsection{Answers }
 
-    \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
+    % \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
 
-    \begin{itemize}
-        \item
-              $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
-        \item
-              To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
-        \item
-              To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
-        \item
-              Thus $\prec_1$ is transitive, thus it's a sharp partial order.
-    \end{itemize}
+    % \begin{itemize}
+    %     \item
+    %           $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
+    %     \item
+    %           To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
+    %     \item
+    %           To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
+    %     \item
+    %           Thus $\prec_1$ is transitive, thus it's a sharp partial order.
+    % \end{itemize}
 
-    \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
-    \begin{itemize}
-        \item
-            $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflexive.
-        \item
-            $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflexive.
-        \item
-            Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
-        \item
-              Thus $\prec_2$ is a sharp partial order.
-    \end{itemize}
+    % \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
+    % \begin{itemize}
+    %     \item
+    %         $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflexive.
+    %     \item
+    %         $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflexive.
+    %     \item
+    %         Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
+    %     \item
+    %           Thus $\prec_2$ is a sharp partial order.
+    % \end{itemize}
 
-    \textbf{Prove $\prec_2 \subseteq \prec_1$}
-    \begin{itemize}
-        \item
-              $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
-        \item
-              $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
-        \item
-              We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
-        \item
-              $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
-        \item
-              $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
-        \item
-              Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
-    \end{itemize}
+    % \textbf{Prove $\prec_2 \subseteq \prec_1$}
+    % \begin{itemize}
+    %     \item
+    %           $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
+    %     \item
+    %           $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
+    %     \item
+    %           We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
+    %     \item
+    %           $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
+    %     \item
+    %           $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
+    %     \item
+    %           Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+    % \end{itemize}
+
+    \subsection{Assignment 3, Question 19}
+    \subsubsection{Question }
+    Show that $(S, \circ, )$ is a group if $\circ$ is a binary associative operator with a left identity 1 and every element has a leftw inverse.
+
+    \subsubsection{Answer }
+    \textbf{Prove left cancellation} \\
+    $LHS \Leftarrow RHS$ follows from Leibniz. 
 
 \end{multicols*}
 
