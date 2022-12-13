@@ -375,7 +375,12 @@
         (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
         (12.4) & \textbf{Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \equiv (\forall n : \mathbb{N} \mid : P.n)$ \\
         % TODO: consider adding specific induction cases? probably trivial though
-        % (12.19) & \textbf{Mathematical induction over $\langle \mathbf{U}, \prec \rangle$:} & $(\forall x \mid : P.x) \equiv (\forall x \mid : (\forall y \mid y \prec x : P.y) \To P.x)$ \\
+        (12.19) & \textbf{Mathematical induction over $\langle \mathbf{U}, \prec \rangle$:} & $(\forall x \mid : P.x) \equiv (\forall x \mid : (\forall y \mid y \prec x : P.y) \To P.x)$ \\
+        (12.20) & \textbf{Def.} & Element $y$ is a \textbf{minimal element} of $S$ if $y \in S$ and $(\forall x | x \prec y : x \not \in S)$\\
+        (12.22) & \textbf{Th.} & $<U,\prec>$ well founded iff admits induction.\\
+		   (12.24) & \textbf{Ax. FC Prop.:} & $(\forall x |: (\forall y | y \succ x : DCF.y) \Rightarrow DCF.x)$ \\
+        (12.27) & \textbf{Th.} & If $<U, \prec >$ admits induction, then $\prec$ is \textbf{irreflexive}($x \not \prec x$ holds for every $x$ in $U$)\\
+        (12.28) & \textbf{Th.} & If $<U, \prec>$ admits induction, then for all $x,y$ in $U$. $x \prec y \Rightarrow y \not \prec x$.
     \end{tabulary}
     \subsection{Correctness of loops}
 
