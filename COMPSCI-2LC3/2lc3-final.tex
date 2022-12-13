@@ -750,13 +750,32 @@
     %           Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
     % \end{itemize}
 
+    \subsection{Lecture 15, Prove Binary Relation by Induction}
+    \subsubsection{Let} $R$ be a transitive relation on $B$. \textbf{Prove} $R^+ = R$.
+    \begin{itemize}
+        \item
+            Recall $R^+ = \bigcup_{i \ge 1} R^i$, or $bR^+c \equiv \exists (i \mid : i > 0 \land bR^i c)$.
+        \item
+            From the definition of $R^+$, we have $R \subseteq R^+$.
+        \item
+            We now show $R^+ \subseteq R$. By the definition of $R^+$, it suffices to show $(\forall i \mid 0<i : R^i \subseteq R)$ by induction.
+        \item
+            Base case: $R \subseteq R$.
+        \item
+            Inductive Step: Assume $R^i \subseteq R$, i.e., $bR^ic \Rightarrow bRc$.
+        \item
+            Consider $bR^{i+1}c \Leftrightarrow \exists(d \mid d \in B: b R^id \land dRc) \Leftarrow \exists(d \mid d \in B: b R d \land dRc) \Rightarrow bRc$. The last step is by transitivity of $R$. Hence $R^i \subseteq R$.
+        \item
+            This means $R^+ = R$.
+    \end{itemize}
+
     \subsection{Assignment 3, Question 19}
     \subsubsection{Question }
     Show that $(S, \circ, )$ is a group if $\circ$ is a binary associative operator with a left identity 1 and every element has a leftw inverse.
 
     \subsubsection{Answer }
     \textbf{Prove left cancellation} \\
-    $LHS \Leftarrow RHS$ follows from Leibniz. 
+    $LHS \Leftarrow RHS$ follows from Leibniz.
 
 \end{multicols*}
 
