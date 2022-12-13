@@ -1,4 +1,4 @@
-\documentclass[letterpaper, 9pt]{extarticle}
+\documentclass[letterpaper, 8pt]{extarticle}
 \usepackage{amssymb,amsmath,amsthm,amsfonts}
 \usepackage{multicol,multirow}
 \usepackage{calc}
@@ -70,6 +70,10 @@
 
 \raggedright
 \tiny
+
+% \begin{center}
+%     {\textbf{2LC3 - OSCS}} \\
+% \end{center}
 \begin{multicols*}{3}
     \setlength{\premulticols}{0pt}
     \setlength{\postmulticols}{0pt}
@@ -103,18 +107,18 @@
         (3.19) & Mutual interchangeability                     & $p \not\equiv q \equiv r \ \equiv \ p \equiv q \not\equiv r$                \\
     \end{tabulary}
 
-    % \subsection{Disjunction}
-    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
-    %     (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
-    %     (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
-    %     (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
-    %     (3.27) & Axiom, Distributivity of $\lor$ over $\equiv$ & $p \lor(q \equiv r) \equiv p \lor q \equiv p \lor r$  \\
-    %     (3.28) & Axiom, Excluded Middle                        & $p \lor \neg p$                                       \\
-    %     (3.29) & Zero of $\lor$                                & $p \lor \textit{true} \equiv \textit{true}$           \\
-    %     (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
-    %     (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
-    %     (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
-    % \end{tabulary}
+    \subsection{Disjunction}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
+        % (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
+        % (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
+        (3.27) & Axiom, Distributivity of $\lor$ over $\equiv$ & $p \lor(q \equiv r) \equiv p \lor q \equiv p \lor r$  \\
+        (3.28) & Axiom, Excluded Middle                        & $p \lor \neg p$                                       \\
+        % (3.29) & Zero of $\lor$                                & $p \lor \textit{true} \equiv \textit{true}$           \\
+        % (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
+        (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
+        (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
+    \end{tabulary}
 
     \subsection{Conjunction}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
@@ -124,7 +128,7 @@
         % (3.38) & Idempotency of $\land$                 & $p \land p \equiv p$                                                           \\
         % (3.39) & Identity of $\land$                    & $p \land \textit{true} \equiv p$                                               \\
         % (3.40) & Zero of $\land$                        & $p \land \textit{false} \equiv \textit{false} $                                \\
-        % (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
+        (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
         % (3.42) & Contradiction                          & $p \land \neg p \equiv \textit{false}$                                         \\
         (3.43) & Absorption                             & (a) $p \land (p \lor q) \equiv p$                                              \\
         &                                        & (b) $p \lor (p \land q) \equiv p$                                              \\
@@ -198,15 +202,15 @@
     %     (4.3)  & Monotonicity of $\land$   & $(p \To q) \To (p \land r \To q \land r)$                                             \\
     % \end{tabulary}
 
-    \subsection{Proof techniques}
-    \begin{tabulary}{\linewidth}{@{}llL@{}}
-        (4.4)  & Deduction               & To prove $P \To Q$, assume $P$ and prove $Q$.                                  \\
-        (4.5)  & Case analysis           & If $E_\textit{true}^z$, $E_\textit{false}^z$ are theorems, then so is $E_P^z$. \\
-        (4.6)  & Case analysis           & $(p \lor q \lor r) \land (p \To s) \land (q \To s) \land(r \To s) \To \ s$     \\
-        (4.7)  & Mutual implication      & To prove $P \equiv Q$, prove $P \To Q$ and $Q \To P$.                          \\
-        (4.9)  & Proof by contradiction  & To prove $P$, prove $\neg P \To \textit{false}$.                               \\
-        (4.12) & Proof by contrapositive & To prove $P \To Q$, prove $\neg Q \To \neg P$                                  \\
-    \end{tabulary}
+    % \subsection{Proof techniques}
+    % \begin{tabulary}{\linewidth}{@{}llL@{}}
+    %     (4.4)  & Deduction               & To prove $P \To Q$, assume $P$ and prove $Q$.                                  \\
+    %     (4.5)  & Case analysis           & If $E_\textit{true}^z$, $E_\textit{false}^z$ are theorems, then so is $E_P^z$. \\
+    %     (4.6)  & Case analysis           & $(p \lor q \lor r) \land (p \To s) \land (q \To s) \land(r \To s) \To \ s$     \\
+    %     (4.7)  & Mutual implication      & To prove $P \equiv Q$, prove $P \To Q$ and $Q \To P$.                          \\
+    %     (4.9)  & Proof by contradiction  & To prove $P$, prove $\neg P \To \textit{false}$.                               \\
+    %     (4.12) & Proof by contrapositive & To prove $P \To Q$, prove $\neg Q \To \neg P$                                  \\
+    % \end{tabulary}
 
     \section{General Laws of Quantification}
     For symmetric and associative binary operator $\star $ with identity $u$.
@@ -269,7 +273,16 @@
 
     % TODO: Add notes on chapter 10
     \subsection{Conditional Statements}
-    (10.5) Proof method for IF: To prove $\{Q\} IF \{R\}$, prove $\{Q \land B\} S1 \{R\}$ and $\{Q \land \neg B\} S2 \{R\}$
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+
+        &(10.5) Proof method for IF: To prove $\{Q\} IF \{R\}$, prove $\{Q \land B\} S1 \{R\}$ and $\{Q \land \neg B\} S2 \{R\}$&
+    \end{tabulary}
+
+    \subsection{Find precondition}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        &Given $\{?\}S\{R\}$. To find $?$ textual sub $S$ into $R$&
+    \end{tabulary}
+
 
 
 
@@ -287,6 +300,8 @@
         (11.13) & \textbf{Axiom, Subset:} & $S \subseteq T \equiv (\forall x \mid x \in S : x \in T)$ \\
         (11.14) & \textbf{Axiom, Proper subset:} & $S \subset T \equiv S \subseteq T \ \land \ S \neq T$ \\
         (11.17) & \textbf{Axiom, Complement:} & $v \in \sim S \equiv v \in \mathbf{U} \land v \not\in S$ \\
+        (11.18) & & $v \in \sim S \equiv v \notin S$ (for $v$ in $\mathbf{U}$) \\
+        (11.19) & & $\sim \sim S = S$ \\
         (11.20) & \textbf{Axiom, Union:} & $v \in S \cup T \equiv v \in S \lor v \in T$ \\
         (11.21) & \textbf{Axiom, Intersection:} & $v \in S \cap T \equiv v \in S \land v \in T$ \\
         (11.22) & \textbf{Axiom, Difference:} & $v \in S - T \equiv v \in S \land v \not\in T$ \\
@@ -357,7 +372,7 @@
         & & (c) $S \subset T \land T \subset U \To S \subset U$ \\
     \end{tabulary}
 
-    \section{Induction}
+    \subsection{Induction}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
         (12.4) & \textbf{Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \equiv (\forall n : \mathbb{N} \mid : P.n)$ \\
@@ -376,28 +391,45 @@
         & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
     \end{tabulary}
 
-    \section{Tuples and cross-products}
+    \subsection{Tuples and cross-products}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         & \textbf{Axiom, Cartesian product:} & $S \times T = \{b, c \mid b \in S \land c \in T : (b, c)\}$ \\
         (14.4) & \textbf{Membership} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
     \end{tabulary}
 
-    \section{Relations}
+    % ANCHOR: FORCE PAGE BREAK
+    % MOVE THIS IF NEEDED
+    \clearpage
+
+    \section{Relations \ Functions}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         & $\langle b, c \rangle \in \rho$ and $b \rho c$ are interchangable \\
-        (14.16) && $Dom.\rho = \{b:B| (\exists c|: b \rho c)\}$ \\
-        (14.17) & &$Ran.\rho = \{c:C| (\exists b|: b \rho c)\}$ \\
-        (14.20) & &$\langle b, d \rangle \in \rho \circ \sigma \equiv (\exists c| c \in C: \langle b, c \rangle \in \rho \land \langle c, d \rangle \in \sigma)$ \\
-        (14.21) & &$b (\rho \circ \sigma) d \equiv (\exists c|: b \; \rho \; c \; \sigma \; d)$ \\
-        (14.22) & \textbf{Associativity of $\circ$:} &  $\rho \circ (\sigma \circ \theta) = (\rho \circ \sigma) \circ \theta$\\
-        (14.23) & \textbf{Dist of $\circ$ over $\cup$:} & $\rho \circ (\sigma \cup \theta) = \rho \circ \sigma \cup \rho \circ \theta$\\
-        &&  $(\sigma \cup \theta) \circ \rho = \sigma \circ \rho \cup \theta \circ \rho$\\
-        (14.24) & \textbf{Dist of $\circ$ over $\cap$:} &\; $\rho \circ (\sigma \cap \theta) \subseteq \rho \circ \sigma \cap \rho \circ \theta$\\
-        &&  $(\sigma \cap \theta) \circ \rho \subseteq \sigma \circ \rho \cap \theta \circ \rho$\\
+        (14.5) & $\langle x, y \rangle \in S \times T \equiv \langle y, x \rangle \in T \times S$ &\\
+        (14.6) & $S = \Phi \Rightarrow S \times T = T \times S = \Phi$ &\\
+        (14.7) & $S \times T = T \times \equiv S = \Phi \lor T = \Phi \lor S = T$ &\\
+        (14.8) &\textbf{Dist of $\times$ over $\cup$: } $S \times (T \cup U) = (S \times T) \cup (S \times U)$& \\
+        & $(S \cup T) \times U = (S \times U) \cup (T \times U)$ &\\
+        (14.9) &\textbf{Dist of $\times$ over $\cap$: } $S \times (T \cap U) = (S \times T) \cap (S \times U)$& \\
+        & $(S \cap T) \times U = (S \times U) \cap (T \times U)$ &\\
+        (14.10) &\textbf{Dist of $\times$ over -: } $S \times (T - U) = (S \times T) - (S \times U)$& \\
+        (14.11) &\textbf{Monotonicity: } $T \subseteq U \Rightarrow S \times T \subseteq S \times U$& \\
+        (14.12) & $S \subseteq U \land T \subseteq V \Rightarrow S \times T \subseteq U \times V$ &\\
+        (14.14) & $(S \cap T) \times (U \cap V) = (S \times U) \cap (T \times V)$ &\\
+        (14.16) & $Dom.\rho = \{b:B| (\exists c|: b \rho c)\}$ &\\
+        (14.17) & $Ran.\rho = \{c:C| (\exists b|: b \rho c)\}$ &\\
+        (14.20) & $\langle b, d \rangle \in \rho \circ \sigma \equiv (\exists c| c \in C: \langle b, c \rangle \in \rho \land \langle c, d \rangle \in \sigma)$ &\\
+        (14.21) & $b (\rho \circ \sigma) d \equiv (\exists c|: b \; \rho \; c \; \sigma \; d)$ &\\
+        (14.22) & \textbf{Associativity of $\circ$:}   $\rho \circ (\sigma \circ \theta) = (\rho \circ \sigma) \circ \theta$&\\
+        (14.23) & \textbf{Dist of $\circ$ over $\cup$:}  $\rho \circ (\sigma \cup \theta) = \rho \circ \sigma \cup \rho \circ \theta$&\\
+        &  $(\sigma \cup \theta) \circ \rho = \sigma \circ \rho \cup \theta \circ \rho$&\\
+        (14.24) & \textbf{Dist of $\circ$ over $\cap$:} \; $\rho \circ (\sigma \cap \theta) \subseteq \rho \circ \sigma \cap \rho \circ \theta$&\\
+        &  $(\sigma \cap \theta) \circ \rho \subseteq \sigma \circ \rho \cap \theta \circ \rho$&\\
         (14.25) & $\rho^0 = i_B$ (the identity relation on B)\\
-        &&  $\rho^n+1 = \rho^n \circ \rho$ (for $n \geq 0$)\\
-        (14.26) & &$\rho^m \circ \rho^n = \rho^{m+n}$ (for $m \geq 0,n \geq 0$) \\
-        (14.27) & &$(\rho^m)^n = \rho^{m.n}$ (for $m \geq 0,n \geq 0$) \\
+        &  $\rho^n+1 = \rho^n \circ \rho$ (for $n \geq 0$)&\\
+        (14.26) & $\rho^m \circ \rho^n = \rho^{m+n}$ (for $m \geq 0,n \geq 0$) &\\
+        (14.27) & $(\rho^m)^n = \rho^{m.n}$ (for $m \geq 0,n \geq 0$) &\\
+        (14.30) &Let $\rho$ be a relation. $r(\rho)$ is a refliexive closure, $s(\rho)$ is the symmetric closure, $\rho^+$ is the transitive closure, and $\rho^*$ is the refliexive transitive closure.& \\
+        (14.39) &\textbf{Definition} for f and g $f \centerdot g \equiv g \circ f$ &\\
     \end{tabulary}
 
     \section{Modern Algebra}
@@ -463,12 +495,12 @@
     THe intersection of two subgroups of a group is a subgroup ($G = \langle S1 \cap S2, \circ, 1 \rangle$).
 
     \subsection{Boolean Algebra}
-    Def: $\langle S, \oplus, \otimes, \sim, 0, 1 \rangle$ in which:
-    \textbf{a)} $\oplus$ and $\otimes$ are binary associative operators;
-    \textbf{b)} $\oplus$ and $\otimes$ are symmetric;
-    \textbf{c)} $0$ and $1$ are identities of $\oplus$ and $\otimes$;
-    \textbf{d)} unary $\sim$ satisfies $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$.
-    \textbf{e)} $\otimes$ distributes over $\oplus$: $b \otimes (c \oplus d) = (b \otimes c) \oplus (b \otimes d)$;
+    Def: $\langle S, \oplus, \otimes, \sim, 0, 1 \rangle$ in which: \\
+    \textbf{a)} $\oplus$ and $\otimes$ are binary associative operators; \\
+    \textbf{b)} $\oplus$ and $\otimes$ are symmetric; \\
+    \textbf{c)} $0$ and $1$ are identities of $\oplus$ and $\otimes$; \\
+    \textbf{d)} unary $\sim$ satisfies $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$. \\
+    \textbf{e)} $\otimes$ distributes over $\oplus$: $b \otimes (c \oplus d) = (b \otimes c) \oplus (b \otimes d)$; \\
     \textbf{f)} $\oplus$ distributes over $\otimes$: $b \oplus (c \otimes d) = (b \oplus c) \otimes (b \oplus d)$.
 
     \begin{tabulary}{\linewidth}{@{}LL@{}}
@@ -476,22 +508,43 @@
         \textbf{Zero} & $b \oplus 1 = 1, b \otimes 0 = 0$ \\
         \textbf{Absorption} & $b \oplus (b \otimes c) = b, b \otimes (b \oplus c) = b$ \\
         \textbf{Cancellation} & $(b \oplus c = b \oplus d) \land (\sim b \oplus c = \sim b \oplus d) \equiv c = d$ \\
-                              & $(b \otimes c = b \otimes d) \land (\sim b \otimes c = \sim b \otimes d) \equiv c = d$ \\
+        & $(b \otimes c = b \otimes d) \land (\sim b \otimes c = \sim b \otimes d) \equiv c = d$ \\
         \textbf{Unique complement} & $b \oplus c = 1 \land b \otimes c = 0 \equiv c = \sim b$ \\
         \textbf{Constant complement} & $\sim 0 = 1, \sim 1 = 0$ \\
         \textbf{De Morgan} & $\sim (b \oplus c) = (\sim b) \otimes (\sim c), \sim (b \otimes c) = (\sim b) \oplus (\sim c)$ \\
         & $b \oplus (\sim c) = 1 \equiv b \oplus c = b, b \otimes (\sim c) = 0 \equiv b \otimes c = b$ \\
     \end{tabulary}
 
-    % TODO: FINISH ME
+    Thrm: A homomorphic image of a boolean algebra is a boolean algebra
+    Axiom: $b \leq c \equiv b \otimes c = b$ Theorem. Relation $\leq$ is a partial order.
+    Axiom: $b < c \equiv b \leq c \land b \neq c$; $b \leq c \equiv b \oplus c = c$
+
+    If an arbitrary boolean algebra $\langle S, \oplus, \otimes, \sim, 0, 1\rangle$ is
+    isomorphic to a power-set algebra, it must have the equivalent to the empty set and singleton sets.
+    (empty = 0, singletons = atoms)
+
+    $atom.a \equiv a \neq 0 \land (\forall b : S \mid 0 \leq b \leq a : 0 = b \lor b = a)$
+    $atom.a \To a \otimes b = 0 \lor a \times b = a$
+    $atom.a \land atom.b \land a \neq b \To a \otimes b = 0$
+    $(\forall a \mid atom.a : a \otimes b = 0) \To b = 0$
+
+    Thrm. Any element of finite boolean algebra can be written uniquely as
+    b = y, where y is a ``sum'' of atoms:
+    $y = (\oplus a \mid atom.a \land a \otimes b \neq 0 : a)$
+    Thrm. A boolean algebra with $n$ atoms has $2^n$ elements.
+    Thrm. A finite boolean algebra $A = \langle S, \oplus, \otimes, \sim, 0, 1 \rangle$
+    with $n$ atoms is isomorphic to algebra $\hat{A} = \langle \mathcal{P} \hat{S}, \cup, \cap, \sim, \emptyset, S \rangle$, where
+    $\hat{S} = 1..n$.
+
+    % TODO: check if there's anything else important that has been missed
 
 
 
     \section{Operation Priority}
-    \begin{multicols}{2}
+    \begin{multicols}{3}
         $[x := e]$ (textual substitution) (high precedence) \\
         $.$ (function application) \\
-        unary prefix operators $+ - \neg \# \sim \mathcal{P}$ \\
+        $+ - \neg \# \sim \mathcal{P}$ (unary prefix operators) \\
         $**$ \\
         $\cdot / \div \mod \gcd$ \\
         $+ - \cup \cap \times \circ$ \\
@@ -506,6 +559,7 @@
 
     \section{Definitions}
     % if we need more space go back to the original condensed ver.
+    % TODO: add definitions for common math terms like symmetrical, associative, etc.
     \subsection{Formal Logic System}
     Let S be a set of interpretations for a logic and F be a formula of the logic. \\
     - F is \textbf{satisfiable} (under S) iff at least one interpretation of S maps F to true. \\
@@ -526,7 +580,8 @@
     A set $S$ of sets is a \textbf{partition} of a set $T$ if every element of $T$ is
     exactly one of the elements of $S$.
     \subsection{Equivalence Relations and Partial Orders}
-    An \textbf{equivalence relation} must be reflexive, symmetric, and transitive.
+    An \textbf{equivalence relation} must be reflexive, symmetric, and transitive. \\
+    A \textbf{Partial Order} must be reflexive, anti-symmetric, and transitive.
 
     \section{Midterm Questions}
     % REVIEW: this could be condensed more
@@ -631,24 +686,24 @@
     \section{Prove Axiom 9.10 and 9.11}
     \subsection{Prove Axiom 9.10}
     $(\forall x \mid Q \lor R : P) \equiv (\forall x \mid Q : P) \land
-    (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
-    (\forall x \mid Q : P)$ by Weakening.
+        (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
+        (\forall x \mid Q : P)$ by Weakening.
 
     \subsection{Prove Axiom 9.11}
     $(\forall x \mid R: P \land Q) \equiv (\forall x \mid R: P) \land
-    (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
-    (\forall x \mid R: P)$ by Weakening.
+        (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
+        (\forall x \mid R: P)$ by Weakening.
 
     \subsection{Lecture 15, Symmetric Difference}
     \subsubsection{Question}
     Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
     \begin{enumerate}
         \item
-            $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
+              $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
         \item
-            $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
+              $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
         \item
-            $b \prec_2 c \Leftrightarrow b R^{ac} c$
+              $b \prec_2 c \Leftrightarrow b R^{ac} c$
     \end{enumerate}
     Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
 
@@ -657,14 +712,14 @@
     \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
 
     \begin{itemize}
-    \item
-        $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
-    \item
-        To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
-    \item
-        To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
-    \item
-        Thus $\prec_1$ is transitive, thus it's a sharp partial order.
+        \item
+              $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
+        \item
+              To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
+        \item
+              To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
+        \item
+              Thus $\prec_1$ is transitive, thus it's a sharp partial order.
     \end{itemize}
 
     \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
@@ -676,23 +731,23 @@
         \item
             Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
         \item
-            Thus $\prec_2$ is a sharp partial order.
+              Thus $\prec_2$ is a sharp partial order.
     \end{itemize}
 
     \textbf{Prove $\prec_2 \subseteq \prec_1$}
     \begin{itemize}
         \item
-            $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
+              $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
         \item
-            $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
+              $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
         \item
-            We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
+              We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
         \item
-            $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
+              $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
         \item
-            $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
+              $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
         \item
-            Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+              Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
     \end{itemize}
 
 \end{multicols*}
