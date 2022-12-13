@@ -273,7 +273,16 @@
 
     % TODO: Add notes on chapter 10
     \subsection{Conditional Statements}
-    (10.5) Proof method for IF: To prove $\{Q\} IF \{R\}$, prove $\{Q \land B\} S1 \{R\}$ and $\{Q \land \neg B\} S2 \{R\}$
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+
+        &(10.5) Proof method for IF: To prove $\{Q\} IF \{R\}$, prove $\{Q \land B\} S1 \{R\}$ and $\{Q \land \neg B\} S2 \{R\}$&
+    \end{tabulary}
+
+    \subsection{Find precondition}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        &Given $\{?\}S\{R\}$. To find $?$ textual sub $S$ into $R$&
+    \end{tabulary}
+
 
 
 
@@ -393,9 +402,9 @@
         (14.6) & $S = \Phi \Rightarrow S \times T = T \times S = \Phi$ &\\
         (14.7) & $S \times T = T \times \equiv S = \Phi \lor T = \Phi \lor S = T$ &\\
         (14.8) &\textbf{Dist of $\times$ over $\cup$: } $S \times (T \cup U) = (S \times T) \cup (S \times U)$& \\
-         & $(S \cup T) \times U = (S \times U) \cup (T \times U)$ &\\
+        & $(S \cup T) \times U = (S \times U) \cup (T \times U)$ &\\
         (14.9) &\textbf{Dist of $\times$ over $\cap$: } $S \times (T \cap U) = (S \times T) \cap (S \times U)$& \\
-         & $(S \cap T) \times U = (S \times U) \cap (T \times U)$ &\\
+        & $(S \cap T) \times U = (S \times U) \cap (T \times U)$ &\\
         (14.10) &\textbf{Dist of $\times$ over -: } $S \times (T - U) = (S \times T) - (S \times U)$& \\
         (14.11) &\textbf{Monotonicity: } $T \subseteq U \Rightarrow S \times T \subseteq S \times U$& \\
         (14.12) & $S \subseteq U \land T \subseteq V \Rightarrow S \times T \subseteq U \times V$ &\\
@@ -414,7 +423,7 @@
         (14.26) & $\rho^m \circ \rho^n = \rho^{m+n}$ (for $m \geq 0,n \geq 0$) &\\
         (14.27) & $(\rho^m)^n = \rho^{m.n}$ (for $m \geq 0,n \geq 0$) &\\
         (14.30) &Let $\rho$ be a relation. $r(\rho)$ is a refliexive closure, $s(\rho)$ is the symmetric closure, $\rho^+$ is the transitive closure, and $\rho^*$ is the refliexive transitive closure.& \\
-        (14.39) &\textbf{Definition} for f and g $f \centerdot g \equiv g \circ f$ &\\ 
+        (14.39) &\textbf{Definition} for f and g $f \centerdot g \equiv g \circ f$ &\\
     \end{tabulary}
 
     \section{Modern Algebra}
@@ -493,13 +502,13 @@
         \textbf{Zero} & $b \oplus 1 = 1, b \otimes 0 = 0$ \\
         \textbf{Absorption} & $b \oplus (b \otimes c) = b, b \otimes (b \oplus c) = b$ \\
         \textbf{Cancellation} & $(b \oplus c = b \oplus d) \land (\sim b \oplus c = \sim b \oplus d) \equiv c = d$ \\
-                              & $(b \otimes c = b \otimes d) \land (\sim b \otimes c = \sim b \otimes d) \equiv c = d$ \\
+        & $(b \otimes c = b \otimes d) \land (\sim b \otimes c = \sim b \otimes d) \equiv c = d$ \\
         \textbf{Unique complement} & $b \oplus c = 1 \land b \otimes c = 0 \equiv c = \sim b$ \\
         \textbf{Constant complement} & $\sim 0 = 1, \sim 1 = 0$ \\
         \textbf{De Morgan} & $\sim (b \oplus c) = (\sim b) \otimes (\sim c), \sim (b \otimes c) = (\sim b) \oplus (\sim c)$ \\
         & $b \oplus (\sim c) = 1 \equiv b \oplus c = b, b \otimes (\sim c) = 0 \equiv b \otimes c = b$ \\
     \end{tabulary}
-    
+
     Thrm: A homomorphic image of a boolean algebra is a boolean algebra
     Axiom: $b \leq c \equiv b \otimes c = b$ Theorem. Relation $\leq$ is a partial order.
     Axiom: $b < c \equiv b \leq c \land b \neq c$; $b \leq c \equiv b \oplus c = c$
@@ -670,24 +679,24 @@
     \section{Prove Axiom 9.10 and 9.11}
     \subsection{Prove Axiom 9.10}
     $(\forall x \mid Q \lor R : P) \equiv (\forall x \mid Q : P) \land
-    (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
-    (\forall x \mid Q : P)$ by Weakening.
+        (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
+        (\forall x \mid Q : P)$ by Weakening.
 
     \subsection{Prove Axiom 9.11}
     $(\forall x \mid R: P \land Q) \equiv (\forall x \mid R: P) \land
-    (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
-    (\forall x \mid R: P)$ by Weakening.
+        (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
+        (\forall x \mid R: P)$ by Weakening.
 
     \subsection{Lecture 15, Symmetric Difference}
     \subsubsection{Question}
     Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
     \begin{enumerate}
         \item
-            $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
+              $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
         \item
-            $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
+              $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
         \item
-            $b \prec_2 c \Leftrightarrow b R^{ac} c$
+              $b \prec_2 c \Leftrightarrow b R^{ac} c$
     \end{enumerate}
     Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
 
@@ -696,42 +705,42 @@
     \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
 
     \begin{itemize}
-    \item
-        $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
-    \item
-        To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
-    \item
-        To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
-    \item
-        Thus $\prec_1$ is transitive, thus it's a sharp partial order.
+        \item
+              $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
+        \item
+              To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
+        \item
+              To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
+        \item
+              Thus $\prec_1$ is transitive, thus it's a sharp partial order.
     \end{itemize}
 
     \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
     \begin{itemize}
         \item
-            $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflextive.
+              $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflextive.
         \item
-            $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflextive.
+              $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflextive.
         \item
-            Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflextive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflextive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflextive.
+              Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflextive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflextive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflextive.
         \item
-            Thus $\prec_2$ is a sharp partial order.
+              Thus $\prec_2$ is a sharp partial order.
     \end{itemize}
 
     \textbf{Prove $\prec_2 \subseteq \prec_1$}
     \begin{itemize}
         \item
-            $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
+              $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
         \item
-            $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
+              $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
         \item
-            We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
+              We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
         \item
-            $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
+              $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
         \item
-            $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
+              $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
         \item
-            Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+              Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
     \end{itemize}
 
 \end{multicols*}
