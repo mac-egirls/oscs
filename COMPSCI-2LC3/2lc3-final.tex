@@ -16,7 +16,7 @@
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.3in} }
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.25in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -50,8 +50,8 @@
 
 % Custom siunitx defs
 \DeclareSIUnit\noop{\relax}
-\setlist[itemize]{noitemsep, leftmargin=*}
-\setlist[enumerate]{noitemsep, leftmargin=*}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
 
 \NewDocumentCommand\prefixvalue{m}{%
 \qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
@@ -150,13 +150,13 @@
 
     \subsection{Implication}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
-        (3.57) & Axiom, Definition of Implication      & $p \To q \equiv p \lor q \equiv q$                      \\
+        (3.57) & Axiom, Def of $\Rightarrow$           & $p \To q \equiv p \lor q \equiv q$                      \\
+        (3.59) &                                       & $p \To q \equiv \neg p \lor q$                          \\
+        (3.60) &                                       & $p \To q \equiv p \land q \equiv p$                     \\
         % (3.58) & Axiom, Consequence                    & $p \Leftarrow q \equiv q \To p$                         \\
-        (3.59) & Definition of implication             & $p \To q \equiv \neg p \lor q$                          \\
-        (3.60) & Definition of implication             & $p \To q \equiv p \land q \equiv p$                     \\
         (3.61) & Contrapositive                        & $p \To q \equiv \neg q \To \neg p$                      \\
         (3.62) &                                       & $p \To (q \equiv r) \equiv p \land q \equiv p \land r$  \\
-        (3.63) & Distributivity of $\To$ over $\equiv$ & $p \To (q \equiv r) \equiv p \To q \equiv p \To r$      \\
+        (3.63) & Distr. of $\To$ over $\equiv$         & $p \To (q \equiv r) \equiv p \To q \equiv p \To r$      \\
         (3.64) &                                       & $p \To (q \To r) \equiv (p \To q) \To (p \To r)$        \\
         (3.65) & Shunting                              & $p \land q \To r \equiv p \To (q \To r)$                \\
         (3.66) &                                       & $p \land (p \To q) \equiv p \land q$                    \\
@@ -200,7 +200,7 @@
     %     (4.1)  &                           & $p \To (q \To p)$                                                                     \\
     %     (4.2)  & Monotonicity of $\lor$    & $(p \To q) \To (p \lor r \To q \lor r)$                                               \\
     %     (4.3)  & Monotonicity of $\land$   & $(p \To q) \To (p \land r \To q \land r)$                                             \\
-    % \end{tabulary}
+
 
     % \subsection{Proof techniques}
     % \begin{tabulary}{\linewidth}{@{}llL@{}}
@@ -320,7 +320,9 @@
         (11.31) & \textbf{Weakening:} & $S \subseteq S \cup T$ \\
         (11.32) & \textbf{Excluded middle:} & $S \cup \sim S = \mathbf{U}$ \\
     \end{tabulary}
+
     \subsection{Properties of $\cap$}
+
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.33) & \textbf{Symmetry of $\cap$:} & $S \cap T = T \cap S$ \\
         (11.34) & \textbf{Associativity of $\cap$:} & $(S \cap T) \cap U = S \cap (T \cap U)$ \\
@@ -335,41 +337,75 @@
         (11.40) & \textbf{Distributivity of $\cup$ over $\cap$:} & $S \cup (T \cap U) = (S \cup T) \cap (S \cup U)$ \\
         (11.41) & \textbf{Distributivity of $\cap$ over $\cup$:} & $S \cap (T \cup U) = (S \cap T) \cup (S \cap U)$ \\
         (11.42) & \textbf{De Morgan:} & (a) $\sim (S \cup T) = \sim S \cap \sim T$ \\
-        & & (b) $\sim (S \cap T) = \sim S \cup \sim T$ \\
-        (11.43) & & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ \\
-        (11.44) & & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
-        (11.45) & & $S \subseteq T \equiv S \cup T = T$ \\
-        (11.46) & & $S \subseteq T \equiv S \cap T = S$ \\
-        (11.47) & & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ \\
-        (11.48) & & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
-        % \end{tabulary}
-        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
-        (11.49) & & $S - T = S \cap \sim T$ \\
-        (11.50) & & $S - T \subseteq S$ \\
-        (11.51) & & $S - \emptyset = S$ \\
-        (11.52) & & $S \cap (T - S) = \emptyset$ \\
-        (11.53) & & $S \cup (T - S) = S \cup T$ \\
-        (11.54) & & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
-        (11.55) & & $S - (T \cap U) = (S - T) \cup (S - U)$ \\
-        (11.56) & & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
-        % \end{tabulary}
-        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.57) & \textbf{Antisymmetry:} & $S \subseteq T \land T \subseteq S \equiv S = T$ \\
         (11.58) & \textbf{Reflexivity:} & $S \subseteq S$ \\
         (11.59) & \textbf{Transitivity:} & $S \subseteq T \land T \subseteq U \To S \subseteq U$ \\
-        (11.60) & & $\emptyset \subseteq S$ \\
-        (11.61) & & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
-        (11.62) & & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ \\
-        (11.63) & & $S \subseteq T \equiv S \subset T \lor S = T$ \\
-        (11.64) & & $S \not\subset S$ \\
-        (11.65) & & $S \subset T \To S \subseteq T$ \\
-        (11.66) & & $S \subset T \To T \not\subseteq S$ \\
-        (11.67) & & $S \subseteq T \To T \not\subset S$ \\
-        (11.68) & & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ \\
-        (11.69) & & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
         (11.70) & \textbf{Transitivity} & (a) $S \subseteq T \land T \subset U \To S \subset U$ \\
-        & & (b) $S \subset T \land T \subseteq U \To S \subset U$ \\
-        & & (c) $S \subset T \land T \subset U \To S \subset U$ \\
+        & & (b) $\sim (S \cap T) = \sim S \cup \sim T$ \\
+    \end{tabulary}
+    % \begin{tabulary}{\linewidth}{@{}lLlL@{}}
+    %     (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
+    %     (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+    %     (11.45) & $S \subseteq T \equiv S \cup T = T$ &
+    %     (11.46) & $S \subseteq T \equiv S \cap T = S$ \\
+    %     (11.47) & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ &
+    %     (11.48) & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+    %     % \end{tabulary}
+    %     % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (11.49) & $S - T = S \cap \sim T$ &
+    %     (11.50) & $S - T \subseteq S$ \\
+    %     (11.51) & $S - \emptyset = S$ &
+    %     (11.52) & $S \cap (T - S) = \emptyset$ \\
+    %     (11.53) & $S \cup (T - S) = S \cup T$ &
+    %     (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
+    %     (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+    %     (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
+    %     % \end{tabulary}
+    %     % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (11.60) & $\emptyset \subseteq S$ &
+    %     (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
+    %     (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ &
+    %     (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+    %     (11.64) & $S \not\subset S$ &
+    %     (11.65) & $S \subset T \To S \subseteq T$ \\
+    %     (11.66) & $S \subset T \To T \not\subseteq S$ &
+    %     (11.67) & $S \subseteq T \To T \not\subset S$ \\
+    %     (11.68) & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ &
+    %     (11.69a) & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+    %     (11.69b) & $S \subset T \land T \subseteq U \To S \subset U$ &
+    %     (11.69c) & $S \subset T \land T \subset U \To S \subset U$ \\
+    % \end{tabulary}
+    \begin{tabulary}{\linewidth}{@{}lLlL@{}}
+        (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
+        (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+        (11.45) & $S \subseteq T \equiv S \cup T = T$ &
+        (11.46) & $S \subseteq T \equiv S \cap T = S$ \\
+        (11.47) & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ &
+        (11.48) & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.49) & $S - T = S \cap \sim T$ &
+        (11.50) & $S - T \subseteq S$ \\
+        (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ &
+        (11.52) & $S \cap (T - S) = \emptyset$ \\
+        (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ &
+        (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ \\
+        (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ &
+        (11.53) & $S \cup (T - S) = S \cup T$ \\
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+        (11.60) & $\emptyset \subseteq S$ \\
+        (11.51) & $S - \emptyset = S$ &
+        (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+        (11.64) & $S \not\subset S$ &
+        (11.65) & $S \subset T \To S \subseteq T$ \\
+        (11.66) & $S \subset T \To T \not\subseteq S$ &
+        (11.67) & $S \subseteq T \To T \not\subset S$ \\
+        (11.68) & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ &
+        (11.69a) & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+        (11.69b) & $S \subset T \land T \subseteq U \To S \subset U$ &
+        (11.69c) & $S \subset T \land T \subset U \To S \subset U$ \\
     \end{tabulary}
 
     \subsection{Induction}
@@ -381,11 +417,10 @@
     \end{tabulary}
     \subsection{Correctness of loops}
 
-    General format: $\{Q\}\ initialization;\ \textbf{do}\ B \to S\ \textbf{od}\ \{R\}$
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (12.41) & & $\textbf{do}\ B \to S\ \textbf{od}$ \\
         (12.43) & \textbf{Fundamental invariance theorem} & Suppose $\{P \land B\} S \{P\}$ holds and $\{P\} \textbf{ do } B \to S \textbf{ od } \{true\}$, then $\{P\} \textbf{ do } B \to S \textbf{ od } \{P \land \neg B\}$ holds. \\
-        (12.45) & \textbf{Loop Correctness Checklist} & (a) $P$ is $true$ before execution of the loop. \\
+        (12.45) & \textbf{Checklist} & (a) $P$ is $true$ before execution of the loop. \\
         & & (b) P is a loop invariant: $\{P \land B\} S \{P\}$ \\
         & & (c) Execution of the loop terminates. \\
         & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
@@ -397,11 +432,7 @@
         (14.4) & \textbf{Membership} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
     \end{tabulary}
 
-    % ANCHOR: FORCE PAGE BREAK
-    % MOVE THIS IF NEEDED
-    \clearpage
-
-    \section{Relations \ Functions}
+    \section{Relations  Functions}
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         & $\langle b, c \rangle \in \rho$ and $b \rho c$ are interchangable \\
         (14.5) & $\langle x, y \rangle \in S \times T \equiv \langle y, x \rangle \in T \times S$ &\\
@@ -432,43 +463,49 @@
         (14.39) &\textbf{Definition} for f and g $f \centerdot g \equiv g \circ f$ &\\
     \end{tabulary}
 
+    % ANCHOR: FORCE PAGE BREAK
+    % MOVE THIS IF NEEDED
+    \clearpage
+
     \section{Modern Algebra}
-    \textbf{Structure of Algebras}
-    An \textbf{algebra} has a set $S$, the \textbf{carrier},
-    and \textbf{operations} defined on that carrier.
-    \textbf{Signature} of an algebra is the name of carrier and the types of its operators.
-    Element $1$ in $S$ is a \textbf{left identity} of $\circ$ over $S$
-    if $1 \circ b = b$ for all $b \in S$.
-    $1$ is a \textbf{right identity} if $b \circ 1 = b$ for all $b \in S$.
-    $1$ is an \textbf{identity} if it is both a left and right identity.
-    Zeroes and inverses are unique.
-    Def. Subset $T$ of a set $S$ is \textbf{closed} under an operator
-    if applying operator to elements of T always produces a result in T.
-    Def. $\langle T, \Phi \rangle$ is a \textbf{subalgebra} of $\langle S, \Phi \rangle$ if $T$ is closed under
-    every operator in $\Phi$.
-    Thrm. A subalgebra of a group is a group iff the inverse of every element of the subalgebra is in the subalgebra.
-    Thrm. A subalgebra of a finite group is a group.
-    Thrm. Let $b$ be an element of a group $\langle S, \circ, 1 \rangle$.
-    Let set $S_b$ cosist of all powers of $b$ (including negative powers).
-    Then $\langle S_b, \circ, 1 \rangle$ is a subgroup of $\langle S, \circ, 1 \rangle$.
-    A function $h$ is an \textbf{isomorphism} if it is one-to-one and onto,
-    each pair of nullary operators can be mapped to each other via $h$,
-    each pair of unary operators, $h(\sim b) = \hat{\sim} h.b$,
-    and each pair of binary operators, $h(b \circ c) = h.b \hat{\circ} h.c$.
-    $A$ and $\hat{A}$ are \textbf{isomorphic} and $\hat{A}$ is called the \textbf{isomorphic image} of $A$.
+    \begin{itemize}
+    \item \textbf{Structure of Algebras}
+        \begin{itemize}
+            \item An \textbf{algebra} has a set $S$, the \textbf{carrier}, and \textbf{operations} defined on that carrier.
+            \item \textbf{Signature} of an algebra is the name of carrier and the types of its operators.
+            \item Element $1$ in $S$ is a \textbf{left identity} of $\circ$ over $S$ if $1 \circ b = b$ for all $b \in S$.
+            \item $1$ is a \textbf{right identity} if $b \circ 1 = b$ for all $b \in S$.
+            \item $1$ is an \textbf{identity} if it is both a left and right identity.
+            \item Zeroes and inverses are unique.
+            \item Def. Subset $T$ of a set $S$ is \textbf{closed} under an operator if applying operator to elements of T always produces a result in T.
+            \item Def. $\langle T, \Phi \rangle$ is a \textbf{subalgebra} of $\langle S, \Phi \rangle$ if $T$ is closed under every operator in $\Phi$.
+            \item Thrm. A subalgebra of a group is a group iff the inverse of every element of the subalgebra is in the subalgebra.
+            \item Thrm. A subalgebra of a finite group is a group.
+            \item Thrm. Let $b$ be an element of a group $\langle S, \circ, 1 \rangle$.
+            \item Let set $S_b$ cosist of all powers of $b$ (including negative powers).
+            \item Then $\langle S_b, \circ, 1 \rangle$ is a subgroup of $\langle S, \circ, 1 \rangle$.
+            \item A function $h$ is an \textbf{isomorphism} if it is one-to-one and onto,
+            \item each pair of nullary operators can be mapped to each other via $h$,
+            \item each pair of unary operators, $h(\sim b) = \hat{\sim} h.b$,
+            \item and each pair of binary operators, $h(b \circ c) = h.b \hat{\circ} h.c$.
+            \item $A$ and $\hat{A}$ are \textbf{isomorphic} and $\hat{A}$ is called the \textbf{isomorphic image} of $A$.
+        \end{itemize}
 
-    \textbf{Automorphism} is an isomorphism from $A$ to $A$.
-    \textbf{Homomorphism} is an isomorphism but $h$ does not have to be one-to-one and/or onto.
+    \item \textbf{Automorphism} is an isomorphism from $A$ to $A$.
+    \item \textbf{Homomorphism} is an isomorphism but $h$ does not have to be one-to-one and/or onto.
 
-    \textbf{Group Theory}
-    \textbf{Semigroup} is an algebra $\langle S, \circ \rangle$, where $\circ$ is a binary associative operator,
-    and with no identity.
-    \textbf{Monoid} $\langle S, \circ, 1 \rangle$ is a semigroup with an identity $1$.
-    \textbf{Albelian monoid} is if $\circ$ is symmetric.
-    A subalgebra of a monoid that contains the identity of the monoid is a \textbf{submonoid} (which is also a monoid).
-    Any semigroup can be made into a monoid by adding an identity element.
-    A \textbf{group} is a monoid with an inverse for every element $(b^{-1})$.
-    A symmetric, commutative, or abelian group is an albelian monoid in which every element has an inverse.
+    \item \textbf{Group Theory}
+        \begin{itemize}
+            \item \textbf{Semigroup} is an algebra $\langle S, \circ \rangle$, where $\circ$ is a binary associative operator,
+            and with no identity.
+            \item \textbf{Monoid} $\langle S, \circ, 1 \rangle$ is a semigroup with an identity $1$.
+            \item \textbf{Albelian monoid} is if $\circ$ is symmetric.
+            \item A subalgebra of a monoid that contains the identity of the monoid is a \textbf{submonoid} (which is also a monoid).
+            \item Any semigroup can be made into a monoid by adding an identity element.
+            \item A \textbf{group} is a monoid with an inverse for every element $(b^{-1})$.
+            \item A symmetric, commutative, or abelian group is an albelian monoid in which every element has an inverse.
+        \end{itemize}
+    \end{itemize}
 
     \begin{tabulary}{\linewidth}{@{}LL@{}}
         \textbf{Cancellation:}  & $b \circ d = c \circ d \equiv b = c$; $d \circ b = d \circ c \equiv b = c$ \\
@@ -587,7 +624,7 @@
     % REVIEW: this could be condensed more
 
     \subsection{Properties of set Difference}
-    \subsubsection{Question}
+    \subsubsection{Question }
     Prove \\
     \begin{tabulary}{\linewidth}{@{}lL@{}}
         1. $S - T = S \cap \sim T$ & 2. $S - T \subseteq S$ \\
@@ -596,7 +633,7 @@
         7. $S - (T \cap U) = (S - T) \cup (S - U)$
     \end{tabulary}
 
-    \subsubsection{Answers}
+    \subsubsection{Answers }
     \begin{enumerate}
         \item
               $S - T \equiv \{\forall x \mid x \in S \land x \notin T\}$ by (11.22), Axiom of
@@ -629,7 +666,7 @@
     \end{enumerate}
 
     \subsection{Assignment 3, Question 11}
-    \subsubsection{Question}
+    \subsubsection{Question }
     Prove the correctness of the following loop, assigning to $F_n$ the $n$th fibonacci number:
     \begin{align*}
          & \{Q: n \ge 0 \}                                                         \\
@@ -638,7 +675,7 @@
          & \textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od}          \\
          & \{R: c = F_n \}
     \end{align*}
-    \subsubsection{Solution}
+    \subsubsection{Solution }
     \textbf{Prove $P$ is $true$ before execution of the loop.}
     \begin{align*}
          & P[k, b, c:= 0,1,0]
@@ -683,19 +720,19 @@
     \end{align*}
     % TODO: add condensed programs as relations if we have space
 
-    \section{Prove Axiom 9.10 and 9.11}
-    \subsection{Prove Axiom 9.10}
+    \subsection{Prove Axiom 9.10 and 9.11}
+    \subsubsection{Prove Axiom 9.10}
     $(\forall x \mid Q \lor R : P) \equiv (\forall x \mid Q : P) \land
         (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
         (\forall x \mid Q : P)$ by Weakening.
 
-    \subsection{Prove Axiom 9.11}
+    \subsubsection{Prove Axiom 9.11}
     $(\forall x \mid R: P \land Q) \equiv (\forall x \mid R: P) \land
         (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
         (\forall x \mid R: P)$ by Weakening.
 
     \subsection{Lecture 15, Symmetric Difference}
-    \subsubsection{Question}
+    \subsubsection{Question }
     Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
     \begin{enumerate}
         \item
@@ -707,7 +744,7 @@
     \end{enumerate}
     Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
 
-    \subsubsection{Answers}
+    \subsubsection{Answers }
 
     \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
 
@@ -725,11 +762,11 @@
     \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
     \begin{itemize}
         \item
-              $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflextive.
+            $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflexive.
         \item
-              $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflextive.
+            $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflexive.
         \item
-              Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflextive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflextive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflextive.
+            Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
         \item
               Thus $\prec_2$ is a sharp partial order.
     \end{itemize}
@@ -748,6 +785,66 @@
               $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
         \item
               Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+    \end{itemize}
+
+    \subsection{Lecture 15, Prove Binary Relation by Induction}
+    \subsubsection{Let} $R$ be a transitive relation on $B$. \textbf{Prove} $R^+ = R$.
+    \begin{itemize}
+        \item
+            Recall $R^+ = \bigcup_{i \ge 1} R^i$, or $bR^+c \equiv \exists (i \mid : i > 0 \land bR^i c)$.
+        \item
+            From the definition of $R^+$, we have $R \subseteq R^+$.
+        \item
+            We now show $R^+ \subseteq R$. By the definition of $R^+$, it suffices to show $(\forall i \mid 0<i : R^i \subseteq R)$ by induction.
+        \item
+            Base case: $R \subseteq R$.
+        \item
+            Inductive Step: Assume $R^i \subseteq R$, i.e., $bR^ic \Rightarrow bRc$.
+        \item
+            Consider $bR^{i+1}c \Leftrightarrow \exists(d \mid d \in B: b R^id \land dRc) \Leftarrow \exists(d \mid d \in B: b R d \land dRc) \Rightarrow bRc$. The last step is by transitivity of $R$. Hence $R^i \subseteq R$.
+        \item
+            This means $R^+ = R$.
+    \end{itemize}
+
+    \subsection{Assignment 3, Question 19}
+    \subsubsection{Question }
+    Show that $(S, \circ, )$ is a group if $\circ$ is a binary associative operator with a left identity 1 and every element has a leftw inverse.
+
+    \subsubsection{Answer }
+    \textbf{Prove left cancellation} \\
+    \begin{itemize}
+        \item
+            We first prove left cancellation, $d \circ b = d \circ c \equiv b = c$.
+            \begin{itemize}
+                \item
+                    $LHS \Leftarrow RHS$ follows from Leibniz.
+                \item
+                    $RHS \Leftarrow LHS$: $b = d^{-1} \circ d \circ b = d^{-1} \circ d \circ c$ by assumption, so now by identity we have $= c$.
+            \end{itemize}
+        \item
+            Prove left idenity is also a left identity: $1 = 1 \equiv 1 \circ 1 = 1 \equiv b^{-1} \circ b \circ 1 = b^{-1} \circ b \equiv b \circ 1 = b$ by left cancelation.
+    \item
+        Since 1 is both left and right identity, it is the unique identity by Theorem (18.2). We now must show that every element has an inverse.
+    \item
+        By assumption, a left inverse exists, so show it is a right inverse.
+    \item
+        Let $b^{-1}$ be the left inverse of $b$. Then, $b^{-1} = b^{-1} \equiv 1 \circ b^{-1} = b^{-1} \circ 1 \equiv b^{-1} \circ b \circ b^{-1} = b^{-1} \circ 1 \equiv b \circ b^{-1} = 1$.
+    \item
+        Thus we have that there is an inverse.
+    \end{itemize}
+
+    \subsection{Lecture 15, Prove Boolean Algebra}
+    \subsubsection{Question }
+    Let $(S, \oplus, \otimes, \sim, 0, 1)$ be a boolean algebra. Prove taht for all $b, c, \in S$, we have $b \oplus c = 1 \land c \otimes b = 0 \Leftrightarrow c = \sim b$.
+    \begin{itemize}
+        \item
+            ($\Leftarrow$): from Section Boolean Algebra d), $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$.
+        \item
+            ($\Rightarrow$) We will start from $c = \sim b$ and work backwords.
+        \item
+            $c = \sim b \Leftrightarrow c \otimes 1= \sim b \otimes 1 \Leftarrow c \otimes (b \oplus (\sim b)) = \sim b \otimes (b \oplus c) \Leftrightarrow (c \otimes b) \oplus (c \otimes (\sim b)) = 0 \oplus (\sim b \otimes c) \Leftrightarrow c \otimes (\sim b) = (\sim b) \otimes c$ which is true by symmetry.
+        \item
+            Reverse the steps to get the proper proof.
     \end{itemize}
 
 \end{multicols*}
