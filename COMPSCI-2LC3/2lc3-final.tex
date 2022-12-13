@@ -335,41 +335,43 @@
         (11.40) & \textbf{Distributivity of $\cup$ over $\cap$:} & $S \cup (T \cap U) = (S \cup T) \cap (S \cup U)$ \\
         (11.41) & \textbf{Distributivity of $\cap$ over $\cup$:} & $S \cap (T \cup U) = (S \cap T) \cup (S \cap U)$ \\
         (11.42) & \textbf{De Morgan:} & (a) $\sim (S \cup T) = \sim S \cap \sim T$ \\
-        & & (b) $\sim (S \cap T) = \sim S \cup \sim T$ \\
-        (11.43) & & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ \\
-        (11.44) & & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
-        (11.45) & & $S \subseteq T \equiv S \cup T = T$ \\
-        (11.46) & & $S \subseteq T \equiv S \cap T = S$ \\
-        (11.47) & & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ \\
-        (11.48) & & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
-        % \end{tabulary}
-        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
-        (11.49) & & $S - T = S \cap \sim T$ \\
-        (11.50) & & $S - T \subseteq S$ \\
-        (11.51) & & $S - \emptyset = S$ \\
-        (11.52) & & $S \cap (T - S) = \emptyset$ \\
-        (11.53) & & $S \cup (T - S) = S \cup T$ \\
-        (11.54) & & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
-        (11.55) & & $S - (T \cap U) = (S - T) \cup (S - U)$ \\
-        (11.56) & & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
-        % \end{tabulary}
-        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.57) & \textbf{Antisymmetry:} & $S \subseteq T \land T \subseteq S \equiv S = T$ \\
         (11.58) & \textbf{Reflexivity:} & $S \subseteq S$ \\
         (11.59) & \textbf{Transitivity:} & $S \subseteq T \land T \subseteq U \To S \subseteq U$ \\
-        (11.60) & & $\emptyset \subseteq S$ \\
-        (11.61) & & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
-        (11.62) & & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ \\
-        (11.63) & & $S \subseteq T \equiv S \subset T \lor S = T$ \\
-        (11.64) & & $S \not\subset S$ \\
-        (11.65) & & $S \subset T \To S \subseteq T$ \\
-        (11.66) & & $S \subset T \To T \not\subseteq S$ \\
-        (11.67) & & $S \subseteq T \To T \not\subset S$ \\
-        (11.68) & & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ \\
-        (11.69) & & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
         (11.70) & \textbf{Transitivity} & (a) $S \subseteq T \land T \subset U \To S \subset U$ \\
-        & & (b) $S \subset T \land T \subseteq U \To S \subset U$ \\
-        & & (c) $S \subset T \land T \subset U \To S \subset U$ \\
+        & & (b) $\sim (S \cap T) = \sim S \cup \sim T$ \\
+    \end{tabulary}
+    \begin{tabulary}{\linewidth}{@{}lLlL@{}}
+        (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
+        (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+        (11.45) & $S \subseteq T \equiv S \cup T = T$ &
+        (11.46) & $S \subseteq T \equiv S \cap T = S$ \\
+        (11.47) & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ &
+        (11.48) & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.49) & $S - T = S \cap \sim T$ &
+        (11.50) & $S - T \subseteq S$ \\
+        (11.51) & $S - \emptyset = S$ &
+        (11.52) & $S \cap (T - S) = \emptyset$ \\
+        (11.53) & $S \cup (T - S) = S \cup T$ &
+        (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
+        (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+        (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.60) & $\emptyset \subseteq S$ &
+        (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
+        (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ &
+        (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+        (11.64) & $S \not\subset S$ &
+        (11.65) & $S \subset T \To S \subseteq T$ \\
+        (11.66) & $S \subset T \To T \not\subseteq S$ &
+        (11.67) & $S \subseteq T \To T \not\subset S$ \\
+        (11.68) & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ &
+        (11.69a) & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+        (11.69b) & $S \subset T \land T \subseteq U \To S \subset U$ &
+        (11.69c) & $S \subset T \land T \subset U \To S \subset U$ \\
     \end{tabulary}
 
     \subsection{Induction}
@@ -694,61 +696,61 @@
         (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
         (\forall x \mid R: P)$ by Weakening.
 
-    % \subsection{Lecture 15, Symmetric Difference}
-    % \subsubsection{Question }
-    % Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
-    % \begin{enumerate}
-    %     \item
-    %           $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
-    %     \item
-    %           $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
-    %     \item
-    %           $b \prec_2 c \Leftrightarrow b R^{ac} c$
-    % \end{enumerate}
-    % Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
+    \subsection{Lecture 15, Symmetric Difference}
+    \subsubsection{Question }
+    Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
+    \begin{enumerate}
+        \item
+              $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
+        \item
+              $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
+        \item
+              $b \prec_2 c \Leftrightarrow b R^{ac} c$
+    \end{enumerate}
+    Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
 
-    % \subsubsection{Answers }
+    \subsubsection{Answers }
 
-    % \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
+    \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
 
-    % \begin{itemize}
-    %     \item
-    %           $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
-    %     \item
-    %           To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
-    %     \item
-    %           To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
-    %     \item
-    %           Thus $\prec_1$ is transitive, thus it's a sharp partial order.
-    % \end{itemize}
+    \begin{itemize}
+        \item
+              $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
+        \item
+              To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
+        \item
+              To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
+        \item
+              Thus $\prec_1$ is transitive, thus it's a sharp partial order.
+    \end{itemize}
 
-    % \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
-    % \begin{itemize}
-    %     \item
-    %         $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflexive.
-    %     \item
-    %         $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflexive.
-    %     \item
-    %         Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
-    %     \item
-    %           Thus $\prec_2$ is a sharp partial order.
-    % \end{itemize}
+    \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
+    \begin{itemize}
+        \item
+            $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflexive.
+        \item
+            $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflexive.
+        \item
+            Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
+        \item
+              Thus $\prec_2$ is a sharp partial order.
+    \end{itemize}
 
-    % \textbf{Prove $\prec_2 \subseteq \prec_1$}
-    % \begin{itemize}
-    %     \item
-    %           $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
-    %     \item
-    %           $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
-    %     \item
-    %           We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
-    %     \item
-    %           $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
-    %     \item
-    %           $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
-    %     \item
-    %           Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
-    % \end{itemize}
+    \textbf{Prove $\prec_2 \subseteq \prec_1$}
+    \begin{itemize}
+        \item
+              $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
+        \item
+              $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
+        \item
+              We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
+        \item
+              $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
+        \item
+              $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
+        \item
+              Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+    \end{itemize}
 
     \subsection{Lecture 15, Prove Binary Relation by Induction}
     \subsubsection{Let} $R$ be a transitive relation on $B$. \textbf{Prove} $R^+ = R$.
