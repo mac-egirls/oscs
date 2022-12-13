@@ -421,9 +421,10 @@
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (12.41) & & $\textbf{do}\ B \to S\ \textbf{od}$ \\
         (12.43) & \textbf{Fundamental invariance theorem} & Suppose $\{P \land B\} S \{P\}$ holds and $\{P\} \textbf{ do } B \to S \textbf{ od } \{true\}$, then $\{P\} \textbf{ do } B \to S \textbf{ od } \{P \land \neg B\}$ holds. \\
-        (12.45) & \textbf{Checklist} & (a) $P$ is $true$ before execution of the loop. Q $\Rightarrow$ P[initial variables] \\
+        (12.45) & \textbf{Checklist}
+          & (a) $P$ is $true$ before the loop. Q $\Rightarrow$ P[S] \\
         & & (b) P is a loop invariant: $\{P \land B\} S \{P\}$ \\
-        & & (c) Execution of the loop terminates. P $\land$ B $\Rightarrow$ T > 0 \\
+        & & (c) Exe. of the loop terminates. P $\land$ B $\Rightarrow$ T > 0 \\
         & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
     \end{tabulary}
 
@@ -677,8 +678,7 @@
     \subsubsection{Question }
     Prove the correctness of the following loop, assigning to $F_n$ the $n$th fibonacci number:
     \begin{align*}
-         & \{Q: n \ge 0 \}                                                         \\
-         & k, b, c := 0, 1, 0;                                                     \\
+         & \{Q: n \ge 0 \}\ k, b, c := 0, 1, 0; \\
          & \{\text{invariant } P: 0 \le k \le n \land b = F_{k-1} \land c = F_k \} \\
          & \textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od}          \\
          & \{R: c = F_n \}
@@ -691,8 +691,7 @@
         0 \le 0 \le n \land 1 = F_{0-1} \land 0 = F_0
         \\&\equiv
         0 \le n \land 1 = F_{-1} \land 0 = F_0
-        \\&\equiv
-        0 \le n
+        \equiv 0 \le n
     \end{align*}
 
     \textbf{Prove $P$ is a loop invariant.} \\
