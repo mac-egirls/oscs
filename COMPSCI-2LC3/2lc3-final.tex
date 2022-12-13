@@ -341,6 +341,38 @@
         (11.70) & \textbf{Transitivity} & (a) $S \subseteq T \land T \subset U \To S \subset U$ \\
         & & (b) $\sim (S \cap T) = \sim S \cup \sim T$ \\
     \end{tabulary}
+    % \begin{tabulary}{\linewidth}{@{}lLlL@{}}
+    %     (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
+    %     (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+    %     (11.45) & $S \subseteq T \equiv S \cup T = T$ &
+    %     (11.46) & $S \subseteq T \equiv S \cap T = S$ \\
+    %     (11.47) & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ &
+    %     (11.48) & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+    %     % \end{tabulary}
+    %     % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (11.49) & $S - T = S \cap \sim T$ &
+    %     (11.50) & $S - T \subseteq S$ \\
+    %     (11.51) & $S - \emptyset = S$ &
+    %     (11.52) & $S \cap (T - S) = \emptyset$ \\
+    %     (11.53) & $S \cup (T - S) = S \cup T$ &
+    %     (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
+    %     (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+    %     (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
+    %     % \end{tabulary}
+    %     % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (11.60) & $\emptyset \subseteq S$ &
+    %     (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
+    %     (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ &
+    %     (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+    %     (11.64) & $S \not\subset S$ &
+    %     (11.65) & $S \subset T \To S \subseteq T$ \\
+    %     (11.66) & $S \subset T \To T \not\subseteq S$ &
+    %     (11.67) & $S \subseteq T \To T \not\subset S$ \\
+    %     (11.68) & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ &
+    %     (11.69a) & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+    %     (11.69b) & $S \subset T \land T \subseteq U \To S \subset U$ &
+    %     (11.69c) & $S \subset T \land T \subset U \To S \subset U$ \\
+    % \end{tabulary}
     \begin{tabulary}{\linewidth}{@{}lLlL@{}}
         (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
         (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
@@ -352,17 +384,17 @@
         % \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (11.49) & $S - T = S \cap \sim T$ &
         (11.50) & $S - T \subseteq S$ \\
-        (11.51) & $S - \emptyset = S$ &
+        (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ &
         (11.52) & $S \cap (T - S) = \emptyset$ \\
-        (11.53) & $S \cup (T - S) = S \cup T$ &
-        (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
-        (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
-        (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
+        (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ &
+        (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ \\
+        (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ &
+        (11.53) & $S \cup (T - S) = S \cup T$ \\
         % \end{tabulary}
         % \begin{tabulary}{\linewidth}{@{}lLL@{}}
-        (11.60) & $\emptyset \subseteq S$ &
-        (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
-        (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ &
+        (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+        (11.60) & $\emptyset \subseteq S$ \\
+        (11.51) & $S - \emptyset = S$ &
         (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
         (11.64) & $S \not\subset S$ &
         (11.65) & $S \subset T \To S \subseteq T$ \\
@@ -383,11 +415,10 @@
     \end{tabulary}
     \subsection{Correctness of loops}
 
-    General format: $\{Q\}\ initialization;\ \textbf{do}\ B \to S\ \textbf{od}\ \{R\}$
     \begin{tabulary}{\linewidth}{@{}lLL@{}}
         (12.41) & & $\textbf{do}\ B \to S\ \textbf{od}$ \\
         (12.43) & \textbf{Fundamental invariance theorem} & Suppose $\{P \land B\} S \{P\}$ holds and $\{P\} \textbf{ do } B \to S \textbf{ od } \{true\}$, then $\{P\} \textbf{ do } B \to S \textbf{ od } \{P \land \neg B\}$ holds. \\
-        (12.45) & \textbf{Loop Correctness Checklist} & (a) $P$ is $true$ before execution of the loop. \\
+        (12.45) & \textbf{Checklist} & (a) $P$ is $true$ before execution of the loop. \\
         & & (b) P is a loop invariant: $\{P \land B\} S \{P\}$ \\
         & & (c) Execution of the loop terminates. \\
         & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
