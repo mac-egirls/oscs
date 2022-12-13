@@ -775,7 +775,19 @@
 
     \subsubsection{Answer }
     \textbf{Prove left cancellation} \\
-    $LHS \Leftarrow RHS$ follows from Leibniz.
+    \begin{itemize}
+        \item
+            We first prove left cancellation, $d \circ b = d \circ c \equiv b = c$.
+            \begin{itemize}
+                \item
+                    $LHS \Leftarrow RHS$ follows from Leibniz.
+                \item
+                    $RHS \Leftarrow LHS$: $b = d^{-1} \circ d \circ b = d^{-1} \circ d \circ c$ by assumption, so now by identity we have $= c$.
+            \end{itemize}
+        \item
+            Prove left idenity is also a left identity: $1 = 1 \equiv 1 \circ 1 = 1 \equiv b^{-1} \circ b \circ 1 = b^{-1} \circ b \equiv b \circ 1 = b$ by left cancelation.
+    \end{itemize}
+
 
 \end{multicols*}
 
