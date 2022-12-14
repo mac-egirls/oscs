@@ -77,7 +77,7 @@
 \begin{center}
   {\textbf{2C03}} \\
 \end{center}
-\begin{multicols*}{4}
+\begin{multicols*}{5}
   \setlength{\premulticols}{1pt}
   \setlength{\postmulticols}{1pt}
   \setlength{\multicolsep}{1pt}
@@ -105,13 +105,13 @@
   % pretty easy to reason through
   % REVIEW: Are there any other basic data structures that need more detail?
   \subsection{Linked Lists}
-  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-class Node {
-    Item item;
-    Node next;
-    Node prev; // for DLL
-}
-    \end{lstlisting}
+  %   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+  % class Node {
+  %     Item item;
+  %     Node next;
+  %     Node prev; // for DLL
+  % }
+  %     \end{lstlisting}
   \subsubsection{Operations}
   \begin{tabular}[!ht]{@{}ll@{}} \toprule
     Search           & O(N) \\
@@ -134,26 +134,27 @@ class Node {
 
   % REVIEW: Make sure there are no errors, and that there are no important algos missed
   \subsection{Sorting Algorithm Info}
-  \begin{tabular}[!ht]{@{}llll@{}} \toprule
-    Algorithm      & $O(N)$        & $\Omega(N)$        & $\Theta(N)$        \\
+  \begin{tabulary}{\linewidth}{@{}lLLL@{}}
+    \toprule
+    Algorithm & $O(N)$        & $\Omega(N)$        & $\Theta(N)$        \\
     \midrule
-    Selection Sort & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
-    Insertion Sort & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
-    Shellsort      & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
-    Mergesort      & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
-    Quicksort      & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
-    Heapsort       & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
+    Selection & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
+    Insertion & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
+    Shellsort & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
+    Mergesort & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+    Quicksort & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+    Heapsort  & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
     \bottomrule
-  \end{tabular}
+  \end{tabulary}
   \begin{tabulary}{\linewidth}{@{}LllL@{}} \toprule
-    Algorithm       & Stbl? & In-Place? & Space \\
+    Algorithm       & Stbl? & In-Place? & Space       \\
     \midrule
-    Selection Sort  & N     & Y         & O(1) \\
-    *Insertion Sort & Y     & Y         & O(1) \\
-    Shellsort       & N     & Y         & O(1) \\
+    Selection Sort  & N     & Y         & O(1)        \\
+    *Insertion Sort & Y     & Y         & O(1)        \\
+    Shellsort       & N     & Y         & O(1)        \\
     **Quicksort     & N     & Y         & O($\log N$) \\
-    Mergesort       & Y     & N         & O($N$) \\
-    Heapsort        & N     & Y         & O(1) \\
+    Mergesort       & Y     & N         & O($N$)      \\
+    Heapsort        & N     & Y         & O(1)        \\
     \bottomrule
   \end{tabulary} \\
   * depends on order of items \\
@@ -172,22 +173,30 @@ class Node {
   - $\Omega(g(n))$ -- lower limit \\
   - $\Theta(g(n))$ -- upper and lower limit \\
 
-  \begin{center}
-    \includegraphics[width=0.5\linewidth]{time-complexity-loops.png}
-  \end{center}
+  % \begin{center}
+  %   \includegraphics[width=0.5\linewidth]{time-complexity-loops.png}
+  % \end{center}
+  \begin{verbatim}
+for(i=0;i<n;i++)    - O(n)
+for(i=0;i<n;i=i+2)  - n/2 O(n)
+for(i=n;i>i;i--)    - O(n)
+for(i=1;i<n;i=i*2)  - O(log_2 n)
+for(i=1;i<n;i=i*3)  - O(log_3 n)
+for(i=n;i>1;i=i/2)  - O(log_2 n)
+  \end{verbatim}
 
   Let $c_1, c_2 > 0$ and $n_0 \ge 0$ s.t. for all $n \ge n_0$,
   \begin{align*}
-    0 \le &f(n) \le c_1 g(n) &\Rightarrow f(n) \in O(g(n)) \\
-    c_1 g(n) \le &f(n) &\Rightarrow f(n) \in \Omega(g(n)) \\
-    c_1 g(n) \le &f(n) \le c_2 g(n) &\Rightarrow f(n) \in \Theta(g(n))
+    0 \le        & f(n) \le c_1 g(n) & \Rightarrow f(n) \in O(g(n))      \\
+    c_1 g(n) \le & f(n)              & \Rightarrow f(n) \in \Omega(g(n)) \\
+    c_1 g(n) \le & f(n) \le c_2 g(n) & \Rightarrow f(n) \in \Theta(g(n))
   \end{align*}
 
   \subsubsection{Limit Definitions}
   \begin{align*}
-    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq \infty &\Rightarrow f(n) \in O(g(n)) \\
-    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\neq 0 &\Rightarrow f(n) \in \Omega(g(n))\\
-    \lim_{n \to \infty} \frac{f(n)}{g(n)} &\not\in \{0, \infty\} &\Rightarrow f(n) \in \Theta(g(n))
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} & \neq \infty           & \Rightarrow f(n) \in O(g(n))      \\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} & \neq 0                & \Rightarrow f(n) \in \Omega(g(n)) \\
+    \lim_{n \to \infty} \frac{f(n)}{g(n)} & \not\in \{0, \infty\} & \Rightarrow f(n) \in \Theta(g(n))
   \end{align*}
 
   % REVIEW: Are there any other algs
@@ -201,37 +210,37 @@ class Node {
   - Function call stack: $O(\log N)$. \\
   - Total: $O(2 N\log N)$.
 
-%   \subsection{Recurrence Relations}
-%   % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio,
-%   % the sum of each layer is always n, so the time complexity is
-%   % $n * \log{\text{depth of the tree}} n$.
-%   % The 9/10 side will run out of nodes slower,
-%   % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left
-%   % because $10/9 * 9/10 = 1$. \\
-%   % - youcef
-%   \textbf{Recurrence Relation} --
-%   a recursive equation.
+  %   \subsection{Recurrence Relations}
+  %   % yea, basically this algorithm splits the tree into two sides with a 1-9 ratio,
+  %   % the sum of each layer is always n, so the time complexity is
+  %   % $n * \log{\text{depth of the tree}} n$.
+  %   % The 9/10 side will run out of nodes slower,
+  %   % so it's $n \log{10/9}$ since it takes 10/9 steps to have only one node left
+  %   % because $10/9 * 9/10 = 1$. \\
+  %   % - youcef
+  %   \textbf{Recurrence Relation} --
+  %   a recursive equation.
 
-%   \textbf{Deriving from a Tree} --
-%   Represent the recurrence equation as a binary tree,
-%   where each layer is one layer deeper in the recursion.
-%   Eg if the equation is $T(N) = T(N/2) + T(N/2)$,
-%   there will be 2 branches on the second layer, each as $T(N/2)$,
-%   4 branches on the third layer, each as $T(N/4)$, and so on.
-%   If it's a binary tree, with $x$ layers,
-%   it will have a time complexity of $n \log x$.
-%   \includegraphics[width=\linewidth]{recurrence-tree.png}
-%   \hl{If you're seeing this, please contribute!}
-%   % FIXME: ADD THIS
+  %   \textbf{Deriving from a Tree} --
+  %   Represent the recurrence equation as a binary tree,
+  %   where each layer is one layer deeper in the recursion.
+  %   Eg if the equation is $T(N) = T(N/2) + T(N/2)$,
+  %   there will be 2 branches on the second layer, each as $T(N/2)$,
+  %   4 branches on the third layer, each as $T(N/4)$, and so on.
+  %   If it's a binary tree, with $x$ layers,
+  %   it will have a time complexity of $n \log x$.
+  %   \includegraphics[width=\linewidth]{recurrence-tree.png}
+  %   \hl{If you're seeing this, please contribute!}
+  %   % FIXME: ADD THIS
 
-%   \subsubsection{Master Theorem}
-%   For an RR with the form $T(n) = aT(n/b) + f(n)$,
-%   for constants $a(\geq 1)$ and $b(>q)$ with f asymptotically positive,
-%   the following statements are true:
+  %   \subsubsection{Master Theorem}
+  %   For an RR with the form $T(n) = aT(n/b) + f(n)$,
+  %   for constants $a(\geq 1)$ and $b(>q)$ with f asymptotically positive,
+  %   the following statements are true:
 
-%   \textbf{Case 1} If $f(n) = O(n^{\log_b a-\epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$. \\
-%   \textbf{Case 2} If $f(n) = \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log n)$. \\
-%   \textbf{Case 3} If $f(n) = \Omega(n^{\log_b a+\epsilon})$ for some $\epsilon > 0$ (and $af(n/b) \leq c f(n)$ for some $c<1$ for all $n$ sufficiently large), then $T(n) = \Theta(f(n))$. \\
+  %   \textbf{Case 1} If $f(n) = O(n^{\log_b a-\epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$. \\
+  %   \textbf{Case 2} If $f(n) = \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log n)$. \\
+  %   \textbf{Case 3} If $f(n) = \Omega(n^{\log_b a+\epsilon})$ for some $\epsilon > 0$ (and $af(n/b) \leq c f(n)$ for some $c<1$ for all $n$ sufficiently large), then $T(n) = \Theta(f(n))$. \\
 
   \section{Union-Find}
   WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
@@ -352,12 +361,12 @@ public class WeightedQuickUnionWithPC {
   \subsection{Insertion Sort}
   \begin{itemize}
     \item
-      Start from 2 elements, build up sorted subarray,
-      "inserting" a new element each iteration by swapping
-      until it is in the right position.
+          Start from 2 elements, build up sorted subarray,
+          "inserting" a new element each iteration by swapping
+          until it is in the right position.
     \item
-      \# of operations depends on the degree
-      of disorder (how unsorted the array is).
+          \# of operations depends on the degree
+          of disorder (how unsorted the array is).
   \end{itemize}
   \textbf{Pros:} If the array has a low degree of disorder, it is faster.
   \textbf{Cons:} Worst case is still slow as shit.
@@ -370,16 +379,16 @@ public class WeightedQuickUnionWithPC {
   \subsection{Shellsort}
   \begin{itemize}
     \item
-      Pick every $h$ elements and put them in a subarray.
+          Pick every $h$ elements and put them in a subarray.
     \item
-      Sort the subarrays using insertion sort.
+          Sort the subarrays using insertion sort.
     \item
-      Repeat until $h = 1$.
+          Repeat until $h = 1$.
   \end{itemize}
   \textbf{Pros:}
-      \textbf{Used when}: in embedded systems applications from
-      using small program size and memory efficiency.
-    Reduces large amounts of disorder quickly.
+  \textbf{Used when}: in embedded systems applications from
+  using small program size and memory efficiency.
+  Reduces large amounts of disorder quickly.
   \textbf{Cons:} Slow
 
   \begin{center}
@@ -479,7 +488,7 @@ public class MergeBU {
   At most $N$ comparisons, each accessing two array elements $(2N)$Hence the total number of array accesses after solving the recurrence is most $6N log N$.\\
   \textbf{Min/Max Bottom Up Comparisons/Accesses:}
   \textit{Proposition. Bottom-up mergesort uses between $1/2N log N$ and $N log N$
-  compares and at most $6N log N$ array accesses to sort an array of length $N$.}
+    compares and at most $6N log N$ array accesses to sort an array of length $N$.}
   The number of passes through the array is precisely $log N$ . For each pass, by the same argument made as in the case of the
   top-down mergesort approach, the number of array accesses is exactly $6N$ and the number of compares is at most N and no less than $N/2$. Therefore, bottom-up mergesort uses between $1/2N log N$ and $N log N$ compares and at most $6N log N$ array accesses to sort an array of length
   $N$.\\
