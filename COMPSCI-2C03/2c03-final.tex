@@ -725,6 +725,9 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
   Insert: if leaf is a 2-node, make it into a 3-node
   If leaf is a 3-node, make a 4 node, and decompose it into two 2-nodes, passing the middle element up to the parent (if exists)
+  Tree height:
+  Worst case: $\log_2 N$
+  Best case: $\log_3 N \approx .631 log_2 N$
 
   \section{Hash Tables}
   \section{Undirected Graphs}
