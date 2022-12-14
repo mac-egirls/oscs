@@ -294,6 +294,7 @@ for(i=n;i>1;i=i/2)  - O(log_2 n)
   Takes an index i, finds arr[i] until the root node. Returns the root node id.
   \subsubsection{Connected}
   Takes an indices p and q, finds the root nodes. Returns true if they are equal.
+  % TODO: pseudo or cut
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class QuickUnion {
   private int[] id;
@@ -322,6 +323,8 @@ public class QuickUnion {
 
   \subsection{Weighted Quick-Union}
   To optimize Quick-Union, we try to create the flattest trees possible. We need another array to count the number of nodes rooted at an index. Union now links the root of the smaller tree to the root of the larger tree. This can be further optimized with path compression, which can be tacked on to find. To do this, we change each node to point at it's grandparent.
+
+  % TODO: pseudo or cut
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class WeightedQuickUnionWithPC {
   private int[] id;
@@ -394,6 +397,8 @@ public class WeightedQuickUnionWithPC {
   \begin{center}
     \includegraphics[width=\linewidth]{shellsort.png}
   \end{center}
+
+  % TODO: pseudo or cut
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class Shell {
   public static void sort(Comparable[] a) {
@@ -420,6 +425,7 @@ public class Shell {
   \textbf{Time Complexity:} $O(n \log n)$ \\
   \textbf{Memory Complexity:} $O(N)$
 
+  % TODO: pseudo or cut
   \subsubsection{Code}
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
@@ -459,6 +465,8 @@ public static void sort(Comparable[] a) {
 
   \subsubsection{Bottom-up}
   Pass through array, merging as we go to double size of sorted subarrays. Keep performing the passes and merging subarrays, until you do a merge that encompasses the whole array.\\
+
+  % TODO: pseudo or cut
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class MergeBU {
   private static Comparable[] aux;
@@ -501,6 +509,8 @@ public class MergeBU {
           one selecting those larger. Put them on either side of the pivot
     \item Recurse for each side of the pivot until everything is sorted.
   \end{enumerate}
+
+  % TODO: pseudo or cut
   \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
     partition (arr, lo, hi):
       pivot = hi
@@ -553,6 +563,7 @@ public class MergeBU {
   Once a max heap has been constructed, you can perform a single for loop
   and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
 
+  % TODO: pseudo or cut
   \subsection{Code}
   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 public class MaxPQ<Key extends Comparable<Key>> {
@@ -622,7 +633,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
     \li   \Do
     $\id{key} \gets A[j]$
     \li     \Comment Insert $A[j]$ into the sorted sequence
-    $A[1 \twodots j-1]$.
+    \li     \Comment $A[1 \twodots j-1]$.
     \li     $i \gets j-1$
     \li     \While $i > 0$ and $A[i] > \id{key}$
     \li       \Do
@@ -644,12 +655,17 @@ public class MaxPQ<Key extends Comparable<Key>> {
     \item Use \verb|error| for throwing an error, but what happens is not specified.
   \end{itemize}
 
-  \section{Symbol Tables \& Binary Search Trees}
+  \section{Symbol Tables}
   \textbf{Operations:}
   Insert a new pair into the table (set)
   Search for the value associated with a given key (get)
   Equality test required, inequality operator allows for an ordered symbol table.
   Allows for new operations and faster runtimes at the cost of key monotyping.
+
+  Sequential Search (Unordered LL)
+  Search: $O(N)$, Insert: $O(N)$
+  Pros: Best for tiny STs
+  Cons: Slow for large STs
 
   Binary Search
   \begin{codebox}
@@ -657,20 +673,59 @@ public class MaxPQ<Key extends Comparable<Key>> {
     \li $a \gets 0$ \Comment{Lower Bound}
     \li $b \gets A.length - 1$ \Comment{Upper Bound}
     \li \While $a \leq b$
-    \li   \Do
-    $m \gets \func{floor}(a + (b - a) / 2)$
+    \li   \Do $m \gets \func{floor}(a + (b - a) / 2)$
     \li     \If $x < A[m]$
     \li       \Do $b \gets m - 1$
     \li     \ElseIf $x > A[m]$
     \li       \Do $a \gets m + 1$
-    \li     \Else
-    \li       \Return $m$
-    \End
+    \li     \Else \Return $m$
+            \End
+        \End
     \li \Return $\const{nil}$
   \end{codebox}
   $O(\log N)$ time complexity, and at most $1 + \log_2 N$ compares.
+  Search: $O(\lg N)$, Insert: $O(N)$
+  Pros: Optimal search and space, order-based operations
+  Cons: Slow insert
+
+  \section{Binary Search Trees}
+  Key, value, pointers to left and right subtrees, N for node count in subtree (left contains strictly smaller elements, right contains strictly larger elements)
+
+  Find: traverse tree, comparing desired element to current node's key (trivial)
+  \verb|get()| does the same thing except we return the value / NULL
+
+  \verb|insert()|: traverse tree, inserting node where we would expect to find it
+  \verb|put()|: Overwrite value if key already exists, otherwise add new node. Comparisons is 1 + depth of node
+  
+  \verb|min()|: go all the way left
+  \verb|max()|: go all the way right
+
+  \verb|floor()|: largest key less than or equal to key
+  \verb|ceiling()|: smallest key greater than or equal to key
+
+  \textbf{Lazy Deletion:} Set value to null, leave key in tree to guide search
+  
+  \textbf{Hibbard Deletion:}
+  \begin{itemize}
+    \item If node to be deleted has no children, delete it
+    \item If node to be deleted has one child, replace with child
+    \item If node to be deleted has both children, replace with minimum key in right subtree
+  \end{itemize}
+  \begin{tabulary}{\linewidth}{@{}LLLLLL@{}} \toprule
+    algo & wrst search & wrst insert & avg search & avg insert & efficient for ordered ops \\ \midrule
+    sequential search & $N$ & $N$ & $N/2$ & $N$ & no \\
+    binary search & $\lg N$ & $ N$ & $\lg N$ & $N/2$ & yes \\
+    BST & $N$ & $N$ & $1.39 \lg N$ & $1.39 \lg N$ & yes \\ \bottomrule
+  \end{tabulary}
 
   \section{Balanced Search Trees}
+  \subsection{2-3 Trees}
+  2-nodes have one key and two children
+  3-nodes have two keys and three children
+
+  Insert: if leaf is a 2-node, make it into a 3-node
+  If leaf is a 3-node, make a 4 node, and decompose it into two 2-nodes, passing the middle element up to the parent (if exists)
+
   \section{Hash Tables}
   \section{Undirected Graphs}
   \section{Directed Graphs}
