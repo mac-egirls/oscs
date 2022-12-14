@@ -614,6 +614,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \textbf{Maximum height:} $n - 1$
   \textbf{Minimum height:} $\text{floor}(\lg n)$
 
+  % TODO: move this to the bottom to keep convention of appendix
   \section{Pseudocode}
   \begin{codebox}
     \Procname{$\proc{Insertion-Sort}(A)$}
@@ -644,6 +645,31 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \end{itemize}
 
   \section{Symbol Tables \& Binary Search Trees}
+  \textbf{Operations:}
+  Insert a new pair into the table (set)
+  Search for the value associated with a given key (get)
+  Equality test required, inequality operator allows for an ordered symbol table.
+  Allows for new operations and faster runtimes at the cost of key monotyping.
+
+  Binary Search
+  \begin{codebox}
+    \Procname{$\proc{Binary-Search}(A, x)$}
+    \li $a \gets 0$ \Comment{Lower Bound}
+    \li $b \gets A.length - 1$ \Comment{Upper Bound}
+    \li \While $a \leq b$
+    \li   \Do
+    $m \gets \func{floor}(a + (b - a) / 2)$
+    \li     \If $x < A[m]$
+    \li       \Do $b \gets m - 1$
+    \li     \ElseIf $x > A[m]$
+    \li       \Do $a \gets m + 1$
+    \li     \Else
+    \li       \Return $m$
+    \End
+    \li \Return $\const{nil}$
+  \end{codebox}
+  $O(\log N)$ time complexity, and at most $1 + \log_2 N$ compares.
+
   \section{Balanced Search Trees}
   \section{Hash Tables}
   \section{Undirected Graphs}
@@ -653,7 +679,12 @@ public class MaxPQ<Key extends Comparable<Key>> {
   are associated with each Edge
 
   \subsection{Prim's}
-  Lazy: Maintain a PQ of edges with at least one endpoint in $T$ \\
+  Start with vertex 0 and greedily grow tree $T$ \\
+  Consider edges incident on verticies in $T$, but disregard edges with both end points in $T$ \\
+  Add $T$ to min weighted edge with exactly one endpoint in $T$ \\
+  Repeat until $V-1$ edges.
+
+  \textbf{Lazy:} Maintain a PQ of edges with at least one endpoint in $T$ \\
   Key = edge; priority = weight of edge \\
   Delete-min edge $e = v - w$ from PQ to find next edge to add to $T$ \\
   Disregard if both endpoints are marked (in $T$) \\
@@ -664,15 +695,17 @@ public class MaxPQ<Key extends Comparable<Key>> {
     operation  & frequency & binary heap \\ \midrule
     delete min & $E$       & $\log E$    \\
     insert     & $E$       & $\log E$    \\ \bottomrule
-  \end{tabulary} 
+  \end{tabulary}
 
-  Eager: Maintain a PQ of verticies connected by an edge to T,
+  \textbf{Eager:} Maintain a PQ of verticies connected by an edge to T,
   where priority of vertex $v = \textit{min. weighted edge}$ connecting $v$ to $T$ \\
   Delete min vertex $v$, mark $v$ to be in $T$ \\
   Update PQ by considering all edges $e = v-x$ incident to $v$
   - ignore if $x$ is already in $T$ \\
   - add $x$ to PQ if not already there \\
   - if already on PQ, then reduce priority of $x$ if $v-x$ becomes the min. weighted edge connecting $x$ to $T$ \\
+  Uses extra space proportional to $|V|$ and time proportional to $|E| \log |V|$ (worst case)
+  for $E$ edges and $V$ vertices.
 
 \end{multicols*}
 
