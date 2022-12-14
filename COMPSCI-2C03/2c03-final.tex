@@ -653,18 +653,26 @@ public class MaxPQ<Key extends Comparable<Key>> {
   are associated with each Edge
 
   \subsection{Prim's}
-  Lazy: Maintain a PQ of edges with at least one endpoint in T \\
+  Lazy: Maintain a PQ of edges with at least one endpoint in $T$ \\
   Key = edge; priority = weight of edge \\
-  Delete-min edge $e = v - w$ from PQ to find next edge to add to T \\
-  Disregard if both endpoints are marked (in T) \\
+  Delete-min edge $e = v - w$ from PQ to find next edge to add to $T$ \\
+  Disregard if both endpoints are marked (in $T$) \\
   Otherwise, let $w$ be the unmarked vertex: \\
-  - add to PQ any edge incident to $w$ (assuming other endpoint not in T) \\
+  - add to PQ any edge incident to $w$ (assuming other endpoint not in $T$) \\
   - add $e$ to $T$ and mark $w$ \\
   \begin{tabulary}{\linewidth}{@{}LLL@{}} \toprule
     operation  & frequency & binary heap \\ \midrule
     delete min & $E$       & $\log E$    \\
     insert     & $E$       & $\log E$    \\ \bottomrule
-  \end{tabulary}
+  \end{tabulary} 
+
+  Eager: Maintain a PQ of verticies connected by an edge to T,
+  where priority of vertex $v = \textit{min. weighted edge}$ connecting $v$ to $T$ \\
+  Delete min vertex $v$, mark $v$ to be in $T$ \\
+  Update PQ by considering all edges $e = v-x$ incident to $v$
+  - ignore if $x$ is already in $T$ \\
+  - add $x$ to PQ if not already there \\
+  - if already on PQ, then reduce priority of $x$ if $v-x$ becomes the min. weighted edge connecting $x$ to $T$ \\
 
 \end{multicols*}
 
