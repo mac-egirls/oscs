@@ -821,6 +821,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \textbf{Adjacency-list:} Vertex-indexed array of lists, each list element is adjacent to index. Can be implemented with a list of Bags, allowing for parallel and self loops.
 
   \subsection{DFS}
+  Simple, used to find all vertices connected to a source, or to find a path between two vertices.
   \begin{codebox}
     \Procname{$\proc{DFS}(G, v)$}
     \li $\id{marked}[v] \gets \const{true}$
@@ -836,6 +837,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \end{codebox}
 
   \subsection{BFS}
+  Used to find the shortest path between two vertices.
   \begin{codebox}
     \Procname{$\proc{BFS}(G, s)$}
     \li $queue \gets \proc{newQueue}()$
@@ -855,6 +857,14 @@ public class MaxPQ<Key extends Comparable<Key>> {
               \End
           \End
   \end{codebox}
+
+  \subsection{Connected components}
+  Init all vertices $v$ as unmarked, for each unmarked vertex v, run DFS to find all vertic1es connected to $v$.
+  Space and time proportional to $(V + E)$: each adjacenty list entry is examined only once,
+  and there are 2E such entries (two for each edge).
+  If preprocessing is viable, it is faster than union-find.
+  However, union-find is online, and as such can be used when doing few queries,
+  or when data is not already structured as a graph.
 
   \section{Directed Graphs}
   \section{MSTs}
