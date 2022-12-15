@@ -733,6 +733,16 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \textbf{Worst and Avg case:} Search, $c \lg N$, insert $c \lg N$, delete $c \lg N$ \\
   Ordered operations: yes, key interface is compareTo()
 
+  \subsection{LLRB Trees}
+  Just a way to encode 2-3 trees more simply (they exactly correspond).
+  Black links are the same in both,
+  red links connect values that are 3-nodes in 2-3 trees.
+
+  \textbf{Rules:}
+  No node has two red links connected to it.
+  Every path from root to null link has the same number of black links - (Perfect Black Balance)
+  Red links lean left.
+
   \section{Hash Tables}
   \section{Undirected Graphs}
   \section{Directed Graphs}
