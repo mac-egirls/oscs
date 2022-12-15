@@ -608,51 +608,63 @@ public class MergeBU {
   Once a max heap has been constructed, you can perform a single for loop
   and call $RemoveMax$ to build a sorted array (thus linearizing the heap).
 
-  % TODO: pseudo or cut
-  \subsection{Code}
-  \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-public class MaxPQ<Key extends Comparable<Key>> {
-  private Key[] pq;
-  private int n;
+  \subsection{MaxPQ}
+  \subsubsection{isEmpty}
+  return n == 0
+  \subsubsection{insert(Key x)}
+  insert x at pq[n], increment n, then swim(n)
+  \subsubsection{delMax}
+  set max to pq[1], decrement n, exch(1, n), sink(1), set pq[n+1] to null, return max
+  \subsubsection{swim(int k)}
+  while k > 1 and pq[k/2] < pq[k]: exch(k, k/2), k = k/2
+  \subsubsection{sink(int k)}
+  while (2k $\leq$ n): Exchange the parent with the larger child
 
-  public MaxPQ(int capacity) {
-    // fixed capacity for simplicity
-    pq = (Key[]) new Comparable[capacity+1];
-  }
-  public boolean isEmpty() {
-    return n == 0;
-  }
-  public void insert(Key x) {
-    pq[++n] = x;
-    swim(n);
-  }
-  public Key delMax() {
-    Key max = pq[1];
-    exch(1, n--);
-    sink(1);
-    pq[n+1] == null;
-    return max;
-  }
+  
+%   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+% public class MaxPQ<Key extends Comparable<Key>> {
+%   private Key[] pq;
+%   private int n;
 
-  private void swim(int k) {
-    // parent of node at k is at k/2
-    while (k > 1 && less(k/2, k)) {
-      exch(k, k/2);
-      k = k/2;
-    }
-  }
-  private void sink(int k) {
-    while (2*k <= n) {
-      int j = 2*k;
-      // children of node at k are 2*k and 2*k+1
-      if (j < n && less(j, j+1)) j++;
-      if (!less(k, j)) break;
-      exch(k, j);
-      k = j;
-    }
-  }
-}
-  \end{lstlisting}
+%   public MaxPQ(int capacity) {
+%     // fixed capacity for simplicity
+%     pq = (Key[]) new Comparable[capacity+1];
+%   }
+%   private void sink(int k) {
+%     while (2*k <= n) {
+%       int j = 2*k;
+%       // children of node at k are 2*k and 2*k+1
+%       if (j < n && less(j, j+1)) j++;
+%       if (!less(k, j)) break;
+%       exch(k, j);
+%       k = j;
+%     }
+%   }
+%   public boolean isEmpty() {
+%     return n == 0;
+%   }
+%   public void insert(Key x) {
+%     pq[++n] = x;
+%     swim(n);
+%   }
+%   public Key delMax() {
+%     Key max = pq[1];
+%     exch(1, n--);
+%     sink(1);
+%     pq[n+1] == null;
+%     return max;
+%   }
+
+%   private void swim(int k) {
+%     // parent of node at k is at k/2
+%     while (k > 1 && less(k/2, k)) {
+%       exch(k, k/2);
+%       k = k/2;
+%     }
+%   }
+
+% }
+%   \end{lstlisting}
 
   \section{Binary Trees}
   \textbf{Binary Tree:} A tree where each internal node has at most two children.
