@@ -689,6 +689,11 @@ public class MaxPQ<Key extends Comparable<Key>> {
   Cons: Slow insert
 
   \section{Binary Search Trees}
+  \textbf{Definitions:}
+  Depth of Node: length of path from root to node (root has depth 0)
+  Height of Node: length of longest path from node to leaf (leaf has height 0)
+  Height of Tree: length of longest path from root to leaf (empty tree has height -1)
+  Degree of Node: number of subtrees attached to a node (degree of tree is max of degrees of nodes)
   Key, value, pointers to left and right subtrees, N for node count in subtree (left contains strictly smaller elements, right contains strictly larger elements)
 
   Find: traverse tree, comparing desired element to current node's key (trivial)
@@ -742,6 +747,19 @@ public class MaxPQ<Key extends Comparable<Key>> {
   No node has two red links connected to it.
   Every path from root to null link has the same number of black links - (Perfect Black Balance)
   Red links lean left.
+
+  \textbf{Extra operations}
+  Left rotation: rotate a red link that leans right to lean left
+  Right rotation: rotate a red link that leans left to lean right
+  Color flip: Turn a 4-node into a 2-node by flipping the colors of the child links and the parent link
+
+  % TODO: if we have room add insertion for LLRB
+
+  Height is $\leq 2 \log_2 N$ in the worst case
+  Search, insert, delete: $2 \lg N$ in the worst case, $1.0 \lg N$ in the average case
+  Ordered operations: yes, key interface is compareTo()
+
+  % TODO: if we have space add B-trees
 
   \section{Hash Tables}
   \section{Undirected Graphs}
