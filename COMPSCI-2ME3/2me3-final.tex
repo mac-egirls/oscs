@@ -18,7 +18,7 @@
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    { \geometry{top=.35in,left=.1in,right=.1in,bottom=.35in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -74,7 +74,7 @@
 \begin{center}
     {\textbf{2ME3 - Jason Huang}} \\
 \end{center}
-\begin{multicols*}{4}
+\begin{multicols*}{6}
     \setlength{\premulticols}{1pt}
     \setlength{\postmulticols}{1pt}
     \setlength{\multicolsep}{1pt}
@@ -291,29 +291,23 @@
 
     \begin{enumerate}
         \item Have an interface A
-        \begin{lstlisting}[language=Java]
-package factory;
+        \begin{lstlisting}[language=Java, breaklines=true]
 public interface Factory {
   public Enemy spawn();
 }
         \end{lstlisting}
         \item Have factory ``products'' implement A
-        \begin{lstlisting}[language=Java]
-package factory;
+        \begin{lstlisting}[language=Java, breaklines=true]
 public abstract class Enemy {
   protected int health;
   protected int strength;
-  public abstract void 
-    takeDamage(int damage);
+  public abstract void takeDamage(int damage);
   public abstract void attack();
 }
         \end{lstlisting}
         \item Have the factory function return an object of type A
-        \begin{lstlisting}[language=Java]
-package factory;
-import java.util.Random;
-public class AverageSpawner 
-    implements Factory{
+        \begin{lstlisting}[language=Java, breaklines=true]
+public class AverageSpawner implements Factory{
   @Override
   public Enemy spawn() {
     Random r = new Random();
@@ -358,16 +352,15 @@ public class AverageSpawner
 
     \begin{enumerate}
         \item Create interface A
-        \begin{lstlisting}[language=Java]
+        \begin{lstlisting}[language=Java, breaklines=true]
 public interface Burrito {
   public double getCost();
   public String getString();
 }
         \end{lstlisting}
         \item Create base class B that implements A
-        \begin{lstlisting}[language=Java]
-public class ChickenBurrito 
-    implements Burrito{
+        \begin{lstlisting}[language=Java, breaklines=true]
+public class ChickenBurrito implements Burrito{
   public ChickenBurrito() {}
   public String getString() {
 	return "Chicken" + "$12.00";
@@ -380,10 +373,8 @@ public class ChickenBurrito
         \item Create decorator class C that implements A, 
         that holds an instance of B, 
         which is received through constructor
-        \begin{lstlisting}[language=Java]
-public abstract class 
-    BurritoDecorator 
-    implements Burrito{
+        \begin{lstlisting}[language=Java, breaklines=true]
+public abstract class BurritoDecorator implements Burrito {
   protected Burrito burrito;
   public BurritoDecorator
       (Burrito burrito) {
@@ -396,9 +387,8 @@ public abstract class
 }
         \end{lstlisting}
         \item Create decorators by extending C and using super
-        \begin{lstlisting}[language=Java]
-public class Guac 
-  extends BurritoDecorator {
+        \begin{lstlisting}[language=Java, breaklines=true]
+public class Guac extends BurritoDecorator {
   public Guac(Burrito burrito) {
 	super(burrito);
   }
@@ -440,19 +430,15 @@ public class Guac
     and make their objects interchangeable.
     \begin{enumerate}
         \item Create a strategy interface
-        \begin{lstlisting}[language=Java]
-import java.util.ArrayList;
+        \begin{lstlisting}[language=Java, breaklines=true]
 public interface Sorter {
   public void 
     sort(ArrayList<Double> data);
 }
         \end{lstlisting}
         \item Create concrete strategies that implement the interface
-        \begin{lstlisting}[language=Java]
-import java.util.ArrayList;
-import java.util.Collections;
-public class DefaultSorter 
-    implements Sorter{
+        \begin{lstlisting}[language=Java, breaklines=true]
+public class DefaultSorter implements Sorter{
   @Override
   public void 
     sort(ArrayList<Double> data) {
@@ -463,12 +449,9 @@ public class DefaultSorter
 }
         \end{lstlisting}
         \item Create a context to store the strategy 
-        \begin{lstlisting}[language=Java]
-import java.util.ArrayList;
-import java.util.Collections;
+        \begin{lstlisting}[language=Java, breaklines=true]
 public class SensorData {
-  private ArrayList<Double> data 
-    = new ArrayList<Double>();
+  private ArrayList<Double> data = new ArrayList<Double>();
   private Sorter sort;
   public SensorData() {
   	sort = new DefaultSorter();
