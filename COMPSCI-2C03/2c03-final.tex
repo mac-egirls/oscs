@@ -902,6 +902,19 @@ public class MaxPQ<Key extends Comparable<Key>> {
   Difference: Prim's uses a PQ, Kruskal's uses a greedy approach
 
   \subsection{Kruskal's}
+
+
+  \begin{enumerate}
+    \item use a min priority queue $P$ to store edges $O(|E|)$ for init
+    \item pop the min edge from $P$. $O(|E| \log |E|)$ in total
+    \item while examining an edge, check for cycle. $O(|E| + |V|)$ in total
+    \item if $e$ does not create a cycle, then add $e$ to $T$
+  \end{enumerate}
+
+  Total Time complexity of $O(|E| \log |E|)$
+
+  checking for cycles: use union find. if $v$ and $w$ are in the same component, then adding $v-w$ creates a cycle
+
   \subsection{Prim's}
   Start with vertex 0 and greedily grow tree $T$ \\
   Consider edges incident on verticies in $T$, but disregard edges with both end points in $T$ \\
