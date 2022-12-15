@@ -346,8 +346,9 @@ public class AverageSpawner implements Factory{
     \textbf{Disadvantages:}
     Code can become complex due to subclasses.
 
+    \subsection{Singleton}
 
-    \section{Design Patterns}
+    \section{Structural Patterns}
     \subsection{Decorator}
     Lets you attach new behaviors to objects by putting them in special wrappers
     that contain the behaviors.
@@ -425,9 +426,12 @@ public class Guac extends BurritoDecorator {
     Hard to remove wrappers.
     Hard to implement decorators in a way that doesn't depend on ordering.
 
+    \subsection{Adapter}
 
-    \subsection{Behavioral Patterns}
-    \subsubsection{Strategy}
+    \subsection{proxy}
+
+    \section{Behavioral Patterns}
+    \subsection{Strategy}
     Define a family of algorithms, put them each in separate classes,
     and make their objects interchangeable.
     \begin{enumerate}
@@ -490,6 +494,10 @@ public class SensorData {
     \textbf{Disadvantages:}
     Overly complex if there are only a few algorithms needed.
     Must be aware of the difference between algorithms to pick the right one.
+
+    \subsection{Observer}
+    
+    \subsection{Command}
 
 \end{multicols*}
 
