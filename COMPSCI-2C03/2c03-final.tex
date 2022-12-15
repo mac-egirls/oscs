@@ -246,7 +246,6 @@ for(i=n;i>1;i=i/2)  - O(log_2 n)
   %   \textbf{Case 3} If $f(n) = \Omega(n^{\log_b a+\epsilon})$ for some $\epsilon > 0$ (and $af(n/b) \leq c f(n)$ for some $c<1$ for all $n$ sufficiently large), then $T(n) = \Theta(f(n))$. \\
 
   \section{Union-Find}
-  WARNING: !CODE DOES NOT IMPLEMENT COUNT! \\
   Mutually connected nodes are called components.
   \subsection{API}
   \begin{itemize}
@@ -440,7 +439,7 @@ for(i=n;i>1;i=i/2)  - O(log_2 n)
   \textbf{Cons:} Slow
 
   \begin{center}
-    \includegraphics[width=\linewidth]{shellsort.png}
+    \includegraphics[width=0.8\linewidth]{shellsort.png}
   \end{center}
 
   % TODO: pseudo or cut
@@ -582,7 +581,6 @@ public class MergeBU {
 
   \section{Priority Queues}
   Supports insertion and removing/popping the priority (largest or smallest) item.
-
   Implementations:
   \begin{list}{}{}
     \item Sorted Array - O(n) insert, O(1) pop
@@ -952,8 +950,16 @@ public class MergeBU {
   Do DFS, but add vertices to a stack as soon as you mark them as visited.
   When DFS is over, pop the stack to get the reverse postorder.
   \begin{center}
-    \includegraphics[width=0.5\linewidth]{post_pre_order.png}
+    \includegraphics[width=0.4\linewidth]{post_pre_order.png}
   \end{center}
+  \subsection{Strongly connected components:}
+  Two vertices are strongly connected if there is a directed path from $v$ to $w$ and from $w$ to $v$.
+  In a DAG, we can have atmost V strongly connected components.
+  \subsection{Kosaraju algo (Find strong components in a  dir graph)}
+  \begin{itemize}
+    \item Run DFS on $G^r$ and compute reverse post order
+    \item Run DFS on G, considering verticies in ordere given by the reverse post order
+  \end{itemize}
 
   \section{MSTs}
   \textbf{Edge-weighted graph:} Undirected graph model where weights/costs
