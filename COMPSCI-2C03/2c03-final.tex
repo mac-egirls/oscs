@@ -921,6 +921,11 @@ public class MergeBU {
   or when data is not already structured as a graph.
 
   \section{Directed Graphs}
+  \subsection{Topological Sort}
+
+  same as DFS, except when you hit a node that has no adjacent nodes, add that node to a list post[]. 
+  After DFS is over, reverse the list, that's your topological order
+  
   \section{MSTs}
   \textbf{Edge-weighted graph:} Undirected graph model where weights/costs
   are associated with each Edge
