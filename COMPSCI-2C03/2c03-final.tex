@@ -769,6 +769,49 @@ public class MaxPQ<Key extends Comparable<Key>> {
   % TODO: if we have space add B-trees
 
   \section{Hash Tables}
+  TLDR replace index access with hash function,
+  use either a probing strategy or chaining to resolve collisions
+
+  \subsection{Good Hash}
+  % REVIEW: include me if there is space
+  % Given $U = \{0, 1, \ldots, n-1\}, |T| = m$, and elements of $U$ are evenly distributed,
+  % $h(k) = \left\lfloor \frac{k}{n} m \right\rfloor$ works, but closely related symbols are
+  % hashed together which is bad.
+  \textbf{Division method}
+  $h(k) = k \mod m$ hashes $k$ into one of $m$ slots.
+  A prime number not too close to $2^p$ is a good choice.
+
+  \textbf{Multiplication method}
+  $h(k) = \left\lfloor m(kA \mod 1) \right\rfloor$
+  Value of $m$ is not critical, generally picked to be a power of 2 to make implementation easy.
+  $A$ is a constant between 0 and 1, and is usually chosen to be $\frac{\sqrt{5} - 1}{2}$.
+
+  \subsection{Chaining}
+  Put all elements with the same hash value into the same linked list.
+  For linked list $T$,
+  worst case time complexity is $O(1)$ for insert, $O(m)$ for search and delete where $m = |T|$.
+
+  \subsection{Linear Probing}
+  $h(k, i) = (h'(k) + i) \mod m$
+  Where $h'(k)$ is a hash function, and $i$ is the probe number.
+  Increment $i$ until an empty slot is found.
+  Suffers from primary clustering (long runs of occupied slots tend to build up)
+
+  \subsection{Quadratic Probing}
+  $h(k, i) = (h'(k) + c_1i + c_2i^2) \mod m$
+  Where $h'(k)$ is a hash function, $c_1$ and $c_2$ are constants, and $i$ is the probe number.
+  Doesn't encounter primary clustering, but two keys with the same initial probe position leads to the same probe sequence (secondary clustering).
+
+  \subsection{Double Hashing}
+  $h(k, i) = (h_1(k) + ih_2(k)) \mod m$
+  Where $h_1(k)$ and $h_2(k)$ are hash functions, and $i$ is the probe number.
+  Doesn't encounter either form of clustering.
+  $h_2$ should be relative prime to $m$.
+  % REVIEW: cut this if we don't have space
+  One way to do this is to let $m$ be prime, and pick $h_2$ such that it always returns a positive integer less than $m$.
+  Eg:
+  $h_1(k) = k \mod m$, $h_2(k) = 1 + (k \mod (m'))$, where $m'$ is a prime less than $m$ (eg $m-1$)
+
   \section{Undirected Graphs}
   \section{Directed Graphs}
   \section{MSTs}
