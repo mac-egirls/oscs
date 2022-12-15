@@ -1,3 +1,5 @@
 lookForAlignDelims:
   tabulary:
     delims: 1
+verbatimEnvironments:
+  codebox: 1

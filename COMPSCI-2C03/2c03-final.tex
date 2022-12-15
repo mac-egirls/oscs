@@ -634,17 +634,17 @@ public class MaxPQ<Key extends Comparable<Key>> {
     \Procname{$\proc{Insertion-Sort}(A)$}
     \li \For $j \gets 2$ \To $\attrib{A}{length}$
     \li   \Do
-    $\id{key} \gets A[j]$
+            $\id{key} \gets A[j]$
     \li     \Comment Insert $A[j]$ into the sorted sequence
     \li     \Comment $A[1 \twodots j-1]$.
     \li     $i \gets j-1$
     \li     \While $i > 0$ and $A[i] > \id{key}$
     \li       \Do
-    $A[i+1] \gets A[i]$
+                $A[i+1] \gets A[i]$
     \li         $i \gets i-1$
-    \End
+              \End
     \li     $A[i+1] \gets \id{key}$
-    \End
+          \End
   \end{codebox}
   Reminders:
   \begin{itemize}
@@ -668,11 +668,11 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \textbf{Implementations}
   \begin{tabulary}{\linewidth}{@{}LLLLLLLL@{}} \toprule
     imp    & (wrst) srch & ins       & del       & (avg) srch     & ins            & del           & ord ops? \\ \midrule
-    seq    & $N$          & $N$       & $N$       & $.5 N$         & $N$            & $.5 N$        & n    \\
-    bin    & $\lg N$      & $\lg N$   & $\lg N$   & $\lg N$        & $.5 N$         & $.5 N$        & y    \\
-    BST    & $N$          & $N$       & $N$       & $1.39$ $\lg N$ & $1.39$ $\lg N$ & $\sqrt N$     & y    \\
-    23     & $c \lg N$    & $c \lg N$ & $c \lg N$ & $c \lg N$      & $c \lg N$      & $c \lg N$     & y    \\
-    RB BST & $2 \lg N$    & $2 \lg N$ & $2 \lg N$ & $1.0$ $\lg N$  & $1.0$ $\lg N$  & $1.0$ $\lg N$ & y    \\
+    seq    & $N$         & $N$       & $N$       & $.5 N$         & $N$            & $.5 N$        & n        \\
+    bin    & $\lg N$     & $\lg N$   & $\lg N$   & $\lg N$        & $.5 N$         & $.5 N$        & y        \\
+    BST    & $N$         & $N$       & $N$       & $1.39$ $\lg N$ & $1.39$ $\lg N$ & $\sqrt N$     & y        \\
+    23     & $c \lg N$   & $c \lg N$ & $c \lg N$ & $c \lg N$      & $c \lg N$      & $c \lg N$     & y        \\
+    RB BST & $2 \lg N$   & $2 \lg N$ & $2 \lg N$ & $1.0$ $\lg N$  & $1.0$ $\lg N$  & $1.0$ $\lg N$ & y        \\
     \bottomrule
   \end{tabulary}
 
@@ -813,6 +813,49 @@ public class MaxPQ<Key extends Comparable<Key>> {
   $h_1(k) = k \mod m$, $h_2(k) = 1 + (k \mod (m'))$, where $m'$ is a prime less than $m$ (eg $m-1$)
 
   \section{Undirected Graphs}
+  If an edge exists between two vertices, they are adjacent, and the edge is incident to both verticies.
+  Degree of vertex is number of edges incident to it.
+  Two edges that connect the same pair of vertices are parallel.
+
+  \textbf{Adjacency-matrix:} 2D V by V boolean array
+  \textbf{Adjacency-list:} Vertex-indexed array of lists, each list element is adjacent to index. Can be implemented with a list of Bags, allowing for parallel and self loops.
+
+  \subsection{DFS}
+  \begin{codebox}
+    \Procname{$\proc{DFS}(G, v)$}
+    \li $\id{marked}[v] \gets \const{true}$
+    \li \For $i \gets 0$ \To $\attrib{\proc{adj}(G, v)}{length}$
+    \li   \Do 
+            $w \gets \proc{adj}(G, v)[i]$
+    \li     \If{$\id{marked}[w] \isequal \const{false}$}
+    \li       \Then 
+                $\id{edgeTo}[w] \gets v$
+    \li         $\proc{DFS}(G, w)$
+              \End
+          \End
+  \end{codebox}
+
+  \subsection{BFS}
+  \begin{codebox}
+    \Procname{$\proc{BFS}(G, s)$}
+    \li $queue \gets \proc{newQueue}()$
+    \li $\id{marked}[s] \gets \const{true}$
+    \li $\proc{enqueue}(queue, s)$
+    \li \While{$\proc{isEmpty}(queue) \isequal \const{false}$}
+    \li   \Do 
+            $v \gets \proc{dequeue}(queue)$
+    \li     \For{$i \gets 0$ \To $\attrib{\proc{adj}(G, v)}{length}$}
+    \li       \Do
+                $w \gets \proc{adj}(G, v)[i]$ 
+    \li         \If{$\id{marked}[w] \isequal \const{false}$}
+    \li           \Then $\id{edgeTo}[w] \gets v$
+    \li             $\id{marked}[w] \gets \const{true}$
+    \li             $\proc{enqueue}(queue, w)$
+                  \End
+              \End
+          \End
+  \end{codebox}
+
   \section{Directed Graphs}
   \section{MSTs}
   \textbf{Edge-weighted graph:} Undirected graph model where weights/costs
