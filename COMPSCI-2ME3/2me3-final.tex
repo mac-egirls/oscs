@@ -503,6 +503,16 @@ public class SensorData {
   \section{Formal Specification}
 
   \section{Testing}
+  \textbf{Unit Testing:} Test individual methods / functions, with provided input expect certain output.
+  \textbf{Black Box:} Test without knowledge of the code (generally check functionality, edge cases)
+  \textbf{White Box:} Test with knowledge of the code
+
+  \textbf{Statement Coverage:} Test cases cause each statement to be executed at least once.
+  \textbf{Edge Coverage:} Test cases cause each edge of each decision (each branch of if statements) to be executed at least once.
+  Test suite has statement coverage $\Leftrightarrow$ has edge coverage.
+  There are cases where edge coverage is not enough to prove that the program works
+  (eg if variables are being modified)
+  \textbf{Path Coverage:} Test cases cause each path through the program to be executed at least once (each possible combination of edges).
 
 \end{multicols*}
 
