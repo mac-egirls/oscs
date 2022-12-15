@@ -620,7 +620,7 @@ public class MergeBU {
   \subsubsection{sink(int k)}
   while (2k $\leq$ n): Exchange the parent with the larger child (children of k are at 2k and 2k+1)
 
-  
+
 %   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
 % public class MaxPQ<Key extends Comparable<Key>> {
 %   private Key[] pq;
@@ -785,6 +785,13 @@ public class MergeBU {
     \item If node to be deleted has both children, replace with minimum key in right subtree
   \end{itemize}
 
+  \textbf{Traversals}
+  \begin{enumerate}
+    \item Inorder (Left, Root, Right)
+    \item Preorder (Root, Left, Right)
+    \item Postorder (Left, Right, Root)
+  \end{enumerate}
+
 
   \section{Balanced Search Trees}
   \subsection{2-3 Trees}
@@ -878,10 +885,10 @@ public class MergeBU {
     \Procname{$\proc{DFS}(G, v)$}
     \li $\id{marked}[v] \gets \const{true}$
     \li \For $i \gets 0$ \To $\attrib{\proc{adj}(G, v)}{length}$
-    \li   \Do 
+    \li   \Do
             $w \gets \proc{adj}(G, v)[i]$
     \li     \If{$\id{marked}[w] \isequal \const{false}$}
-    \li       \Then 
+    \li       \Then
                 $\id{edgeTo}[w] \gets v$
     \li         $\proc{DFS}(G, w)$
               \End
@@ -896,11 +903,11 @@ public class MergeBU {
     \li $\id{marked}[s] \gets \const{true}$
     \li $\proc{enqueue}(queue, s)$
     \li \While{$\proc{isEmpty}(queue) \isequal \const{false}$}
-    \li   \Do 
+    \li   \Do
             $v \gets \proc{dequeue}(queue)$
     \li     \For{$i \gets 0$ \To $\attrib{\proc{adj}(G, v)}{length}$}
     \li       \Do
-                $w \gets \proc{adj}(G, v)[i]$ 
+                $w \gets \proc{adj}(G, v)[i]$
     \li         \If{$\id{marked}[w] \isequal \const{false}$}
     \li           \Then $\id{edgeTo}[w] \gets v$
     \li             $\id{marked}[w] \gets \const{true}$
@@ -921,9 +928,9 @@ public class MergeBU {
   \section{Directed Graphs}
   \subsection{Topological Sort}
 
-  same as DFS, except when you hit a node that has no adjacent nodes, add that node to a list post[]. 
+  same as DFS, except when you hit a node that has no adjacent nodes, add that node to a list post[].
   After DFS is over, reverse the list, that's your topological order
-  
+
   \section{MSTs}
   \textbf{Edge-weighted graph:} Undirected graph model where weights/costs
   are associated with each Edge
