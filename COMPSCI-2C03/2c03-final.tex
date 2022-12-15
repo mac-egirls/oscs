@@ -683,34 +683,34 @@ public class MergeBU {
   \textbf{Minimum height:} $\text{floor}(\lg n)$
 
   % TODO: move this to the bottom to keep convention of appendix
-  \section{Pseudocode}
-  \begin{codebox}
-    \Procname{$\proc{Insertion-Sort}(A)$}
-    \li \For $j \gets 2$ \To $\attrib{A}{length}$
-    \li   \Do
-            $\id{key} \gets A[j]$
-    \li     \Comment Insert $A[j]$ into the sorted sequence
-    \li     \Comment $A[1 \twodots j-1]$.
-    \li     $i \gets j-1$
-    \li     \While $i > 0$ and $A[i] > \id{key}$
-    \li       \Do
-                $A[i+1] \gets A[i]$
-    \li         $i \gets i-1$
-              \End
-    \li     $A[i+1] \gets \id{key}$
-          \End
-  \end{codebox}
-  Reminders:
-  \begin{itemize}
-    \item Attributes can be accessed via \verb|x.prev|.
-    \item Class functions \textbf{do not exist in pseudocode}.
-          Instead of calling \verb|x.sort()|, call \verb|sort(x)|.
-    \item Use \verb|NIL| instead of \verb|null|.
-    \item State assumptions like passing by value or passing by reference
-          in the pseudocode.
-    \item Multiple values can be passed in a \verb|return| statement.
-    \item Use \verb|error| for throwing an error, but what happens is not specified.
-  \end{itemize}
+  % \section{Pseudocode}
+  % \begin{codebox}
+  %   \Procname{$\proc{Insertion-Sort}(A)$}
+  %   \li \For $j \gets 2$ \To $\attrib{A}{length}$
+  %   \li   \Do
+  %           $\id{key} \gets A[j]$
+  %   \li     \Comment Insert $A[j]$ into the sorted sequence
+  %   \li     \Comment $A[1 \twodots j-1]$.
+  %   \li     $i \gets j-1$
+  %   \li     \While $i > 0$ and $A[i] > \id{key}$
+  %   \li       \Do
+  %               $A[i+1] \gets A[i]$
+  %   \li         $i \gets i-1$
+  %             \End
+  %   \li     $A[i+1] \gets \id{key}$
+  %         \End
+  % \end{codebox}
+  % Reminders:
+  % \begin{itemize}
+  %   \item Attributes can be accessed via \verb|x.prev|.
+  %   \item Class functions \textbf{do not exist in pseudocode}.
+  %         Instead of calling \verb|x.sort()|, call \verb|sort(x)|.
+  %   \item Use \verb|NIL| instead of \verb|null|.
+  %   \item State assumptions like passing by value or passing by reference
+  %         in the pseudocode.
+  %   \item Multiple values can be passed in a \verb|return| statement.
+  %   \item Use \verb|error| for throwing an error, but what happens is not specified.
+  % \end{itemize}
 
   \section{Symbol Tables}
   \textbf{Operations:}
