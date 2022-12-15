@@ -1,0 +1,881 @@
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.25in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage}
+  {\endminipage\par\medskip}
+
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {0ex plus 0ex minus 0ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {0ex plus 0ex minus 0ex}%
+                                {0ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {0ex plus 0ex minus 0ex}%
+                                {0ex plus 0ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+% \tymin=37pt
+% \tymax=\maxdimen
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+\newcommand{\To}{\Rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+
+\title{2LC3}
+
+\begin{document}
+
+\raggedright
+\tiny
+
+% \begin{center}
+%     {\textbf{2LC3 - OSCS}} \\
+% \end{center}
+\begin{multicols*}{3}
+    \setlength{\premulticols}{0pt}
+    \setlength{\postmulticols}{0pt}
+    \setlength{\multicolsep}{0pt}
+    \setlength{\columnsep}{0pt}
+
+    \section{Theorems}
+    \tiny
+    % \subsection{Equivalence and true}
+    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (3.1) & Axiom, Associativity of $\equiv$ & $((p \equiv q) \equiv r) \equiv (p \equiv (q \equiv r))$ \\
+    %     (3.2) & Axiom, Symmetry of $\equiv$      & $p \equiv q \equiv q \equiv p$                           \\
+    %     (3.3) & Axiom, Identity of $\equiv$      & $\textit{true} \equiv q \equiv q$                        \\
+    %     (3.4) &                                  & \textit{true}                                            \\
+    %     (3.5) & Reflexivity of $\equiv$          & $p \equiv p$                                             \\
+    % \end{tabulary}
+
+    \subsection{Negation, inequivalence, and false}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % (3.8)  & Axiom, Definition of \textit{false}           & $\textit{false} \equiv \neg \textit{true}$                                  \\
+        % (3.9)  & Axiom, Distributivity of $\neg$ over $\equiv$ & $\neg (p \equiv q) \ \equiv \ \neg \equiv q$                                \\
+        % (3.10) & Axiom, Definition of $\not\equiv$             & $(p \not\equiv q) \ \equiv \ \neg(p \equiv q)$                              \\
+        (3.11) &                                               & $\neg p \equiv q \equiv p \equiv \neg q$                                    \\
+        % (3.12) & Double negation                               & $\neg \neg p \equiv p$                                                      \\
+        % (3.13) & Negation of \textit{false}                    & $\neg \textit{false} \equiv \textit{true}$                                  \\
+        (3.14) &                                               & $(p \not\equiv q) \ \equiv \ \neg p \equiv q$                               \\
+        (3.15) &                                               & $(\neg p \equiv p \equiv false)$                                            \\
+        % (3.16) & Symmetry of $\not\equiv$                      & $(p \not\equiv q) \ \equiv \ (q \not\equiv p)$                              \\
+        % (3.17) & Associativity of $\not\equiv$                 & $((p \not\equiv q) \not\equiv r) \ \equiv \ (p \not\equiv(q \not\equiv r))$ \\
+        (3.18) & Mutual Associativity                          & $((p \not\equiv q) \equiv r) \ \equiv \ (p \not\equiv (q \equiv r))$        \\
+        (3.19) & Mutual interchangeability                     & $p \not\equiv q \equiv r \ \equiv \ p \equiv q \not\equiv r$                \\
+    \end{tabulary}
+
+    \subsection{Disjunction}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % (3.24) & Axiom, Symmetry of $\lor$                     & $p \lor q \equiv q \lor p$                            \\
+        % (3.25) & Axiom, Associativity of $\lor$                & $(p \lor q) \lor r \equiv p \lor (q \lor r)$          \\
+        % (3.26) & Axiom, Idempotency of $\lor$                  & $p \lor p \equiv p$                                   \\
+        (3.27) & Axiom, Distributivity of $\lor$ over $\equiv$ & $p \lor(q \equiv r) \equiv p \lor q \equiv p \lor r$  \\
+        (3.28) & Axiom, Excluded Middle                        & $p \lor \neg p$                                       \\
+        % (3.29) & Zero of $\lor$                                & $p \lor \textit{true} \equiv \textit{true}$           \\
+        % (3.30) & Identity of $\lor$                            & $p \lor false \equiv p$                               \\
+        (3.31) & Distributivity of $\lor$ over $\lor$          & $p \lor (q \lor r) \equiv (p \lor q) \lor (p \lor r)$ \\
+        (3.32) &                                               & $p \lor q \equiv p \lor \neg q \equiv p$              \\
+    \end{tabulary}
+
+    \subsection{Conjunction}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (3.35) & Axiom, Golden rule                     & $p \land q \equiv p \equiv q \equiv p \lor q$                                  \\
+        % (3.36) & Symmetry of $\land$                    & $p \land q \equiv q \land p$                                                   \\
+        % (3.37) & Associativity of $\land$               & $(p \land q) \land r \equiv p \land(q \land r)$                                \\
+        % (3.38) & Idempotency of $\land$                 & $p \land p \equiv p$                                                           \\
+        % (3.39) & Identity of $\land$                    & $p \land \textit{true} \equiv p$                                               \\
+        % (3.40) & Zero of $\land$                        & $p \land \textit{false} \equiv \textit{false} $                                \\
+        (3.41) & Distributivity of $\land$ over $\land$ & $p \land (q \land r) \equiv (p \land q) \land (p \land r)$                     \\
+        % (3.42) & Contradiction                          & $p \land \neg p \equiv \textit{false}$                                         \\
+        (3.43) & Absorption                             & (a) $p \land (p \lor q) \equiv p$                                              \\
+        &                                        & (b) $p \lor (p \land q) \equiv p$                                              \\
+        (3.44) & Absorption                             & (a) $p \land (\neg p \lor q) \equiv p \land q$                                 \\
+        &                                        & (b) $p \lor (\neg p \land q) \equiv p \lor q$                                  \\
+        % (3.45) & Distributivity of $\lor$ over $\land$  & $p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)$                        \\
+        % (3.46) & Distributivity of $\land$ over $\lor$  & $p \land (q \lor r) \equiv (p \land q) \lor (p \land r)$                       \\
+        (3.47) & De Morgan                              & (a) $\neg (p \land q) \equiv \neg p \lor \neg q)$                              \\
+        &                                        & (b) $\neg (p \lor q) \equiv \neg p \land \neg q)$                              \\
+        (3.48) &                                        & $p \land q \equiv p \land \neg q \equiv \neg p$                                \\
+        (3.49) &                                        & $p \land (q \equiv r) \equiv p \land q \equiv p \land r \equiv p$              \\
+        (3.50) &                                        & $p \land (q \equiv p) \equiv p \land q$                                        \\
+        (3.51) & Replacement                            & $(p \equiv q) \land (r \equiv p) \ \equiv \ (p \equiv q) \lor (r \equiv q)$    \\
+        (3.52) & Definition of $\equiv$                 & $p \equiv q \equiv (p \land q) \lor (\neg p \land \neg q)$                     \\
+        (3.53) & Exclusive or                           & $p \not\equiv q \equiv (\neg p \land q) \lor (p \land \neg q)$                 \\
+        (3.55) &                                        & $(p \land q) \land r \equiv \ p \equiv q \equiv r$                             \\
+        &                                        & \quad $\equiv p \lor q \equiv q \lor r \equiv r \lor p \equiv p \lor q \lor r$ \\
+    \end{tabulary}
+
+    \subsection{Implication}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (3.57) & Axiom, Def of $\Rightarrow$           & $p \To q \equiv p \lor q \equiv q$                      \\
+        (3.59) &                                       & $p \To q \equiv \neg p \lor q$                          \\
+        (3.60) &                                       & $p \To q \equiv p \land q \equiv p$                     \\
+        % (3.58) & Axiom, Consequence                    & $p \Leftarrow q \equiv q \To p$                         \\
+        (3.61) & Contrapositive                        & $p \To q \equiv \neg q \To \neg p$                      \\
+        (3.62) &                                       & $p \To (q \equiv r) \equiv p \land q \equiv p \land r$  \\
+        (3.63) & Distr. of $\To$ over $\equiv$         & $p \To (q \equiv r) \equiv p \To q \equiv p \To r$      \\
+        (3.64) &                                       & $p \To (q \To r) \equiv (p \To q) \To (p \To r)$        \\
+        (3.65) & Shunting                              & $p \land q \To r \equiv p \To (q \To r)$                \\
+        (3.66) &                                       & $p \land (p \To q) \equiv p \land q$                    \\
+        (3.67) &                                       & $p \land (q \To p) \equiv p$                            \\
+        (3.68) &                                       & $p \lor (p \To q) \equiv \textit{true}$                 \\
+        (3.69) &                                       & $p \lor (q \To p) \equiv q \To p$                       \\
+        (3.70) &                                       & $p \lor q \To p \land q \equiv p \equiv q$              \\
+        (3.71) & Reflexivity of $\To$                  & $p \To p \equiv \textit{true}$                          \\
+        (3.72) & Right zero of $\To$                   & $p \To \textit{true} \equiv \textit{true}$              \\
+        (3.73) & Left identity of $\To$                & $\textit{true} \To p \equiv p$                          \\
+        (3.74) &                                       & $p \To \textit{false} \equiv \neg p$                    \\
+        (3.75) &                                       & $\textit{false} \To p \equiv true$                      \\
+        (3.76) & Weakening/strengthening               & (a) $p \To p \lor q$                                    \\
+        &                                       & (b) $p \land q \To p$                                   \\
+        &                                       & (c) $p \land q \To p \lor q$                            \\
+        &                                       & (d) $p \lor (q \land r) \To p \lor q$                   \\
+        &                                       & (e) $p \land q \To p \land (q \lor r)$                  \\
+        (3.77) & Modus ponens                          & $p \land (p \To q) \To q$                               \\
+        (3.78) &                                       & $(p \To r) \land (q \To r) \ \equiv \ (p \lor q \To r)$ \\
+        (3.79) &                                       & $(p \To r) \land (\neg p \To r) \ \equiv \ r$           \\
+        (3.80) & Mutual implication                    & $(p \To q) \land (q \To p) \equiv (p \equiv q)$         \\
+        (3.81) & Antisymmetry                          & $(p \To q) \land (q \To p) \To (p \equiv q)$            \\
+        (3.82) & Transitivity                          & (a) $(p \To q) \land (q \To r) \To (p \To r)$           \\
+        &                                       & (b) $(p \equiv q) \land (q \To r) \To (p \To r)$        \\
+        &                                       & (c) $(p \To q) \land (q \equiv r) \To (p \To r)$        \\
+    \end{tabulary}
+
+    % \subsection{Leibniz as an axiom}
+    % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (3.83) & Axiom, Leibniz            & $e = f \ \To \ E_e^z = E_f^z$                                                         \\
+    %     (3.84) & Substitution              & (a) $(e = f) \land E_e^z \ \equiv \ (e = f) \land E_f^z$                              \\
+    %     &                           & (b) $(e = f) \To E_e^z \ \equiv \ (e = f) \To E_f^z$                                  \\
+    %     &                           & (c) $q \land (e = f) \To E_e^z \ \equiv \ q \land (e = f) \To E_f^z$                  \\
+    %     (3.85) & Replace by \textit{true}  & (a) $p \To E_b^z \ \equiv \ p \To E_\textit{true}^z$                                  \\
+    %     &                           & (b) $q \land p \To E_p^z \ \equiv \ q \land p \To E_\textit{true}^z$                  \\
+    %     (3.86) & Replace by \textit{false} & (a) $E_p^z \To p \ \equiv \ E_\textit{false}^z \To p$                                 \\
+    %     &                           & (b) $E_p^z \To p \lor q \ \equiv \ E_\textit{false}^z \To p \lor q$                   \\
+    %     (3.87) & Replace by \textit{true}  & $p \land E_p^z \ \equiv \ p \land E_\textit{true}^z$                                  \\
+    %     (3.88) & Replace by \textit{false} & $p \lor E_p^z \ \equiv \ p \lor E_\textit{false}^z$                                   \\
+    %     (3.89) & Shannon                   & $E_p^z \ \equiv \ (p \land E_\textit{true}^z) \lor (\neg p \land E_\textit{false}^z)$ \\
+    %     (4.1)  &                           & $p \To (q \To p)$                                                                     \\
+    %     (4.2)  & Monotonicity of $\lor$    & $(p \To q) \To (p \lor r \To q \lor r)$                                               \\
+    %     (4.3)  & Monotonicity of $\land$   & $(p \To q) \To (p \land r \To q \land r)$                                             \\
+
+
+    % \subsection{Proof techniques}
+    % \begin{tabulary}{\linewidth}{@{}llL@{}}
+    %     (4.4)  & Deduction               & To prove $P \To Q$, assume $P$ and prove $Q$.                                  \\
+    %     (4.5)  & Case analysis           & If $E_\textit{true}^z$, $E_\textit{false}^z$ are theorems, then so is $E_P^z$. \\
+    %     (4.6)  & Case analysis           & $(p \lor q \lor r) \land (p \To s) \land (q \To s) \land(r \To s) \To \ s$     \\
+    %     (4.7)  & Mutual implication      & To prove $P \equiv Q$, prove $P \To Q$ and $Q \To P$.                          \\
+    %     (4.9)  & Proof by contradiction  & To prove $P$, prove $\neg P \To \textit{false}$.                               \\
+    %     (4.12) & Proof by contrapositive & To prove $P \To Q$, prove $\neg Q \To \neg P$                                  \\
+    % \end{tabulary}
+
+    \section{General Laws of Quantification}
+    For symmetric and associative binary operator $\star $ with identity $u$.
+    \begin{tabulary}{\linewidth}{@{}lL@{}}
+        (8.13) & \textbf{Axiom, Empty range:} $(\star x | false : P) = u$                                                                                                                                                                                   \\
+        (8.14) & \textbf{Axiom, One-point rule:} Provided $\neg occurs(`x\textrm', `E\textrm')$, $(\star x | x = E : P) = P[x := E]$                                                                                                                        \\
+        (8.15) & \textbf{Axiom, Distributivity:} Provided each quantification is defined, $(\star x | R:P) \star  (\star x | R : Q) = (\star x | R : P \star  Q)$                                                                                           \\
+        (8.16) & \textbf{Axiom, Range split:} Provided $R \land S \equiv false$ and each quantification is defined, $(\star x | R \lor S : P) = (\star x | R \land S : P) = (\star x | R : P) \star  (\star X | S : P)$                                     \\
+        (8.17) & \textbf{Axiom, Range split:} Provided each quantification is defined, $(\star x | R \lor S : P) \star  (\star x | R \land S : P) = (\star x | R : P) \star  (\star x | S : P)$                                                             \\
+        (8.18) & \textbf{Axiom, Range split for idempotent $\star$:} Prov. each quant. is defined, $(\star x | R \lor S : P) = (\star x | R : P) \star (\star x | S : P)$                                                                                   \\
+        (8.19) & \textbf{Axiom, Interchange of dummies:} Provided each quantification is defined, $\neg occurs(`y\textrm', `R\textrm')$, and $\neg occurs(`x\textrm', `Q\textrm')$, $(\star x | R : (\star y | Q : P)) = (\star y | Q : (\star x | R : P))$ \\
+        (8.20) & \textbf{Axiom, Nesting:} Provided $\neg occurs(`y\textrm', `R\textrm')$, $(\star x, y | R \land Q : P) = (\star x | R : (\star y | Q : P))$                                                                                                \\
+        (8.21) & \textbf{Axiom, Dummy renaming:} Provided $\neg occurs(`y\textrm', `R, P\textrm')$, $(\star x | R : P) = (\star y | R[x := y] : P [x := y])$                                                                                                \\
+        (8.22) & \textbf{Change of dummy:} Provided $\neg occurs(`y\textrm', `R, P\textrm')$, and $f$ has an inverse, $(\star x | R : P) = (\star y | R[x := f.y] : P[x := f.y])$                                                                           \\
+        (8.23) & \textbf{Split off term:} $(\star i | 0 \leq i < n + 1 : P) = (\star i | 0 \leq i < n : P) \star P_n^i$                                                                                                                                     \\
+    \end{tabulary}
+
+    \section{Theorems of the Predicate Calculus}
+    \subsection{Universal quantification}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (9.2)  & \textbf{Axiom, Trading:}                                  & $(\forall x | R : P) \equiv (\forall x |: R \To P)$                                                                                              \\
+        (9.3)  & \textbf{Trading:}                                         & (a) $(\forall x | R : P) \equiv (\forall x |: \neg R \lor P)$                                                                                    \\
+        &                                                           & (b) $(\forall x | R : P) \equiv (\forall x |: R \land P \equiv R)$                                                                               \\
+        &                                                           & (c) $(\forall x | R : P) \equiv (\forall x |: R \lor P \equiv P)$                                                                                \\
+        (9.4)  & \textbf{Trading:}                                         & (a) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \To P)$                                                                               \\
+        &                                                           & (b) $(\forall x | Q \land R : P) \equiv (\forall x | Q : \neg R \lor P)$                                                                         \\
+        &                                                           & (c) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \land P \equiv R)$                                                                    \\
+        &                                                           & (d) $(\forall x | Q \land R : P) \equiv (\forall x | Q : R \lor P \equiv P)$                                                                     \\
+        (9.5)  & \textbf{Axiom, Distributivity of $\lor $ over $\forall$:} & Prov. $\neg occurs(`x\textrm', `P\textrm')$, $P \lor (\forall x | R : Q) \equiv (\forall x | R : P \lor Q)$                                      \\
+        (9.6)  &                                                           & Provided $\neg occurs(`x\textrm', `P\textrm')$, $(\forall x | R : P) \equiv P \lor (\forall x |: \neg R)$                                        \\
+        (9.7)  & \textbf{Distributivity of $\land$ over $\forall$:}        & Provided $\neg occurs(`x\textrm', `P\textrm')$, $\neg(\forall x |: \neg R) \To ((\forall x | R : P \land Q) \equiv P \land (\forall x | R : Q))$ \\
+        (9.8)  &                                                           & $(\forall x | R : true) \equiv true$                                                                                                             \\
+        (9.9)  &                                                           & $(\forall x | R : P \equiv Q) \To ((\forall x | R : P) \equiv (\forall x | R : Q))$                                                              \\
+        (9.10) & \textbf{Range weakening/strengthening:}                   & $(\forall x | Q \lor R : P) \To (\forall x | Q : P)$                                                                                             \\
+        (9.11) & \textbf{Body weakening/strengthening:}                    & $(\forall x | R : P \land Q) \To (\forall x | R : P)$                                                                                            \\
+        (9.12) & \textbf{Monotonicity of $\forall$:}                       & $(\forall x | R : Q \To P) \To ((\forall x | R : Q) \To (\forall x | R : P))$                                                                    \\
+        (9.13) & \textbf{Instantiation:}                                   & $(\forall x |: P) \To P[x := e]$                                                                                                                 \\
+        (9.16) &                                                           & $P$ is a theorem iff $(\forall x |: P)$ is a theorem.                                                                                            \\
+    \end{tabulary}
+
+    \subsection{Existential quantification}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (9.17) & \textbf{Axiom, Generalized De Morgan:}             & $(\exists x | R : P) \equiv \neg (\forall x | R : \neg P)$                                                                                                                 \\
+        (9.18) & \textbf{Generalized De Morgan:}                    & (a) $\neg (\exists x | R : \neg P) \equiv (\forall x | R : P)$                                                                                                             \\
+        &                                                    & (b) $\neg(\exists x | R : P) \equiv (\forall x | R : \neg P)$                                                                                                              \\
+        &                                                    & (c) $(\exists x | R : \neg P) \equiv \neg(\forall x | R : P)$                                                                                                              \\
+        (9.19) & \textbf{Trading:}                                  & $(\exists x | R : P) \equiv (\exists x |: R \land P)$                                                                                                                      \\
+        (9.20) & \textbf{Trading:}                                  & $(\exists | Q \land R : P) \equiv (\exists x | Q : R \land P)$                                                                                                             \\
+        (9.21) & \textbf{Distributivity of $\land$ over $\exists$:} & Provided $\neg occurs(`x\textrm', `P\textrm')$, $P \land (\exists x | R : Q) \equiv (\exists x | R : P \land Q)$                                                           \\
+        (9.22) &                                                    & $(\exists x | R : false) \equiv false$                                                                                                                                     \\
+        (9.23) & \textbf{Distributivity of $\lor$ over $\exists$:}  & Provided $\neg occurs(`x\textrm', `P\textrm')$, $(\equiv x |: R) \To ((\equiv x | R : P \lor Q) \equiv P \lor (\exists x | R : Q))$                                        \\
+        (9.24) &                                                    & $(\exists x | R : false) \equiv false$                                                                                                                                     \\
+        (9.25) & \textbf{Range weakening/strengthening:}            & $(\exists x | R : P) \To (\exists x | Q \lor R : P)$                                                                                                                       \\
+        (9.26) & \textbf{Body weakening/strengthening:}             & $(\exists x | R : P) \To (\exists x | R : P \lor Q)$                                                                                                                       \\
+        (9.27) & \textbf{Monotonicity of $\exists$:}                & $(\forall x | R : Q \To P) \To ((\exists x | R : Q) \To (\exists x | R : P ))$                                                                                             \\
+        (9.28) & \textbf{$\exists$-Introduction:}                   & $P[x := E] \To (\exists x |: P)$                                                                                                                                           \\
+        (9.29) & \textbf{Interchange of quantifications:}           & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`x\textrm', `Q\textrm')$, $(\exists x | R: (\forall y | Q : P)) \To (\forall y | Q : (\exists x | R : P))$ \\
+        (9.30) &                                                    & Provided $\neg occurs(`\hat{x}\textrm', `Q\textrm')$, $(\exists x | R : P) \To Q \text{ is a theorem iff } (R \land P)[x := \hat{x}] \To Q \text{ is a theorem}$           \\
+    \end{tabulary}
+
+    % TODO: Add notes on chapter 10
+    \subsection{Conditional Statements}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+
+        &(10.5) Proof method for IF: To prove $\{Q\} IF \{R\}$, prove $\{Q \land B\} S1 \{R\}$ and $\{Q \land \neg B\} S2 \{R\}$&
+    \end{tabulary}
+
+    \subsection{Find precondition}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        &Given $\{?\}S\{R\}$. To find $?$ textual sub $S$ into $R$&
+    \end{tabulary}
+
+
+
+
+    \subsection{Set Theory}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % (11.1) & & $\{x : t \mid R : E\}$ \\
+        % (11.2) & & $\{e_0, \dots, e_{n-1} \} = \{x \mid x = e_0 \lor \dots \lor x = e_{n-1} : x \}$ \\
+        (11.3) & \textbf{Axiom, Set membership:} & Provided $\neg \textit{occurs}(`x\textrm', `F\textrm'), F \in {x \mid R : E} \equiv (\exists x \mid R : F = E)$ \\
+        (11.4) & \textbf{Axiom, Extensionality:} & $S = T \equiv (\forall x \mid : x \in S \equiv x \in T)$ \\
+        (11.5) & & $S = \{ x \mid x \in S : x \}$ \\
+        (11.6) & Provided $\neg occurs(`y\textrm', `R\textrm')$ and $\neg occurs(`y\textrm', `E\textrm')$, & $\{ x \mid R : E \} = \{y \mid (\exists x \mid R : y = E)\}$ \\
+        (11.7) & & $x \in \{x \mid R \} \equiv R$ \\
+        (11.9) & & $\{x \mid Q \} = \{x \mid R \} \equiv (\forall x \mid : Q \equiv R)$ \\
+        (11.12) & \textbf{Axiom, Size:} & $\#S = (\sum x \mid x \in S : 1)$ \\
+        (11.13) & \textbf{Axiom, Subset:} & $S \subseteq T \equiv (\forall x \mid x \in S : x \in T)$ \\
+        (11.14) & \textbf{Axiom, Proper subset:} & $S \subset T \equiv S \subseteq T \ \land \ S \neq T$ \\
+        (11.17) & \textbf{Axiom, Complement:} & $v \in \sim S \equiv v \in \mathbf{U} \land v \not\in S$ \\
+        (11.18) & & $v \in \sim S \equiv v \notin S$ (for $v$ in $\mathbf{U}$) \\
+        (11.19) & & $\sim \sim S = S$ \\
+        (11.20) & \textbf{Axiom, Union:} & $v \in S \cup T \equiv v \in S \lor v \in T$ \\
+        (11.21) & \textbf{Axiom, Intersection:} & $v \in S \cap T \equiv v \in S \land v \in T$ \\
+        (11.22) & \textbf{Axiom, Difference:} & $v \in S - T \equiv v \in S \land v \not\in T$ \\
+        (11.23) & \textbf{Axiom, Power set:} & $v \in \mathcal{P} S \equiv v \subseteq S$ \\
+        (11.24) & \textbf{Definition.} For $E_s$, a set expression, $E_p$, a predicate expression can be calculated: & $\emptyset \to false, \mathbf{U} \to true, \cup \to \lor, \cap \to \land, \sim \to \neg$ \\
+        (11.25) & \textbf{Metatheorem.} For any set expressions $E_s$ and $F_s$ & $E_s = F_s \Leftrightarrow E_p \equiv F_p, E_s \subseteq F_s \Leftrightarrow E_p \To F_p, E_s = \mathbf{U} \Leftrightarrow E_p \equiv true$ \\
+    \end{tabulary}
+    \subsection{Properties of $\cup$}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        % REVIEW: Most of these can be proven from the metatheorem. Consider removing or writing a mapping from theorem number to propositional theorem.
+        (11.26) & \textbf{Symmetry of $\cup$:} & $S \cup T = T \cup S$ \\
+        (11.27) & \textbf{Associativity of $\cup$:} & $(S \cup T) \cup U = S \cup (T \cup U)$ \\
+        (11.28) & \textbf{Idempotency of $\cup$:} & $S \cup S = S$ \\
+        (11.29) & \textbf{Zero of $\cup$:} & $S \cup \mathbf{U} = \mathbf{U}$ \\
+        (11.30) & \textbf{Identity of $\cup$:} & $S \cup \emptyset = S$ \\
+        (11.31) & \textbf{Weakening:} & $S \subseteq S \cup T$ \\
+        (11.32) & \textbf{Excluded middle:} & $S \cup \sim S = \mathbf{U}$ \\
+    \end{tabulary}
+
+    \subsection{Properties of $\cap$}
+
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.33) & \textbf{Symmetry of $\cap$:} & $S \cap T = T \cap S$ \\
+        (11.34) & \textbf{Associativity of $\cap$:} & $(S \cap T) \cap U = S \cap (T \cap U)$ \\
+        (11.35) & \textbf{Idempotency of $\cap$:} & $S \cap S = S$ \\
+        (11.36) & \textbf{Zero of $\cap$:} & $S \cap \emptyset = \emptyset$ \\
+        (11.37) & \textbf{Identity of $\cap$:} & $S \cap \mathbf{U} = S$ \\
+        (11.38) & \textbf{Strengthening:} & $S \cap T \subseteq S$ \\
+        (11.38) & \textbf{Contradiction:} & $S \cap \sim S = \emptyset$ \\
+    \end{tabulary}
+    \subsection{Additional Properties}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.40) & \textbf{Distributivity of $\cup$ over $\cap$:} & $S \cup (T \cap U) = (S \cup T) \cap (S \cup U)$ \\
+        (11.41) & \textbf{Distributivity of $\cap$ over $\cup$:} & $S \cap (T \cup U) = (S \cap T) \cup (S \cap U)$ \\
+        (11.42) & \textbf{De Morgan:} & (a) $\sim (S \cup T) = \sim S \cap \sim T$ \\
+        (11.57) & \textbf{Antisymmetry:} & $S \subseteq T \land T \subseteq S \equiv S = T$ \\
+        (11.58) & \textbf{Reflexivity:} & $S \subseteq S$ \\
+        (11.59) & \textbf{Transitivity:} & $S \subseteq T \land T \subseteq U \To S \subseteq U$ \\
+        (11.70) & \textbf{Transitivity} & (a) $S \subseteq T \land T \subset U \To S \subset U$ \\
+        & & (b) $S \subset T \land T \subseteq U \Rightarrow S \subset U$ \\
+        & & (c) $S \subset T \land T \subset U \Rightarrow S \subset U$ \\
+    \end{tabulary}
+    % \begin{tabulary}{\linewidth}{@{}lLlL@{}}
+    %     (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
+    %     (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+    %     (11.45) & $S \subseteq T \equiv S \cup T = T$ &
+    %     (11.46) & $S \subseteq T \equiv S \cap T = S$ \\
+    %     (11.47) & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ &
+    %     (11.48) & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+    %     % \end{tabulary}
+    %     % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (11.49) & $S - T = S \cap \sim T$ &
+    %     (11.50) & $S - T \subseteq S$ \\
+    %     (11.51) & $S - \emptyset = S$ &
+    %     (11.52) & $S \cap (T - S) = \emptyset$ \\
+    %     (11.53) & $S \cup (T - S) = S \cup T$ &
+    %     (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ \\
+    %     (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+    %     (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ \\
+    %     % \end{tabulary}
+    %     % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+    %     (11.60) & $\emptyset \subseteq S$ &
+    %     (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ \\
+    %     (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ &
+    %     (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+    %     (11.64) & $S \not\subset S$ &
+    %     (11.65) & $S \subset T \To S \subseteq T$ \\
+    %     (11.66) & $S \subset T \To T \not\subseteq S$ &
+    %     (11.67) & $S \subseteq T \To T \not\subset S$ \\
+    %     (11.68) & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ &
+    %     (11.69a) & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+    %     (11.69b) & $S \subset T \land T \subseteq U \To S \subset U$ &
+    %     (11.69c) & $S \subset T \land T \subset U \To S \subset U$ \\
+    % \end{tabulary}
+    \begin{tabulary}{\linewidth}{@{}lLlL@{}}
+        (11.43) & $S \subseteq T \land U \subseteq V \To (S \cup U) \subseteq (T \cup V)$ &
+        (11.44) & $S \subseteq T \land U \subseteq V \To (S \cap U) \subseteq (T \cap V)$ \\
+        (11.45) & $S \subseteq T \equiv S \cup T = T$ &
+        (11.46) & $S \subseteq T \equiv S \cap T = S$ \\
+        (11.47) & $S \cup T = \mathbf{U} \equiv (\forall x \mid x \in \mathbf{U} : x \notin S \To x \in T)$ &
+        (11.48) & $S \cap T = \emptyset \equiv (\forall x \mid : x \in S \To x \notin T)$ \\
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.49) & $S - T = S \cap \sim T$ &
+        (11.50) & $S - T \subseteq S$ \\
+        (11.54) & $S - (T \cup U) = (S - T) \cap (S - U)$ &
+        (11.52) & $S \cap (T - S) = \emptyset$ \\
+        (11.56) & $(\forall x \mid : P \To Q) \equiv \{ x \mid P \} \subseteq \{x \mid Q \}$ &
+        (11.62) & $S \subset T \equiv S \subseteq T \land (\exists x \mid x \in T : x \notin S)$ \\
+        (11.61) & $S \subset T \equiv S \subseteq T \land \neg (T \subseteq S)$ &
+        (11.53) & $S \cup (T - S) = S \cup T$ \\
+        % \end{tabulary}
+        % \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (11.55) & $S - (T \cap U) = (S - T) \cup (S - U)$ &
+        (11.60) & $\emptyset \subseteq S$ \\
+        (11.51) & $S - \emptyset = S$ &
+        (11.63) & $S \subseteq T \equiv S \subset T \lor S = T$ \\
+        (11.64) & $S \not\subset S$ &
+        (11.65) & $S \subset T \To S \subseteq T$ \\
+        (11.66) & $S \subset T \To T \not\subseteq S$ &
+        (11.67) & $S \subseteq T \To T \not\subset S$ \\
+        (11.68) & $S \subseteq T \land \neg (U \subseteq T) \To \neg(U \subseteq S)$ &
+        (11.69a) & $(\exists x \mid x \in S : x \notin T) \To S \neq T$ \\
+        (11.69b) & $S \subset T \land T \subseteq U \To S \subset U$ &
+        (11.69c) & $S \subset T \land T \subset U \To S \subset U$ \\
+    \end{tabulary}
+
+    \subsection{Induction}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (12.3) & \textbf{Axiom, Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \To (\forall n : N \mid : P.n)$ \\
+        (12.4) & \textbf{Mathematical Induction over $\mathbb{N}$:} & $(\forall n : \mathbb{N} \mid : (\forall i \mid 0 \leq i < n : P.i) \To P.n) \equiv (\forall n : \mathbb{N} \mid : P.n)$ \\
+        (12.15) & \textbf{properties of golden ratio: } & $\phi^2 = \phi + 1 \& \hat{\phi}^2 = \hat{\phi} + 1$\\
+        % (12.19) & \textbf{Mathematical induction over $\langle \mathbf{U}, \prec \rangle$:} & $(\forall x \mid : P.x) \equiv (\forall x \mid : (\forall y \mid y \prec x : P.y) \To P.x)$ \\
+    \end{tabulary}
+    \subsection{Correctness of loops}
+
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        (12.41) & & $\textbf{do}\ B \to S\ \textbf{od}$ \\
+        (12.43) & \textbf{Fundamental invariance theorem} & Suppose $\{P \land B\} S \{P\}$ holds and $\{P\} \textbf{ do } B \to S \textbf{ od } \{true\}$, then $\{P\} \textbf{ do } B \to S \textbf{ od } \{P \land \neg B\}$ holds. \\
+        (12.45) & \textbf{Checklist}
+          & (a) $P$ is $true$ before the loop. Q $\Rightarrow$ P[S] \\
+        & & (b) P is a loop invariant: $\{P \land B\} S \{P\}$ \\
+        & & (c) Exe. of the loop terminates. P $\land$ B $\Rightarrow$ T > 0 \\
+        & & (d) $R$ holds upon termination: $P \land \neg B \To R$ \\
+    \end{tabulary}
+
+    \subsection{Tuples and cross-products}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        & \textbf{Axiom, Cartesian product:} & $S \times T = \{b, c \mid b \in S \land c \in T : (b, c)\}$ \\
+        (14.4) & \textbf{Membership} & $\langle x, y\rangle \in S \times T \equiv x \in S \land y \in T$ \\
+    \end{tabulary}
+
+    \section{Relations  Functions}
+    \begin{tabulary}{\linewidth}{@{}lLL@{}}
+        & $\langle b, c \rangle \in \rho$ and $b \rho c$ are interchangable \\
+        (14.5) & $\langle x, y \rangle \in S \times T \equiv \langle y, x \rangle \in T \times S$ &\\
+        (14.6) & $S = \Phi \Rightarrow S \times T = T \times S = \Phi$ &\\
+        (14.7) & $S \times T = T \times \equiv S = \Phi \lor T = \Phi \lor S = T$ &\\
+        (14.8) &\textbf{Dist of $\times$ over $\cup$: } $S \times (T \cup U) = (S \times T) \cup (S \times U)$& \\
+        & $(S \cup T) \times U = (S \times U) \cup (T \times U)$ &\\
+        (14.9) &\textbf{Dist of $\times$ over $\cap$: } $S \times (T \cap U) = (S \times T) \cap (S \times U)$& \\
+        & $(S \cap T) \times U = (S \times U) \cap (T \times U)$ &\\
+        (14.10) &\textbf{Dist of $\times$ over -: } $S \times (T - U) = (S \times T) - (S \times U)$& \\
+        (14.11) &\textbf{Monotonicity: } $T \subseteq U \Rightarrow S \times T \subseteq S \times U$& \\
+        (14.12) & $S \subseteq U \land T \subseteq V \Rightarrow S \times T \subseteq U \times V$ &\\
+        (14.14) & $(S \cap T) \times (U \cap V) = (S \times U) \cap (T \times V)$ &\\
+        (14.16) & $Dom.\rho = \{b:B| (\exists c|: b \rho c)\}$ &\\
+        (14.17) & $Ran.\rho = \{c:C| (\exists b|: b \rho c)\}$ &\\
+        (14.20) & $\langle b, d \rangle \in \rho \circ \sigma \equiv (\exists c| c \in C: \langle b, c \rangle \in \rho \land \langle c, d \rangle \in \sigma)$ &\\
+        (14.21) & $b (\rho \circ \sigma) d \equiv (\exists c|: b \; \rho \; c \; \sigma \; d)$ &\\
+        (14.22) & \textbf{Associativity of $\circ$:}   $\rho \circ (\sigma \circ \theta) = (\rho \circ \sigma) \circ \theta$&\\
+        (14.23) & \textbf{Dist of $\circ$ over $\cup$:}  $\rho \circ (\sigma \cup \theta) = \rho \circ \sigma \cup \rho \circ \theta$&\\
+        &  $(\sigma \cup \theta) \circ \rho = \sigma \circ \rho \cup \theta \circ \rho$&\\
+        (14.24) & \textbf{Dist of $\circ$ over $\cap$:} \; $\rho \circ (\sigma \cap \theta) \subseteq \rho \circ \sigma \cap \rho \circ \theta$&\\
+        &  $(\sigma \cap \theta) \circ \rho \subseteq \sigma \circ \rho \cap \theta \circ \rho$&\\
+        (14.25) & $\rho^0 = i_B$ (the identity relation on B)\\
+        &  $\rho^n+1 = \rho^n \circ \rho$ (for $n \geq 0$)&\\
+        (14.26) & $\rho^m \circ \rho^n = \rho^{m+n}$ (for $m \geq 0,n \geq 0$) &\\
+        (14.27) & $(\rho^m)^n = \rho^{m.n}$ (for $m \geq 0,n \geq 0$) &\\
+        (14.30) &Let $\rho$ be a relation. $r(\rho)$ is a refliexive closure, $s(\rho)$ is the symmetric closure, $\rho^+$ is the transitive closure, and $\rho^*$ is the refliexive transitive closure.& \\
+        (14.39) &\textbf{Definition} for f and g $f \centerdot g \equiv g \circ f$ &\\
+    \end{tabulary}
+
+    % ANCHOR: FORCE PAGE BREAK
+    % MOVE THIS IF NEEDED
+    \clearpage
+
+    \section{Modern Algebra}
+    \begin{itemize}
+    \item \textbf{Structure of Algebras}
+        \begin{itemize}
+            \item An \textbf{algebra} has a set $S$, the \textbf{carrier}, and \textbf{operations} defined on that carrier.
+            \item \textbf{Signature} of an algebra is the name of carrier and the types of its operators.
+            \item Element $1$ in $S$ is a \textbf{left identity} of $\circ$ over $S$ if $1 \circ b = b$ for all $b \in S$.
+            \item $1$ is a \textbf{right identity} if $b \circ 1 = b$ for all $b \in S$.
+            \item $1$ is an \textbf{identity} if it is both a left and right identity.
+            \item Zeroes and inverses are unique.
+            \item Def. Subset $T$ of a set $S$ is \textbf{closed} under an operator if applying operator to elements of T always produces a result in T.
+            \item Def. $\langle T, \Phi \rangle$ is a \textbf{subalgebra} of $\langle S, \Phi \rangle$ if $T$ is closed under every operator in $\Phi$.
+            \item Thrm. A subalgebra of a group is a group iff the inverse of every element of the subalgebra is in the subalgebra.
+            \item Thrm. A subalgebra of a finite group is a group.
+            \item Thrm. Let $b$ be an element of a group $\langle S, \circ, 1 \rangle$.
+            \item Let set $S_b$ cosist of all powers of $b$ (including negative powers).
+            \item Then $\langle S_b, \circ, 1 \rangle$ is a subgroup of $\langle S, \circ, 1 \rangle$.
+            \item A function $h$ is an \textbf{isomorphism} if it is one-to-one and onto,
+            \begin{itemize}
+                \item each pair of nullary operators can be mapped to each other via $h$,
+                \item each pair of unary operators, $h(\sim b) = \hat{\sim} h.b$,
+                \item and each pair of binary operators, $h(b \circ c) = h.b \hat{\circ} h.c$.
+            \end{itemize}
+            \item $A$ and $\hat{A}$ are \textbf{isomorphic} and $\hat{A}$ is called the \textbf{isomorphic image} of $A$.
+        \end{itemize}
+
+    \item \textbf{Automorphism} is an isomorphism from $A$ to $A$.
+    \item \textbf{Homomorphism} is an isomorphism but $h$ does not have to be one-to-one and/or onto.
+
+    \item \textbf{Group Theory}
+        \begin{itemize}
+            \item \textbf{Semigroup} is an algebra $\langle S, \circ \rangle$, where $\circ$ is a binary associative operator,
+            and with no identity.
+            \item \textbf{Monoid} $\langle S, \circ, 1 \rangle$ is a semigroup with an identity $1$.
+            \item \textbf{Submonoid} contains subset of $S$ with the identity.
+            \item Any semigroup can be made into a monoid by adding an identity element.
+            \item A \textbf{group} is an algebra $(S, \circ, 1)$ in which
+            \begin{enumerate}
+                \item $\circ$ is a binary, associative operator,
+                \item $1$ is an identity,
+                \item and every element has an inverse.
+            \end{enumerate}
+            \item A symmetric, commutative, or abelian group is an albelian monoid in which every element has an inverse.
+        \end{itemize}
+    \end{itemize}
+
+    \begin{tabulary}{\linewidth}{@{}LL@{}}
+        \textbf{Cancellation:}  & $b \circ d = c \circ d \equiv b = c$; $d \circ b = d \circ c \equiv b = c$ \\
+        \textbf{Unique solution:}   & $b \circ x = c \equiv x = b^{-1} \circ c$; $x \circ b = c \equiv x = c \circ b^{-1}$ \\
+        \textbf{One-to-one:}    & $b \neq c \equiv d \circ b \neq d \circ c$; $b \neq c \equiv b \circ d \neq c \circ d$ \\
+        \textbf{Onto:}  & $(\exists x \mid : b \circ x = c)$; $(\exists x \mid : x \circ b = c)$ \\
+    \end{tabulary}
+    \vspace{1em}
+    \begin{multicols*}{2}
+        $b^0 = 1$ \\
+        $b^m \circ b^n = b^{m+n}$ \\
+        $(b^m)^n = b^{m \cdot n}$ \\
+        $b^n = b^{n-1} \circ b$ \\
+        $b^{-n} = (b^-1)^n$ \\
+        $b^n = b^p \equiv b^n-p = 1$ \\
+    \end{multicols*}
+
+    Order of element $b$ in group with identity 1 is the least positive integer $m$
+    such that $b^m = 1$ (can be $\infty$).
+    Thrm: The order of each element in a finite group is finite.
+    Def: Subalgebra $\rho = \langle T, \circ, 1 \rangle$ of
+    group $G = \langle S, \circ, 1 \rangle$ is a subgroup of $G$ if $\rho$ is a group.
+    Thrm: Homomorphic image of a group (monoid, semigroup) is a group (monoid semigroup).
+    THe intersection of two subgroups of a group is a subgroup ($G = \langle S1 \cap S2, \circ, 1 \rangle$).
+
+    \subsection{Boolean Algebra}
+    Def: $\langle S, \oplus, \otimes, \sim, 0, 1 \rangle$ in which: \\
+    \textbf{a)} $\oplus$ and $\otimes$ are binary associative operators; \\
+    \textbf{b)} $\oplus$ and $\otimes$ are symmetric; \\
+    \textbf{c)} $0$ and $1$ are identities of $\oplus$ and $\otimes$; \\
+    \textbf{d)} unary $\sim$ satisfies $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$. \\
+    \textbf{e)} $\otimes$ distributes over $\oplus$: $b \otimes (c \oplus d) = (b \otimes c) \oplus (b \otimes d)$; \\
+    \textbf{f)} $\oplus$ distributes over $\otimes$: $b \oplus (c \otimes d) = (b \oplus c) \otimes (b \oplus d)$.
+    Boolean algebra to propositional mapping : $\langle S,\lor,\land, \neg, false,true \rangle$ You can use this to prove theorems about boolean algebra from propositional logic.
+
+    \begin{tabulary}{\linewidth}{@{}LL@{}}
+        \textbf{Idempotency} & $b \oplus b = b, b \otimes b = b$ \\
+        \textbf{Zero} & $b \oplus 1 = 1, b \otimes 0 = 0$ \\
+        \textbf{Absorption} & $b \oplus (b \otimes c) = b, b \otimes (b \oplus c) = b$ \\
+        \textbf{Cancellation} & $(b \oplus c = b \oplus d) \land (\sim b \oplus c = \sim b \oplus d) \equiv c = d$ \\
+        & $(b \otimes c = b \otimes d) \land (\sim b \otimes c = \sim b \otimes d) \equiv c = d$ \\
+        \textbf{Unique complement} & $b \oplus c = 1 \land b \otimes c = 0 \equiv c = \sim b$ \\
+        \textbf{Constant complement} & $\sim 0 = 1, \sim 1 = 0$ \\
+        \textbf{De Morgan} & $\sim (b \oplus c) = (\sim b) \otimes (\sim c), \sim (b \otimes c) = (\sim b) \oplus (\sim c)$ \\
+        & $b \oplus (\sim c) = 1 \equiv b \oplus c = b, b \otimes (\sim c) = 0 \equiv b \otimes c = b$ \\
+    \end{tabulary}
+
+    Thrm: A homomorphic image of a boolean algebra is a boolean algebra
+    Axiom: $b \leq c \equiv b \otimes c = b$ Theorem. Relation $\leq$ is a partial order.
+    Axiom: $b < c \equiv b \leq c \land b \neq c$; $b \leq c \equiv b \oplus c = c$
+
+    If an arbitrary boolean algebra $\langle S, \oplus, \otimes, \sim, 0, 1\rangle$ is
+    isomorphic to a power-set algebra, it must have the equivalent to the empty set and singleton sets.
+    (empty = 0, singletons = atoms)
+
+    $atom.a \equiv a \neq 0 \land (\forall b : S \mid 0 \leq b \leq a : 0 = b \lor b = a)$
+    $atom.a \To a \otimes b = 0 \lor a \times b = a$
+    $atom.a \land atom.b \land a \neq b \To a \otimes b = 0$
+    $(\forall a \mid atom.a : a \otimes b = 0) \To b = 0$
+
+    Thrm. Any element of finite boolean algebra can be written uniquely as
+    b = y, where y is a ``sum'' of atoms:
+    $y = (\oplus a \mid atom.a \land a \otimes b \neq 0 : a)$
+    Thrm. A boolean algebra with $n$ atoms has $2^n$ elements.
+    Thrm. A finite boolean algebra $A = \langle S, \oplus, \otimes, \sim, 0, 1 \rangle$
+    with $n$ atoms is isomorphic to algebra $\hat{A} = \langle \mathcal{P} \hat{S}, \cup, \cap, \sim, \emptyset, S \rangle$, where
+    $\hat{S} = 1..n$.
+
+    % TODO: check if there's anything else important that has been missed
+
+
+
+    \section{Operation Priority}
+    \begin{multicols}{3}
+        $[x := e]$ (textual substitution) (high precedence) \\
+        $.$ (function application) \\
+        $+ - \neg \# \sim \mathcal{P}$ (unary prefix operators) \\
+        $**$ \\
+        $\cdot / \div \mod \gcd$ \\
+        $+ - \cup \cap \times \circ$ \\
+        $\uparrow \downarrow$ \\
+        $\#$ \\
+        $\triangleleft \triangleright \string^$ \\
+        $= < > \in \subset \subseteq \supset \supseteq \mid$ \\
+        $\lor \land$ \\
+        $\Rightarrow \Leftarrow$ \\
+        $\equiv$ (low precedence)
+    \end{multicols}
+
+    \section{Definitions}
+    % if we need more space go back to the original condensed ver.
+    % TODO: add definitions for common math terms like symmetrical, associative, etc.
+    \subsection{Formal Logic System}
+    Let S be a set of interpretations for a logic and F be a formula of the logic. \\
+    - F is \textbf{satisfiable} (under S) iff at least one interpretation of S maps F to true. \\
+    - F is \textbf{valid} (under S) iff every interpretation in S maps F to true. \\
+    - An \textbf{interpretation} is a model for a logic iff every theorem is mapped to true by the interpretation. \\
+    - A logic is \textbf{sound} iff every theorem is valid. \\
+    - A logic is \textbf{complete} iff every valid formula is a theorem. \\
+    - \textbf{Soundness} means that the theorems are true statements about the domain of discourse, \\
+    - \textbf{Completeness} means that every valid formula can be proved. \\
+    - A \textbf{sound and complete logic} allows exactly the valid formulas to be proved. \\
+    - A boolean expression is \textbf{satisfied} in state s iff it evaluates to true in state s. \\
+    - A boolean expression is \textbf{valid} iff it is satisfied in every state. \\
+    - A valid boolean expression is called a \textbf{tautology}. \\
+    - A boolean expression is \textbf{satisfiable} iff there is a state in which it is satisfied. \\
+    - The atomic proposition is a type of statement, which contains a truth value that can be true or false.\\
+
+    \subsection{Sets}
+    A set $S$ of sets is a \textbf{partition} of a set $T$ if every element of $T$ is
+    exactly one of the elements of $S$.
+    \subsection{Equivalence Relations and Partial Orders}
+    An \textbf{equivalence relation} must be reflexive, symmetric, and transitive. \\
+    A \textbf{Partial Order} must be reflexive, anti-symmetric, and transitive.
+
+    \section{Final Questions}
+    % REVIEW: this could be condensed more
+
+    \subsection{Properties of set Difference}
+    \subsubsection{Question }
+    Prove \\
+    \begin{tabulary}{\linewidth}{@{}lL@{}}
+        1. $S - T = S \cap \sim T$ & 2. $S - T \subseteq S$ \\
+        3. $S - \emptyset = S$ & 4. $S \cap (T - S) = \emptyset$ \\
+        5. $S \cup (T - S) = S \cup T$ & 6. $S - (T \cup U) = (S - T) \cap (S - U)$ \\
+        7. $S - (T \cap U) = (S - T) \cup (S - U)$
+    \end{tabulary}
+
+    \subsubsection{Answers }
+    \begin{enumerate}
+        \item
+              $S - T \equiv \{\forall x \mid x \in S \land x \notin T\}$ by (11.22), Axiom of
+              Difference. Then $\equiv \{x \mid x \in S \land x \in \sim T \}$ by (11.18). Then
+              $\equiv S \cap \sim T$ by (11.21), Axiom of Intersection.
+        \item
+              Let $x \in S - T$ be arbitrary. Then $x \in S \land s \notin T$ by (11.22), Axiom
+              of Difference. Then $x \in S$. Thus by (11.13), Axiom of Subset, $S - T \subseteq S$.
+        \item
+              $S - \emptyset \equiv \{\forall x \mid x \in S \land x \notin \emptyset\}$ by (11.22),
+              Axiom of Difference. Then $\equiv \{x \mid x \in S \land x \in \sim \emptyset \}$ by
+              (11.18). Then $\equiv \{x \mid x \in S \land x \in U \} \equiv \{x \mid x \in S \}
+                  \equiv S$ by (11.17), Axiom of Complement. Thus $S - \emptyset = S$.
+        \item
+              $S \cap (T - S) \equiv S \cap (T \cap \sim S)$ by (11.49). Then, $\equiv (S \cap \sim
+                  S) \cap T \equiv \emptyset \cap T$ by (11.39), Contradiction, and $\equiv \emptyset$,
+              by (11.36), Zero of $\cap$.
+        \item
+              Since $T - S = T \cap \sim S$, then $S \cup (T - S) \equiv S \cup (T \cap \sim S)$.
+              Consider $s \lor (t \land \lnot s)$. We have $s \lor (t \land \lnot s) \equiv (s \lor t)
+                  \land (s \lor \lnot s) \equiv s \lor t$, so the result follows from Methatheorem $(11.25)$.
+        \item
+              $S - (T \cup U) \equiv S \cap \sim(T \cup U)$ by (11.49). Now consider
+              $s \land \lnot (t \lor u)$. We have $\equiv s \land (\lnot t \lor \lnot u)$ by De Morgan's
+              Law. Then $\equiv s \land \lnot t \lor s \land \lnot u$ by distributivity, so from
+              Methatheorem $(11.25)$, we have $S \cap \sim (T \cup U) \equiv (S \cap \sim T) \cap
+                  (S \cap \sim U)$, so from (11.49), we have $S - (T \cup U) \equiv (S - T) \cap (S - U)$.
+        \item
+              Same thing as (6.).
+    \end{enumerate}
+
+    \subsection{Assignment 3, Question 11}
+    \subsubsection{Question }
+    Prove the correctness of the following loop, assigning to $F_n$ the $n$th fibonacci number:
+    \begin{align*}
+         & \{Q: n \ge 0 \}\ k, b, c := 0, 1, 0; \\
+         & \{\text{invariant } P: 0 \le k \le n \land b = F_{k-1} \land c = F_k \} \\
+         & \textbf{do } k \ne n \to k, b, c := k + 1, c, b+c; \textbf{od}          \\
+         & \{R: c = F_n \}
+    \end{align*}
+    \subsubsection{Solution }
+    \textbf{Prove $P$ is $true$ before execution of the loop.}
+    \begin{align*}
+         & P[k, b, c:= 0,1,0]
+        \\&\equiv \tag{Textual Substitution}
+        0 \le 0 \le n \land 1 = F_{0-1} \land 0 = F_0
+        \\&\equiv
+        0 \le n \land 1 = F_{-1} \land 0 = F_0
+        \equiv 0 \le n
+    \end{align*}
+
+    \textbf{Prove $P$ is a loop invariant.} \\
+    \begin{align*}
+         & P[k, b, c := k+1, c, b+c]
+        \\&\equiv \tag{Textual Substitution}
+        0 \le k+1 \le n \land c = F_{k+1-1} \land b+c = F_{k+1}
+        \\&\equiv
+        -1 \le k \le n-1 \land c = F_k \land b+c = F_{k+1}
+        \\&\equiv \tag{$k \le n-1 \Rightarrow k \ne n$}
+        k \ne n \land -1 \le k \le n-1 \land c = F_k \land b = F_{k+1} -F_k
+        \\&\Leftarrow \tag{Strengthening}
+        k \ne n \land 0 \le k \le n \land c = F_k \land b = F_{k+1} -F_k
+        \\&\equiv \tag{Fibonacci}
+        k \ne n \land 0 \le k \le n \land c = F_k \land b = F_{k-1}
+        \\&\equiv \tag{Def. of $P \land B$}
+        P \land B
+    \end{align*}
+
+    \textbf{Prove execution of the loop terminates.} \\
+    The value of $n - k$ is always at least 0 and it decreases by 1 each iteration;
+    hence, $n-k$ becomes 0 such that the condition is false and the loop terminates. \\
+
+    \textbf{Prove $R$ holds upon termination.}
+    \begin{align*}
+         & P \land \lnot B
+        \\&\equiv
+        0 \le k \le n \land b = F_{k-1} \land c = F_{k} \land k = n
+        \\&\Rightarrow \tag{Weakening}
+        c = F_{k} \land k = n
+        \\&\equiv \tag{Leibniz substitution}
+        c = F_{n}
+    \end{align*}
+    % TODO: add condensed programs as relations if we have space
+
+    \subsection{Prove Axiom 9.10 and 9.11}
+    \subsubsection{Prove Axiom 9.10}
+    $(\forall x \mid Q \lor R : P) \equiv (\forall x \mid Q : P) \land
+        (\forall x \mid R : P)$ by (8.18) Idempotent Range Split. $\Rightarrow
+        (\forall x \mid Q : P)$ by Weakening.
+
+    \subsubsection{Prove Axiom 9.11}
+    $(\forall x \mid R: P \land Q) \equiv (\forall x \mid R: P) \land
+        (\forall x \mid R: Q)$ by (8.15), Distributivity. $\Rightarrow
+        (\forall x \mid R: P)$ by Weakening.
+
+    \subsection{Lecture 15, Symmetric Difference}
+    \subsubsection{Question }
+    Let $R$ be a non-empty binary relation on $B$. Define the relations $R^{ac}$, $\prec_1$ and $\prec_2$ on $B$ as follows:
+    \begin{enumerate}
+        \item
+              $b R^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $R^{ac}$ is $R$ after removing all cycles.
+        \item
+              $b \prec_1 c \Leftrightarrow b R^+ c \land \lnot (c R^+ b)$ for all $b, c \in B$, i.e. $\prec_1 = R^+ \cap (\sim R^+) = R^+ \cap (B \times B \setminus R^+)$.
+        \item
+              $b \prec_2 c \Leftrightarrow b R^{ac} c$
+    \end{enumerate}
+    Prove that $\prec_1$ and $\prec_2$ are sharp partial orders and $\prec_2 \subseteq \prec_1$.
+
+    \subsubsection{Answers }
+
+    \textbf{Prove 1.: $\prec_1$ is a sharp partial order}
+
+    \begin{itemize}
+        \item
+              $bR^+b \land \lnot (b R^+ b) \equiv false$ so $\prec_1$ is irreflexive.
+        \item
+              To prove transitivity, consider $b \prec_1 c \prec_1 d \Rightarrow (bR^+ c \land \lnot (c R^+ b)) \land (c R^+ d \land \lnot (dR^+ c)) \Rightarrow b R^+ c \land c R^+ d \equiv c \prec_1 d$.
+        \item
+              To show $\lnot (d R^+ b)$, assume $d R^+ b$. We already have $bR^+c$ and $dr^+b \land bR^+c \Rightarrow dR^+ bR^+ c \Rightarrow d(R^+ \circ R^+) c \Rightarrow dR^+c$, a contradictoin, as $c \prec_1 d \Rightarrow \lnot (dR^+ c)$. Thus $\lnot (dR^+b)$ must be true.
+        \item
+              Thus $\prec_1$ is transitive, thus it's a sharp partial order.
+    \end{itemize}
+
+    \textbf{Prove 2.: $\prec_2$ is a sharp partial order}
+    \begin{itemize}
+        \item
+            $\prec_2$ is transitive because it is a transitive closure of $R^{ac}$, so only need to prove it is irreflexive.
+        \item
+            $\lnot c R^+ b$ means that $\lnot cR^ib$ for all $i \ge 1$, which means $R^{ac}$ is irreflexive.
+        \item
+            Suppose $b \prec_2 b$ for some $b \in B$. This means $b(R^{ac})^j b$ for some $j \ge 1$. Since $R^{ac}$ is irreflexive, $j > 1$, i.e. $b(R^{ac})^{j-1} cR^{ac} b$. Since $R^{ac}$ is irreflexive, $c \ne b$. But $cR^{ac}b \Rightarrow \lnot b R^+ c \Rightarrow \forall (i \mid : \lnot b R^i c) \Rightarrow \lnot bR^{j-1} c \Rightarrow \lnot b(R^{ac})^{j-1} c$, a contradiction, $\prec_2$ is irreflexive.
+        \item
+              Thus $\prec_2$ is a sharp partial order.
+    \end{itemize}
+
+    \textbf{Prove $\prec_2 \subseteq \prec_1$}
+    \begin{itemize}
+        \item
+              $b \prec_1 c \Leftrightarrow bR^+ c \land (\lnot c R^+ b)$ for all $b, c \in B$.
+        \item
+              $b \prec_2 c \Leftrightarrow b(R^{ac})^+ c$ where $bR^{ac}c \Leftrightarrow bRc \land \lnot (c R^+ b)$
+        \item
+              We will use the result: if $Q$ is transitive then $Q^+ = Q$ (we will prove it later).
+        \item
+              $bR^{ac} c \Leftrightarrow bRc \land \lnot (c R^+ b) \Leftarrow bR^+ c \land \lnot (c R^+ b) \Leftrightarrow b \prec_1 c$, so $R^{ac} \subseteq \prec_1$.
+        \item
+              $R^{ac} \subseteq \prec_1 \Rightarrow (R^{ac})^+ \subseteq (\prec_1)^+ = \prec_1$
+        \item
+              Hence $\prec_2 = (R^{ac})^+ \subseteq \prec_1$.
+    \end{itemize}
+
+    \subsection{Lecture 15, Prove Binary Relation by Induction}
+    \subsubsection{Let} $R$ be a transitive relation on $B$. \textbf{Prove} $R^+ = R$.
+    \begin{itemize}
+        \item
+            Recall $R^+ = \bigcup_{i \ge 1} R^i$, or $bR^+c \equiv \exists (i \mid : i > 0 \land bR^i c)$.
+        \item
+            From the definition of $R^+$, we have $R \subseteq R^+$.
+        \item
+            We now show $R^+ \subseteq R$. By the definition of $R^+$, it suffices to show $(\forall i \mid 0<i : R^i \subseteq R)$ by induction.
+        \item
+            Base case: $R \subseteq R$.
+        \item
+            Inductive Step: Assume $R^i \subseteq R$, i.e., $bR^ic \Rightarrow bRc$.
+        \item
+            Consider $bR^{i+1}c \Leftrightarrow \exists(d \mid d \in B: b R^id \land dRc) \Leftarrow \exists(d \mid d \in B: b R d \land dRc) \Rightarrow bRc$. The last step is by transitivity of $R$. Hence $R^i \subseteq R$.
+        \item
+            This means $R^+ = R$.
+    \end{itemize}
+
+    \subsection{Assignment 3, Question 19}
+    \subsubsection{Question }
+    Show that $(S, \circ, 1)$ is a group if $\circ$ is a binary associative operator with a left identity 1 and every element has a left inverse.
+
+    \subsubsection{Answer }
+    \textbf{Prove left cancellation} \\
+    \begin{itemize}
+        \item
+            We first prove left cancellation, $d \circ b = d \circ c \equiv b = c$.
+            \begin{itemize}
+                \item
+                    $LHS \Leftarrow RHS$ follows from Leibniz.
+                \item
+                    $LHS \Rightarrow RHS$: $b = d^{-1} \circ d \circ b = d^{-1} \circ d \circ c$ by assumption, so now by identity we have $= c$.
+            \end{itemize}
+        \item
+            Prove left idenity is also a right identity: $1 = 1 \equiv 1 \circ 1 = 1 \equiv b^{-1} \circ b \circ 1 = b^{-1} \circ b \equiv b \circ 1 = b$ by left cancelation.
+    \item
+        Since 1 is both left and right identity, it is the unique identity by Theorem (18.2). We now must show that every element has an inverse.
+    \item
+        By assumption, a left inverse exists, so show it is a right inverse.
+    \item
+        Let $b^{-1}$ be the left inverse of $b$. Then, $b^{-1} = b^{-1} \equiv 1 \circ b^{-1} = b^{-1} \circ 1 \equiv b^{-1} \circ b \circ b^{-1} = b^{-1} \circ 1 \equiv b \circ b^{-1} = 1$.
+    \item
+        Thus we have that there is an inverse.
+    \end{itemize}
+
+    \subsection{Prove Boolean Algebra}
+    \subsubsection{Question }
+    Let $(S, \oplus, \otimes, \sim, 0, 1)$ be a boolean algebra. Prove that for all $b, c, \in S$, we have $b \oplus c = 1 \land c \otimes b = 0 \Leftrightarrow c = \sim b$.
+    \begin{itemize}
+        \item
+            ($\Leftarrow$): from Section Boolean Algebra d), $b \oplus (\sim b) = 1$ and $b \otimes (\sim b) = 0$.
+        \item
+            ($\Rightarrow$): We will start from $c = \sim b$ and work backwards.
+        \item
+            $c = \sim b \Leftrightarrow c \otimes 1= \sim b \otimes 1 \Leftarrow c \otimes (b \oplus (\sim b)) = \sim b \otimes (b \oplus c) \Leftrightarrow (c \otimes b) \oplus (c \otimes (\sim b)) = 0 \oplus (\sim b \otimes c) \Leftrightarrow c \otimes (\sim b) = (\sim b) \otimes c$ which is true by symmetry.
+        \item
+            Reverse the steps to get the proper proof.
+    \end{itemize}
+
+    \textbf{Closures}
+    $R^+=\bigcup_{i=1}^\infty a R^i c$ (transitive); $R^* = R^+ \cup i_B$ (reflexive transitive) \\
+
+    \textbf{18.51 Absorption} \\
+    $\quad b \oplus (b \otimes c) = (b \otimes 1) \oplus (b \otimes c) = b \otimes (1 \oplus c) = b \otimes 1 <zero> = b$ \\
+
+    \textbf{Cancellation} \\
+    Prove $b \oplus c = b \oplus d \land (\sim b \oplus c = \sim b \oplus d) \equiv c = d$.
+    \begin{itemize}
+        \item
+            ($\Rightarrow$): $b \oplus c = b \oplus d \land (\sim b \oplus c = \sim b \oplus d) <\text{Leibniz } c:=d> \equiv b \oplus d = b \oplus d \land (\sim b \oplus d = \sim b \oplus d) \equiv true \land true \equiv true$
+        \item
+            ($\Leftarrow$):
+            \begin{itemize}
+                \item
+                    $c = d <\text{Leibniz}> \equiv b \oplus c = b \oplus d$
+                \item
+                    $c = d <\text{Leibniz}> \equiv \sim b \oplus c = \sim b \oplus d$
+            \end{itemize}
+            Thus $b \oplus c = b \oplus d \land (\sim b \oplus c = \sim b \oplus d)$.
+    \end{itemize}
+
+\end{multicols*}
+
+\end{document}
