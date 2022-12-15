@@ -662,6 +662,17 @@ public class MaxPQ<Key extends Comparable<Key>> {
   Equality test required, inequality operator allows for an ordered symbol table.
   Allows for new operations and faster runtimes at the cost of key monotyping.
 
+  \textbf{Implementations}
+  \begin{tabulary}{\linewidth}{@{}LLLLLLLL@{}} \toprule
+    imp    & (wrst) srch & ins       & del       & (avg) srch     & ins            & del           & ord ops? \\ \midrule
+    seq    & $N$          & $N$       & $N$       & $.5 N$         & $N$            & $.5 N$        & n    \\
+    bin    & $\lg N$      & $\lg N$   & $\lg N$   & $\lg N$        & $.5 N$         & $.5 N$        & y    \\
+    BST    & $N$          & $N$       & $N$       & $1.39$ $\lg N$ & $1.39$ $\lg N$ & $\sqrt N$     & y    \\
+    23     & $c \lg N$    & $c \lg N$ & $c \lg N$ & $c \lg N$      & $c \lg N$      & $c \lg N$     & y    \\
+    RB BST & $2 \lg N$    & $2 \lg N$ & $2 \lg N$ & $1.0$ $\lg N$  & $1.0$ $\lg N$  & $1.0$ $\lg N$ & y    \\
+    \bottomrule
+  \end{tabulary}
+
   Sequential Search (Unordered LL)
   Search: $O(N)$, Insert: $O(N)$
   Pros: Best for tiny STs
@@ -716,12 +727,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
     \item If node to be deleted has one child, replace with child
     \item If node to be deleted has both children, replace with minimum key in right subtree
   \end{itemize}
-  \begin{tabulary}{\linewidth}{@{}LLLLLL@{}} \toprule
-    algo & wrst search & wrst insert & avg search & avg insert & efficient for ordered ops \\ \midrule
-    sequential search & $N$ & $N$ & $N/2$ & $N$ & no \\
-    binary search & $\lg N$ & $ N$ & $\lg N$ & $N/2$ & yes \\
-    BST & $N$ & $N$ & $1.39 \lg N$ & $1.39 \lg N$ & yes \\ \bottomrule
-  \end{tabulary}
+
 
   \section{Balanced Search Trees}
   \subsection{2-3 Trees}
@@ -735,8 +741,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   Worst case: $\log_2 N$
   Best case: $\log_3 N \approx .631 log_2 N$
   
-  \textbf{Worst and Avg case:} Search, $c \lg N$, insert $c \lg N$, delete $c \lg N$ \\
-  Ordered operations: yes, key interface is compareTo()
+  See above for time complexity
 
   \subsection{LLRB Trees}
   Just a way to encode 2-3 trees more simply (they exactly correspond).
@@ -756,8 +761,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   % TODO: if we have room add insertion for LLRB
 
   Height is $\leq 2 \log_2 N$ in the worst case
-  Search, insert, delete: $2 \lg N$ in the worst case, $1.0 \lg N$ in the average case
-  Ordered operations: yes, key interface is compareTo()
+  See above for time complexity
 
   % TODO: if we have space add B-trees
 
