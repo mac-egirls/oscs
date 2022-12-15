@@ -144,9 +144,9 @@
     Selection & $O(N^2)$      & $\Omega(N^2)$      & $\Theta(N^2)$      \\
     Insertion & $O(N^2)$      & $\Omega(N)$        & $\Theta(N^2)$      \\
     Shellsort & $\leq O(N^2)$ & $\Omega(N \log N$) & $\Theta(N \log N)$ \\
-    Mergesort & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
-    Quicksort & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
-    Heapsort  & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
+      Mergesort & $O(N \lg N)$  & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+      Quicksort & $O(N^2)$      & $\Omega(N \lg N)$  & $\Theta(N \lg N)$  \\
+      Heapsort  & $O(N \log N)$ & $\Omega(N \log N)$ & $\Theta(N \log N)$ \\
     \bottomrule
   \end{tabulary}
   \begin{tabulary}{\linewidth}{@{}LllL@{}} \toprule
@@ -298,46 +298,46 @@ for(i=n;i>1;i=i/2)  - O(log_2 n)
   \subsubsection{Connected}
   Takes an indices p and q, finds the root nodes. Returns true if they are equal.
   % TODO: pseudo or cut
-%   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-% public class QuickUnion {
-%   private int[] id;
+  %   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+  % public class QuickUnion {
+  %   private int[] id;
 
-%   public QuickUnion(int N) {
-%       id = new int[N];
-%       for(int i = 0; i < N; i++)
-%           id[i] = i;
-%   }
-%   public int find(int i) {
-%       while (i != id[i]) {
-%           i = id[i]
-%       }
-%       return i;
-%   }
-%   public void union(int p, int q) {
-%       int i = find(p);
-%       int j = find(q);
-%       id[i] = j;
-%   }
-%   public boolean connected(int p, int q) {
-%       return find(p) == find(q);
-%   }
-% }
-%   \end{lstlisting}
+  %   public QuickUnion(int N) {
+  %       id = new int[N];
+  %       for(int i = 0; i < N; i++)
+  %           id[i] = i;
+  %   }
+  %   public int find(int i) {
+  %       while (i != id[i]) {
+  %           i = id[i]
+  %       }
+  %       return i;
+  %   }
+  %   public void union(int p, int q) {
+  %       int i = find(p);
+  %       int j = find(q);
+  %       id[i] = j;
+  %   }
+  %   public boolean connected(int p, int q) {
+  %       return find(p) == find(q);
+  %   }
+  % }
+  %   \end{lstlisting}
   Given a class with an int array $\id{id}$
   \begin{codebox}
     \Procname{$\proc{Quick-Union}(N)$}
     \li \id{id} = \proc{IntegerArray}(N)
     \li \For $i \gets 0$ \To $N$
     \li   \Do
-            $\id{id}[i] \gets i$
-          \End
+    $\id{id}[i] \gets i$
+    \End
   \end{codebox}
   \begin{codebox}
     \Procname{$\proc{find}(i)$}
     \li \While $\func{not}\ \id{id}[i] \isequal i$
     \li   \Do
-            $i \gets \id{id}[i]$
-          \End
+    $i \gets \id{id}[i]$
+    \End
     \li \Return $i$
   \end{codebox}
   \begin{codebox}
@@ -355,26 +355,26 @@ for(i=n;i>1;i=i/2)  - O(log_2 n)
   To optimize Quick-Union, we try to create the flattest trees possible. We need another array to count the number of nodes rooted at an index. Union now links the root of the smaller tree to the root of the larger tree. This can be further optimized with path compression, which can be tacked on to find. To do this, we change each node to point at it's grandparent.
 
   % TODO: pseudo or cut
-%   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-% public class WeightedQuickUnionWithPC {
-%   private int[] id;
-%   private int[] sz;
+  %   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+  % public class WeightedQuickUnionWithPC {
+  %   private int[] id;
+  %   private int[] sz;
 
-%   public void union(int p, int q) {
-%       int i = find(p);
-%       int j = find(q);
-%       id[i] = j;
-%       if (sz[i] < sz[j])   { id[i] = j; sz[j] += sz[i] }
-%       else (sz[i] < sz[j]) { id[j] = i; sz[i] += sz[j] }
-%   }
-%   public int find(int p) {
-%       while (i != id[i]) {
-%           id[i] = id[id[i]];
-%           i = id[i];
-%       }
-%       return i;
-%   }
-%   \end{lstlisting}
+  %   public void union(int p, int q) {
+  %       int i = find(p);
+  %       int j = find(q);
+  %       id[i] = j;
+  %       if (sz[i] < sz[j])   { id[i] = j; sz[j] += sz[i] }
+  %       else (sz[i] < sz[j]) { id[j] = i; sz[i] += sz[j] }
+  %   }
+  %   public int find(int p) {
+  %       while (i != id[i]) {
+  %           id[i] = id[id[i]];
+  %           i = id[i];
+  %       }
+  %       return i;
+  %   }
+  %   \end{lstlisting}
   Given a class with an int array $\id{id}$ and an int array $\id{sz}$
   \begin{codebox}
     \Procname{$\proc{union}(p, q)$}
@@ -383,12 +383,12 @@ for(i=n;i>1;i=i/2)  - O(log_2 n)
     \li $\id{id}[i] \gets j$
     \li \If $\id{sz}[i] < \id{sz}[j]$
     \li   \Then
-            $\id{id}[i] \gets j$
+    $\id{id}[i] \gets j$
     \li     $\id{sz}[j] \gets \id{sz}[i]$
     \li   \Else
-            $\id{id}[j] \gets i$
+    $\id{id}[j] \gets i$
     \li     $\id{sz}[i] \gets \id{sz}[j]$
-          \End
+    \End
   \end{codebox}
 
   % FIXME: For *all* the sorts, add pros and cons if possible!
@@ -621,50 +621,50 @@ public class MergeBU {
   while (2k $\leq$ n): Exchange the parent with the larger child (children of k are at 2k and 2k+1)
 
 
-%   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-% public class MaxPQ<Key extends Comparable<Key>> {
-%   private Key[] pq;
-%   private int n;
+  %   \begin{lstlisting}[language=Java, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+  % public class MaxPQ<Key extends Comparable<Key>> {
+  %   private Key[] pq;
+  %   private int n;
 
-%   public MaxPQ(int capacity) {
-%     // fixed capacity for simplicity
-%     pq = (Key[]) new Comparable[capacity+1];
-%   }
-%   private void sink(int k) {
-%     while (2*k <= n) {
-%       int j = 2*k;
-%       // children of node at k are 2*k and 2*k+1
-%       if (j < n && less(j, j+1)) j++;
-%       if (!less(k, j)) break;
-%       exch(k, j);
-%       k = j;
-%     }
-%   }
-%   public boolean isEmpty() {
-%     return n == 0;
-%   }
-%   public void insert(Key x) {
-%     pq[++n] = x;
-%     swim(n);
-%   }
-%   public Key delMax() {
-%     Key max = pq[1];
-%     exch(1, n--);
-%     sink(1);
-%     pq[n+1] == null;
-%     return max;
-%   }
+  %   public MaxPQ(int capacity) {
+  %     // fixed capacity for simplicity
+  %     pq = (Key[]) new Comparable[capacity+1];
+  %   }
+  %   private void sink(int k) {
+  %     while (2*k <= n) {
+  %       int j = 2*k;
+  %       // children of node at k are 2*k and 2*k+1
+  %       if (j < n && less(j, j+1)) j++;
+  %       if (!less(k, j)) break;
+  %       exch(k, j);
+  %       k = j;
+  %     }
+  %   }
+  %   public boolean isEmpty() {
+  %     return n == 0;
+  %   }
+  %   public void insert(Key x) {
+  %     pq[++n] = x;
+  %     swim(n);
+  %   }
+  %   public Key delMax() {
+  %     Key max = pq[1];
+  %     exch(1, n--);
+  %     sink(1);
+  %     pq[n+1] == null;
+  %     return max;
+  %   }
 
-%   private void swim(int k) {
-%     // parent of node at k is at k/2
-%     while (k > 1 && less(k/2, k)) {
-%       exch(k, k/2);
-%       k = k/2;
-%     }
-%   }
+  %   private void swim(int k) {
+  %     // parent of node at k is at k/2
+  %     while (k > 1 && less(k/2, k)) {
+  %       exch(k, k/2);
+  %       k = k/2;
+  %     }
+  %   }
 
-% }
-%   \end{lstlisting}
+  % }
+  %   \end{lstlisting}
 
   \section{Binary Trees}
   \textbf{Binary Tree:} A tree where each internal node has at most two children.
@@ -886,14 +886,16 @@ public class MergeBU {
     \li $\id{marked}[v] \gets \const{true}$
     \li \For $i \gets 0$ \To $\attrib{\proc{adj}(G, v)}{length}$
     \li   \Do
-            $w \gets \proc{adj}(G, v)[i]$
+    $w \gets \proc{adj}(G, v)[i]$
     \li     \If{$\id{marked}[w] \isequal \const{false}$}
     \li       \Then
-                $\id{edgeTo}[w] \gets v$
+    $\id{edgeTo}[w] \gets v$
     \li         $\proc{DFS}(G, w)$
-              \End
-          \End
+    \End
+    \End
   \end{codebox}
+  \textbf{Time Complexity} $\rightarrow O(|V| + |E|)$
+
 
   \subsection{BFS}
   Used to find the shortest path between two vertices.
@@ -904,18 +906,19 @@ public class MergeBU {
     \li $\proc{enqueue}(queue, s)$
     \li \While{$\proc{isEmpty}(queue) \isequal \const{false}$}
     \li   \Do
-            $v \gets \proc{dequeue}(queue)$
+    $v \gets \proc{dequeue}(queue)$
     \li     \For{$i \gets 0$ \To $\attrib{\proc{adj}(G, v)}{length}$}
     \li       \Do
-                $w \gets \proc{adj}(G, v)[i]$
+    $w \gets \proc{adj}(G, v)[i]$
     \li         \If{$\id{marked}[w] \isequal \const{false}$}
     \li           \Then $\id{edgeTo}[w] \gets v$
     \li             $\id{marked}[w] \gets \const{true}$
     \li             $\proc{enqueue}(queue, w)$
-                  \End
-              \End
-          \End
+    \End
+    \End
+    \End
   \end{codebox}
+  \textbf{Time Complexity} $\rightarrow O(|V| + |E|)$
 
   \subsection{Connected components}
   Init all vertices $v$ as unmarked, for each unmarked vertex v, run DFS to find all vertic1es connected to $v$.
@@ -926,10 +929,31 @@ public class MergeBU {
   or when data is not already structured as a graph.
 
   \section{Directed Graphs}
+  \subsection{Terminology}
+  \textbf{Indegree} $\rightarrow$ number of edges pointing to a vertex \\
+  \textbf{Outdegree} $\rightarrow$ number of edges pointing away from a vertex \\
+
+  \subsection{API}
+  same as undir graphs, except we have $reverse()$ which produces a new graph with all edges reversed.
   \subsection{Topological Sort}
 
   same as DFS, except when you hit a node that has no adjacent nodes, add that node to a list post[].
   After DFS is over, reverse the list, that's your topological order
+
+  \subsection{Multiple-source shortest paths:}
+  Given digraph and set of source vertices, find shortest path from and V $\in$ set to each other vertexes.
+  \begin{itemize}
+    \item Do BFS but initialize by enqueing all source vertices to queue
+    \item keeps track using edgeTo[] to find shortest path among nodes
+  \end{itemize}
+
+  \subsection{Reverse Postorder:}
+
+  Do DFS, but add vertices to a stack as soon as you mark them as visited.
+  When DFS is over, pop the stack to get the reverse postorder.
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{post_pre_order.png}
+  \end{center}
 
   \section{MSTs}
   \textbf{Edge-weighted graph:} Undirected graph model where weights/costs
