@@ -74,6 +74,9 @@
 \raggedright
 \tiny
 
+% Compress tables
+% \setlength{\tabcolsep}{0pt}
+
 \begin{center}
   {\textbf{2C03}} \\
 \end{center}
@@ -690,8 +693,8 @@ public class MaxPQ<Key extends Comparable<Key>> {
     \li     \ElseIf $x > A[m]$
     \li       \Do $a \gets m + 1$
     \li     \Else \Return $m$
-            \End
-        \End
+    \End
+    \End
     \li \Return $\const{nil}$
   \end{codebox}
   $O(\log N)$ time complexity, and at most $1 + \log_2 N$ compares.
@@ -712,7 +715,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
   \verb|insert()|: traverse tree, inserting node where we would expect to find it
   \verb|put()|: Overwrite value if key already exists, otherwise add new node. Comparisons is 1 + depth of node
-  
+
   \verb|min()|: go all the way left
   \verb|max()|: go all the way right
 
@@ -720,7 +723,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \verb|ceiling()|: smallest key greater than or equal to key
 
   \textbf{Lazy Deletion:} Set value to null, leave key in tree to guide search
-  
+
   \textbf{Hibbard Deletion:}
   \begin{itemize}
     \item If node to be deleted has no children, delete it
@@ -736,11 +739,11 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
   Insert: if leaf is a 2-node, make it into a 3-node
   If leaf is a 3-node, make a 4 node, and decompose it into two 2-nodes, passing the middle element up to the parent (if exists)
-  
+
   \textbf{Tree height:}
   Worst case: $\log_2 N$
   Best case: $\log_3 N \approx .631 log_2 N$
-  
+
   See above for time complexity
 
   \subsection{LLRB Trees}
@@ -772,6 +775,10 @@ public class MaxPQ<Key extends Comparable<Key>> {
   \textbf{Edge-weighted graph:} Undirected graph model where weights/costs
   are associated with each Edge
 
+  Kruskals and Prim's used to find MSTs (minimum spanning trees)
+  Difference: Prim's uses a PQ, Kruskal's uses a greedy approach
+
+  \subsection{Kruskal's}
   \subsection{Prim's}
   Start with vertex 0 and greedily grow tree $T$ \\
   Consider edges incident on verticies in $T$, but disregard edges with both end points in $T$ \\
