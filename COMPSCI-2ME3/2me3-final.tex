@@ -82,6 +82,8 @@
   \setlength{\multicolsep}{1pt}
   \setlength{\columnsep}{2pt}
 
+  \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{had-to-do-it-to-em.png}};
+
   \section{Programming Paradigms}
   \textbf{Procedural:} C, Assembly
   \textbf{Object-Oriented:} C\#, C++, Python, Java, Scala
@@ -484,8 +486,8 @@ public class SensorData {
         \end{lstlisting}
   \end{enumerate}
   \begin{center}
-    \includegraphics[height=4cm]{strategy.png}
-    \includegraphics[width=0.8\linewidth]{strategy-example.png}
+    \includegraphics[height=3.5cm]{strategy.png}
+    \includegraphics[width=0.9\linewidth]{strategy-example.png}
   \end{center}
 
   \textbf{Advantages:}
@@ -517,16 +519,28 @@ public class SensorData {
   $R$ is the range over which the predicate is to be executed, and $P$ is the predicate.
 
   \section{Testing}
+  \textbf{V-Model:} Verification and Validation model. Associates each testing stage with its corresponding development stage. The next
+  step only starts once the previous step is complete.
+  \begin{center}
+    \includegraphics[height=3cm]{V-Model.png}
+  \end{center}
   \textbf{Unit Testing:} Test individual methods / functions, with provided input expect certain output.
   \textbf{Black Box:} Test without knowledge of the code (generally check functionality, edge cases)
   \textbf{White Box:} Test with knowledge of the code
-
+  \textbf{Code Graph:} Graph of the code, each node is a statement, each edge is a branch.
   \textbf{Statement Coverage:} Test cases cause each statement to be executed at least once.
   \textbf{Edge Coverage:} Test cases cause each edge of each decision (each branch of if statements) to be executed at least once.
   Test suite has statement coverage $\Leftrightarrow$ has edge coverage.
   There are cases where edge coverage is not enough to prove that the program works
   (eg if variables are being modified)
   \textbf{Path Coverage:} Test cases cause each path through the program to be executed at least once (each possible combination of edges).
+  \textbf{Static Testing:} Test without running the program (reading code)
+  \textbf{Dynamic Testing:} Test by running the program (unit testing)
+  
+  \section{Bug Counting}
+  Number of bugs range from $N_1 = (C-S)*M/S$ to $N_2 = (M-S)*C/S$\\
+  Where $N_x$ is the actual number of bugs. $C$ is the number of bugs found. $M$ is how many bugs another party found. 
+  $S$ is the common bugs both parties found.
 
 \end{multicols*}
 
