@@ -274,7 +274,6 @@
   Changes to a class should have \textbf{minimal} impact on other code:
   The API for a class should be completely independent of the implementation.
 
-
   \subsection{Open-Closed}
   Entities should be open for extension, but closed for modification.
 
@@ -500,7 +499,7 @@ public class SensorData {
 
   \subsection{Observer}
   % TODO: add java code
-  \includegraphics[width=\linewidth]{observer-example.png}
+  \includegraphics[width=\linewidth]{observer.png}
   Publisher calls update() on subscribers when needed. Subscribers can be added or removed at runtime.
   \textbf{Advantages:} Open-Closed Principle, can add new subscribers without changing the publisher.
   Can establish Relationships between objects at runtime.
@@ -508,15 +507,52 @@ public class SensorData {
   \textbf{Disadvantages:} Subscribers are notified in random order.
 
   \subsection{Command}
+  % GRRRRRRRRRRR WOOF WOOF BARK BARK ARF BARK GRRRR WOOF SNARL HSSSS GRRRR WOOF WOOF BARK ARF GRRRR HSSSS WOOF WOOF BARK ARF GRRRRR HSSSSS BARK ARF GRRRR WOOF WOOF BARK GRRR SNARL ARF WOOF BARK ARF SNARL HSSSSSS he jus like me fr
   \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{Makima_anime_design_2.png}};
   % TODO: add command
+  Turns a request into a stand-alone object containing all information about request.
+  Allows requests to be passed as method arguments, delay or queue a request's execution, and undo operations.
+  \includegraphics[width=\linewidth]{command.png}
+  \textbf{Pros:} Single Responsibility Principle: decoupling classes that invoke ops from classes that perform ops
+  Open/Closed Principle: Introducing new commands into app without breaking existing client code
+  Implement undo/redo.
+  Implement deferred execution of operations.
+  Assemble set of simple commands into a complex one.
+  \textbf{Cons:} Code becomes more complicated as new layer exists between senders and receivers
 
   \section{Formal Specification}
   Form: $(\forall x : \mathbb{N} \mid R : P)$,
   where $\forall$ is a quantifier, $x$ is a variable, $\mathbb{N}$ is the type of variable,
   $R$ is the range over which the predicate is to be executed, and $P$ is the predicate.
 
+  \subsection{MIS}
+  \subsubsection{Uses}
+  \begin{itemize}
+      \item Imported constants, data types, and access programs
+  \end{itemize}
+  \subsubsection{Syntax}
+  \begin{itemize}
+      \item Exported constants
+      \item Exported types
+      \item Exported access routine (routine name, input and output parameter types, exceptions in a table)
+  \end{itemize}
+  \subsubsection{Semantics}
+  \begin{itemize}
+    \item State variables (global variables)
+    \item State invariants (predicates using state variables where after every access routine call, should remain true)
+    \item Assumptions
+    \item Access routine semantics
+    \begin{itemize}
+        \item transition = changing state variables (eg transition: this.start, this.end := start, end)
+        \item output = output of access routine (eg output: out := this)
+        \item exception = exception (eg exception: none)
+    \end{itemize}
+    \item Local functions, types, constants (used for specification only, not used at runtime)
+    \item Other considerations (eg consider doing x to y to do z)
+  \end{itemize}
+
   \section{Testing}
+  \includegraphics[width=\linewidth]{v-model.png}
   \textbf{Unit Testing:} Test individual methods / functions, with provided input expect certain output.
   \textbf{Black Box:} Test without knowledge of the code (generally check functionality, edge cases)
   \textbf{White Box:} Test with knowledge of the code
@@ -527,6 +563,11 @@ public class SensorData {
   There are cases where edge coverage is not enough to prove that the program works
   (eg if variables are being modified)
   \textbf{Path Coverage:} Test cases cause each path through the program to be executed at least once (each possible combination of edges).
+
+  \subsection{Number of bugs}
+  If $N$ is the actual number of bugs, one team (markers) found $M$ bugs, another team (catchers) found $C$ bugs, and there were $S$ bugs in common,
+  then the actual number of bugs ranges between $N_1 = (C - S) \frac{M}{S}$ to $N_2 = (M - S) \frac{C}{S}$.
+  This assumes that $\frac{M}{S} = \frac{N}{(C-S)}$, aka the ratio of marked bugs to marked bugs caught resembles actual bugs to caught actual bugs. Might not be true though, since marked bugs are easier to catch.
 
 \end{multicols*}
 
