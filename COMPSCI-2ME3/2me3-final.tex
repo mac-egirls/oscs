@@ -496,11 +496,20 @@ public class SensorData {
   Must be aware of the difference between algorithms to pick the right one.
 
   \subsection{Observer}
+  \includegraphics[width=\linewidth]{observer-example.png}
+  Publisher calls update() on subscribers when needed. Subscribers can be added or removed at runtime.
+  \textbf{Advantages:} Open-Closed Principle, can add new subscribers without changing the publisher.
+  Can establish Relationships between objects at runtime.
+
+  \textbf{Disadvantages:} Subscribers are notified in random order.
 
   \subsection{Command}
   \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{Makima_anime_design_2.png}};
 
   \section{Formal Specification}
+  Form: $(\forall x : \mathbb{N} \mid R : P)$,
+  where $\forall$ is a quantifier, $x$ is a variable, $\mathbb{N}$ is the type of variable,
+  $R$ is the range over which the predicate is to be executed, and $P$ is the predicate.
 
   \section{Testing}
   \textbf{Unit Testing:} Test individual methods / functions, with provided input expect certain output.
