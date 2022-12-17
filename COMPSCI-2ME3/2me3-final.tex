@@ -171,7 +171,7 @@
   \textbf{Spiral:} Similar to agile, but a prototype is made each sprint cycle.
 
   \section{Good Software}
-  Efficient, timely, performant.
+  Efficient, timely, performance.
   \textbf{Maintainable:} Salable, Extendable, Reusable, Readable
   High Usability.
   \textbf{Reliable:} The ability of a system or component to perform
@@ -349,6 +349,7 @@ public class AverageSpawner implements Factory{
 
   \subsection{Singleton}
   % TODO: add singleton
+  
 
   \section{Structural Patterns}
   \subsection{Decorator}
@@ -429,10 +430,25 @@ public class Guac extends BurritoDecorator {
   Hard to implement decorators in a way that doesn't depend on ordering.
 
   \subsection{Adapter}
-  % TODO: add adapter
+  % TODO: add adapter UML Diagram
+  \includegraphics[width=\linewidth]{adapter.png}
+  Works as a bridge between two incompatible interfaces. A single class converts the interface of one object so that another object can understand it.
+  \textbf{Advantages} Single Responsibility Principle: You can separate the interface or data conversion code from the primary business logic of the program. Open/Closed Principle: You can introduce new types of adapters into the program without breaking the existing client code, as long as they work with the adapters through the client interface.
+  \textbf{Disadvantages} Overall complexity of code increases because you need to introduce a set of new interfaces and classes. Sometimes it’s simpler just to change the service class so that it matches the rest of your code.
 
   \subsection{Proxy}
   % TODO: add proxy
+  Lets you substitute or placeholder for another object. \textbf{Controls access} to original object,
+  allowing for actions before / after request gets through.
+  Eg: Database proxy
+  \includegraphics[width=\linewidth]{proxy.png}
+  \textbf{Advantages}
+  Can control service object without clients knowing
+  Can manage lifecycle of service object isn't ready or isn't available.
+  Open/Closed Principle You can introduce new proxies without changing service or clients.
+  \textbf{Disadvantages}
+  Code can become more complicated since new classes are introduced.
+  Response from service may be delayed.
 
   \section{Behavioral Patterns}
   \subsection{Strategy}
@@ -557,7 +573,7 @@ public class SensorData {
   \textbf{V-Model:} Verification and Validation model. Associates each testing stage with its corresponding development stage. The next
   step only starts once the previous step is complete.
   \begin{center}
-    \includegraphics[height=3cm]{V-Model.png}
+    \includegraphics[width=\linewidth]{V-Model.png}
   \end{center}
   \textbf{Unit Testing:} Test individual methods / functions, with provided input expect certain output.
   \textbf{Black Box:} Test without knowledge of the code (generally check functionality, edge cases)
