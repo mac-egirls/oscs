@@ -66,8 +66,6 @@
 \setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
 \setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
 
-\title{2LC3}
-
 \begin{document}
 
 \raggedright
@@ -172,21 +170,19 @@
 
   \section{Good Software}
   Efficient, timely, performant.
-  \textbf{Maintainable:} Salable, Extendable, Reusable, Readable
-  High Usability.
-  \textbf{Reliable:} The ability of a system or component to perform
-  required functions under static conditions for a specific period
-  \textbf{Correctness:} Meets (specified) requirements.
-  Correctness is achieved if it behaves exactly as intended
-  for all of its use-cases. (eg passes tests)
-  \textbf{Robust:} Meets unspecified requirements.
-  The ability of a system to cope with errors during execution,
-  and cope with erroneous input (eg the program should fail gracefully)
-  \textbf{Distribution of cost in development}
-  40\% of cost on initial development. 60\% on maintenance.
-  Of that, 20\% is on making sure things are correct,
-  20\% is adaptive (correcting things the client wants to be fixed),
-  20\% is improvement.
+
+  \begin{itemize}
+    \item
+      \textbf{Maintainable:} Salable
+    \item
+      \textbf{Reliable:} The ability of a system or component to perform required functions under static conditions for a specific period
+    \item
+      \textbf{Correctness:} Meets (specified) requirements.  Correctness is achieved if it behaves exactly as intended for all of its use-cases. (eg passes tests)
+    \item
+      \textbf{Robust:} Meets unspecified requirements.  The ability of a system to cope with errors during execution, and cope with erroneous input (eg the program should fail gracefully)
+    \item
+      \textbf{Distribution of cost in development} 40\% of cost on initial development. 60\% on maintenance.  Of that, 20\% is on making sure things are correct, 20\% is adaptive (correcting things the client wants to be fixed), 20\% is improvement.
+  \end{itemize}
 
   \section{Object-Oriented Programming}
   \subsection{Encapsulation}
@@ -404,7 +400,7 @@ public class Guac extends BurritoDecorator {
   }
   @Override
   public String getString() {
-	return burrito.getString() 
+	return burrito.getString()
     + "\n--Guac + "$1.50";
   }
 }\end{lstlisting}
@@ -442,7 +438,7 @@ public class Guac extends BurritoDecorator {
     \item Create a strategy interface
           \begin{lstlisting}[language=Java, breaklines=true]
 public interface Sorter {
-  public void 
+  public void
     sort(ArrayList<Double> data);
 }
         \end{lstlisting}
@@ -450,7 +446,7 @@ public interface Sorter {
           \begin{lstlisting}[language=Java, breaklines=true]
 public class DefaultSorter implements Sorter{
   @Override
-  public void 
+  public void
     sort(ArrayList<Double> data) {
     System.out
         .println("Default Sort");
@@ -466,7 +462,7 @@ public class SensorData {
   public SensorData() {
   	sort = new DefaultSorter();
   }
-  public void 
+  public void
     addValue(double value) {
   	data.add(value);
   }
