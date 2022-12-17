@@ -18,7 +18,7 @@
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-    { \geometry{top=.35in,left=.1in,right=.1in,bottom=.35in} }
+    { \geometry{top=.25in,left=.1in,right=.1in,bottom=.35in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -73,9 +73,9 @@
 \raggedright
 \tiny
 
-\begin{center}
-  {\textbf{2ME3 - OSCS}} \\
-\end{center}
+% \begin{center}
+%   {\textbf{2ME3 - OSCS}} \\
+% \end{center}
 \begin{multicols*}{6}
   \setlength{\premulticols}{1pt}
   \setlength{\postmulticols}{1pt}
@@ -171,7 +171,7 @@
   \textbf{Spiral:} Similar to agile, but a prototype is made each sprint cycle.
 
   \section{Good Software}
-  Efficient, timely, performance.
+  Efficient, timely, performant.
   \textbf{Maintainable:} Salable, Extendable, Reusable, Readable
   High Usability.
   \textbf{Reliable:} The ability of a system or component to perform
@@ -316,15 +316,9 @@ public class AverageSpawner implements Factory{
     Random r = new Random();
     double k;
     k = r.nextDouble();
-    if(k < 0.65) {
-      return new Minion();
-    }
-    else if(k < 0.9) {
-      return new Elite();
-    }
-    else {
-      return new Boss();
-    }
+    if(k < 0.65) {return new Minion();}
+    else if(k < 0.9) {return new Elite();}
+    else {return new Boss();}
   }
 }
         \end{lstlisting}
@@ -348,6 +342,29 @@ public class AverageSpawner implements Factory{
   Code can become complex due to subclasses.
 
   \subsection{Singleton}
+  Creational patter that ensure that class has only one instance, while providing a global access point to instance.
+  \includegraphics[width=\linewidth]{singleton.png}
+  \begin{lstlisting}[language=Java, breaklines=true]
+public class TheOne {
+  private static TheOne instance;
+  public static TheOne getInstance() {
+    if(instance == null) {
+      instance = new TheOne();
+    }
+    return instance;
+  }
+  private TheOne() {}
+}
+  \end{lstlisting}
+  \textbf{Advantages:}
+  Guaranteed that class has only one instance.
+  Global access point to single instance.
+  Initialized only when needed (lazy).
+
+  \textbf{Disadvantages:}
+  Violates SRP: solves two problems at once (ensure class has only one instance, and providing global access point to instance).
+  Can make for bad design, eg when components know too much about each other.
+  Can be difficult to unit test client code, as frameworks rely on inheritance when mocking.
   % TODO: add singleton
   
 
@@ -382,8 +399,7 @@ public class ChickenBurrito implements Burrito{
           \begin{lstlisting}[language=Java, breaklines=true]
 public abstract class BurritoDecorator implements Burrito {
   protected Burrito burrito;
-  public BurritoDecorator
-      (Burrito burrito) {
+  public BurritoDecorator(Burrito burrito) {
     this.burrito = burrito;
   }
   @Override
@@ -400,13 +416,11 @@ public class Guac extends BurritoDecorator {
   }
   @Override
   public double getCost() {
-	return 1.50
-    + burrito.getCost();
+    return 1.50 + burrito.getCost();
   }
   @Override
   public String getString() {
-	return burrito.getString() 
-    + "\n--Guac + "$1.50";
+    return burrito.getString() + "\n--Guac + "$1.50";
   }
 }\end{lstlisting}
   \end{enumerate}
@@ -432,6 +446,28 @@ public class Guac extends BurritoDecorator {
   \subsection{Adapter}
   % TODO: add adapter UML Diagram
   \includegraphics[width=\linewidth]{adapter.png}
+  \begin{lstlisting}[language=Java, breaklines=true]
+public class Hospital {
+  private Patient[] currentPatients = new Patient[100];
+  private MedOffice requester;
+  public void bookPatient(int index, Date date) {
+    requester.registerPatient(currentPatients[index]);
+  } 
+}
+public interface MedOffice {
+  public void registerPatient(Patient patient);
+}
+public class MedOfficeAdapter implements MedOffice{
+  private ActualMedOffice office = new ActualMedOffice();
+  @Override
+  public void registerPatient(Patient patient) {
+    office.registerPatient(patient.getName(), patient.getId());
+  }
+}
+public class ActualMedOffice {
+  public void registerPatient(String name, int id) {} 
+}
+  \end{lstlisting}
   Works as a bridge between two incompatible interfaces. A single class converts the interface of one object so that another object can understand it.
   \textbf{Advantages} Single Responsibility Principle: You can separate the interface or data conversion code from the primary business logic of the program. Open/Closed Principle: You can introduce new types of adapters into the program without breaking the existing client code, as long as they work with the adapters through the client interface.
   \textbf{Disadvantages} Overall complexity of code increases because you need to introduce a set of new interfaces and classes. Sometimes it’s simpler just to change the service class so that it matches the rest of your code.
@@ -442,6 +478,54 @@ public class Guac extends BurritoDecorator {
   allowing for actions before / after request gets through.
   Eg: Database proxy
   \includegraphics[width=\linewidth]{proxy.png}
+  \begin{lstlisting}[language=Java, breaklines=true]
+RealDiscordServer adm = new RealDiscordServer("2ME3");
+ProxyDiscordServer usr = new ProxyDiscordServer(adm);
+User a = new User("j", usr);
+User admin = new User("a", adm);
+public class User {
+  String username;
+  DiscordServer ds;
+  public User(String u, DiscordServer ds) {
+    username = u;
+    this.ds = ds;
+  }
+  public void sentAMessage(String s) {
+    ds.sendMessage(s);
+  }
+  public void getAMessage() {
+    ds.recieveMessage();
+  }
+  public void banPlayer(String s) {
+    ds.banUser(s);
+  }
+}
+public interface DiscordServer {
+  public void banUser(String s);
+}
+public class ProxyDiscordServer implements DiscordServer {
+  DiscordServer ds;
+  public ProxyDiscordServer(DiscordServer ds) {
+    this.ds = ds;
+  }
+  @Override
+  public void banUser(String s) {
+    if (s.length() > 10) {
+      ds.banUser(s);
+    }
+  }
+}
+public class RealDiscordServer implements DiscordServer {
+  String name;
+  public RealDiscordServer(String name) {
+    this.name = name;
+  }
+  @Override
+  public void banUser(String s) {
+    System.out.println("Banned: " + s);
+  }
+}
+  \end{lstlisting}
   \textbf{Advantages}
   Can control service object without clients knowing
   Can manage lifecycle of service object isn't ready or isn't available.
@@ -458,8 +542,7 @@ public class Guac extends BurritoDecorator {
     \item Create a strategy interface
           \begin{lstlisting}[language=Java, breaklines=true]
 public interface Sorter {
-  public void 
-    sort(ArrayList<Double> data);
+  public void sort(ArrayList<Double> data);
 }
         \end{lstlisting}
     \item Create concrete strategies that implement the interface
@@ -468,8 +551,6 @@ public class DefaultSorter implements Sorter{
   @Override
   public void 
     sort(ArrayList<Double> data) {
-    System.out
-        .println("Default Sort");
     Collections.sort(data);
   }
 }
@@ -480,21 +561,16 @@ public class SensorData {
   private ArrayList<Double> data = new ArrayList<Double>();
   private Sorter sort;
   public SensorData() {
-  	sort = new DefaultSorter();
+    sort = new DefaultSorter();
   }
-  public void 
-    addValue(double value) {
-  	data.add(value);
+  public void addValue(double value) {
+    data.add(value);
   }
   public void setSort(Sorter sort) {
-  	this.sort = sort;
-  }
-  public void print() {
-  	System.out
-      .println(data.toString());
+    this.sort = sort;
   }
   public void sort() {
-  	sort.sort(data);
+    sort.sort(data);
   }
 }
 
@@ -518,6 +594,52 @@ public class SensorData {
   \subsection{Observer}
   % TODO: add java code
   \includegraphics[width=\linewidth]{observer.png}
+  \begin{lstlisting}[language=Java, breaklines=true]
+public interface Subject {
+  public void add(Observer o);
+  public void remove(Observer o);
+  public void update();
+}
+public class Course implements Subject {
+  String courseName;
+  String courseAnnouncement;
+  ArrayList<Observer> students;
+  public Course(String courseName) {
+    this.courseName = courseName;
+    courseAnnouncement = "";
+    students = new ArrayList<Observer>();
+  }
+  @Override
+  public void add(Observer o) { students.add(o); }
+  @Override
+  public void remove(Observer o) { students.remove(o); }
+  @Override
+  public void update() { for (Observer o : students) { o.update(); } } }
+  public interface Observer { public void update(); }
+  
+  public class Student implements Observer {
+    String name;
+    Course course;
+    String courseAnnouncement;
+    public Student(String name, Course course) {
+      this.name = name;
+      this.course = course;
+      enroll();
+    }
+  @Override
+  public void update() {
+    courseAnnouncement = course.courseAnnouncement;
+  }
+  public void enroll() {
+    System.out.println(name + " enrolled in " + course.getCourseName());
+    course.add(this);
+  }
+  public void drop() {
+    System.out.println(name + " dropped " + course.getCourseName());
+    course.remove(this);
+  }
+}
+  \end{lstlisting}
   Publisher calls update() on subscribers when needed. Subscribers can be added or removed at runtime.
   \textbf{Advantages:} Open-Closed Principle, can add new subscribers without changing the publisher.
   Can establish Relationships between objects at runtime.
@@ -531,6 +653,30 @@ public class SensorData {
   Turns a request into a stand-alone object containing all information about request.
   Allows requests to be passed as method arguments, delay or queue a request's execution, and undo operations.
   \includegraphics[width=\linewidth]{command.png}
+    \begin{lstlisting}[language=Java, breaklines=true]
+public class Remote {
+  Stack<Command> commands;
+  public Remote() { commands = new Stack<Command>(); }
+  public void execute(Command c) { commands.add(c); c.execute(); } 
+}
+public interface Command { public void execute(); }
+public class LightON implements Command {
+  Light l;
+  public LightON(Light l) { this.l = l; }
+  @Override
+  public void execute() { l.turnOn(); }
+}
+public class Light {
+  boolean isOn;
+  String name;
+  public Light(String name) {
+    isOn = false;
+    this.name = name;
+  }
+  public void turnOn() { isOn = true; }
+  public void turnOff() { isOn = false; }
+}
+    \end{lstlisting}
   \textbf{Pros:} Single Responsibility Principle: decoupling classes that invoke ops from classes that perform ops
   Open/Closed Principle: Introducing new commands into app without breaking existing client code
   Implement undo/redo.
@@ -592,6 +738,10 @@ public class SensorData {
   If $N$ is the actual number of bugs, one team (markers) found $M$ bugs, another team (catchers) found $C$ bugs, and there were $S$ bugs in common,
   then the actual number of bugs ranges between $N_1 = (C - S) \frac{M}{S}$ to $N_2 = (M - S) \frac{C}{S}$.
   This assumes that $\frac{M}{S} = \frac{N}{(C-S)}$, aka the ratio of marked bugs to marked bugs caught resembles actual bugs to caught actual bugs. Might not be true though, since marked bugs are easier to catch.
+
+  \subsection{Fault Seeding}
+  Intentionally adding issues into code to try to determine how many issues are caught. See above for the formula used.
+  Not necessarily accurate, as seeded issues are probably more likely to be discovered, as they are likely easier to implement.
 
 \end{multicols*}
 
