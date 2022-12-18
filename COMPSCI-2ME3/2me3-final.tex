@@ -15,13 +15,18 @@
 \usepackage{derivative}
 \usepackage{svg}
 \usepackage{listings}
-\usepackage{setspace}
+\usepackage{setspace} 
+\usepackage{listings}
+\usepackage{xcolor}
 
 \setstretch{0.1}
-
+\lstset{
+commentstyle=\color{blue},
+morecomment=[l]{$},
+}
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-    { \geometry{top=.25in,left=.1in,right=.1in,bottom=.35in} }
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.35in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -76,16 +81,25 @@
 \raggedright
 \tiny
 
+\lstset{
+tabsize = 1, %% set tab space width
+showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
+basicstyle = \tiny \ttfamily , %% set listing font and size
+breaklines = true, %% enable line breaking
+numberstyle = \tiny,
+postbreak = \mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+
 % \begin{center}
 %   {\textbf{2ME3 - OSCS}} \\
 % \end{center}
-\begin{multicols*}{6}
-  \setlength{\premulticols}{1pt}
-  \setlength{\postmulticols}{1pt}
-  \setlength{\multicolsep}{1pt}
-  \setlength{\columnsep}{2pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\begin{multicols*}{5}
 
-  \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{had-to-do-it-to-em.png}};
+%  \tikz[remember picture,overlay] \node[opacity=0.1,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{makima.png}};
 
   \section{Programming Paradigms}
   \textbf{Procedural:} C, Assembly
@@ -160,7 +174,9 @@
   Each phase has mini-plan, and waterfalls into next.
   Drawback is that missing details in one phase
   end up causing issues in future phases.
-  \includegraphics[width=0.8\linewidth]{waterfall.png}
+  \begin{center}
+      \includegraphics[width=0.8\linewidth]{waterfall.png}
+  \end{center}
 
   \textbf{Agile:} Separate product into cycles
   and deliver working product quickly.
@@ -169,7 +185,9 @@
   (eg requirements can be loose at the beginning, sprints may not produce working code).
   Constant feedback allows for issues to be spotted before they become massive problems.
   Lots of customer interaction can lead the project astray.
-  \includegraphics[width=0.8\linewidth]{agile.png}
+  \begin{center}
+      \includegraphics[width=0.6\linewidth]{agile.png}
+  \end{center}
 
   \textbf{Spiral:} Similar to agile, but a prototype is made each sprint cycle.
 
@@ -228,7 +246,7 @@
   \section{UML Diagrams}
   \begin{center}
     \includegraphics[width=.9\linewidth]{uml-class.png}
-    \includegraphics[width=.9\linewidth]{uml-arrows.png}
+    \includegraphics[width=.7\linewidth]{uml-arrows.png}
   \end{center}
 
   \section{Java}
@@ -294,7 +312,7 @@
   \subsection{Factory}
   Provides an interface for creating objects in a superclass,
   allows subclasses to alter type of objects that will be created.
-
+  Eg: Pizza, Shapes, Ingot
   \begin{enumerate}
     \item Have an interface A
           \begin{lstlisting}[language=Java, breaklines=true]
@@ -329,7 +347,7 @@ public class AverageSpawner implements Factory{
   \end{enumerate}
 
   \begin{center}
-    \includegraphics[width=0.9\linewidth]{factory.png}
+    % \includegraphics[width=0.9\linewidth]{factory.png}
     \includegraphics[width=0.9\linewidth]{factory-example.png}
   \end{center}
 
@@ -346,7 +364,9 @@ public class AverageSpawner implements Factory{
 
   \subsection{Singleton}
   Creational patter that ensure that class has only one instance, while providing a global access point to instance.
-  \includegraphics[width=\linewidth]{singleton.png}
+  \begin{center}
+      \includegraphics[width=.7\linewidth]{singleton.png}
+  \end{center}
   \begin{lstlisting}[language=Java, breaklines=true]
 public class TheOne {
   private static TheOne instance;
@@ -374,7 +394,7 @@ public class TheOne {
   \section{Structural Patterns}
   \subsection{Decorator}
   Lets you attach new behaviors to objects by putting them in special wrappers
-  that contain the behaviors.
+  that contain the behaviors. Eg: Starbucks, Burgers
 
   \begin{enumerate}
     \item Create interface A
@@ -389,7 +409,7 @@ public interface Burrito {
 public class ChickenBurrito implements Burrito{
   public ChickenBurrito() {}
   public String getString() {
-	return "Chicken" + "$12.00";
+    return "Chicken" + "$12.00";
   }
   public double getCost() {
     return 12.00;
@@ -415,7 +435,7 @@ public abstract class BurritoDecorator implements Burrito {
           \begin{lstlisting}[language=Java, breaklines=true]
 public class Guac extends BurritoDecorator {
   public Guac(Burrito burrito) {
-	super(burrito);
+    super(burrito);
   }
   @Override
   public double getCost() {
@@ -429,7 +449,7 @@ public class Guac extends BurritoDecorator {
   \end{enumerate}
 
   \begin{center}
-    \includegraphics[width=0.8\linewidth]{decorator.png}
+    % \includegraphics[width=0.8\linewidth]{decorator.png}
     \includegraphics[width=0.8\linewidth]{decorator-example.png}
   \end{center}
 
@@ -444,7 +464,7 @@ public class Guac extends BurritoDecorator {
   \textbf{Disadvantages:}
   Code can be harder to maintain, decreases as number of decorator classes grows.
   Hard to remove wrappers.
-  Hard to implement decorators in a way that doesn't depend on ordering.
+  Hard to implement decorators in a way that doesn't depend on ordering. E.g. Bird/Duck, Car/Boat
 
   \subsection{Adapter}
   % TODO: add adapter UML Diagram
@@ -478,9 +498,11 @@ public class ActualMedOffice {
   \subsection{Proxy}
   % TODO: add proxy
   Lets you substitute or placeholder for another object. \textbf{Controls access} to original object,
-  allowing for actions before / after request gets through.
-  Eg: Database proxy
-  \includegraphics[width=\linewidth]{proxy.png}
+  allowing for actions before / after request gets through.Proxy is used as a security to emulate the service so that the client cant access the service directly (think of an ATM, we dont want people to have access to the actual money numbers, just a representation of them).
+  Eg: Database proxy, Discord Example
+  \begin{center}
+      \includegraphics[width=.6\linewidth]{proxy.png}
+  \end{center}
   \begin{lstlisting}[language=Java, breaklines=true]
 RealDiscordServer adm = new RealDiscordServer("2ME3");
 ProxyDiscordServer usr = new ProxyDiscordServer(adm);
@@ -540,7 +562,7 @@ public class RealDiscordServer implements DiscordServer {
   \section{Behavioral Patterns}
   \subsection{Strategy}
   Define a family of algorithms, put them each in separate classes,
-  and make their objects interchangeable.
+  and make their objects interchangeable. E,g. Weapon (Fist, Sword)
   \begin{enumerate}
     \item Create a strategy interface
           \begin{lstlisting}[language=Java, breaklines=true]
@@ -580,7 +602,7 @@ public class SensorData {
         \end{lstlisting}
   \end{enumerate}
   \begin{center}
-    \includegraphics[height=3.5cm]{strategy.png}
+    % \includegraphics[height=3.5cm]{strategy.png}
     \includegraphics[width=0.9\linewidth]{strategy-example.png}
   \end{center}
 
@@ -597,11 +619,13 @@ public class SensorData {
   \subsection{Observer}
   % TODO: add java code
   \includegraphics[width=\linewidth]{observer.png}
+  Pull $\rightarrow$ --
+  Push $\rightarrow$ !!
   \begin{lstlisting}[language=Java, breaklines=true]
 public interface Subject {
   public void add(Observer o);
   public void remove(Observer o);
-  public void update();
+  public void update(!String s!);
 }
 public class Course implements Subject {
   String courseName;
@@ -617,41 +641,44 @@ public class Course implements Subject {
   @Override
   public void remove(Observer o) { students.remove(o); }
   @Override
-  public void update() { for (Observer o : students) { o.update(); } } }
+  public void update(!String s!) { for (Observer o : students) { o.update(!String s!); } } }
   public interface Observer { public void update(); }
   
   public class Student implements Observer {
     String name;
-    Course course;
+    -Course course;-
     String courseAnnouncement;
-    public Student(String name, Course course) {
+    public Student(String name, -Course course-) {
       this.name = name;
-      this.course = course;
-      enroll();
+      -this.course = course;-
+      -enroll();-
     }
   @Override
-  public void update() {
-    courseAnnouncement = course.courseAnnouncement;
+  public void update(!String s!) {
+    -courseAnnouncement = course.courseAnnouncement;-
+    !courseAnnouncement = s;!
   }
-  public void enroll() {
+  -public void enroll() {
     System.out.println(name + " enrolled in " + course.getCourseName());
-    course.add(this);
+    course.add(this);-
   }
-  public void drop() {
+  -public void drop() {
     System.out.println(name + " dropped " + course.getCourseName());
-    course.remove(this);
+    course.remove(this);-
   }
 }
   \end{lstlisting}
-  Publisher calls update() on subscribers when needed. Subscribers can be added or removed at runtime.
+  Publisher calls update() on subscribers when needed. Subscribers can be added or removed at runtime. Push: when update() is called, the observers directly get the data from the function. Pull: when update is called, subject.getState() is used to get the data instead.
   \textbf{Advantages:} Open-Closed Principle, can add new subscribers without changing the publisher.
   Can establish Relationships between objects at runtime.
 
   \textbf{Disadvantages:} Subscribers are notified in random order.
+  \textbf{Push:} Observer is notified that a change has occurred and must find out itself what changes have occurred. Used when all the observers are interested in common state changes. Not used for large amounts of data. No need for getState().(Advantage)Suppliers generate events and actively pass them to an event channel. 
+  \textbf{Pull:} The subject sends observers detailed information about the change that has occurred(in the simplest case, the entire new state itself). No parameter for the state in update() but need getstate() for subject construct class.This can lead to further requests from the observer to the subject. More than one call is required $\rightarrow$ change notification from the subject to all its observers $\rightarrow$ interested observer must call at least one method to pull data. (Advantage)simpler to write, and work when the client application is hosted behind a firewall (traffic is outbound). 
 
   \subsection{Command}
   % GRRRRRRRRRRR WOOF WOOF BARK BARK ARF BARK GRRRR WOOF SNARL HSSSS GRRRR WOOF WOOF BARK ARF GRRRR HSSSS WOOF WOOF BARK ARF GRRRRR HSSSSS BARK ARF GRRRR WOOF WOOF BARK GRRR SNARL ARF WOOF BARK ARF SNARL HSSSSSS he jus like me fr
-  \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{Makima_anime_design_2.png}};
+%  \tikz[remember picture,overlay] \node[opacity=0.1,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{346653161077211.png}};
   % TODO: add command
   Turns a request into a stand-alone object containing all information about request.
   Allows requests to be passed as method arguments, delay or queue a request's execution, and undo operations.
@@ -680,8 +707,8 @@ public class Light {
   public void turnOff() { isOn = false; }
 }
     \end{lstlisting}
-  \textbf{Pros:} Single Responsibility Principle: decoupling classes that invoke ops from classes that perform ops
-  Open/Closed Principle: Introducing new commands into app without breaking existing client code
+  \textbf{Pros:} \textbf{Single Responsibility Principle:} decoupling classes that invoke ops from classes that perform ops
+  \textbf{Open/Closed Principle:} Introducing new commands into app without breaking existing client code
   Implement undo/redo.
   Implement deferred execution of operations.
   Assemble set of simple commands into a complex one.
@@ -691,6 +718,52 @@ public class Light {
   Form: $(\forall x : \mathbb{N} \mid R : P)$,
   where $\forall$ is a quantifier, $x$ is a variable, $\mathbb{N}$ is the type of variable,
   $R$ is the range over which the predicate is to be executed, and $P$ is the predicate.
+
+  \subsection{Formal Spec examples}
+  \begin{itemize}
+  \setlength\itemsep{0.9em}
+    \item Checks if a list L contains x
+    $(\exists i \mid 0 \leq i < |L| : x = L [I])$
+    \item Counts the amount of times x appears in list L
+    $(\sum i \mid 0 \leq i < |L| \land L[i] = x: 1)$
+    \item Checks if a list is a sorted copy of another
+    $(\forall i: \mathbb{N} \mid (0 \leq i < |L_1| - 1): L_1[i] \leq L_1[i + 1]) \land (\forall i : \mathbb{N}|: count(L, i) = count(L_1, i))$
+    \item Checks if there's a duplicate name in a set of users
+    $(\forall x,y: User \mid (x \in myUserSet \land y \in myUserSet) \land (x \neq y) : (x.username \neq y.username))$
+    \item Checks if two circles overlap
+    $(getPoints(this) \cup getPoints(c)) \neq 0$
+    \item All people have less than 10 children
+    $(\forall p_1 : Person \mid p_1 \in people : (\sum p_2 : Person \mid p_2 \in people: \textit{Children}(p_1, p_2) \leq 10)$
+    \item returns set of friendships associated with friend (s)
+    $ getfriends(s) = {friend:String:X(s,friend)\in Friendships}$
+    \item Gives set of friends of friends
+    $(\cup (friend : String \mid friend \in getFriends(getFriends(s)) : friend)-{s}-getfriends(s)$
+    \item
+    $(\cup (friend : String \mid friend \in getFriends(getFriends(s)) : friend)-{s}-getfriends(s)$
+    \item Gives set of friends of friends
+    $(\cup (friend : String \mid friend \in getFriends(getFriends(s)) : friend)-{s}-getfriends(s)$
+    \item createSortedVersion(L): N[ ] → N[ ]
+    $(rt : ′L ∈ x ∧ L ∈ x ∣ Z : x∀( ∧ )]y[′L ≤ ]x[′L : y ≤ x ∧ |′L| ≤ x ≤ 1 ∧ 1 − |′L| ≤ x ≤ 0 ∣ Z : y ,x∀)$
+    \end{itemize}
+  \subsection{Valid Group Exercise Example}
+  \begin{itemize}
+  \setlength\itemsep{0.9em}
+  \item Types
+    Student = Tuple(id:String,gender:String, discipline:string, section:$Z$), Team = Student{}, Classlist:Student{}, Teams:Teams{}
+    \item Everyone in the teams, is enrolled in the course
+    $(\forall t:Team \mid t \in Teams: 4 \leq |t| \leq 6)$
+    \item Each student enrolled in the course is in a team
+    $(\forall s:Student \mid s \in Classlist: (\exists t: Team \mid t \in Teams: s \in t))$
+    \item No student appears in two different teams exactly one team
+    $(\forall s:Student \mid s \in Classlist: (\forall t_1,t_2: Team \mid t_1,t_2 \in Teams: s \in t \land s \in t_2 \rightarrow t_1 = t_2))$
+    \item No student appears in two different teams exactly one team
+    $(\forall s:Student \mid s \in Classlist: (\forall t_1,t_2: Team \mid t_1,t_2 \in Teams: s \in t \land s \in t_2 \rightarrow t_1 = t_2))$
+    \item All teams have 4 to 6 students
+    $(\forall t:Team \mid t \in Teams: 4 \leq |t| \leq 6)$
+    
+    \end{itemize}
+  
+  
 
   \subsection{MIS}
   \subsubsection{Uses}
@@ -717,6 +790,17 @@ public class Light {
     \item Local functions, types, constants (used for specification only, not used at runtime)
     \item Other considerations (eg consider doing x to y to do z)
   \end{itemize}
+  \begin{tabulary}{\linewidth}{@{}LL@{}}
+  \toprule
+    Program Specification (what it does) & Implementation (how it does it) \\ \midrule
+    Math/logic & Code/computers \\
+    Natural numbers/Integers & int \\
+    Real numbers & Doubles, floats \\
+    Strings & Strings \\
+    Sets & Sets, collections, adapted lists etc. \\
+    Sequences & Lists, arrays, array lists etc. \\
+    \bottomrule
+  \end{tabulary}
 
   \section{Testing}
   \textbf{V-Model:} Verification and Validation model. Associates each testing stage with its corresponding development stage. The next
@@ -729,22 +813,23 @@ public class Light {
   \textbf{White Box:} Test with knowledge of the code
   \textbf{Code Graph:} Graph of the code, each node is a statement, each edge is a branch.
   \textbf{Statement Coverage:} Test cases cause each statement to be executed at least once.
-  \textbf{Edge Coverage:} Test cases cause each edge of each decision (each branch of if statements) to be executed at least once.
+  \textbf{Edge Coverage:} Test cases cause each edge of each decision (each branch of if statements) to be executed at least once. 1 for if and else together
   Test suite has statement coverage $\Leftrightarrow$ has edge coverage.
   There are cases where edge coverage is not enough to prove that the program works
   (eg if variables are being modified)
-  \textbf{Path Coverage:} Test cases cause each path through the program to be executed at least once (each possible combination of edges).
+  \textbf{Path Coverage:} Test cases cause each path through the program to be executed at least once (each possible combination of edges). 1 for each if and else
   \textbf{Static Testing:} Test without running the program (reading code)
   \textbf{Dynamic Testing:} Test by running the program (unit testing)
 
   \subsection{Number of bugs}
+  15 - 50 bugs per 1000 lines of code. \\
   If $N$ is the actual number of bugs, one team (markers) found $M$ bugs, another team (catchers) found $C$ bugs, and there were $S$ bugs in common,
   then the actual number of bugs ranges between $N_1 = (C - S) \frac{M}{S}$ to $N_2 = (M - S) \frac{C}{S}$.
   This assumes that $\frac{M}{S} = \frac{N}{(C-S)}$, aka the ratio of marked bugs to marked bugs caught resembles actual bugs to caught actual bugs. Might not be true though, since marked bugs are easier to catch.
 
   \subsection{Fault Seeding}
   Intentionally adding issues into code to try to determine how many issues are caught. See above for the formula used.
-  Not necessarily accurate, as seeded issues are probably more likely to be discovered, as they are likely easier to implement.
+  Not necessarily accurate, as seeded issues are probably more likely to be discovered, as they are likely easier to implement. 
 
 \end{multicols*}
 
