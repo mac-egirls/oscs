@@ -576,16 +576,219 @@
 	\includegraphics[width=\linewidth]{bitbit.png}
 
     \section{Microcode}
+	Hardware needs to be very complex to answer demands\\
+	Difficult to design hardware\\
+	Turn design and verification into a programming problem\\
+	Microcode is a way to offload some complexity to software\\
+	One instruction set visible to programmer (“macrocode”).\\
+	Different instruction set available internally.\\
+	Macro instructions are coded in microcode.\\
+	Microcontroller(s) process microcode to emulate macrocode.\\
+	\textbf{Microcode: Pros and Cons}\\
+   Pros\\
+	\begin{itemize}
+	\item Less prone to errors compared to hardware design.
+	\item Easier to implement.
+	\item Ease of extension and modification.
+	\item Offers another level of abstraction.
+	Cons\\
+	\item More overhead than dedicated hardware design.
+	\item Variable cost for macro instructions.
+	\item Depends on number of micro instructions.
+	\item Microcontroller needs to run very fast
+	\end{itemize}
+	\textbf{Vertical Microcode}\\
+	\begin{itemize}
+	\item Sequential coding.
+	\item Control one functional unit at a time.
+	\item Microcontroller centralizes workflow.
+	\item Needs fast microcontroller.
+	\item Intuitive to code macro instructions.
+	\end{itemize}
+	\textbf{Horizontal Microcode}\\
+	\begin{itemize}
+	\item Control multiple functional units simultaneously.
+	\item Each instruction executes several operations in parallel.
+	\item Less intuitive and requires deeper understanding of the hardware.
+	\end{itemize}
+	Vertical microcode takes an in-series approach where each instruction only controls one unit in the CPU at a time and complex instructions are emulated via a sequence of these instructions. Horizontal microcode on the other hand takes a more low-level approach where different units are controlled in parallel: that is, each microcode instruction controlls all units at the same time.\\
+	If execution not finished instruct it to continue in the next cycle, possible to execute instructions in parallel when resources not blocked.\\
+	\textbf{Lookahead Execution}\\
+	Given batch of macro instructions, possible to optimize further. \\
+	Microcontroller can look ahead to next instruction and perform optimization Need to preserve computation semantics\\
+	Lookahead for conditional branching: branch prediction or parallel branch execution, depending on hardware.\\
+	Operand data can be addressed in the following ways, sorted by speed of access (fastest to access is first): as immediate values in an instruction; as values stored in a register; as a value stored in memory, with the memory address encoded in the instruction; as a value stored in memory, with the memory address stored in a register; and as a value stored in memory, where the memory address is also stored in memory. The difference in access speed is due to the difference in the storage technology used: immediate values are directly available in instruction decoding, registers are the next in terms of access speed, and memory is the slowest to access.
 
     \section{Assembly}
-
+	\textbf{Two-stage Assembler}\\
+	Stage 0: (not counted) run pre-processor.\\
+	Stage 1: assign address to every instruction and build label symbol table.\\
+	Stage 2: translate instructions to binary. Substitute label with location from symbol table.\\
     \section{Memory Caching}
-
+	\textbf{Memory} Any physical storage device that can store and retrieve information.\\
+	\textbf{Static RAM (SRAM)}\\
+	\begin{itemize}
+	\item Similar to a latch
+	\item High-power consumption
+	\item Low latency, high access speed
+	\end{itemize}
+	\textbf{Dynamic RAM (DRAM)}
+	\begin{itemize}
+	\item Similar to a capacitor
+	\item Low-power consumption
+	\item Higher latency, slower access
+	\end{itemize}
+	\textbf{Latency}: time to complete single operation\\
+	\textbf{Cycle time}: average time per operation
     \section{Virtual Memory}
+	\textbf{Byte Addressing} Virtual addresses at processor level are byte addresses, Byte address b, word size N, word = b div N, offset = b mod N. If N is a power of two: N = 2x then: Division by 2x equivalent to shift by x. Modulo equivalent to truncation at x digits.\\
+	Common address space 4 memory chips, each has address 0 to N. MMU provides addresses 0 to 4N. Sequential and interleaved mode.\\
+	\textbf{Cache} System that acts as an intermediary between a data producer and a data consumer. Cache intercepts requests and handles them on behalf of data producer. A small intermediary storage.\\
+	\textbf{Characteristics of a Cache}
+	\begin{itemize}
+	\item Small : size of cache $\ll$ size of data at producer.
+	\item Active: contains an algorithm that makes decisions and handles requests.
+	\item Transparent: producer and consumer unaware of cache existence.
+	\item Automatic: not controlled by an external mechanism.
+	\end{itemize}
+	Given $C_h$ cost of cache hit, $C_m$ cost of cache miss and the hit ratio r defined as: $r = \frac{N_{hit}}{N_{hit} + N_{miss}}$, we calculate the expected cost of a lookup as $C_{cache} = r \cdot C_h + (1 - r) \cdot C_m$. \\
+	benefit of using a cache is on average $C_m - C_{cache} = r \cdot (C_m - C_h) > 0$\\
+	When $C_m > C_h$ and $r > 0$ a cache always improves performance.\\
+	Better performance with higher hit ratio r and lower lookup cost $C_h$\\
+	Two caches $C_1, C_2$ with $r_1, r_2$ and $C_{h1}, C_{h2}$ cost of request: $C_{cache} = r_1 \cdot C_{h1} + r_2 \cdot C_{h2} + (1 - r_1 - r_2 ) \cdot C_m$, lower than cost with only one cache. \\
+	\textbf{Cache replacement policies}: least recently used, least frequently used.\\
+	\textbf{Two strategies of how to maintain a cache.}\\
+	Write-through: as soon as value modified, update back along chain\\
+	Write-back: set a dirty bit when modified. Write only when value replaced in cache.\\
+	All caches need to see write operations in the same order.\\
+	All caches need to be informed immediately when value to be changed.\\
+	In some cases a cache my need to be flushed.\\
+	Different strategies: common directory, snooping.\\
+	\textbf{Direct Mapped Memory Cache}: Key idea: maintain several cache lines containing words from memory.\\
+	\textbf{Address Translation(Word Addressing)}: the offset inside the line is o = a mod W, where o is the offset, a is the address, and W is the number of words per line. The block ID is b = (a div W) mod B, where B is the number of blocks/lines in the cache. The tag is t = (a div W) div B.\\
+	The powers of 2 are useful in this case as modulus and division operations can be performed simply by selecting the appropriate bits in the address.\\
+	How much memory is needed to implement DMMC = data storage + tag storage, round up \# of tag bits to the nearest power of 2.\\
+	\textbf{Set Associative Memory Cache} Look through K DMMCs in parallel. Store multiple lines with same block ID / different tag ID.\\
+	\textbf{Fully associative cache}: each DMMC holds single line. Allows implementing a LRU cache replacement policy.\\
+	Programmers can improve cache performance by: Sequential access of allocated memory. Aligned memory allocation. Group operations.\\
+	Addresses between CPU and MMU are in a virtual address space (may be byte addresses).\\
+	MMU talks to each physical memory in physical address space (word addressable memory).\\
+	\textbf{Motivations for Virtual Memory}
+	\begin{itemize}
+	\item Homogeneous integration of hardware.
+	\item Programming convenience.
+	\item Support for multi-programming.
+	\item Protection and encapsulation of programs and data.
+	\end{itemize}
+	\textbf{Base-bound Registers}
+	MMU keeps track of mapping between virtual space i and a pair (base, bound). Base points to memory address that maps to virtual address 0. bound can be scaled dynamically and points to end of memory space.\\
+	Problems: What if memory is full? How to decide where to place base? What if virtual space is more than available memory space?\\
+	\textbf{Segmentation} Key idea: split up program memory space into variable size chunks. Exploits fact that most program memory is idle. When segment needed it is loaded on demand. Potentially replace old segment.\\
+Key issues: memory fragmentation, how to choose optimal segment splits.\\
+	\textbf{Demand Paging} Split up program memory space into fixed size chunks called pages.
+Conceptually similar to segmentation, but more straight-forward to implement
+Requires cooperation between software and hardware
+	Software\\
+	\begin{itemize}
+	\item Configure hardware
+	\item Monitor page use
+	\item Move pages between memory and storage\\
+	Hardware
+	\item Handle address mapping.
+	\item Record when a page is used.
+	\item Detect access attempt to a missing page.
+	\end{itemize}
+	\textbf{Demand Paging Terminology}\\
+	\begin{itemize}
+	\item page: a fixed-size block of a program’s memory space.
+	\item frame: a corresponding slot in physical memory of the same fixed size.
+	\item load: move contents of a page from hard drive into a frame in memory.
+	\item swap: exchange a resident page for another page from storage.
+	\item resident page: a page currently in memory.
+	\item resident set: set of all resident pages.
+	\item page table: an array that holds pointers mapping from page number to physical address of the frame where page resides.
+	\item replacement policy: a decision policy for choosing what page to swap
+	\end{itemize}
+	Page table holds pointers to frames allocated for all pages in a program’s memory space.\\
+	Each entry also maintains several flags:\\
+	presence bit: set if page is resident.\\
+	use bit: set every time an address on the page has been fetched, re-set if page not used for a fixed number of cycles.\\
+	modified bit: set if a memory address on the page has been written to.\\
+	\textbf{Address Translation}\\
+	Say we want to access address a. Each page is P bytes long. We calculate the page number N = a div P. We fetch the frame address $F = P_t[N]$. We calculate the offset O = a mod P. The physical address of a is at F + O.\\
+	\textbf{Page Table Storage} memory = OS + page tables + frame storage.\\
+	A \textbf{translation lookaside buffer} is a form of cache that stores the lookup pair between page number $p_n$ and the frame address F .(and returns the local copy of frame address if the corresponding page is looked up a second time).\\
+s memory addresses are often sequentially accessed, we expect that the same page number $p_n$ will be queried again.\\
 
+	\textbf{Software/Hardware Synchronization Typical operating sequence}\\
+	MMU attempts to load address a on page P.\\
+	MMU checks page table Pt [P]. Check if presence bit is set.\\
+	If no MMU raises page fault.\\
+	OS handles page fault by loading P from hard drive and updating P t\\
+	If no space left in memory, OS swaps a page with a use bit set to 0.\\
+	If modified bit is set, page needs to be saved, otherwise discarded.\\
+	If yes, MMU looks up address and updates use bit and modified bit.\\~\\~\\
+	A cache holds virtual memory addresses with process IDs.\\
+	When running process switches, cache usually flushed.
     \section{IO Bus}
+	\textbf{I/O Devices}
+	I/O device is an external circuit connected to the CPU via digital signals. \\
+	Primary function: data transfer\\
+	Follow the fetch/store data paradigm\\
+	\textbf{data transfer}\\
+	\textbf{Parallel}\\
+	multiple data lines, 	number of lines = interface width, transfer multiple bits simultaneously\\
+	Lower latency per word, can send in one go. Potentially higher throughput, but possible issues with interference.\\
+	\textbf{Serial}\\
+	single data line, 	transfer data in series, one item at a time\\
+	Higher latency, word sent sequentially, but possibly higher rate of data transfer.\\
+	Clocks and Synchronization\\
+	A clock signal is required to disambiguate between bits\\
+	Clock signal may be explicitly transmitted on dedicated line\\
+	Some interfaces clockless: synchronization sequence + implied clock\\
+	Sender and receiver need to have agreed on frequency.\\
+	Communication Directionality\\
+	Communication channel can be classified based on what type of information exchange it allows.\\
+	\textbf{Single direction} Data only flows from $A \rightarrow B$, never $A \leftarrow B$.\\
+	\textbf{Half-duplex} Allows either $A \leftarrow B$ XOR $A \rightarrow B$.\\
+	\textbf{Full-duplex} Allows $A \leftrightarrow B$\\
+	A \textbf{bus} is a digital communication mechanism that allows two or more devices to exchange data.\\
+different designs (open, proprietary), different applications, different interface controllers, Interface controller implements bus access protocol.\\
+	\textbf{Control, Address and Data Lines}: dedicated to different functions\\
+	Control lines: take control of bus, request transfers, set signals and interrupts.\\
+	Address lines: transmit the address in a fetch/store operation.\\
+	Data lines: transmit data.\\~\\~\\
+	When data wider than interface width do data multiplexing. More optimization possible: joint data/address multiplexing.\\
+	Key idea: use address lines and data lines together.\\
+	Implement protocol, transfer address and data sequentially over shared lines.\\
+	\textbf{Bus Address Space}: All devices connected to the bus see the data/address/control bits sent. Only device with matching address responds. Every device on bus has a unique set of addresses assigned. Each address corresponds to a particular device function. Unique addresses: each socket has a range pre-assigned.\\
+	\textbf{Unified Address Space}: I/O device addresses are in the same space as memory addresses. Fetch/store to device same as fetch/store to memory. MMU manages address allocation and raises faults when accessing a hole in address space.\\~\\~\\
+	A modern architecture has one primary bus and several auxiliary buses.\\~\\~\\
+	An \textbf{I/O bridge} is a device that connects between two buses, provides address translation, and relays data. Typically has two interface controllers, one for each bus.\\
+	Bridge provides address translation in the unified address space.\\
+	Addresses on the main bus can be kept constant and mapped differently on auxiliary bus.\\
 
     \section{Interrupts}
+	Polling(Programmed IO) is an inefficient way to handle I/O operations and most systems today use interrupt-driven asynchronous communication\\
+	\textbf{Programmed I/O} CPU has to periodically check if operations complete through the use of polling and takes control of all low-level operations on device. Device can be very simple, fixed logic circuits.\\
+	Synchronization issues: CPU runs at high clock rate. Device operations order of magnitude slower. Result: CPU has to wait for device.\\
+	\textbf{Interrupt-driven I/O} Instead of synchronous programming, allow device to work asynchronous and interrupt processor when done.\\
+	Requires special design for: \\
+	\begin{itemize}
+	\item I/O device hardware: on-board processor and ability to raise interrupts
+	\item I/O bus architecture: support for interrupt signals
+	\item processor architecture: context switching 
+	\item programming paradigm: OS needs to support interrupts
+	\end{itemize}
+	Every time a device triggers an interrupt signal, OS responds by calling function handler i[d]. Pointer to function is known as an \textbf{interrupt vector}.\\
+	At boot time OS fills table with interrupt handlers per device\\
+	Device IDs can be decided either by plug-in slot, or set by BIOS.\\
+	Hot-plug devices, e.g. USB: new device plug-in triggers interrupt, handler allocates device id and interrupt handler for new device. Handling devices usually through device drivers.\\
+	\textbf{Device Driver}: Upper half(invoked by applications): provides OS interface to user-space programs(system calls) Lower half(invoked by interrupts): runs asynchronously\\
+	\textbf{Direct Memory Access (DMA)}: Minimizes the number of interrupts because context switching is expensive. Only trigger interrupt when buffer is full. Chain buffers and operations.
+	system calls are expensive: require synchronization\\
+	buffering calls: collect number of calls and perform simultaneously.\\
+	On average we expect that a single call takes M cycles for operations and N cycles for overhead. K calls then cost $K \cdot (M + N)$. If we buffer, K calls cost $K \cdot M + N$.\\
     
 \end{multicols*}
 
