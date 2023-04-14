@@ -1,0 +1,796 @@
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{clrscode3e}
+\usepackage{setspace}
+
+\setstretch{0.5}
+\setlength{\tabcolsep}{2.0pt}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.35in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage}
+  {\endminipage\par\medskip}
+
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+% \tymin=37pt
+% \tymax=\maxdimen
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+\setlist[itemize]{noitemsep, leftmargin=*}
+\setlist[enumerate]{noitemsep, leftmargin=*}
+
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+% \newcommand{\To}{\Rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+\title{2GA3}
+
+\begin{document}
+
+\raggedright
+\tiny
+
+% \begin{center}
+% 	{\textbf{COMPSCI 2GA3 Cheatsheet v1.0.0 (OSCS Edition)}} \\
+% \end{center}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\begin{multicols*}{6}
+
+	\section{Logic Basics}
+	% \subsection{Physics}
+	% \textbf{Ohm's Law:} $R = \frac{U}{T}$\\
+	% \textbf{Series:} \\
+	% $R_T = \sum_{i=1}^N R_i$ \\
+	% $V_T = \sum_{i=1}^N V_i$ \\
+	% $I_T = I_1 = I_2 = \dots = I_N$\\
+	% \textbf{Parallel:} \\
+	% $1/R = \sum_{i=1}^N (1/R_i)$\\
+	% $V_T = V_1 = V_2 = \dots = V_N$\\
+	% $I_T = \sum_{i=1}^N I_i$ \\
+
+	\subsection{Transistors}
+	MOSFETs have 4 components: Source, Gate, Drain, and Base
+
+	\textbf{PNP/NMOS:} Is on when gate is positive. No circle. \\
+	\textbf{NPN/PMOS:} Is on when gate is negative. Has circle.
+
+	Generally, transistors are used to pull the output to either
+	a positive voltage, or a zero voltage (1 or 0, on or off).
+	If output is not pulled to one of these,
+	the output is floating and is indeterminate in voltage.
+
+	\includegraphics[width=\linewidth]{transistor-types.png}
+
+	\subsection{Logic Circuits}
+	\subsubsection{Symbols}
+
+	\begin{center}
+		\begin{tabulary}{\linewidth}{@{}LL|LLLLLL@{}}
+			\toprule
+			p & q & and & nand & or & nor & xor & inv p \\
+			\midrule
+			1 & 1 & 1   & 0    & 1  & 0   & 0   & 0        \\
+			1 & 0 & 0   & 1    & 1  & 0   & 1   & 0        \\
+			0 & 1 & 0   & 1    & 1  & 0   & 1   & 1        \\
+			0 & 0 & 0   & 1    & 0  & 1   & 0   & 1        \\
+			\bottomrule
+		\end{tabulary}
+	\end{center}
+
+	\begin{center}
+		\includegraphics[width=.8\linewidth]{logic-gates.png}
+	\end{center}
+	\subsubsection{Adders}
+	Left: Half-adder. Right: Full-adder.
+	\begin{center}
+		\includegraphics[width=.5\linewidth]{half-adder.png} \\
+		\includegraphics[width=.9\linewidth]{full-adder.png} \\
+		\includegraphics[width=0.8\linewidth]{n-adder.png}
+	\end{center}
+	% REVIEW: Is there anything else that needs to be added here?
+	Unlike half-adders, full-adders can recieve carry-in bits.
+	To add more bits, chain multiple full-adders together.
+	If final carry at end is 1, there's an overflow error.
+
+	\subsubsection{Latches \& Flip-flops}
+	\textbf{Flip-flop}
+	Every time the input switches from 0 to 1, the output switches to
+	the opposite.
+	% TODO: Add more detail about flip-flops
+
+	\includegraphics*[width=\linewidth]{flipflop.png}
+
+	\textbf{Gated D-latch} \\
+	\begin{center}
+		\includegraphics[width=.6\linewidth]{gated-d-latch.png}
+		\begin{tabulary}{\linewidth}{@{}CC|CCL@{}}
+			\toprule
+			$E/C$ & $D$ & $Q$               & $\overline{Q}$               &   \\
+			\midrule
+			0     & X   & $Q_\textit{prev}$ & $\overline{Q}_\textit{prev}$ & No change \\
+			1     & 0   & 0                 & 1                            & Reset     \\
+			1     & 1   & 1                 & 0                            & Set       \\
+			\bottomrule
+		\end{tabulary}
+	\end{center}
+	\begin{itemize}
+		\item Q - The stored bit
+		\item D - Data/bit to write to Q
+		\item E - The enabler (Must be 1 to enable writing, otherwise nothing changes)
+		\item Operate on the principle of propagation delay.
+		\item Stacking many of them can be used to create a register:
+	\end{itemize}
+
+	% REVIEW: Do we need this?
+	% seems like a lot of space dedicated to something that's trivial to derive
+	% from scratch
+	\includegraphics[width=\linewidth]{register.png}
+
+	\subsection{Counters}
+	For each transition from \textbf{low to high}, the counter increments
+	the binary output by 1. (Counting the transition from high to low does
+	the same thing, but the lecture used rising-edge counters).
+
+	\subsection{Propagation Delay}
+	The rate at which a transistor switches. Typical 100 ps (picoseconds)
+	\subsection{Decoders}
+	Take in an $n$-bit number, and turn on one of $2^n$ outputs.
+
+	\subsection{Feedback Loops}
+	\includegraphics[width=\linewidth]{Feedback_loop.png}
+	\begin{itemize}
+		\item Counter increments each time the clock changes from 0 to 1
+		\item Decoder moves to the next instruction each time
+		\item Stop sends a signal back to the and gate which stops counter
+	\end{itemize}
+
+	\subsection{Multiplexer / Demultiplexer}
+	\textbf{Multiplexer} turns $n$ signals into a single signal. Chooses
+	which signal to let through. \textbf{Demultiplexer} turns a single signal
+	into $n$ signals. The single signal chooses which signal to output.
+
+	\subsection{Software vs Hardware Design}
+	Unlike software, which uses iteration, hardware uses replication. The advantages of replication are increased elegance, higher speed, and increased reliability.
+	Hardware also uses gate minimization, abstraction and power optimization.
+
+	\subsection{Fixed \& Programmable Logic}
+	\textbf{Fixed logic circuits:} Pre-determined function.
+	\textbf{Programmable logic:} FPGAs (reprogrammable, but still a significant cost to switching functions).
+	\textbf{Stored program and re-programmable circuits:} Your computer right now.
+	\section{Data Encoding}
+	1 Byte = 8 bits.
+	1 \textbf{Byte} encodes a character, integer, or pointer.
+	1 \textbf{Word} is $n$ bytes, determined by the architecture.
+
+	\subsection{Converting between bases}
+	\textbf{Base 10 to Base N}
+	Divide decimal \# by \# of new base.
+	Take remainder as rightmost digit.
+	Divide quotient of previous divide by new base.
+	Repeat until quotient is zero.
+	\textbf{Base N to Base 10}
+	Take each column position of each digit, zero indexed, as $n$.
+	For each column, do $c \cdot b^n$, where $c$ is the value of the column,
+	and $b$ is the base value in base 10.
+
+	\textbf{Important bases table}
+	\begin{center}
+		\begin{tabular}[!ht]{@{}lll@{}}
+			\toprule
+			Hex & Bin  & Dec \\
+			\midrule
+			0   & 0000 & 0   \\
+			1   & 0001 & 1   \\
+			2   & 0010 & 2   \\
+			3   & 0011 & 3   \\
+			4   & 0100 & 4   \\
+			5   & 0101 & 5   \\
+			6   & 0110 & 6   \\
+			7   & 0111 & 7   \\
+			\bottomrule
+		\end{tabular}
+		\begin{tabular}[!ht]{@{}lll@{}}
+			\toprule
+			Hex & Bin  & Dec \\
+			\midrule
+			8   & 1000 & 8   \\
+			9   & 1001 & 9   \\
+			A   & 1010 & 10  \\
+			B   & 1011 & 11  \\
+			C   & 1100 & 12  \\
+			D   & 1101 & 13  \\
+			E   & 1110 & 14  \\
+			F   & 1111 & 15  \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+
+	\subsection{Fraction to Binary}
+	\begin{enumerate}
+		\item Let $x$ be the decimal part of our fraction.
+		\item Let $b$ be our binary output.
+		\item Multiply $x$ by 2.
+		\item If $x \ge 1$, subtract 1 from $x$ and append 1 to $b$.
+		\item If $x < 1$, append 0 to $b$.
+		\item Goto step 3 until $x != 0$.
+	\end{enumerate}
+
+	\subsection{Signed Integers}
+	\begin{itemize}
+		\item \textbf{Two's complement:} Flip all bits, add 1.
+		      Range is $-(2^{n-1}), +(2^{n-1} - 1)$
+		\item \textbf{Sign-magnitude:} First bit is sign, rest is magnitude.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+		\item \textbf{One's complement:} Flip all bits.
+		      Eg, +6 is $0110$, so to get -6 go from $0110 \to 1001 \to 1010$.
+		      This has 2 zero, positive and negative zero.
+		      Range is $-(2^{n-1} - 1), +(2^{n-1} - 1)$.
+	\end{itemize}
+
+	\subsection{Cast from Ints}
+	You might want to cast a lets say 8 bit int, to a 16 bit int. How you do that? \\
+	\textbf{sign-magnitude}: Copy the MSB to the bigger ints MSB. Then take the remaining bits and fill them from the right to left. \\
+	\textbf{one's complement and two's complement}:
+	Copy the Lowest order bits (the bits except the sign defining bit) and copy them to the other ints lowest order bits. \\
+	Take the MSB and make all the remaining bits in the new int the MSB.
+	\subsection{IEEE-754 Floats}
+	Can represent values from $2^{-126}$ to $2^{127}$ which is $10^{-38}$ to $10^{38}$ in decimal.
+	If double precision is used then the range is $2^{-1022}$ to $2^{1023}$ which is $10^{-308}$ to $10^{308}$ in decimal.
+	Separated into \textbf{sign, exponent, and mantissa}.
+	Entire float is represented in binary, and the exponent is biased by $2^{b-1} - 1$,
+	where $b$ is the number of exponent bits.
+	Leading 1 is dropped from mantissa.
+	To calculate from IEEE, do $1.(m_2) \times 2^{(e_2)}$.
+	(Convert out of base 2 first).
+	Range is approximately $2^{(-2^b)+2}, 2^{2^b-1}$,
+	where $b$ is the bits dedicated to the exponent, \textbf{minus 1}.
+	\includegraphics[width=\linewidth]{ieee-754.png}
+
+	\subsubsection{Special Values}
+	\begin{center}
+		\begin{tabular}[!ht]{@{}cc|c@{}}
+			\toprule
+			Exponent & Mantissa   & Value        \\
+			\midrule
+			all 1s   & all 0s     & $\pm \infty$ \\
+			all 1s   & not all 0s & NaN          \\
+			all 0s   & not all 0s & denormalized \\
+			all 0s   & all 0s     & $\pm 0$      \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+
+	\subsection{Binary-coded decimals}
+	Instead of representing decimals using a float,
+	use an arbitrarily long string of bytes, usually as binary ints.
+	Efficiency can be improved using packed BCDs, by putting 2 ints in one byte
+	(each digit occupying a nibble).
+	\verb|0x2D| is used by the textbook to represent a negative, placed at the end of the BCD.
+	For a packed BCD, drop the 2.
+
+	\subsection{Endianess}
+	\textbf{Endian:} The way in which words(group of bytes) are stored in memory.
+	\textbf{Big Endian:} Most significant byte first.
+	\textbf{Little Endian:} Least significant byte first.
+	Little endian is the most common method of storing data in memory.
+	\includegraphics[width=\linewidth]{endianness.png}
+	\subsection{ASCII and Unicode}
+	\textbf{ASCII:} 128 characters, 7 bits.
+	\textbf{Unicode:} 1,114,112 characters, 21 bits. Has variable length encoding for optimization i.e has as many bytes as needed.
+	\subsection{Unicode Encoding}
+	\includegraphics*[width=\linewidth]{unicode.png}
+
+
+
+	\subsection{Types of architecture}
+	\textbf{Von Neumann architecture (left):}
+	\begin{itemize}
+		\item Single memory block which contains both instructions and data.
+		\item Offers complete flexibility: at any time, owner can change how much of the memory is devoted to programs and how much to data.
+		\item More popular.
+	\end{itemize}
+	\textbf{Harvard architecture (right):}
+	\begin{itemize}
+		\item 2 separate memory. One is used for instruction, one is used for data.
+		\item Inflexible, as you cannot use part of the instructional memory to store data and vise versa.
+		\item Less popular. Sometimes used in small embedded systems.
+	\end{itemize}
+	\includegraphics[width=0.49\linewidth]{vn-arch.png}
+	\includegraphics[width=0.49\linewidth]{harvard-arch.png}
+	\subsubsection{Von Neumann Bottleneck}
+	On computers running Von Neumann Architecture, time spent accessing memory can limit performance.
+	To avoid the bottleneck, designs are chosen where operands are moved to registers instead of system memory.
+
+	\subsection{Types of processors}
+	A processor is a digital device that can perform a computation involving multiple steps. \\
+	\textbf{Categories based on logic:} \\
+	\begin{itemize}
+		\item \textbf{Fixed logic}: Function fixed in hardware, performs a single task
+		\item \textbf{Selectable logic}: Choose one of several fixed functions.
+		\item \textbf{Parametrizable logic}: Accepts a set of parameters that control the computation of fixed functions.
+		\item \textbf{Programmable logic}: list of instructions provided at runtime (you can code them)
+	\end{itemize}
+
+	\textbf{Categories based on Complexity:} \\
+	\begin{itemize}
+		\item \textbf{Co-processors}: Dedicated function. Usually performs a single task at high speed. Used in -> Floating point accelerator. Fixed/Selectable logic.
+		\item \textbf{Microcontrollers}: Direct hardware control. Used in -> Elevator doors. Programmable logic.
+		\item \textbf{Embedded System Processors}: real-time OS, dedicated hardware. usually more powerful than microcontrollers. Used in -> smart phone Programmable logic.
+		\item \textbf{General-purpose Processors}: compatible for multiple systems. Used in -> CPU in a PC. Programmable logic.
+	\end{itemize}
+
+	\subsection{Parts of a processor}
+	\begin{itemize}
+		\item \textbf{Controller}: Responsible for program execution. Steps through the program and coordinates the actions of all other units.
+		\item \textbf{Arithmetic logic unit}: Performs all computational tasks. Performs one operation at a time according to controller.
+		\item \textbf{Local storage (registers)}: Hold data values such as operands for arithmetic operations and the result.
+		\item \textbf{Internal connections}: Transfers data values between units, like from local storage to the ALU. AKA data paths/Bus/Control lines
+		\item \textbf{External interface}: Handles all communication between the processor and the rest of the computer system.
+	\end{itemize}
+
+	\subsection{Fetch execute cycle}
+	There is a \textbf{instruction pointer} which moves through the program performing every step. The cycle never ends while the system is runing.
+	\begin{enumerate}
+		\item Fetch the next instruction
+		\item Decode the instruction and fetch operands from registers
+		\item Perform the arithmetic operation specified by the \textbf{opcode}
+		\item Perform memory read or write, if needed
+		\item Store the result back to the registers
+		\item go to next instruction, Repeat forever.
+	\end{enumerate}
+
+	\subsection{Program Translation}
+	\includegraphics[width=\linewidth]{program-translation.png}
+	\begin{itemize}
+		\item \textbf{Preprocessor:} Expands macros, producing modified source program.
+		\item \textbf{Compiler:} Translates it to assembly.
+		\item \textbf{Assembler:} Translates it to relocatable object code which contains references to external library functions.
+		\item \textbf{Linker:} Replaces external function references with its code.
+	\end{itemize}
+
+	% Needs review and addition of more details maybe
+	\subsection{Fetch execute cycle notes}
+	\begin{itemize}
+		\item Instructions are stored as binary data defined in a instruction set.
+		\item The program starts at a constant point in memory which could be 0 or any other point, that part of memory should always have the necessary instructions to boot the system.
+		\item Fetch execute cycle runs indefinitely, that's why in general purpose computers an OS is running at all times that manages the execution of programs.
+	\end{itemize}
+
+
+	\subsection{CISC vs RISC}
+	\textbf{CISC}
+	\begin{itemize}
+		\item Each instruction performs a complex operation
+		\item Instructions may take multiple clock cycles
+		\item Fewer instruction calls
+	\end{itemize}
+	\textbf{RISC}
+	\begin{itemize}
+		\item Each instruction performs a simple operation
+		\item Instructions all take the same number of clock cycles
+		\item Many instruction calls needed
+		\item Allows for pipelining, as each part of the instruction takes the same amount of time
+	\end{itemize}
+
+	\subsection{Pipelines}
+	Allow for more than one instruction to be ``processed'' at the same time.
+	Generally 5 stages:
+	\begin{enumerate}
+		\item Fetch next instruction
+		\item decode \& fetch operands
+		\item perform arithmetic operation
+		\item read or write memory
+		\item store result
+	\end{enumerate}
+
+	\subsubsection{Pipeline Stalls}
+	Also known as hazards. 3 main types:
+	\begin{itemize}
+		\item
+		      \textbf{Data Hazards:} Waiting for data from an earlier instruction.
+		      Can be dealt with using data forwarding (allowing data to be used
+		      before it exits the pipeline), re-arranging instruction order.
+		\item
+		      \textbf{Control Hazards:} Incorrect instruction is in the pipeline.
+		      Occurs during jump instructions/branching. Jumps are not executed
+		      until the fifth stage, so instructions directly after are fetched
+		      inside the pipeline.  Can be dealt with using conditional branch
+		      prediction, flushing pipeline if prediction is wrong.
+		\item
+		      \textbf{Structural Hazards:} Resource conflict (usually from external
+		      source) (eg sombody else is accessing the same register bank). Can
+		      be dealt with by loading data in parallel, eg using multiple banks.
+	\end{itemize}
+	\includegraphics[width=\linewidth]{stall-example.png}
+
+	\subsection{Branching}
+	Moving the instruction pointer to a different location in program.
+	Can be either absolute branch, or relative branch.
+	Branch prediction can be used to try to run code from a branch before
+	the processor has the data needed to evaluate it, speeding up runtime.
+	% REVIEW: idk what else needs to be added here,
+	% this seems pretty trivial
+
+	\section{Instruction Sets}
+	Generally has the following parts:
+	Operation number, registers, offset.
+	\begin{itemize}
+		\item \textbf{Opcode (operation code)}:
+		      Specifies the operation to be performed.
+		\item \textbf{Registers}:
+		      Specifies the operands and the destination.
+		\item \textbf{Offset}:
+		      Think of it like array indexes. Can be a signed integer to
+		      move backwords.
+	\end{itemize}
+	\includegraphics[width=\linewidth]{isa-example.png}
+
+	\subsection{Design choices}
+	\subsubsection{Encoding length}
+	\textbf{Variable-length} encoding can improve instruction density,
+	but \textbf{fixed-length} instructions are simpler to implement in hardware,
+	and are thus more performant. Unused bits are ignored by the instruction.
+
+	Offsets are used to encode immediate values (generally used for jumping).
+
+	\subsubsection{Number of Operands}
+	\textbf{Zero operands:} Stack architecture, using push and pop. All operands are implicit.
+	\textbf{One operand:} Implicit destination (usually a special accumulator register)
+	\textbf{Two operands:} Specified destination, but uniary operations (eg \verb|add rA, rB #rA=rA+rB|)
+	\textbf{Three operands:} Specified destination, binary operations
+	TL;DR, more operands = more flexible instructions, but more space taken up by operands
+
+	\subsubsection{Implicit vs Explicit Encoding}
+	\textbf{Implicit Encoding:} Operand types are always the same for a given opcode.
+	Different opcodes are used for different types.
+	\textbf{Explicit Encoding:} Operand field specifies what type of operands are being provided.
+
+	\subsubsection{Operand Adressing Modes}
+	\includegraphics[width=\linewidth]{operand-addressing-modes.png}
+
+	\subsubsection{Orthogonality}
+	Each instruction should perform a \textit{unique task},
+	without duplicating or overlapping the functionality of other instructions.
+	Advantages: Orthogonal instructions can be understood more easily,
+	and programmers don't need to pick between functions that perform the same task.
+
+	\subsection{Registers}
+	\begin{itemize}
+		\item
+		      \textbf{General Registers}:
+		      Fixed size (usually 32 or 64 bits), 2 basic ops, fetch and store.
+		      Numbered from 0 to $N-1$.
+		\item
+		      \textbf{Floating Point Registers}:
+		      Separate set of registers holding floats, but numbering overlaps.
+		      Floating point registers are automatically used if instruction requires FP.
+		\item
+		      \textbf{Special Registers}:
+		      \begin{itemize}
+			      \item
+			            \textbf{Program Counter (\textit{pc})} - Stores the address of the
+			            next instruction to fetch.
+			      \item
+			            \textbf{Comparer (\textit{cmp})} - Stores the result of the last
+			            comparison operation. (1 for true, 0 for false).
+			      \item
+			            \textbf{Accumulator (\textit{acc})} - For zero and one-operand
+			            architectures to store the result of the last command.
+		      \end{itemize}
+	\end{itemize}
+
+	\subsubsection{Subroutines and Register Windows}
+	When calling a subroutine, registers in use will partially shift down,
+	making some of them unaccessible, some new registers available,
+	and keeping some between both calls.
+	This allows for values to be passed to and from the subroutine,
+	while keeping some values separated.
+	\includegraphics[width=\linewidth]{register-windows.png}
+
+	\subsubsection{Register Banks}
+	\begin{itemize}
+		\item Allows parallel access within same clock cycle -> efficiency
+		\item Some operations require operands from banks
+		\item Register bank conflicts
+	\end{itemize}
+
+	\subsubsection{Register Conflicts}
+	Accessing 2 registers from the same bank simultaneously causes a register conflict.
+	Best case, it causes a stall in the pipeline. Worst case, it causes the system to crash. \\
+	\subsubsection{Solution}
+	\begin{itemize}
+		\item reassign
+		\item moving registers
+		\item insert an instruction to copy values to the opposite register.
+	\end{itemize}
+
+	\section{Physical Implementation}
+	\begin{center}
+        \includegraphics[width=\linewidth]{data-paths.png}
+	    \includegraphics[width=0.5\linewidth]{m1m2m3.png}
+	\end{center}
+	\begin{itemize}
+		\item Core loop between M1, 32-bit pgm. ctr., 32-bit adder
+		\item Instruction memory returns instruction at given address
+		\item Instruction decoder takes instruction and decodes it into individual parts
+		\item Register fields used to select registers used in instructions, register unit takes fields and returns contents
+		\item M2 Multiplexer takes auxiliary adding functions (such as adding an offset) and passes it through ALU
+		\item ALU performs operation. For addresses, it's passed directly to data memory to get data out,
+		      for operations, data is passed to multiplexer to be stored into register for future use.
+	\end{itemize}
+
+	\includegraphics[width=\linewidth]{bitbit.png}
+
+    \section{Microcode}
+	Hardware needs to be very complex to answer demands\\
+	Difficult to design hardware\\
+	Turn design and verification into a programming problem\\
+	Microcode is a way to offload some complexity to software\\
+	One instruction set visible to programmer (“macrocode”).\\
+	Different instruction set available internally.\\
+	Macro instructions are coded in microcode.\\
+	Microcontroller(s) process microcode to emulate macrocode.\\
+	\textbf{Microcode: Pros and Cons}\\
+   Pros\\
+	\begin{itemize}
+	\item Less prone to errors compared to hardware design.
+	\item Easier to implement.
+	\item Ease of extension and modification.
+	\item Offers another level of abstraction.
+	Cons\\
+	\item More overhead than dedicated hardware design.
+	\item Variable cost for macro instructions.
+	\item Depends on number of micro instructions.
+	\item Microcontroller needs to run very fast
+	\end{itemize}
+	\textbf{Vertical Microcode}\\
+	\begin{itemize}
+	\item Sequential coding.
+	\item Control one functional unit at a time.
+	\item Microcontroller centralizes workflow.
+	\item Needs fast microcontroller.
+	\item Intuitive to code macro instructions.
+	\end{itemize}
+	\textbf{Horizontal Microcode}\\
+	\begin{itemize}
+	\item Control multiple functional units simultaneously.
+	\item Each instruction executes several operations in parallel.
+	\item Less intuitive and requires deeper understanding of the hardware.
+	\end{itemize}
+	Vertical microcode takes an in-series approach where each instruction only controls one unit in the CPU at a time and complex instructions are emulated via a sequence of these instructions. Horizontal microcode on the other hand takes a more low-level approach where different units are controlled in parallel: that is, each microcode instruction controlls all units at the same time.\\
+	If execution not finished instruct it to continue in the next cycle, possible to execute instructions in parallel when resources not blocked.\\
+	\textbf{Lookahead Execution}\\
+	Given batch of macro instructions, possible to optimize further. \\
+	Microcontroller can look ahead to next instruction and perform optimization Need to preserve computation semantics\\
+	Lookahead for conditional branching: branch prediction or parallel branch execution, depending on hardware.\\
+	Operand data can be addressed in the following ways, sorted by speed of access (fastest to access is first): as immediate values in an instruction; as values stored in a register; as a value stored in memory, with the memory address encoded in the instruction; as a value stored in memory, with the memory address stored in a register; and as a value stored in memory, where the memory address is also stored in memory. The difference in access speed is due to the difference in the storage technology used: immediate values are directly available in instruction decoding, registers are the next in terms of access speed, and memory is the slowest to access.
+
+    \section{Assembly}
+	\textbf{Two-stage Assembler}\\
+	Stage 0: (not counted) run pre-processor.\\
+	Stage 1: assign address to every instruction and build label symbol table.\\
+	Stage 2: translate instructions to binary. Substitute label with location from symbol table.\\
+    \section{Memory Caching}
+	\textbf{Memory} Any physical storage device that can store and retrieve information.\\
+	\textbf{Static RAM (SRAM)}\\
+	\begin{itemize}
+	\item Similar to a latch
+	\item High-power consumption
+	\item Low latency, high access speed
+	\end{itemize}
+	\textbf{Dynamic RAM (DRAM)}
+	\begin{itemize}
+	\item Similar to a capacitor
+	\item Low-power consumption
+	\item Higher latency, slower access
+	\end{itemize}
+	\textbf{Latency}: time to complete single operation\\
+	\textbf{Cycle time}: average time per operation
+    \section{Virtual Memory}
+	\textbf{Byte Addressing} Virtual addresses at processor level are byte addresses, Byte address b, word size N, word = b div N, offset = b mod N. If N is a power of two: N = 2x then: Division by 2x equivalent to shift by x. Modulo equivalent to truncation at x digits.\\
+	Common address space 4 memory chips, each has address 0 to N. MMU provides addresses 0 to 4N. Sequential and interleaved mode.\\
+	\textbf{Cache} System that acts as an intermediary between a data producer and a data consumer. Cache intercepts requests and handles them on behalf of data producer. A small intermediary storage.\\
+	\textbf{Characteristics of a Cache}
+	\begin{itemize}
+	\item Small : size of cache $\ll$ size of data at producer.
+	\item Active: contains an algorithm that makes decisions and handles requests.
+	\item Transparent: producer and consumer unaware of cache existence.
+	\item Automatic: not controlled by an external mechanism.
+	\end{itemize}
+	Given $C_h$ cost of cache hit, $C_m$ cost of cache miss and the hit ratio r defined as: $r = \frac{N_{hit}}{N_{hit} + N_{miss}}$, we calculate the expected cost of a lookup as $C_{cache} = r \cdot C_h + (1 - r) \cdot C_m$. \\
+	benefit of using a cache is on average $C_m - C_{cache} = r \cdot (C_m - C_h) > 0$\\
+	When $C_m > C_h$ and $r > 0$ a cache always improves performance.\\
+	Better performance with higher hit ratio r and lower lookup cost $C_h$\\
+	Two caches $C_1, C_2$ with $r_1, r_2$ and $C_{h1}, C_{h2}$ cost of request: $C_{cache} = r_1 \cdot C_{h1} + r_2 \cdot C_{h2} + (1 - r_1 - r_2 ) \cdot C_m$, lower than cost with only one cache. \\
+	\textbf{Cache replacement policies}: least recently used, least frequently used.\\
+	\textbf{Two strategies of how to maintain a cache.}\\
+	Write-through: as soon as value modified, update back along chain\\
+	Write-back: set a dirty bit when modified. Write only when value replaced in cache.\\
+	All caches need to see write operations in the same order.\\
+	All caches need to be informed immediately when value to be changed.\\
+	In some cases a cache my need to be flushed.\\
+	Different strategies: common directory, snooping.\\
+	\textbf{Direct Mapped Memory Cache}: Key idea: maintain several cache lines containing words from memory.\\
+	\textbf{Address Translation(Word Addressing)}: the offset inside the line is o = a mod W, where o is the offset, a is the address, and W is the number of words per line. The block ID is b = (a div W) mod B, where B is the number of blocks/lines in the cache. The tag is t = (a div W) div B.\\
+	The powers of 2 are useful in this case as modulus and division operations can be performed simply by selecting the appropriate bits in the address.\\
+	How much memory is needed to implement DMMC = data storage + tag storage, round up \# of tag bits to the nearest power of 2.\\
+	\textbf{Set Associative Memory Cache} Look through K DMMCs in parallel. Store multiple lines with same block ID / different tag ID.\\
+	\textbf{Fully associative cache}: each DMMC holds single line. Allows implementing a LRU cache replacement policy.\\
+	Programmers can improve cache performance by: Sequential access of allocated memory. Aligned memory allocation. Group operations.\\
+	Addresses between CPU and MMU are in a virtual address space (may be byte addresses).\\
+	MMU talks to each physical memory in physical address space (word addressable memory).\\
+	\textbf{Motivations for Virtual Memory}
+	\begin{itemize}
+	\item Homogeneous integration of hardware.
+	\item Programming convenience.
+	\item Support for multi-programming.
+	\item Protection and encapsulation of programs and data.
+	\end{itemize}
+	\textbf{Base-bound Registers}
+	MMU keeps track of mapping between virtual space i and a pair (base, bound). Base points to memory address that maps to virtual address 0. bound can be scaled dynamically and points to end of memory space.\\
+	Problems: What if memory is full? How to decide where to place base? What if virtual space is more than available memory space?\\
+	\textbf{Segmentation} Key idea: split up program memory space into variable size chunks. Exploits fact that most program memory is idle. When segment needed it is loaded on demand. Potentially replace old segment.\\
+Key issues: memory fragmentation, how to choose optimal segment splits.\\
+	\textbf{Demand Paging} Split up program memory space into fixed size chunks called pages.
+Conceptually similar to segmentation, but more straight-forward to implement
+Requires cooperation between software and hardware
+	Software\\
+	\begin{itemize}
+	\item Configure hardware
+	\item Monitor page use
+	\item Move pages between memory and storage\\
+	Hardware
+	\item Handle address mapping.
+	\item Record when a page is used.
+	\item Detect access attempt to a missing page.
+	\end{itemize}
+	\textbf{Demand Paging Terminology}\\
+	\begin{itemize}
+	\item page: a fixed-size block of a program’s memory space.
+	\item frame: a corresponding slot in physical memory of the same fixed size.
+	\item load: move contents of a page from hard drive into a frame in memory.
+	\item swap: exchange a resident page for another page from storage.
+	\item resident page: a page currently in memory.
+	\item resident set: set of all resident pages.
+	\item page table: an array that holds pointers mapping from page number to physical address of the frame where page resides.
+	\item replacement policy: a decision policy for choosing what page to swap
+	\end{itemize}
+	Page table holds pointers to frames allocated for all pages in a program’s memory space.\\
+	Each entry also maintains several flags:\\
+	presence bit: set if page is resident.\\
+	use bit: set every time an address on the page has been fetched, re-set if page not used for a fixed number of cycles.\\
+	modified bit: set if a memory address on the page has been written to.\\
+	\textbf{Address Translation}\\
+	Say we want to access address a. Each page is P bytes long. We calculate the page number N = a div P. We fetch the frame address $F = P_t[N]$. We calculate the offset O = a mod P. The physical address of a is at F + O.\\
+	\textbf{Page Table Storage} memory = OS + page tables + frame storage.\\
+	A \textbf{translation lookaside buffer} is a form of cache that stores the lookup pair between page number $p_n$ and the frame address F .(and returns the local copy of frame address if the corresponding page is looked up a second time).\\
+s memory addresses are often sequentially accessed, we expect that the same page number $p_n$ will be queried again.\\
+
+	\textbf{Software/Hardware Synchronization Typical operating sequence}\\
+	MMU attempts to load address a on page P.\\
+	MMU checks page table Pt [P]. Check if presence bit is set.\\
+	If no MMU raises page fault.\\
+	OS handles page fault by loading P from hard drive and updating P t\\
+	If no space left in memory, OS swaps a page with a use bit set to 0.\\
+	If modified bit is set, page needs to be saved, otherwise discarded.\\
+	If yes, MMU looks up address and updates use bit and modified bit.\\~\\~\\
+	A cache holds virtual memory addresses with process IDs.\\
+	When running process switches, cache usually flushed.
+    \section{IO Bus}
+	\textbf{I/O Devices}
+	I/O device is an external circuit connected to the CPU via digital signals. \\
+	Primary function: data transfer\\
+	Follow the fetch/store data paradigm\\
+	\textbf{data transfer}\\
+	\textbf{Parallel}\\
+	multiple data lines, 	number of lines = interface width, transfer multiple bits simultaneously\\
+	Lower latency per word, can send in one go. Potentially higher throughput, but possible issues with interference.\\
+	\textbf{Serial}\\
+	single data line, 	transfer data in series, one item at a time\\
+	Higher latency, word sent sequentially, but possibly higher rate of data transfer.\\
+	Clocks and Synchronization\\
+	A clock signal is required to disambiguate between bits\\
+	Clock signal may be explicitly transmitted on dedicated line\\
+	Some interfaces clockless: synchronization sequence + implied clock\\
+	Sender and receiver need to have agreed on frequency.\\
+	Communication Directionality\\
+	Communication channel can be classified based on what type of information exchange it allows.\\
+	\textbf{Single direction} Data only flows from $A \rightarrow B$, never $A \leftarrow B$.\\
+	\textbf{Half-duplex} Allows either $A \leftarrow B$ XOR $A \rightarrow B$.\\
+	\textbf{Full-duplex} Allows $A \leftrightarrow B$\\
+	A \textbf{bus} is a digital communication mechanism that allows two or more devices to exchange data.\\
+different designs (open, proprietary), different applications, different interface controllers, Interface controller implements bus access protocol.\\
+	\textbf{Control, Address and Data Lines}: dedicated to different functions\\
+	Control lines: take control of bus, request transfers, set signals and interrupts.\\
+	Address lines: transmit the address in a fetch/store operation.\\
+	Data lines: transmit data.\\~\\~\\
+	When data wider than interface width do data multiplexing. More optimization possible: joint data/address multiplexing.\\
+	Key idea: use address lines and data lines together.\\
+	Implement protocol, transfer address and data sequentially over shared lines.\\
+	\textbf{Bus Address Space}: All devices connected to the bus see the data/address/control bits sent. Only device with matching address responds. Every device on bus has a unique set of addresses assigned. Each address corresponds to a particular device function. Unique addresses: each socket has a range pre-assigned.\\
+	\textbf{Unified Address Space}: I/O device addresses are in the same space as memory addresses. Fetch/store to device same as fetch/store to memory. MMU manages address allocation and raises faults when accessing a hole in address space.\\~\\~\\
+	A modern architecture has one primary bus and several auxiliary buses.\\~\\~\\
+	An \textbf{I/O bridge} is a device that connects between two buses, provides address translation, and relays data. Typically has two interface controllers, one for each bus.\\
+	Bridge provides address translation in the unified address space.\\
+	Addresses on the main bus can be kept constant and mapped differently on auxiliary bus.\\
+
+    \section{Interrupts}
+	Polling(Programmed IO) is an inefficient way to handle I/O operations and most systems today use interrupt-driven asynchronous communication\\
+	\textbf{Programmed I/O} CPU has to periodically check if operations complete through the use of polling and takes control of all low-level operations on device. Device can be very simple, fixed logic circuits.\\
+	Synchronization issues: CPU runs at high clock rate. Device operations order of magnitude slower. Result: CPU has to wait for device.\\
+	\textbf{Interrupt-driven I/O} Instead of synchronous programming, allow device to work asynchronous and interrupt processor when done.\\
+	Requires special design for: \\
+	\begin{itemize}
+	\item I/O device hardware: on-board processor and ability to raise interrupts
+	\item I/O bus architecture: support for interrupt signals
+	\item processor architecture: context switching 
+	\item programming paradigm: OS needs to support interrupts
+	\end{itemize}
+	Every time a device triggers an interrupt signal, OS responds by calling function handler i[d]. Pointer to function is known as an \textbf{interrupt vector}.\\
+	At boot time OS fills table with interrupt handlers per device\\
+	Device IDs can be decided either by plug-in slot, or set by BIOS.\\
+	Hot-plug devices, e.g. USB: new device plug-in triggers interrupt, handler allocates device id and interrupt handler for new device. Handling devices usually through device drivers.\\
+	\textbf{Device Driver}: Upper half(invoked by applications): provides OS interface to user-space programs(system calls) Lower half(invoked by interrupts): runs asynchronously\\
+	\textbf{Direct Memory Access (DMA)}: Minimizes the number of interrupts because context switching is expensive. Only trigger interrupt when buffer is full. Chain buffers and operations.
+	system calls are expensive: require synchronization\\
+	buffering calls: collect number of calls and perform simultaneously.\\
+	On average we expect that a single call takes M cycles for operations and N cycles for overhead. K calls then cost $K \cdot (M + N)$. If we buffer, K calls cost $K \cdot M + N$.\\
+    
+\end{multicols*}
+
+
+\end{document}
