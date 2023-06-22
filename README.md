@@ -5,7 +5,7 @@
 [Or download cheat sheets directly here](https://github.com/mac-egirls/oscs/releases/tag/latest)
 
 ## Become a contributor
-Open a pull request with the changes you want, and you'll be added as a contributor!
+Open a pull request with the changes you want!
 
 ## Github Codespaces Setup (Recommended)
 1. Click the green `<> Code` button
