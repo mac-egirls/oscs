@@ -244,14 +244,14 @@ DISPLAY =(value.read[T]->DISPLAY)+{value.write[T]}.
   \section{LTS}
   % TODO: This can probably be deleted, seems pretty trivial
   % Maybe replace with crucial examples?
-  % \includegraphics[width=\linewidth]{COMPSCI-2SD3/lts-example.png}
+  \includegraphics[width=\linewidth]{lts-example.png}
 
   \section{Petri Nets}
 
   \subsection{Reachability Graphs}
   % TODO: this image is really small and probably won't print well
   % if we have time, refactor it...
-  % \includegraphics[width=\linewidth]{COMPSCI-2SD3/reachability_graph.png}
+  \includegraphics[width=\linewidth]{reachability_graph.png}
 
   \section{Hiding/Labeling}
   \textbf{relabeling:} (PROCESS)/$\{newlabel1/oldlabel1, ... , newlabeln/oldlabeln\}$\\
@@ -270,8 +270,8 @@ DISPLAY =(value.read[T]->DISPLAY)+{value.write[T]}.
 
   % \section{Structure Diagrams}
   % \begin{center}
-  %     \includegraphics[width=\linewidth]{COMPSCI-2SD3/sd.png}
-  %     \includegraphics[width=.7\linewidth]{COMPSCI-2SD3/sd-printer.png}
+  %     \includegraphics[width=\linewidth]{sd.png}
+  %     \includegraphics[width=.7\linewidth]{sd-printer.png}
   % \end{center}
   % \begin{lstlisting}
   % RESOURCE = (acquire -> release -> RESOURCE).
@@ -338,7 +338,7 @@ CONSUMER = (get->CONSUMER).
   \subsection{Nested Monitor Problem}
   \section{P/T nets}
   Each place in a P/T net can hold multiple tokens. Each transition has a weight, w, associated with it. If it is an input transition, firing takes w tokens from the input place. If its an output transition, firing adds w tokens to the output place. An action can only be fired if enough input tokens are present in all input places.
-  \includegraphics[width=.7\linewidth]{COMPSCI-2SD3/ptnet.png}
+  \includegraphics[width=.7\linewidth]{ptnet.png}
   \section{Deadlocks}
   \subsection{Dining Philosophers Problem}
   Simple minded construction:
@@ -365,14 +365,14 @@ COUNT[i:1..4] = (when(i<K) sitdown -> COUNT[i+1] | getup -> COUNT[i-1]).
 \end{lstlisting}
 
   \textbf{Solution 3} -- Use Simultaneity
-  \includegraphics[width=\linewidth]{COMPSCI-2SD3/phil-sim.png}
+  \includegraphics[width=\linewidth]{phil-sim.png}
   Only fire a transition if both forks are available
 
   \section{Coloured Petri Nets}
   ``Colours'' are simply types of tokens that are passed around the petri net
   Paths to transitions are either labeled with variables or functions that transform one of the input variables into the object to remove from a state.
 
-  \includegraphics[width=\linewidth]{COMPSCI-2SD3/diners-cpn.png}
+  \includegraphics[width=\linewidth]{diners-cpn.png}
   \begin{lstlisting}
 colour PH = with ph1 | ph2 | ph3 | ph4 | ph5
 colour Fork = with f1 | f2 | f3 | f4 | f5
@@ -568,7 +568,7 @@ CIG_SMOKERS = (SMOKERS || RESOURCES || AGENT_RULE)/
   $E[\phi_1 U \phi_2]$ - There Exists a computation path beginning in $s$ such that $\phi_1$ Until $\phi_2$ holds on it.\\
   The future includes the present.
 
-  \includegraphics[width=\linewidth]{COMPSCI-2SD3/ctl.png}
+  \includegraphics[width=\linewidth]{ctl.png}
 
   \textbf{Equivalences}
   $\neg AF\phi \equiv EG\neg\phi$\\
@@ -631,7 +631,7 @@ S2C = (e -> S2 | a -> e -> S2A),
 S2D = (d -> S2 | c -> d -> S2B).
 \end{lstlisting}
   For the above FSPs, they both share the same LTS diagram (LTS version of the right petri net), however, since $||$S1 has simultaneous actions, its petri net will be show simultaneity whereas S2 will not.
-  \includegraphics[width=\linewidth]{COMPSCI-2SD3/A1Q7.png}
+  \includegraphics[width=\linewidth]{A1Q7.png}
 
   \section{Q5 - Midterm}
   A central computer is connected to remote terminals, with seats for concert hall. Clients choose a free seat and clerk enters the seat into the system and gives a ticket. We need to prevent double booking while letting clients choose any available seat.
@@ -683,13 +683,13 @@ Q = (c -> d -> Q).
 Qa = (c -> d -> Q) + {b}.
 \end{lstlisting}
   When taking the composition of $||$PQ and $||$PQa, we take the union of both processes and remove duplicate transitions. In the case of PQ, there are no similar transitions, however PQa shares the b transition, so that is removed from the LTS.
-  \includegraphics[width=\linewidth]{COMPSCI-2SD3/aep.png}
+  \includegraphics[width=\linewidth]{aep.png}
 
   \subsection{Properties}
   With properties, whenever you add more transitions through alphabet extension, you need to apply this transition to every state and use it as a transition to an error state.
-  \includegraphics[width=\linewidth]{COMPSCI-2SD3/aep2.png}
+  \includegraphics[width=\linewidth]{aep2.png}
 
-  % \includegraphics[width=\linewidth]{COMPSCI-2SD3/kita.png}
+  % \includegraphics[width=\linewidth]{kita.png}
 
   \section{Tut 6 Mutex Example}
   Workers in an office share a printer. The printer is able to print any number of jobs before it runs out of toner. This is replaced by a technician when necessary.
@@ -785,11 +785,11 @@ progress ENTER2 = {n2.enter}
 \end{lstlisting}
 
   % REVIEW: apparently this might not be correct???
-  \includegraphics[width = \linewidth]{COMPSCI-2SD3/warring_neighbours_partb.png}
+  \includegraphics[width = \linewidth]{warring_neighbours_partb.png}
 
   \section{CTL and LTL Examples}
   % \begin{center}
-  %     \includegraphics[width=.7\linewidth]{COMPSCI-2SD3/q8a.png}
+  %     \includegraphics[width=.7\linewidth]{q8a.png}
   % \end{center}
   If the process is enabled infinitely often, then it runs infinitely often.
   $$
@@ -863,7 +863,7 @@ CUSTOMER = (getcheese->CUSTOMER).
 COUNTER = (getcheese->COUNTER).
 ||CHEESE_COUNTER = (Customers:CUSTOMER || Customers::COUNTER).
 \end{lstlisting}
-  \includegraphics[width = \linewidth]{COMPSCI-2SD3/a3q3.png}
+  \includegraphics[width = \linewidth]{a3q3.png}
 
   \section{Burger}
   A cook puts burgers in a pot. A client checks if there is at least one burger in the pot, and if so, the client must take one.
