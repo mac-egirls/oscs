@@ -1,6 +1,6 @@
 {
     "name": "project-dev",
-    "dockerComposeFile": [".devcontainer/docker-compose.yml"],
+    "dockerComposeFile": ["docker-compose.yml"],
     "service": "vscode",
     "runServices": ["vscode"],
     "shutdownAction": "stopCompose",
