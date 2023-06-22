@@ -3,7 +3,6 @@ version: "3.2"
 services:
   vscode:
     build: .
-    image: latexdevcontainer
     volumes:
       - ../:/workspace
       # Docker socket to access Docker server
@@ -18,6 +17,5 @@ services:
       # Git config
       # - ~/.gitconfig:/root/.gitconfig
     environment:
-      - TZ=
+      - TZ="America/Toronto"
     entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
- 
