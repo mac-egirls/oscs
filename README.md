@@ -1,23 +1,28 @@
 # Open Source Cheat Sheets
 
-[Check out the online preview here!](https://err53.github.io/oscs/)
+[Check out the online preview here!](https://mac-egirls.github.io/oscs)
 
 ## Become a contributor
-Either open a pull request with the changes you want,
-open an issue asking to become a contributor,
-or drop a message in the OSCS thread in the Mac CS 2025 Discord.
+Open a pull request with the changes you want, and you'll be added as a contributor!
 
-## Local Setup (Recommended)
-1. [Install VS Code](https://code.visualstudio.com/)
-2. [Install LaTeX Locally](https://www.latex-project.org/get/)
+## Github Codespaces Setup (Recommended)
+1. Click the green `<> Code` button
+2. Click the `Codespaces` tab
+3. Click `Create codespace on main`
+
+If you don't have enough credits,
+try signing up for the [Student Developer Pack](https://education.github.com/pack),
+which gives you GitHub Pro.
+
+## Local Devcontainer Setup
+1. [Install VS Code](https://code.visualstudio.com)
+2. [Setup Docker and Devcontainer Plugin](https://code.visualstudio.com/docs/devcontainers/containers)
+3. (Re)open repository in a Devcontainer
+
+## Local Baremetal Setup
+1. [Install VS Code](https://code.visualstudio.com)
+2. [Install LaTeX Locally](https://www.latex-project.org/get)
 3. [Install LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
-
-## Overleaf Setup
-1. Become a contributor (see above)
-2. Create a new project in Overleaf, and pick "Import from GitHub"
-3. When you want to push/pull changes, use the Overleaf menu and select GitHub, under Sync. \
-(I have no idea how well Overleaf handles merge conflicts,
-which is why I recommend using the local setup above.)
 
 DISCLAIMER: ONLY USE THIS AS A REFERENCE FOR YOUR ACTUAL CHEAT SHEETS.
 CHECK WITH YOUR PROF IF YOU ARE ALLOWED TO USE OTHER PEOPLE'S CHEAT SHEET.
