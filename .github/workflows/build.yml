@@ -3,8 +3,6 @@ on:
   push:
     branches:
     - main
-permissions:
-  contents: read
 jobs:
   build_latex:
     runs-on: ubuntu-latest
