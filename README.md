@@ -26,6 +26,18 @@ which gives you GitHub Pro.
 2. [Install LaTeX Locally](https://www.latex-project.org/get)
 3. [Install LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
 
+## (Anticipated) FAQs
+
+### Where's the sheets for year 1?
+I used separate Overleaf documents for courses in 1st year, so they haven't been added to the repo.
+If you'd really want to see them here, bug me on Discord.
+
+### I worked on this when it was still on Overleaf. Why is my contribution not credited?
+Sadly, Overleaf's sync process doesn't transfer over contributor details.
+(I'm as dissapointed as you, I literally couldn't have done this without the community)
+If you don't plan on contributing through GitHub but still want your name attached to the project,
+please DM me on Discord and I'll add your name to this README.
+
 DISCLAIMER: ONLY USE THIS AS A REFERENCE FOR YOUR ACTUAL CHEAT SHEETS.
 CHECK WITH YOUR PROF IF YOU ARE ALLOWED TO USE OTHER PEOPLE'S CHEAT SHEET.
 I AM NOT RESPONSIBLE IF YOU GET HIT WITH AD.
