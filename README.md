@@ -1,5 +1,9 @@
 # Open Source Cheat Sheets
 
+**DISCLAIMER: ONLY USE THIS AS A REFERENCE FOR YOUR ACTUAL CHEAT SHEETS.**  
+**CHECK WITH YOUR PROF IF YOU ARE ALLOWED TO USE OTHER PEOPLE'S CHEAT SHEETS.**  
+**I AM NOT RESPONSIBLE IF YOU GET HIT WITH AD.**
+
 [Check out the online preview here](https://mac-egirls.github.io/oscs)
 
 [Or download cheat sheets directly here](https://github.com/mac-egirls/oscs/releases/tag/latest)
@@ -37,7 +41,3 @@ Sadly, Overleaf's sync process doesn't transfer over contributor details.
 (I'm as dissapointed as you, I literally couldn't have done this without the community)
 If you don't plan on contributing through GitHub but still want your name attached to the project,
 please DM me on Discord and I'll add your name to this README.
-
-DISCLAIMER: ONLY USE THIS AS A REFERENCE FOR YOUR ACTUAL CHEAT SHEETS.
-CHECK WITH YOUR PROF IF YOU ARE ALLOWED TO USE OTHER PEOPLE'S CHEAT SHEET.
-I AM NOT RESPONSIBLE IF YOU GET HIT WITH AD.
