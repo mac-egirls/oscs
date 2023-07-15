@@ -12,9 +12,12 @@
 Open a pull request with the changes you want!
 
 ## Github Codespaces Setup (Recommended)
-1. Click the green `<> Code` button
-2. Click the `Codespaces` tab
-3. Click `Create codespace on main`
+1. Fork the repository
+2. Click the green `<> Code` button
+3. Click the `Codespaces` tab
+4. Click `Create codespace on main`
+5. Open a PR when you're done with your changes  
+   (Make sure to pull changes in frequently! Things will change a *lot* during exam season)
 
 If you don't have enough credits,
 try signing up for the [Student Developer Pack](https://education.github.com/pack),
