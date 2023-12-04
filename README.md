@@ -4,9 +4,9 @@
 **CHECK WITH YOUR PROF IF YOU ARE ALLOWED TO USE OTHER PEOPLE'S CHEAT SHEETS.**  
 **I AM NOT RESPONSIBLE IF YOU GET HIT WITH AD.**
 
-[Check out the online preview here](https://mac-egirls.github.io/oscs)
+<!-- [Check out the online preview here](https://mac-egirls.github.io/oscs) -->
 
-[Or download cheat sheets directly here](https://github.com/mac-egirls/oscs/releases/tag/latest)
+[Download cheat sheets directly here](https://github.com/mac-egirls/oscs/releases/tag/latest)
 
 ## Become a contributor
 Open a pull request with the changes you want!
