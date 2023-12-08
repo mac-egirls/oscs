@@ -131,6 +131,79 @@ int main()
         status 1. The parent can obtain the status of a terminated child with 
         \ttt{pid = wait(\&status)} where \ttt{status} is the integer status of the 
         child process.
+
+        \subsection{Posix Shared Memory}
+\begin{lstlisting}[language=C]
+/* the size (in bytes) of shared memory object */
+const int SIZE = 4096;
+/* name of the shared memory object */
+const char *name = "OS";
+/* shared memory file descriptor */
+int fd;
+/* pointer to shared memory obect */
+char *ptr;
+
+/* create the shared memory object */
+fd = shm open(name,O\_CREAT | O\_RDWR,0666);
+/* configure the size of the shared memory object */
+ftruncate(fd, SIZE);
+/* memory map the shared memory object */
+ptr = (char *)
+mmap(0, SIZE, PROT\_READ | PROT\_WRITE, MAP\_SHARED, fd, 0);
+
+/* write to the shared memory object */
+sprintf(ptr,"%s",message\_0);
+ptr += strlen(message\_0);
+sprintf(ptr,"%s",message\_1);
+ptr += strlen(message\_1);
+/* read from the shared memory object */
+printf("%s",(char *)ptr);
+
+/* remove the shared memory object */
+shm\_unlink(name);
+\end{lstlisting}        
+
+        \subsection{Pipes}
+\begin{lstlisting}[language=C]
+#define BUFFER SIZE 25
+#define READ END 0
+#define WRITE END 1
+int main(void)
+{
+    char write msg[BUFFER\_SIZE] = "Greetings";
+    char read msg[BUFFER\_SIZE];
+    int fd[2];
+    /* create the pipe */
+    if (pipe(fd) == -1) {
+        fprintf(stderr,"Pipe failed");
+        return 1;
+    }
+    /* fork a child process */
+    pid = fork();
+    if (pid < 0) { /* error occurred */
+        fprintf(stderr, "Fork Failed");
+        return 1;
+    }
+    if (pid > 0) { /* parent process */
+        /* close the unused end of the pipe */
+        close(fd[READ_END]);
+        /* write to the pipe */
+        write(fd[WRITE_END], write msg, strlen(write msg)+1);
+        /* close the write end of the pipe */
+        close(fd[WRITE_END]);
+    }
+    else { /* child process */
+        /* close the unused end of the pipe */
+        close(fd[WRITE_END]);
+        /* read from the pipe */
+        read(fd[READ_END], read msg, BUFFER SIZE);
+        printf("read %s",read msg);
+        /* close the read end of the pipe */
+        close(fd[READ_END]);
+    }
+    return 0;
+}
+\end{lstlisting}
     \section{Threads}
         \subsection{Amdahl's Law}
             $speedup \leq \frac{1}{S+(1-S)/N}$ where $S$ is the serial 
