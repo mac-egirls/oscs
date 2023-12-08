@@ -125,11 +125,26 @@
             processes divided by the total time (time spent executing + time spent idle)
     \section{Memory Management}
     \section{Virtual Memory}
+        \subsection{Demand Paging}
+            $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
+            {page fault time}$ where $p$ is the probability of a page fault and $ma$
+            is the memory access time.
     \section{File System}
+        Logic for ``answering maximum size of file'' type questions: multiply the 
+        number of direct disk blocks by size of the disk blocks, for indirect 
+        disk blocks, divide the size of the disk blocks by the size of a pointer to 
+        a disk block, then raise this number by a power which is the same as the
+        level of the indirect block (i.e. for single indirect raise by a power of 
+        1, for a double indirect raise by a power of 2, and so on). 
+        Multiply this value 
+        by the size of a disk block and by the amount of that specific indirect 
+        disk block, i.e. if you are doing the calculation for 5 single indirect 
+        disk blocks, then multiply by 5 at the end. Add the multiplications 
+        for all the types of disk blocks together for the final answer.
     \section{Mass Storage Systems}
     \section{Conversions}
         1 second = 1000 milliseconds, 1 millisecond = 1000 microseconds, 
-        1 microsecond = 1000 nanoseconds
+        1 microsecond = 1000 nanoseconds.
 \end{multicols*}
 
 \end{document}
