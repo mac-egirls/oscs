@@ -156,6 +156,17 @@
         disk blocks, then multiply by 5 at the end. Add the multiplications 
         for all the types of disk blocks together for the final answer.
     \section{Mass Storage Systems}
+        \subsection{SCAN Scheduling}
+            The disk arm starts at one end of the disk and moves
+            toward the other end, servicing requests as it reaches each cylinder,
+            until it gets to the other end of the disk. At the other end, the 
+            direction of head movement is reversed, and servicing continues
+        \subsection{C-SCAN Scheduling}
+            C-SCAN moves the head from one end of
+            the disk to the other, servicing requests along the way. When the 
+            head reaches the other end, however, it immediately returns 
+            to the beginning of the disk without servicing any requests on the 
+            return trip. Is a variant of SCAN scheduling.
     \section{Conversions}
         1 second = 1000 milliseconds, 1 millisecond = 1000 microseconds, 
         1 microsecond = 1000 nanoseconds.
