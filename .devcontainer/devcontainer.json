@@ -1,8 +1,12 @@
 {
     "name": "project-dev",
-    "dockerComposeFile": ["docker-compose.yml"],
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
     "service": "vscode",
-    "runServices": ["vscode"],
+    "runServices": [
+        "vscode"
+    ],
     "shutdownAction": "stopCompose",
     "workspaceFolder": "/workspace",
     "postCreateCommand": "",
@@ -36,7 +40,8 @@
                     "%DIR%/",
                     "%TMPFILE%",
                     "-y=defaultIndent: '%INDENT%'"
-                ]
+                ],
+                "latex-workshop.view.pdf.viewer": "browser"
             }
         }
     }
