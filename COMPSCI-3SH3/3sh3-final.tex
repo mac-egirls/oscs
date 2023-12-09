@@ -101,12 +101,15 @@
 \begin{multicols*}{6}
     % sections based on slide titles
     \section{Overview}
+    \textbf{System Programs:} associated with the operating system but are not 
+    necessarily part of the kernel.\\
+    \textbf{Middleware:} software frameworks that provide additional services to 
+    application developers.
     \section{Processes}
+        \textbf{Possible states of a process}: new, running, waiting, ready, 
+        terminated.
         \subsection{Process Creation Code}
 \begin{lstlisting}[language=C]
-#include <sys/types.h>
-#include <stdio.h>
-#include <unistd.h>
 int main()
 {
     pid t pid;
@@ -134,15 +137,6 @@ int main()
 
         \subsection{Posix Shared Memory}
 \begin{lstlisting}[language=C]
-/* the size (in bytes) of shared memory object */
-const int SIZE = 4096;
-/* name of the shared memory object */
-const char *name = "OS";
-/* shared memory file descriptor */
-int fd;
-/* pointer to shared memory obect */
-char *ptr;
-
 /* create the shared memory object */
 fd = shm open(name,O\_CREAT | O\_RDWR,0666);
 /* configure the size of the shared memory object */
@@ -217,6 +211,23 @@ int main(void)
         computing cores. \\
         \textbf{Task Parallelism:} distribute tasks (threads) across multiple 
         computing cores.
+
+        \textbf{Benefits of Threads:} \underline{Responsiveness}, 
+        \underline{resource sharing} (threads share data by default), 
+        \underline{economy} (threads are take less time and memory to create 
+        threads then processes), \underline{scalability}.
+        \subsection{Pthread}
+\begin{lstlisting}[language=C]
+pthread_t tid; /* the thread identifier */
+pthread_attr t attr; /* set of thread attributes */
+/* set the default attributes of the thread */
+pthread_attr init(&attr);
+/* create the thread */
+pthread\_create(&tid, &attr, runner, argv[1]);
+/* wait for the thread to exit */
+pthread\_join(tid,NULL);
+pthread\_exit(0);
+\end{lstlisting}
     \section{Synchronization}
         \subsection{Semaphores}
             \texttt{wait()} = \texttt{P()}, \texttt{signal()} = \texttt{V()},
