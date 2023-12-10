@@ -318,13 +318,16 @@ pthread_mutex_lock(&mutex);
 /* release the mutex lock */
 pthread_mutex_unlock(&mutex);
 
+
 pthread_cond_t cond_var;
 pthread_cond_init(&cond_var,NULL);
+
 
 pthread_mutex_lock(&mutex);
 while (a != b)
 pthread_cond_wait(&cond_var, &mutex);
 pthread_mutex_unlock(&mutex);
+
 
 pthread_mutex_lock(&mutex);
 a = b;
@@ -340,6 +343,15 @@ pthread_mutex_unlock(&mutex);
     (2) Hold and wait is possible, as a thread can hold one reader-writer lock-while waiting to acquire another.\\
     (3) You cannot take a lock away, so no preemption is upheld.\\
     (4) A circular wait among all threads is possible.\\
+
+    \subsection{Resource Allocation Graphs}
+        A directed edge from thread $T_i$ to resource type $R_j$ is denoted 
+        by $T_i \rightarrow R_j$; and signifies that thread $T_i$ has requested 
+        an instance of resource type $R_j$. \\
+        A directed edge from resource type $R_j$ to thread $T_i$ is denoted by 
+        $R_j \rightarrow T_i$ signifies that an instance of resource type
+        $R_j$ has been allocated to thread $T_i$.
+        
     \section{Scheduling}
 
     \subsection{Predicting next CPU burst Formula}
