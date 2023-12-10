@@ -105,6 +105,18 @@
     necessarily part of the kernel.\\
     \textbf{Middleware:} software frameworks that provide additional services to
     application developers.
+
+    \subsection{Interrupts}
+        Signal to CPU there is a task requiring attention, usually I/O. Trap is s/w generated interrupt caused by error or user request. \\
+        \textbf{Synchronous:} user process waits for I/O to finish, must know time it takes. \textbf{Asynchronous:} request returns before I/O completion, interrupts when done. \\
+        \textbf{Polling system:} system calls all interrupt handlers to determine which made the interrupt. (slow) \textbf{vectored system:} handler is found via interrupt vector. \\
+        Interrupt is \underline{maskable} if it can be ignored by CPU otherwise \underline{nonmaskable}.
+
+        \subsection{I/O Techniques}
+        \textbf{Programmed:} Requested I/O action performed, module sets I/O status register. Processor periodically checks status until action completed. \\
+        \textbf{Interrupt-driven:} Process issues I/O command to module which interrupts processor when done. Processor then transfers data. \\
+        \textbf{DMA:} Data is transferred directly to memory, processor only needed for initialization. Bus access slowed for processor during the transfer.
+    
     \section{Processes}
     \textbf{Possible states of a process}: new, running, waiting, ready,
     terminated.
