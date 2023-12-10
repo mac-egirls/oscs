@@ -112,7 +112,7 @@
     \begin{lstlisting}[language=C]
 int main()
 {
-    pid t pid;
+    pid_t pid;
     /* fork a child process */
     pid = fork();
     if (pid < 0) { /* error occurred */
@@ -134,38 +134,42 @@ int main()
     status 1. The parent can obtain the status of a terminated child with
     \ttt{pid = wait(\&status)} where \ttt{status} is the integer status of the
     child process.
+    A process that has terminated, but whose parent has not yet called \verb|wait()|,
+    is a \textbf{zombie} process.
+    If the parent of a process terminated without invoking \verb|wait()|,
+    the process is an \textbf{orphan}.
 
     \subsection{Posix Shared Memory}
     \begin{lstlisting}[language=C]
 /* create the shared memory object */
-fd = shm open(name,O\_CREAT | O\_RDWR,0666);
+fd = shm open(name,O_CREAT | O_RDWR,0666);
 /* configure the size of the shared memory object */
 ftruncate(fd, SIZE);
 /* memory map the shared memory object */
 ptr = (char *)
-mmap(0, SIZE, PROT\_READ | PROT\_WRITE, MAP\_SHARED, fd, 0);
+mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
 /* write to the shared memory object */
-sprintf(ptr,"%s",message\_0);
-ptr += strlen(message\_0);
-sprintf(ptr,"%s",message\_1);
-ptr += strlen(message\_1);
+sprintf(ptr,"%s",message_0);
+ptr += strlen(message_0);
+sprintf(ptr,"%s",message_1);
+ptr += strlen(message_1);
 /* read from the shared memory object */
 printf("%s",(char *)ptr);
 
 /* remove the shared memory object */
-shm\_unlink(name);
+shm_unlink(name);
 \end{lstlisting}
 
-    \subsection{Pipes}
+    \subsection{Pipes (message passing)}
     \begin{lstlisting}[language=C]
-#define BUFFER SIZE 25
-#define READ END 0
-#define WRITE END 1
+#define BUFFER_SIZE 25
+#define READ_END 0
+#define WRITE_END 1
 int main(void)
 {
-    char write msg[BUFFER\_SIZE] = "Greetings";
-    char read msg[BUFFER\_SIZE];
+    char write_msg[BUFFER_SIZE] = "Greetings";
+    char read_msg[BUFFER_SIZE];
     int fd[2];
     /* create the pipe */
     if (pipe(fd) == -1) {
@@ -179,20 +183,20 @@ int main(void)
         return 1;
     }
     if (pid > 0) { /* parent process */
-        /* close the unused end of the pipe */
+        /* close unused end of pipe */
         close(fd[READ_END]);
-        /* write to the pipe */
+        /* write to pipe */
         write(fd[WRITE_END], write msg, strlen(write msg)+1);
-        /* close the write end of the pipe */
+        /* close write end of pipe */
         close(fd[WRITE_END]);
     }
     else { /* child process */
-        /* close the unused end of the pipe */
+        /* close unused end of pipe */
         close(fd[WRITE_END]);
-        /* read from the pipe */
+        /* read from pipe */
         read(fd[READ_END], read msg, BUFFER SIZE);
         printf("read %s",read msg);
-        /* close the read end of the pipe */
+        /* close read end of pipe */
         close(fd[READ_END]);
     }
     return 0;
@@ -239,19 +243,19 @@ int main(void)
     threads then processes), \underline{scalability}.
     \subsection{Pthread}
     \begin{lstlisting}[language=C]
-pthread_t tid; /* the thread identifier */
+pthread_t tid; /* thread identifier */
 pthread_attr t attr; /* set of thread attributes */
-/* set the default attributes of the thread */
+/* set default attributes of thread */
 pthread_attr_init(&attr);
 /* create the thread */
-pthread\_create(&tid, &attr, runner, argv[1]);
+pthread_create(&tid, &attr, runner, argv[1]);
 /* cancel the thread */
 pthread_cancel(tid);
 /* check if there is a cancellation request */
 pthread_testcancel();
 /* wait for the thread to exit */
-pthread\_join(tid,NULL);
-pthread\_exit(0);
+pthread_join(tid,NULL);
+pthread_exit(0);
 \end{lstlisting}
     \section{Synchronization}
     \subsection{Critical section problem}
@@ -275,60 +279,67 @@ pthread\_exit(0);
 
     \subsection{Atomic Instructions}
     \begin{lstlisting}[language=C]
-boolean test and set(boolean *target) {
+boolean test_and_set(boolean *target) {
     boolean rv = *target;
     *target = true;
     return rv;
 }
 do {
-while (test and set(&lock))
-    ; /* do nothing */
-    /* critical section */
+    while (test_and_set(&lock))
+        ; /* do nothing */
+        /* critical section */
     lock = false;
-    /* remainder section */
-} while (true); 
+        /* remainder section */
+} while (true);
 
-int compare and swap(int *value, int expected, int new value) {
+int compare_and_swap(int *value, int expected, int new_value) {
     int temp = *value;
     if (*value == expected)
-        *value = new value;
+        *value = new_value;
     return temp;
 }
 while (true) {
-    while (compare and swap(&lock, 0, 1) != 0)
+    while (compare_and_swap(&lock, 0, 1) != 0)
         ; /* do nothing */
-    /* critical section */
+        /* critical section */
     lock = 0;
-    /* remainder section */
+        /* remainder section */
 }
 \end{lstlisting}
 
     \textbf{Liveness:} A set of properties that a system must satisfy to ensure
     that processes make progress during their execution life cycle.
-    
+
     \subsection{Pthread Synchronization}
 
-\begin{lstlisting}[language=C]
+    \subsubsection{Mutex Locks}
+    \begin{lstlisting}[language=C]
 pthread_mutex_t mutex;
-/* create and_initialize the mutex lock */
+/* create and initialize mutex lock */
 pthread_mutex_init(&mutex,NULL);
 /* acquire the mutex lock */
 pthread_mutex_lock(&mutex);
 /* critical section */
 /* release the mutex lock */
 pthread_mutex_unlock(&mutex);
+    \end{lstlisting}
 
-
+    \subsubsection{Condition Variables}
+    \begin{lstlisting}[language=C]
+pthread_mutex_t mutex;
 pthread_cond_t cond_var;
+
+pthread_mutex_init(&mutex,NULL);
 pthread_cond_init(&cond_var,NULL);
 
-
+// thread waiting on condition variable
 pthread_mutex_lock(&mutex);
 while (a != b)
-pthread_cond_wait(&cond_var, &mutex);
+    pthread_cond_wait(&cond_var, &mutex);
+
 pthread_mutex_unlock(&mutex);
 
-
+// thread that modifies shared data, signalling waiting thread
 pthread_mutex_lock(&mutex);
 a = b;
 pthread_cond_signal(&cond_var);
@@ -337,7 +348,11 @@ pthread_mutex_unlock(&mutex);
     \section{Deadlocks}
     % If someone thinks of a better subsection name just change it.
     \subsection{Is Deadlock Possible}
-    Assume that a multithreaded application uses only reader-writer locks for synchronization. Applying the four necessary conditions for dead-lock, is deadlock still possible if multiple reader-writer locks are used?\\
+    % TODO: #14 Rewrite deadlock info as not a question
+    Assume that a multithreaded application uses
+    only reader-writer locks for synchronization.
+    Applying the four necessary conditions for dead-lock,
+    is deadlock still possible if multiple reader-writer locks are used?\\
     Answer: Yes.\\
     (1) Mutual exclusion is maintained, as locks cannot be shared if there is a writer.\\
     (2) Hold and wait is possible, as a thread can hold one reader-writer lock-while waiting to acquire another.\\
@@ -345,26 +360,26 @@ pthread_mutex_unlock(&mutex);
     (4) A circular wait among all threads is possible.\\
 
     \subsection{Banker's Algorithm}
-        Need = Max - Allocation.\\
-        Safe state = all threads can finish executing with the available resources.\\
-        If need $<$ available for a particular resource for all (remaining) threads then not in safe state. \\
-        Otherwise execute the threads that can be executed until no threads remain.
+    Need = Max - Allocation.\\
+    Safe state = all threads can finish executing with the available resources.\\
+    If need $<$ available for a particular resource for all (remaining) threads then not in safe state. \\
+    Otherwise execute the threads that can be executed until no threads remain.
 
     \subsection{Resource Allocation Graphs}
-        A directed edge from thread $T_i$ to resource type $R_j$ is denoted 
-        by $T_i \rightarrow R_j$; and signifies that thread $T_i$ has requested 
-        an instance of resource type $R_j$. \\
-        A directed edge from resource type $R_j$ to thread $T_i$ is denoted by 
-        $R_j \rightarrow T_i$ signifies that an instance of resource type
-        $R_j$ has been allocated to thread $T_i$.
-    
+    A directed edge from thread $T_i$ to resource type $R_j$ is denoted
+    by $T_i \rightarrow R_j$; and signifies that thread $T_i$ has requested
+    an instance of resource type $R_j$. \\
+    A directed edge from resource type $R_j$ to thread $T_i$ is denoted by
+    $R_j \rightarrow T_i$ signifies that an instance of resource type
+    $R_j$ has been allocated to thread $T_i$.
+
     \subsection{Methods for Handling Deadlock}
-        \textbf{Deadlock Prevention:} prevent circular wait from happening
-        (only practical solution) \\
-        \textbf{Deadlock Avoidance:} don't grant resources if it leads the 
-        system to an unsafe state.\\
-        \textbf{Deadlock Detection and Recovery:} Either terminate or preempt
-        resources.
+    \textbf{Deadlock Prevention:} prevent circular wait from happening
+    (only practical solution) \\
+    \textbf{Deadlock Avoidance:} don't grant resources if it leads the
+    system to an unsafe state.\\
+    \textbf{Deadlock Detection and Recovery:} Either terminate or preempt
+    resources.
     \section{Scheduling}
 
     \subsection{Predicting next CPU burst Formula}
@@ -407,7 +422,7 @@ pthread_mutex_unlock(&mutex);
     caused by the long-latency event, the core must switch to another thread to
     begin execution. However, the cost of switching between threads is high,
     since the instruction pipeline must be flushed before the other thread can
-    begin execution on the processor core. \\
+    begin execution on the processor core.\\
     \textbf{Fine grained multithreading:} threads switch at the boundary of
     an instruction cycle. Fine-grained systems include logic
     for thread switching, so the cost of switching between threads is small.
@@ -447,46 +462,43 @@ pthread_mutex_unlock(&mutex);
     $\lambda$ is the average arrival rate for new processes in the queue,
     and $W$ is average long-term queue length.
 
-
-    % SOMEBODY PUT AN EXAMPLE OF A GANTT CHART HERE (a chart that shows process
-    % execution)
     \subsection{Gantt Chart}
     \includegraphics[width=\linewidth]{gantt-chart.png}
 
     \section{Memory Management}
 
-    \textbf{Dynamic loading:} a routine is not loaded until it is called. All 
-    routines are kept on disk in a relocatable load format. The main program is 
-    loaded into memory and is executed. When a routine needs to call another 
-    routine, the relocatable linking loader is called to load 
+    \textbf{Dynamic loading:} a routine is not loaded until it is called. All
+    routines are kept on disk in a relocatable load format. The main program is
+    loaded into memory and is executed. When a routine needs to call another
+    routine, the relocatable linking loader is called to load
     the desired routine into memory if its not loaded and
     to update the program’s address tables to reflect this change. Then control is
     passed to the newly loaded routine.\\
     \textbf{Dynamic Linked Libraries} are similar.
 
     \subsection{Fragmentation}
-        \textbf{First fit} strategy given N blocks will lose 0.5N blocks to 
-        fragmentation; 1/3 of memory will be unusable. Is also called the 
-        50\% rule. \\
-        \textbf{Compaction} is only possible if relocation is dynamic and 
-        done at runtime, not possible if relocation is static and done at 
-        assembly or load time. 
+    \textbf{First fit} strategy given N blocks will lose 0.5N blocks to
+    fragmentation; 1/3 of memory will be unusable. Is also called the
+    50\% rule. \\
+    \textbf{Compaction} is only possible if relocation is dynamic and
+    done at runtime, not possible if relocation is static and done at
+    assembly or load time.
 
     \subsection{Paging}
     If the size of the logical address space is 2m, and a
-    page size is 2n bytes, then the high-order m-n bits of a logical address 
-    designate the page number, and the n low-order bits designate the page 
+    page size is 2n bytes, then the high-order m-n bits of a logical address
+    designate the page number, and the n low-order bits designate the page
     offset.\\
     If process size is independent of page size, we expect internal fragmentation
     to average one-half page per process.\\
     The \textbf{frame table} has one entry for each physical page frame,
-    indicating whether the latter is free or allocated and, if it is allocated, 
-    to which page of which process (or processes). Used by the OS to keep 
+    indicating whether the latter is free or allocated and, if it is allocated,
+    to which page of which process (or processes). Used by the OS to keep
     track of physical memory.\\
     \textbf{Reentrant code} is non-self-modifying code: it
-    never changes during execution and can be shared among processes. Can be 
-    implemted as shared pages. 
-    % this needs to be generalized/changed to not directly be a question
+    never changes during execution and can be shared among processes. Can be
+    implemted as shared pages.
+    % TODO: #15 Rewrite paging info as not a question
     Given a computer system with a 32-bit logical address and 8-KB page
     size and supports 1 GB of physical memory, how many entries are in
     (a) a conventional, single level page table and in (b) an inverted
@@ -505,7 +517,11 @@ pthread_mutex_unlock(&mutex);
     \subsection{Demand Paging}
     $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
         {page fault time}$ where $p$ is the probability of a page fault and $ma$
-    is the memory access time.
+    is the memory access time.\\
+    A \textbf{valid/invalid bit} is used to tell a process if a page is legal 
+    and in memory or if its invalid (not in address space of the process) or 
+    legal but not in memory.\\
+
     \section{File System}
     Logic for ``answering maximum size of file'' type questions: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
@@ -532,6 +548,7 @@ pthread_mutex_unlock(&mutex);
     disk block, i.e. if you are doing the calculation for 5 single indirect
     disk blocks, then multiply by 5 at the end. Add the multiplications
     for all the types of disk blocks together for the final answer.
+    
     \section{Mass Storage Systems}
     \subsection{SCAN Scheduling}
     The disk arm starts at one end of the disk and moves
