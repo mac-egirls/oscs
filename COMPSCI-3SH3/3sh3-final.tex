@@ -541,7 +541,7 @@ pthread_mutex_unlock(&mutex);
 
     \textbf{Volume:} disk block that contains file system.
 
-    Logic for ``answering maximum size of file'' type questions: multiply the
+    \textbf{Logic for ``answering maximum size of file'' type questions}: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
     disk blocks, divide the size of the disk blocks by the size of a pointer to
     a disk block, then raise this number by a power which is the same as the
@@ -569,7 +569,7 @@ pthread_mutex_unlock(&mutex);
     \textbf{Write amplification:} The creation of I/O requests not by applications
     but by the NVM device doing garbage collection and space management. Can 
     greatly impact the write performance of the device.
-    
+
     \section{Conversions}
     \qty{1}{\second} = \qty{1000}{\milli\second},
     \qty{1}{\milli\second} = \qty{1000}{\micro\second} (microsecond),
