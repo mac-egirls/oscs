@@ -275,40 +275,40 @@ pthread\_exit(0);
 
     \subsection{Atomic Instructions}
     \begin{lstlisting}[language=C]
-boolean test and set(boolean *target) {
+boolean test_and_set(boolean *target) {
     boolean rv = *target;
     *target = true;
     return rv;
 }
 do {
-while (test and set(&lock))
-    ; /* do nothing */
-    /* critical section */
+    while (test and set(&lock))
+        ; /* do nothing */
+        /* critical section */
     lock = false;
-    /* remainder section */
-} while (true); 
+        /* remainder section */
+} while (true);
 
-int compare and swap(int *value, int expected, int new value) {
+int compare_and_swap(int *value, int expected, int new_value) {
     int temp = *value;
     if (*value == expected)
         *value = new value;
     return temp;
 }
 while (true) {
-    while (compare and swap(&lock, 0, 1) != 0)
+    while (compare_and_swap(&lock, 0, 1) != 0)
         ; /* do nothing */
-    /* critical section */
+        /* critical section */
     lock = 0;
-    /* remainder section */
+        /* remainder section */
 }
 \end{lstlisting}
 
     \textbf{Liveness:} A set of properties that a system must satisfy to ensure
     that processes make progress during their execution life cycle.
-    
+
     \subsection{Pthread Synchronization}
 
-\begin{lstlisting}[language=C]
+    \begin{lstlisting}[language=C]
 pthread_mutex_t mutex;
 /* create and_initialize the mutex lock */
 pthread_mutex_init(&mutex,NULL);
@@ -337,7 +337,11 @@ pthread_mutex_unlock(&mutex);
     \section{Deadlocks}
     % If someone thinks of a better subsection name just change it.
     \subsection{Is Deadlock Possible}
-    Assume that a multithreaded application uses only reader-writer locks for synchronization. Applying the four necessary conditions for dead-lock, is deadlock still possible if multiple reader-writer locks are used?\\
+    % TODO: rewrite this as not a question!
+    Assume that a multithreaded application uses
+    only reader-writer locks for synchronization.
+    Applying the four necessary conditions for dead-lock,
+    is deadlock still possible if multiple reader-writer locks are used?\\
     Answer: Yes.\\
     (1) Mutual exclusion is maintained, as locks cannot be shared if there is a writer.\\
     (2) Hold and wait is possible, as a thread can hold one reader-writer lock-while waiting to acquire another.\\
@@ -345,26 +349,26 @@ pthread_mutex_unlock(&mutex);
     (4) A circular wait among all threads is possible.\\
 
     \subsection{Banker's Algorithm}
-        Need = Max - Allocation.\\
-        Safe state = all threads can finish executing with the available resources.\\
-        If need $<$ available for a particular resource for all (remaining) threads then not in safe state. \\
-        Otherwise execute the threads that can be executed until no threads remain.
+    Need = Max - Allocation.\\
+    Safe state = all threads can finish executing with the available resources.\\
+    If need $<$ available for a particular resource for all (remaining) threads then not in safe state. \\
+    Otherwise execute the threads that can be executed until no threads remain.
 
     \subsection{Resource Allocation Graphs}
-        A directed edge from thread $T_i$ to resource type $R_j$ is denoted 
-        by $T_i \rightarrow R_j$; and signifies that thread $T_i$ has requested 
-        an instance of resource type $R_j$. \\
-        A directed edge from resource type $R_j$ to thread $T_i$ is denoted by 
-        $R_j \rightarrow T_i$ signifies that an instance of resource type
-        $R_j$ has been allocated to thread $T_i$.
-    
+    A directed edge from thread $T_i$ to resource type $R_j$ is denoted
+    by $T_i \rightarrow R_j$; and signifies that thread $T_i$ has requested
+    an instance of resource type $R_j$. \\
+    A directed edge from resource type $R_j$ to thread $T_i$ is denoted by
+    $R_j \rightarrow T_i$ signifies that an instance of resource type
+    $R_j$ has been allocated to thread $T_i$.
+
     \subsection{Methods for Handling Deadlock}
-        \textbf{Deadlock Prevention:} prevent circular wait from happening
-        (only practical solution) \\
-        \textbf{Deadlock Avoidance:} don't grant resources if it leads the 
-        system to an unsafe state.\\
-        \textbf{Deadlock Detection and Recovery:} Either terminate or preempt
-        resources.
+    \textbf{Deadlock Prevention:} prevent circular wait from happening
+    (only practical solution) \\
+    \textbf{Deadlock Avoidance:} don't grant resources if it leads the
+    system to an unsafe state.\\
+    \textbf{Deadlock Detection and Recovery:} Either terminate or preempt
+    resources.
     \section{Scheduling}
 
     \subsection{Predicting next CPU burst Formula}
@@ -407,7 +411,7 @@ pthread_mutex_unlock(&mutex);
     caused by the long-latency event, the core must switch to another thread to
     begin execution. However, the cost of switching between threads is high,
     since the instruction pipeline must be flushed before the other thread can
-    begin execution on the processor core. \\
+    begin execution on the processor core.\\
     \textbf{Fine grained multithreading:} threads switch at the boundary of
     an instruction cycle. Fine-grained systems include logic
     for thread switching, so the cost of switching between threads is small.
@@ -455,37 +459,37 @@ pthread_mutex_unlock(&mutex);
 
     \section{Memory Management}
 
-    \textbf{Dynamic loading:} a routine is not loaded until it is called. All 
-    routines are kept on disk in a relocatable load format. The main program is 
-    loaded into memory and is executed. When a routine needs to call another 
-    routine, the relocatable linking loader is called to load 
+    \textbf{Dynamic loading:} a routine is not loaded until it is called. All
+    routines are kept on disk in a relocatable load format. The main program is
+    loaded into memory and is executed. When a routine needs to call another
+    routine, the relocatable linking loader is called to load
     the desired routine into memory if its not loaded and
     to update the program’s address tables to reflect this change. Then control is
     passed to the newly loaded routine.\\
     \textbf{Dynamic Linked Libraries} are similar.
 
     \subsection{Fragmentation}
-        \textbf{First fit} strategy given N blocks will lose 0.5N blocks to 
-        fragmentation; 1/3 of memory will be unusable. Is also called the 
-        50\% rule. \\
-        \textbf{Compaction} is only possible if relocation is dynamic and 
-        done at runtime, not possible if relocation is static and done at 
-        assembly or load time. 
+    \textbf{First fit} strategy given N blocks will lose 0.5N blocks to
+    fragmentation; 1/3 of memory will be unusable. Is also called the
+    50\% rule. \\
+    \textbf{Compaction} is only possible if relocation is dynamic and
+    done at runtime, not possible if relocation is static and done at
+    assembly or load time.
 
     \subsection{Paging}
     If the size of the logical address space is 2m, and a
-    page size is 2n bytes, then the high-order m-n bits of a logical address 
-    designate the page number, and the n low-order bits designate the page 
+    page size is 2n bytes, then the high-order m-n bits of a logical address
+    designate the page number, and the n low-order bits designate the page
     offset.\\
     If process size is independent of page size, we expect internal fragmentation
     to average one-half page per process.\\
     The \textbf{frame table} has one entry for each physical page frame,
-    indicating whether the latter is free or allocated and, if it is allocated, 
-    to which page of which process (or processes). Used by the OS to keep 
+    indicating whether the latter is free or allocated and, if it is allocated,
+    to which page of which process (or processes). Used by the OS to keep
     track of physical memory.\\
     \textbf{Reentrant code} is non-self-modifying code: it
-    never changes during execution and can be shared among processes. Can be 
-    implemted as shared pages. 
+    never changes during execution and can be shared among processes. Can be
+    implemted as shared pages.
     % this needs to be generalized/changed to not directly be a question
     Given a computer system with a 32-bit logical address and 8-KB page
     size and supports 1 GB of physical memory, how many entries are in
