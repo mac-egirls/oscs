@@ -242,13 +242,13 @@ int main(void)
 pthread_t tid; /* the thread identifier */
 pthread_attr t attr; /* set of thread attributes */
 /* set the default attributes of the thread */
-pthread_attr init(&attr);
+pthread_attr_init(&attr);
 /* create the thread */
 pthread\_create(&tid, &attr, runner, argv[1]);
 /* cancel the thread */
-pthread cancel(tid);
+pthread_cancel(tid);
 /* check if there is a cancellation request */
-pthread testcancel();
+pthread_testcancel();
 /* wait for the thread to exit */
 pthread\_join(tid,NULL);
 pthread\_exit(0);
@@ -302,6 +302,35 @@ while (true) {
     /* remainder section */
 }
 \end{lstlisting}
+
+    \textbf{Liveness:} A set of properties that a system must satisfy to ensure
+    that processes make progress during their execution life cycle.
+    
+    \subsection{Pthread Synchronization}
+
+\begin{lstlisting}[language=C]
+pthread_mutex_t mutex;
+/* create and_initialize the mutex lock */
+pthread_mutex_init(&mutex,NULL);
+/* acquire the mutex lock */
+pthread_mutex_lock(&mutex);
+/* critical section */
+/* release the mutex lock */
+pthread_mutex_unlock(&mutex);
+
+pthread_cond_t cond_var;
+pthread_cond_init(&cond_var,NULL);
+
+pthread_mutex_lock(&mutex);
+while (a != b)
+pthread_cond_wait(&cond_var, &mutex);
+pthread_mutex_unlock(&mutex);
+
+pthread_mutex_lock(&mutex);
+a = b;
+pthread_cond_signal(&cond_var);
+pthread_mutex_unlock(&mutex);
+\end{lstlisting}
     \section{Deadlocks}
     % If someone thinks of a better subsection name just change it.
     \subsection{Is Deadlock Possible}
@@ -323,7 +352,7 @@ while (true) {
     no effect on the future CPU burst. If $\alpha = 1$, then
     $\tau_{n+1} = t_n$ and only the most recent CPU bursts matter (history
     is assumed to be old and irrelevant). $\alpha = 1/2$ weights recent
-    and past history evenly
+    and past history evenly.
     \subsection{Scheduling Algorithms Formulas}
     \textbf{Throughput:} Number of processes completed per time unit
     \textbf{Turnaround time of a process} is difference between when
