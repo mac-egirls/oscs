@@ -1,6 +1,6 @@
 % IF YOU CAN SEE THIS GO CONTRIBUTE >:(
 
-\documentclass[letterpaper, 8pt]{extarticle}
+\documentclass[letterpaper, 12pt]{extarticle}
 \usepackage{amssymb,amsmath,amsthm,amsfonts}
 \usepackage{multicol,multirow}
 \usepackage{calc}
@@ -311,6 +311,35 @@ pthread\_exit(0);
     an instruction cycle. Fine-grained systems include logic
     for thread switching, so the cost of switching between threads is small.
 
+    \subsection{Load Balancing}
+        \textbf{Push migration:} a specific task periodically checks the
+        load on each processor and if it finds an an overloaded processor it 
+        evenly distributes the load by pushing/moving threads to idle or less-busy
+        processors.\\
+        \textbf{Pull migration:} when an idle processor pulls a waiting task
+        from a busy processor. 
+    
+    \subsection{Processor Affinity}
+        A process has an ``affinity'' for the processor it is currently 
+        running on because the process will usually have values it uses often 
+        in the cache of the current processor.\\
+        \textbf{Soft Affinity:} OS will attempt to keep a process on a single 
+        processor, but it is possible for a process to migrate 
+        between processors during load balancing.
+        \textbf{Hard Affinity:} OS allows a process to specify a subset of 
+        processors on which it can run using sys calls.
+
+    \subsection{Real time Scheduling}
+    The scheduler for a real-time operating system must support a priority based 
+    algorithm with preemption
+    
+    \textbf{Event latency:} amount of time that elapses from when an event occurs 
+    to when it is serviced.\\
+    \textbf{Interrupt latency} refers to the period of time from the arrival of 
+    an interrupt at the CPU to the start of the routine that services the 
+    interrupt.\\
+    \textbf{Dispatch latency} amount of time required for the scheduling 
+    dispatcher to stop one process and start another.
 
     SOMEBODY PUT AN EXAMPLE OF A GANTT CHART HERE (a chart that shows process
     execution)
