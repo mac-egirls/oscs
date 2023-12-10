@@ -301,7 +301,7 @@ pthread\_exit(0);
     \subsection{Chip Multithreading}
     When you have more than one thread in a core.
 
-    \textbf{Course grained multithreading:} a thread executes on a core until a
+    \textbf{Coarse grained multithreading:} a thread executes on a core until a
     long-latency event such as a memory stall occurs. Because of the delay
     caused by the long-latency event, the core must switch to another thread to
     begin execution. However, the cost of switching between threads is high,
