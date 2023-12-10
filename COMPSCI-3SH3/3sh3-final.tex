@@ -451,9 +451,6 @@ pthread_mutex_unlock(&mutex);
     $\lambda$ is the average arrival rate for new processes in the queue,
     and $W$ is average long-term queue length.
 
-
-    % SOMEBODY PUT AN EXAMPLE OF A GANTT CHART HERE (a chart that shows process
-    % execution)
     \subsection{Gantt Chart}
     \includegraphics[width=\linewidth]{gantt-chart.png}
 
@@ -490,7 +487,7 @@ pthread_mutex_unlock(&mutex);
     \textbf{Reentrant code} is non-self-modifying code: it
     never changes during execution and can be shared among processes. Can be
     implemted as shared pages.
-    % this needs to be generalized/changed to not directly be a question
+    % TODO: this needs to be generalized/changed to not directly be a question
     Given a computer system with a 32-bit logical address and 8-KB page
     size and supports 1 GB of physical memory, how many entries are in
     (a) a conventional, single level page table and in (b) an inverted
