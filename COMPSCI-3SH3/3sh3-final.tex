@@ -142,34 +142,34 @@ int main()
     \subsection{Posix Shared Memory}
     \begin{lstlisting}[language=C]
 /* create the shared memory object */
-fd = shm open(name,O\_CREAT | O\_RDWR,0666);
+fd = shm open(name,O_CREAT | O_RDWR,0666);
 /* configure the size of the shared memory object */
 ftruncate(fd, SIZE);
 /* memory map the shared memory object */
 ptr = (char *)
-mmap(0, SIZE, PROT\_READ | PROT\_WRITE, MAP\_SHARED, fd, 0);
+mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
 /* write to the shared memory object */
-sprintf(ptr,"%s",message\_0);
-ptr += strlen(message\_0);
-sprintf(ptr,"%s",message\_1);
-ptr += strlen(message\_1);
+sprintf(ptr,"%s",message_0);
+ptr += strlen(message_0);
+sprintf(ptr,"%s",message_1);
+ptr += strlen(message_1);
 /* read from the shared memory object */
 printf("%s",(char *)ptr);
 
 /* remove the shared memory object */
-shm\_unlink(name);
+shm_unlink(name);
 \end{lstlisting}
 
-    \subsection{Pipes}
+    \subsection{Pipes (message passing)}
     \begin{lstlisting}[language=C]
 #define BUFFER SIZE 25
 #define READ END 0
 #define WRITE END 1
 int main(void)
 {
-    char write msg[BUFFER\_SIZE] = "Greetings";
-    char read msg[BUFFER\_SIZE];
+    char write msg[BUFFER_SIZE] = "Greetings";
+    char read msg[BUFFER_SIZE];
     int fd[2];
     /* create the pipe */
     if (pipe(fd) == -1) {
@@ -248,14 +248,14 @@ pthread_attr t attr; /* set of thread attributes */
 /* set the default attributes of the thread */
 pthread_attr_init(&attr);
 /* create the thread */
-pthread\_create(&tid, &attr, runner, argv[1]);
+pthread_create(&tid, &attr, runner, argv[1]);
 /* cancel the thread */
 pthread_cancel(tid);
 /* check if there is a cancellation request */
 pthread_testcancel();
 /* wait for the thread to exit */
-pthread\_join(tid,NULL);
-pthread\_exit(0);
+pthread_join(tid,NULL);
+pthread_exit(0);
 \end{lstlisting}
     \section{Synchronization}
     \subsection{Critical section problem}
