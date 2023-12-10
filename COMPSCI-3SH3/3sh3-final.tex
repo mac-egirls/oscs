@@ -112,7 +112,7 @@
     \begin{lstlisting}[language=C]
 int main()
 {
-    pid t pid;
+    pid_t pid;
     /* fork a child process */
     pid = fork();
     if (pid < 0) { /* error occurred */
@@ -163,13 +163,13 @@ shm_unlink(name);
 
     \subsection{Pipes (message passing)}
     \begin{lstlisting}[language=C]
-#define BUFFER SIZE 25
-#define READ END 0
-#define WRITE END 1
+#define BUFFER_SIZE 25
+#define READ_END 0
+#define WRITE_END 1
 int main(void)
 {
-    char write msg[BUFFER_SIZE] = "Greetings";
-    char read msg[BUFFER_SIZE];
+    char write_msg[BUFFER_SIZE] = "Greetings";
+    char read_msg[BUFFER_SIZE];
     int fd[2];
     /* create the pipe */
     if (pipe(fd) == -1) {
@@ -285,7 +285,7 @@ boolean test_and_set(boolean *target) {
     return rv;
 }
 do {
-    while (test and set(&lock))
+    while (test_and_set(&lock))
         ; /* do nothing */
         /* critical section */
     lock = false;
@@ -295,7 +295,7 @@ do {
 int compare_and_swap(int *value, int expected, int new_value) {
     int temp = *value;
     if (*value == expected)
-        *value = new value;
+        *value = new_value;
     return temp;
 }
 while (true) {
@@ -521,7 +521,7 @@ pthread_mutex_unlock(&mutex);
     A \textbf{valid/invalid bit} is used to tell a process if a page is legal 
     and in memory or if its invalid (not in address space of the process) or 
     legal but not in memory.\\
-    
+
     \section{File System}
     Logic for ``answering maximum size of file'' type questions: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
