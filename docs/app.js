@@ -3,7 +3,7 @@ async function update() {
     var requestOptions = {
         method: 'GET'
     };
-    fetch("https://api.paulduan.tk/oscs/getReleases", requestOptions)
+    fetch("https://api.xianzhaoduan.com/oscs/getReleases", requestOptions)
     .then(res => res.json().then(
         data => {
             console.log(data);
