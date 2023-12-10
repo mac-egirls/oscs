@@ -1,6 +1,6 @@
 % IF YOU CAN SEE THIS GO CONTRIBUTE >:(
 
-\documentclass[letterpaper, 12pt]{extarticle}
+\documentclass[letterpaper, 8pt]{extarticle}
 \usepackage{amssymb,amsmath,amsthm,amsfonts}
 \usepackage{multicol,multirow}
 \usepackage{calc}
@@ -213,22 +213,22 @@ int main(void)
     computing cores.
 
     \textbf{Five areas of challenge in multicore programming:} identifying tasks,
-    balancing the amount of work tasks do, data splitting, data dependency, 
-    and testing and debugging. 
+    balancing the amount of work tasks do, data splitting, data dependency,
+    and testing and debugging.
 
-    \textbf{Synchronous Signals:} Delivered to the same process that caused the 
+    \textbf{Synchronous Signals:} Delivered to the same process that caused the
     signal.
-    \textbf{Asynchronous Signals:} Delivered to a process that did not cause the 
+    \textbf{Asynchronous Signals:} Delivered to a process that did not cause the
     signal.
 
     \textbf{Thread Local Storage (TLS):} Data local to a specific thread. Similar
     to the concept of static data and local variables.
 
-    \textbf{Lightweight Processes (LWP):} Intermediate data structure between 
-    user and kernel threads often used in systems implementing many-to-many or 
-    two-level thread models. Looks like a virtual processor to the user-thread 
+    \textbf{Lightweight Processes (LWP):} Intermediate data structure between
+    user and kernel threads often used in systems implementing many-to-many or
+    two-level thread models. Looks like a virtual processor to the user-thread
     library. The application can schedule a user thread to
-    run on an LWP. Each LWP is attached to a kernel thread, and it is kernel 
+    run on an LWP. Each LWP is attached to a kernel thread, and it is kernel
     threads that the operating system schedules to run on physical processors.
     If a kernel thread blocks, the LWP blocks and also blocks the user thread
     down the chain.
@@ -269,76 +269,78 @@ pthread\_exit(0);
     (4) A circular wait among all threads is possible.\\
     \section{Scheduling}
 
-        \subsection{Predicting next CPU burst Formula}
-            $\tau_{n+1} = \alpha \cdot t_n + (1-\alpha) \cdot \tau_n$
-            where $t_n$ is the value of the nth CPU burst, $0 \leq \alpha \leq 1$ \\
-            If $\alpha = 0$, then $\tau_{n+1} = \tau_n$ and recent history has
-            no effect on the future CPU burst. If $\alpha = 1$, then
-            $\tau_{n+1} = t_n$ and only the most recent CPU bursts matter (history
-            is assumed to be old and irrelevant). $\alpha = 1/2$ weights recent
-            and past history evenly
+    \subsection{Predicting next CPU burst Formula}
+    $\tau_{n+1} = \alpha \cdot t_n + (1-\alpha) \cdot \tau_n$
+    where $t_n$ is the value of the nth CPU burst, $0 \leq \alpha \leq 1$ \\
+    If $\alpha = 0$, then $\tau_{n+1} = \tau_n$ and recent history has
+    no effect on the future CPU burst. If $\alpha = 1$, then
+    $\tau_{n+1} = t_n$ and only the most recent CPU bursts matter (history
+    is assumed to be old and irrelevant). $\alpha = 1/2$ weights recent
+    and past history evenly
     \subsection{Scheduling Algorithms Formulas}
-        \textbf{Throughput:} Number of processes completed per time unit
-        \textbf{Turnaround time of a process} is difference between when
-        the process finishes execution and its arrival time;
-        turnaround time = process finish time - start time.
-        \textbf{Waiting time of a process} is how long a process does not execute
-        on the CPU from its arrival. The time a process spends waiting on the 
-        ready queue.
-        \textbf{CPU utilization rate} is the time the cpu spends executing
-        processes divided by the total time (time spent executing + time spent idle)
-        \textbf{Response Time:}The difference between the time a process 
-        produces a response and the time of the submission of a request 
-        (possibly same as arrival time?)
+    \textbf{Throughput:} Number of processes completed per time unit
+    \textbf{Turnaround time of a process} is difference between when
+    the process finishes execution and its arrival time;
+    turnaround time = process finish time - start time.
+    \textbf{Waiting time of a process} is how long a process does not execute
+    on the CPU from its arrival. The time a process spends waiting on the
+    ready queue.
+    \textbf{CPU utilization rate} is the time the cpu spends executing
+    processes divided by the total time (time spent executing + time spent idle)
+    \textbf{Response Time:}The difference between the time a process
+    produces a response and the time of the submission of a request
+    (possibly same as arrival time?)
 
-    \textbf{SJF} cannot be implemented at the level of CPU scheduling because 
+    \textbf{SJF} cannot be implemented at the level of CPU scheduling because
     you cannot know the length of the next CPU burst (you can't see the future).
 
-    For \textbf{round robin scheduling}, the time quantum should be large 
-    with respect to the context switch time so not too many context switches 
-    are done, but not too large so as to devolve to FCFS scheduling. 
+    For \textbf{round robin scheduling}, the time quantum should be large
+    with respect to the context switch time so not too many context switches
+    are done, but not too large so as to devolve to FCFS scheduling.
 
     \subsection{Chip Multithreading}
     When you have more than one thread in a core.
 
-    \textbf{Course grained multithreading:} a thread executes on a core until a 
-    long-latency event such as a memory stall occurs. Because of the delay 
+    \textbf{Course grained multithreading:} a thread executes on a core until a
+    long-latency event such as a memory stall occurs. Because of the delay
     caused by the long-latency event, the core must switch to another thread to
     begin execution. However, the cost of switching between threads is high,
     since the instruction pipeline must be flushed before the other thread can
     begin execution on the processor core. \\
-    \textbf{Fine grained multithreading:} threads switch at the boundary of 
+    \textbf{Fine grained multithreading:} threads switch at the boundary of
     an instruction cycle. Fine-grained systems include logic
     for thread switching, so the cost of switching between threads is small.
 
     \subsection{Load Balancing}
-        \textbf{Push migration:} a specific task periodically checks the
-        load on each processor and if it finds an an overloaded processor it 
-        evenly distributes the load by pushing/moving threads to idle or less-busy
-        processors.\\
-        \textbf{Pull migration:} when an idle processor pulls a waiting task
-        from a busy processor. 
-    
+    \textbf{Push migration:} a specific task periodically checks the
+    load on each processor and if it finds an an overloaded processor it
+    evenly distributes the load by pushing/moving threads to idle or less-busy
+    processors.\\
+    \textbf{Pull migration:} when an idle processor pulls a waiting task
+    from a busy processor.
+
     \subsection{Processor Affinity}
-        A process has an ``affinity'' for the processor it is currently 
-        running on because the process will usually have values it uses often 
-        in the cache of the current processor.\\
-        \textbf{Soft Affinity:} OS will attempt to keep a process on a single 
-        processor, but it is possible for a process to migrate 
-        between processors during load balancing.
-        \textbf{Hard Affinity:} OS allows a process to specify a subset of 
-        processors on which it can run using sys calls.
+    A process has an ``affinity'' for the processor it is currently
+    running on because the process will usually have values it uses often
+    in the cache of the current processor.\\
+    \textbf{Soft Affinity:} OS will attempt to keep a process on a single
+    processor, but it is possible for a process to migrate
+    between processors during load balancing.
+    \textbf{Hard Affinity:} OS allows a process to specify a subset of
+    processors on which it can run using sys calls.
 
     \subsection{Real time Scheduling}
-    The scheduler for a real-time operating system must support a priority based 
+    The scheduler for a real-time operating system must support a priority based
     algorithm with preemption
+
+    \textbf{Event latency:} amount of time that elapses from when an event occurs
 
     \textbf{Event latency:} amount of time that elapses from when an event occurs 
     to when it is serviced.\\
-    \textbf{Interrupt latency} refers to the period of time from the arrival of 
-    an interrupt at the CPU to the start of the routine that services the 
+    \textbf{Interrupt latency} refers to the period of time from the arrival of
+    an interrupt at the CPU to the start of the routine that services the
     interrupt.\\
-    \textbf{Dispatch latency} amount of time required for the scheduling 
+    \textbf{Dispatch latency} amount of time required for the scheduling
     dispatcher to stop one process and start another.
 
     \textbf{Little's Formula:} $n = \lambda \cdot W$ where $n$ is the 
@@ -383,19 +385,19 @@ pthread\_exit(0);
     disk blocks, then multiply by 5 at the end. Add the multiplications
     for all the types of disk blocks together for the final answer.
 
-        \textbf{Volume:} disk block that contains file system.
+    \textbf{Volume:} disk block that contains file system.
 
-        Logic for ``answering maximum size of file'' type questions: multiply the 
-        number of direct disk blocks by size of the disk blocks, for indirect 
-        disk blocks, divide the size of the disk blocks by the size of a pointer to 
-        a disk block, then raise this number by a power which is the same as the
-        level of the indirect block (i.e. for single indirect raise by a power of 
-        1, for a double indirect raise by a power of 2, and so on). 
-        Multiply this value 
-        by the size of a disk block and by the amount of that specific indirect 
-        disk block, i.e. if you are doing the calculation for 5 single indirect 
-        disk blocks, then multiply by 5 at the end. Add the multiplications 
-        for all the types of disk blocks together for the final answer.
+    Logic for ``answering maximum size of file'' type questions: multiply the
+    number of direct disk blocks by size of the disk blocks, for indirect
+    disk blocks, divide the size of the disk blocks by the size of a pointer to
+    a disk block, then raise this number by a power which is the same as the
+    level of the indirect block (i.e. for single indirect raise by a power of
+    1, for a double indirect raise by a power of 2, and so on).
+    Multiply this value
+    by the size of a disk block and by the amount of that specific indirect
+    disk block, i.e. if you are doing the calculation for 5 single indirect
+    disk blocks, then multiply by 5 at the end. Add the multiplications
+    for all the types of disk blocks together for the final answer.
     \section{Mass Storage Systems}
     \subsection{SCAN Scheduling}
     The disk arm starts at one end of the disk and moves
