@@ -351,7 +351,14 @@ pthread_mutex_unlock(&mutex);
         A directed edge from resource type $R_j$ to thread $T_i$ is denoted by 
         $R_j \rightarrow T_i$ signifies that an instance of resource type
         $R_j$ has been allocated to thread $T_i$.
-        
+    
+    \subsection{Methods for Handling Deadlock}
+        \textbf{Deadlock Prevention:} prevent circular wait from happening
+        (only practical solution) \\
+        \textbf{Deadlock Avoidance:} don't grant resources if it leads the 
+        system to an unsafe state.\\
+        \textbf{Deadlock Detection and Recovery:} Either terminate or preempt
+        resources.
     \section{Scheduling}
 
     \subsection{Predicting next CPU burst Formula}
