@@ -508,6 +508,12 @@ pthread_mutex_unlock(&mutex);
     % I think this is true? If not delete.
     Conventional single level page table stores an entry for each virtual page.
     Inverted page table stores an entry for each physical frame.
+
+    % NOTE: remove me if we run out of space
+    \subsubsection{Internal Fragmentation Formula}
+    Given page size = \(p\), process size \(r\), pages used = \(n\),
+    \(\textrm{fragmentation} = n \cdot p - r\)
+
     \section{Virtual Memory}
     \subsection{Demand Paging}
     $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
@@ -516,32 +522,32 @@ pthread_mutex_unlock(&mutex);
     A \textbf{valid/invalid bit} is used to tell a process if a page is legal
     and in memory or if its invalid (not in address space of the process) or
     legal but not in memory.\\
-    OS' maintain a \textbf{free frames list} which is a pool of free frames for 
+    OS' maintain a \textbf{free frames list} which is a pool of free frames for
     satisfying requests for new pages being brought into memory.\\
-    \textbf{Zero-fill-on-demand:} the contents of frames are erased before 
+    \textbf{Zero-fill-on-demand:} the contents of frames are erased before
     being allocated.\\
 
     \section{File System}
 
     \textbf{Volume:} disk block that contains file system.\\
 
-    \textbf{Info associated with an open file:} file pointer, file-open count, 
+    \textbf{Info associated with an open file:} file pointer, file-open count,
     location of the file, and access rights to the file.\\
 
-    \textbf{Operations to be performed on a directory:} search for a file, 
+    \textbf{Operations to be performed on a directory:} search for a file,
     create a file, delete a file, list a directory, rename a file, traverse
-    the file system. 
+    the file system.
 
     \subsection{Directory Structure}
-        \textbf{Single-level directory:} Only one directory exists for all 
-        users and all files are kept in it.\\
-        \textbf{Two-level directory:} Each user has their own directory and a 
-        master file directory is indexed by username to point to the user's 
-        directory. Isolates users from each other. Is a tree of height 2. \\
-        \textbf{Garbage collection} involves traversing the entire file
-        system, marking everything that can be accessed. Then, a second pass 
-        collects everything that is not marked onto a list of free space. 
-        Only used in general graph directory structures. 
+    \textbf{Single-level directory:} Only one directory exists for all
+    users and all files are kept in it.\\
+    \textbf{Two-level directory:} Each user has their own directory and a
+    master file directory is indexed by username to point to the user's
+    directory. Isolates users from each other. Is a tree of height 2. \\
+    \textbf{Garbage collection} involves traversing the entire file
+    system, marking everything that can be accessed. Then, a second pass
+    collects everything that is not marked onto a list of free space.
+    Only used in general graph directory structures.
 
     \textbf{Logic for ``answering maximum size of file'' type questions}: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
@@ -569,7 +575,7 @@ pthread_mutex_unlock(&mutex);
     return trip. Is a variant of SCAN scheduling.
 
     \textbf{Write amplification:} The creation of I/O requests not by applications
-    but by the NVM device doing garbage collection and space management. Can 
+    but by the NVM device doing garbage collection and space management. Can
     greatly impact the write performance of the device.
 
     \section{Conversions}
