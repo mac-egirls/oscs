@@ -448,6 +448,24 @@ pthread_mutex_unlock(&mutex);
     \includegraphics[width=\linewidth]{gantt-chart.png}
 
     \section{Memory Management}
+
+    \textbf{Dynamic loading:} a routine is not loaded until it is called. All 
+    routines are kept on disk in a relocatable load format. The main program is 
+    loaded into memory and is executed. When a routine needs to call another 
+    routine, the relocatable linking loader is called to load 
+    the desired routine into memory if its not loaded and
+    to update the program’s address tables to reflect this change. Then control is
+    passed to the newly loaded routine.\\
+    \textbf{Dynamic Linked Libraries} are similar.
+
+    \subsection{Fragmentation}
+        \textbf{First fit} strategy given N blocks will lose 0.5N blocks to 
+        fragmentation; 1/3 of memory will be unusable. Is also called the 
+        50\% rule. \\
+        \textbf{Compaction} is only possible if relocation is dynamic and 
+        done at runtime, not possible if relocation is static and done at 
+        assembly or load time. 
+
     \subsection{Paging}
     % this needs to be generalized/changed to not directly be a question
     Given a computer system with a 32-bit logical address and 8-KB page
