@@ -348,7 +348,7 @@ pthread_mutex_unlock(&mutex);
     \section{Deadlocks}
     % If someone thinks of a better subsection name just change it.
     \subsection{Is Deadlock Possible}
-    % TODO: Rewrite deadlock info as not a question
+    % TODO: #14 Rewrite deadlock info as not a question
     Assume that a multithreaded application uses
     only reader-writer locks for synchronization.
     Applying the four necessary conditions for dead-lock,
@@ -497,22 +497,14 @@ pthread_mutex_unlock(&mutex);
     track of physical memory.\\
     \textbf{Reentrant code} is non-self-modifying code: it
     never changes during execution and can be shared among processes. Can be
-    implemted as shared pages.
-    % TODO: Rewrite paging info as not a question
-    Given a computer system with a 32-bit logical address and 8-KB page
-    size and supports 1 GB of physical memory, how many entries are in
-    (a) a conventional, single level page table and in (b) an inverted
-    page table? \\
-    (a) The logical address space consists of the bits for the page number
-    and the page offset. Each page is 8KB which is $2^{13}$ bytes, so 13 bits
-    are needed for the page offset. As 32-13 = 19, 19 bits are used for
-    the page number and thus the page table can have $2^{19}$ entries. \\
-    (b) Inverted page tables keep only one entry for each real page
-    (frame) in memory. 13 bits are still kept for the page offset, but
-    we subtract from  the number of bits used for the physical memory,
-    which is 30 (since \(\qty{1}{\giga\byte} = \qty[parse-numbers=false]{2^{30}}{\byte}\)).
-    30-13 = 17, thus the
-    number of entries would be $2^{17}$.
+    implemted as shared pages.\\
+    % TODO: #15 Rewrite paging info as not a question
+    \subsubsection{Number of Bits and/or Entries}
+    \textbf{Important}: if any size is not in bytes convert to bytes first.\\
+    If address is in x bits, page size is $2^y$ bytes, number of frames/pages is $2^z$, then $x = y + z$.\\
+    % I think this is true? If not delete.
+    conventional single level $\equiv$ virtual memory\\
+    inverted $\equiv$ physical memory.
     \section{Virtual Memory}
     \subsection{Demand Paging}
     $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
