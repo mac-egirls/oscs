@@ -359,7 +359,8 @@ pthread\_exit(0);
     (b) Inverted page tables keep only one entry for each real page
     (frame) in memory. 13 bits are still kept for the page offset, but
     we subtract from  the number of bits used for the physical memory,
-    which is 30 (since $1GB = 2^30$ bytes). 30-13 = 17, thus the
+    which is 30 (since \(\qty{1}{\giga\byte} = \qty[parse-numbers=false]{2^{30}}{\byte}\)).
+    30-13 = 17, thus the
     number of entries would be $2^{17}$.
     \section{Virtual Memory}
     \subsection{Demand Paging}
