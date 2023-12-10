@@ -134,6 +134,10 @@ int main()
     status 1. The parent can obtain the status of a terminated child with
     \ttt{pid = wait(\&status)} where \ttt{status} is the integer status of the
     child process.
+    A process that has terminated, but whose parent has not yet called \verb|wait()|,
+    is a \textbf{zombie} process.
+    If the parent of a process terminated without invoking \verb|wait()|,
+    the process is an \textbf{orphan}.
 
     \subsection{Posix Shared Memory}
     \begin{lstlisting}[language=C]
