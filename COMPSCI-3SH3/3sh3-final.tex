@@ -525,6 +525,17 @@ pthread_mutex_unlock(&mutex);
     \textbf{Info associated with an open file:} file pointer, file-open count, 
     location of the file, and access rights to the file.\\
 
+    \textbf{Operations to be performed on a directory:} search for a file, 
+    create a file, delete a file, list a directory, rename a file, traverse
+    the file system. 
+
+    \subsection{Directory Structure}
+        \textbf{Single-level directory:} Only one directory exists for all 
+        users and all files are kept in it.\\
+        \textbf{Two-level directory:} Each user has their own directory and a 
+        master file directory is indexed by username to point to the user's 
+        directory. Is a tree of height 2. \\
+
     \textbf{Logic for ``answering maximum size of file'' type questions}: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
     disk blocks, divide the size of the disk blocks by the size of a pointer to
