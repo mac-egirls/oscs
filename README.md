@@ -35,6 +35,14 @@ which gives you GitHub Pro.
 
 ## (Anticipated) FAQs
 
+### What happened to Overleaf?
+Although the live-editing of Overleaf was incredibly helpful in getting started,
+as the number of contributors has grown into the double-digits,
+conflicting work and people overwriting others' changes has become more of an issue.
+I've moved the repo over to Git to help reduce this issue.
+This also helps reduce the project's dependence on a single platform,
+and lets contributors use whatever editor they want.
+
 ### Where's the sheets for year 1?
 I used separate Overleaf documents for courses in 1st year, so they haven't been added to the repo.
 If you'd really want to see them here, bug me on Discord.
