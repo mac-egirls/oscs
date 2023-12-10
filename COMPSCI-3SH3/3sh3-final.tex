@@ -467,6 +467,19 @@ pthread_mutex_unlock(&mutex);
         assembly or load time. 
 
     \subsection{Paging}
+    If the size of the logical address space is 2m, and a
+    page size is 2n bytes, then the high-order m-n bits of a logical address 
+    designate the page number, and the n low-order bits designate the page 
+    offset.\\
+    If process size is independent of page size, we expect internal fragmentation
+    to average one-half page per process.\\
+    The \textbf{frame table} has one entry for each physical page frame,
+    indicating whether the latter is free or allocated and, if it is allocated, 
+    to which page of which process (or processes). Used by the OS to keep 
+    track of physical memory.\\
+    \textbf{Reentrant code} is non-self-modifying code: it
+    never changes during execution and can be shared among processes. Can be 
+    implemted as shared pages. 
     % this needs to be generalized/changed to not directly be a question
     Given a computer system with a 32-bit logical address and 8-KB page
     size and supports 1 GB of physical memory, how many entries are in
