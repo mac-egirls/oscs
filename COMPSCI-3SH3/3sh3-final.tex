@@ -255,26 +255,26 @@ pthread\_exit(0);
 \end{lstlisting}
     \section{Synchronization}
     \subsection{Critical section problem}
-        A solution to the critical section problem must satisfy 
-        \underline{mutual exclusion},
-        \underline{progress} (processes are eventually allowed to access their 
-        critical sections after requesting it), and 
-        \underline{bounded} waiting (there is a limit 
-        on the number of times other processes can access their critical sections
-        after one process has requested access)
-        \textbf{Peterson's Solution:} processes use a flag variable to indicate 
-        if a process is ready to enter its critical section and a shared 
-        turn variable to indicate which process' turn it is to enter their 
-        critical section.
+    A solution to the critical section problem must satisfy
+    \underline{mutual exclusion},
+    \underline{progress} (processes are eventually allowed to access their
+    critical sections after requesting it), and
+    \underline{bounded} waiting (there is a limit
+    on the number of times other processes can access their critical sections
+    after one process has requested access)
+    \textbf{Peterson's Solution:} processes use a flag variable to indicate
+    if a process is ready to enter its critical section and a shared
+    turn variable to indicate which process' turn it is to enter their
+    critical section.
 
-    
+
     \subsection{Semaphores}
     \texttt{wait()} = \texttt{P()}, \texttt{signal()} = \texttt{V()},
     \texttt{wait()} decrements the semaphore, \texttt{signal()} increments the
     semaphore.
 
     \subsection{Atomic Instructions}
-\begin{lstlisting}[language=C]
+    \begin{lstlisting}[language=C]
 boolean test and set(boolean *target) {
     boolean rv = *target;
     *target = true;
@@ -334,7 +334,7 @@ while (true) {
     ready queue.
     \textbf{CPU utilization rate} is the time the CPU spends executing
     processes divided by the total time (time spent executing + time spent idle)
-    \textbf{Response Time:}The difference between the time a process
+    \textbf{Response Time:} The difference between the time a process
     produces a response and the time of the submission of a request
     (possibly same as arrival time?)
 
@@ -380,7 +380,7 @@ while (true) {
     The scheduler for a real-time operating system must support a priority based
     algorithm with preemption
 
-    \textbf{Event latency:} amount of time that elapses from when an event occurs 
+    \textbf{Event latency:} amount of time that elapses from when an event occurs
     to when it is serviced.\\
     \textbf{Interrupt latency} refers to the period of time from the arrival of
     an interrupt at the CPU to the start of the routine that services the
@@ -388,8 +388,8 @@ while (true) {
     \textbf{Dispatch latency} amount of time required for the scheduling
     dispatcher to stop one process and start another.
 
-    \textbf{Little's Formula:} $n = \lambda \cdot W$ where $n$ is the 
-    average long-term queue length (excluding the process being serviced), 
+    \textbf{Little's Formula:} $n = \lambda \cdot W$ where $n$ is the
+    average long-term queue length (excluding the process being serviced),
     $\lambda$ is the average arrival rate for new processes in the queue,
     and $W$ is average long-term queue length.
 
