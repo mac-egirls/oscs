@@ -335,7 +335,7 @@ pthread_cond_init(&cond_var,NULL);
 // thread waiting on condition variable
 pthread_mutex_lock(&mutex);
 while (a != b)
-pthread_cond_wait(&cond_var, &mutex);
+    pthread_cond_wait(&cond_var, &mutex);
 
 pthread_mutex_unlock(&mutex);
 
