@@ -505,7 +505,11 @@ pthread_mutex_unlock(&mutex);
     \subsection{Demand Paging}
     $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
         {page fault time}$ where $p$ is the probability of a page fault and $ma$
-    is the memory access time.
+    is the memory access time.\\
+    A \textbf{valid/invalid bit} is used to tell a process if a page is legal 
+    and in memory or if its invalid (not in address space of the process) or 
+    legal but not in memory.\\
+    
     \section{File System}
     Logic for ``answering maximum size of file'' type questions: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
