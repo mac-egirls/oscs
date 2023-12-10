@@ -516,23 +516,19 @@ pthread_mutex_unlock(&mutex);
     A \textbf{valid/invalid bit} is used to tell a process if a page is legal
     and in memory or if its invalid (not in address space of the process) or
     legal but not in memory.\\
+    OS' maintain a \textbf{free frames list} which is a pool of free frames for 
+    satisfying requests for new pages being brought into memory.\\
+    \textbf{Zero-fill-on-demand:} the contents of frames are erased before 
+    being allocated.\\
 
     \section{File System}
-    Logic for ``answering maximum size of file'' type questions: multiply the
-    number of direct disk blocks by size of the disk blocks, for indirect
-    disk blocks, divide the size of the disk blocks by the size of a pointer to
-    a disk block, then raise this number by a power which is the same as the
-    level of the indirect block (i.e. for single indirect raise by a power of
-    1, for a double indirect raise by a power of 2, and so on).
-    Multiply this value
-    by the size of a disk block and by the amount of that specific indirect
-    disk block, i.e. if you are doing the calculation for 5 single indirect
-    disk blocks, then multiply by 5 at the end. Add the multiplications
-    for all the types of disk blocks together for the final answer.
 
-    \textbf{Volume:} disk block that contains file system.
+    \textbf{Volume:} disk block that contains file system.\\
 
-    Logic for ``answering maximum size of file'' type questions: multiply the
+    \textbf{Info associated with an open file:} file pointer, file-open count, 
+    location of the file, and access rights to the file.\\
+
+    \textbf{Logic for ``answering maximum size of file'' type questions}: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
     disk blocks, divide the size of the disk blocks by the size of a pointer to
     a disk block, then raise this number by a power which is the same as the
@@ -556,6 +552,11 @@ pthread_mutex_unlock(&mutex);
     head reaches the other end, however, it immediately returns
     to the beginning of the disk without servicing any requests on the
     return trip. Is a variant of SCAN scheduling.
+
+    \textbf{Write amplification:} The creation of I/O requests not by applications
+    but by the NVM device doing garbage collection and space management. Can 
+    greatly impact the write performance of the device.
+
     \section{Conversions}
     \qty{1}{\second} = \qty{1000}{\milli\second},
     \qty{1}{\milli\second} = \qty{1000}{\micro\second} (microsecond),
