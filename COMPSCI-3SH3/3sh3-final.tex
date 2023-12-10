@@ -348,7 +348,7 @@ pthread_mutex_unlock(&mutex);
     \section{Deadlocks}
     % If someone thinks of a better subsection name just change it.
     \subsection{Is Deadlock Possible}
-    % TODO: Rewrite deadlock info as not a question
+    % TODO: #14 Rewrite deadlock info as not a question
     Assume that a multithreaded application uses
     only reader-writer locks for synchronization.
     Applying the four necessary conditions for dead-lock,
@@ -498,7 +498,7 @@ pthread_mutex_unlock(&mutex);
     \textbf{Reentrant code} is non-self-modifying code: it
     never changes during execution and can be shared among processes. Can be
     implemted as shared pages.
-    % TODO: Rewrite paging info as not a question
+    % TODO: #15 Rewrite paging info as not a question
     Given a computer system with a 32-bit logical address and 8-KB page
     size and supports 1 GB of physical memory, how many entries are in
     (a) a conventional, single level page table and in (b) an inverted
