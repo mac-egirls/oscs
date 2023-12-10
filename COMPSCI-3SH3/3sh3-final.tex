@@ -537,7 +537,11 @@ pthread_mutex_unlock(&mutex);
         users and all files are kept in it.\\
         \textbf{Two-level directory:} Each user has their own directory and a 
         master file directory is indexed by username to point to the user's 
-        directory. Is a tree of height 2. \\
+        directory. Isolates users from each other. Is a tree of height 2. \\
+        \textbf{Garbage collection} involves traversing the entire file
+        system, marking everything that can be accessed. Then, a second pass 
+        collects everything that is not marked onto a list of free space. 
+        Only used in general graph directory structures. 
 
     \textbf{Logic for ``answering maximum size of file'' type questions}: multiply the
     number of direct disk blocks by size of the disk blocks, for indirect
