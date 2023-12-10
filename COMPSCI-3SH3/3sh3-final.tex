@@ -316,6 +316,9 @@ while (true) {
     \subsection{Predicting next CPU burst Formula}
     $\tau_{n+1} = \alpha \cdot t_n + (1-\alpha) \cdot \tau_n$
     where $t_n$ is the value of the nth CPU burst, $0 \leq \alpha \leq 1$ \\
+    $\tau_0$ affects the starting value of the predictions,
+    and $\alpha$ affects how much the last CPU burst vs
+    the last predicted CPU burst is weighted.\\
     If $\alpha = 0$, then $\tau_{n+1} = \tau_n$ and recent history has
     no effect on the future CPU burst. If $\alpha = 1$, then
     $\tau_{n+1} = t_n$ and only the most recent CPU bursts matter (history
