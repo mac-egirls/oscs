@@ -501,17 +501,20 @@ pthread_mutex_unlock(&mutex);
     % TODO: #15 Rewrite paging info as not a question
     \subsubsection{Number of Bits and/or Entries}
     \textbf{Important}: if any size is not in bytes convert to bytes first.\\
-    If address is in x bits, page size is $2^y$ bytes, number of frames/pages is $2^z$, then $x = y + z$.\\
+    If the address takes \(x\) bits to store,
+    page size is $2^y$ bytes,
+    and number of frames or pages is $2^z$,
+    then $x = y + z$.\\
     % I think this is true? If not delete.
-    conventional single level $\equiv$ virtual memory\\
-    inverted $\equiv$ physical memory.
+    Conventional single level page table stores an entry for each virtual page.
+    Inverted page table stores an entry for each physical frame.
     \section{Virtual Memory}
     \subsection{Demand Paging}
     $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
         {page fault time}$ where $p$ is the probability of a page fault and $ma$
     is the memory access time.\\
-    A \textbf{valid/invalid bit} is used to tell a process if a page is legal 
-    and in memory or if its invalid (not in address space of the process) or 
+    A \textbf{valid/invalid bit} is used to tell a process if a page is legal
+    and in memory or if its invalid (not in address space of the process) or
     legal but not in memory.\\
 
     \section{File System}
@@ -540,7 +543,7 @@ pthread_mutex_unlock(&mutex);
     disk block, i.e. if you are doing the calculation for 5 single indirect
     disk blocks, then multiply by 5 at the end. Add the multiplications
     for all the types of disk blocks together for the final answer.
-    
+
     \section{Mass Storage Systems}
     \subsection{SCAN Scheduling}
     The disk arm starts at one end of the disk and moves
