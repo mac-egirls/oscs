@@ -312,27 +312,34 @@ while (true) {
 
     \subsection{Pthread Synchronization}
 
+    \subsubsection{Mutex Locks}
     \begin{lstlisting}[language=C]
 pthread_mutex_t mutex;
-/* create and_initialize the mutex lock */
+/* create and initialize mutex lock */
 pthread_mutex_init(&mutex,NULL);
 /* acquire the mutex lock */
 pthread_mutex_lock(&mutex);
 /* critical section */
 /* release the mutex lock */
 pthread_mutex_unlock(&mutex);
+    \end{lstlisting}
 
-
+    \subsubsection{Condition Variables}
+    \begin{lstlisting}[language=C]
+pthread_mutex_t mutex;
 pthread_cond_t cond_var;
+
+pthread_mutex_init(&mutex,NULL);
 pthread_cond_init(&cond_var,NULL);
 
-
+// thread waiting on condition variable
 pthread_mutex_lock(&mutex);
 while (a != b)
 pthread_cond_wait(&cond_var, &mutex);
+
 pthread_mutex_unlock(&mutex);
 
-
+// thread that modifies shared data, signalling waiting thread
 pthread_mutex_lock(&mutex);
 a = b;
 pthread_cond_signal(&cond_var);
