@@ -505,9 +505,10 @@ pthread_mutex_unlock(&mutex);
     page size is $2^y$ bytes,
     and number of frames or pages is $2^z$,
     then $x = y + z$.\\
+    If there are $2^x$ amount of pages/frames and the page size is $2^y$, then the logical/physical address is $x+y$ bits long. 
     % I think this is true? If not delete.
-    Conventional single level page table stores an entry for each virtual page.
-    Inverted page table stores an entry for each physical frame.
+    \textbf{Conventional single level} page table stores an entry for each virtual page.
+    \textbf{Inverted page table} stores an entry for each physical frame.
     \section{Virtual Memory}
     \subsection{Demand Paging}
     $\text{\textbf{effective access time}} = (1-p) \cdot ma + p \cdot \text
