@@ -107,16 +107,16 @@
     application developers.
 
     \subsection{Interrupts}
-        Signal to CPU there is a task requiring attention, usually I/O. Trap is s/w generated interrupt caused by error or user request. \\
-        \textbf{Synchronous:} user process waits for I/O to finish, must know time it takes. \textbf{Asynchronous:} request returns before I/O completion, interrupts when done. \\
-        \textbf{Polling system:} system calls all interrupt handlers to determine which made the interrupt. (slow) \textbf{vectored system:} handler is found via interrupt vector. \\
-        Interrupt is \underline{maskable} if it can be ignored by CPU otherwise \underline{nonmaskable}.
+    Signal to CPU there is a task requiring attention, usually I/O. Trap is s/w generated interrupt caused by error or user request. \\
+    \textbf{Synchronous:} user process waits for I/O to finish, must know time it takes. \textbf{Asynchronous:} request returns before I/O completion, interrupts when done. \\
+    \textbf{Polling system:} system calls all interrupt handlers to determine which made the interrupt. (slow) \textbf{vectored system:} handler is found via interrupt vector. \\
+    Interrupt is \underline{maskable} if it can be ignored by CPU otherwise \underline{nonmaskable}.
 
-        \subsection{I/O Techniques}
-        \textbf{Programmed:} Requested I/O action performed, module sets I/O status register. Processor periodically checks status until action completed. \\
-        \textbf{Interrupt-driven:} Process issues I/O command to module which interrupts processor when done. Processor then transfers data. \\
-        \textbf{DMA:} Data is transferred directly to memory, processor only needed for initialization. Bus access slowed for processor during the transfer.
-    
+    \subsection{I/O Techniques}
+    \textbf{Programmed:} Requested I/O action performed, module sets I/O status register. Processor periodically checks status until action completed. \\
+    \textbf{Interrupt-driven:} Process issues I/O command to module which interrupts processor when done. Processor then transfers data. \\
+    \textbf{DMA:} Data is transferred directly to memory, processor only needed for initialization. Bus access slowed for processor during the transfer.
+
     \section{Processes}
     \textbf{Possible states of a process}: new, running, waiting, ready,
     terminated.
@@ -142,6 +142,8 @@ int main()
     return 0;
 }
 \end{lstlisting}
+    \ttt{Fork()} returns 0 for the child process, and returns the \ttt{pid} of the 
+    child process for the parent.
     The \ttt{exit(1)} system call can be used to terminate a process with
     status 1. The parent can obtain the status of a terminated child with
     \ttt{pid = wait(\&status)} where \ttt{status} is the integer status of the
@@ -601,9 +603,10 @@ pthread_mutex_unlock(&mutex);
     \qty{1}{\milli\second} = \qty{1000}{\micro\second} (microsecond),
     \qty{1}{\micro\second} = \qty{1000}{\nano\second}
 
-    \qty{1}{\kilo\byte} = \qty[parse-numbers=false]{2^{10}}{\byte},
-    \qty{1}{\mega\byte} = \qty[parse-numbers=false]{2^{20}}{\byte},
-    \qty{1}{\giga\byte} = \qty[parse-numbers=false]{2^{30}}{\byte}
+    \qty{1}{\kilo\byte} = \qty[parse-numbers=false]{2^{10}}{\byte} = 1024 B,\\
+    \qty{1}{\mega\byte} = \qty[parse-numbers=false]{2^{20}}{\byte} = 1,048,576 B,\\
+    \qty{1}{\giga\byte} = \qty[parse-numbers=false]{2^{30}}{\byte} = 1,073,741,824 B,\\
+    \qty{1}{\tera\byte} = \qty[parse-numbers=false]{2^{40}}{\byte} = 1,099,511,627,776 B
 
 \end{multicols*}
 \end{document}
