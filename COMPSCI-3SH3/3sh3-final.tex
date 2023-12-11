@@ -428,7 +428,8 @@ pthread_mutex_unlock(&mutex);
     are done, but not too large so as to devolve to FCFS scheduling.
 
     \subsection{Chip Multithreading}
-    When you have more than one thread in a core.
+    When you have more than one hardware thread in a core. The threads look
+    like two logical CPUs to the OS. 
 
     \textbf{Coarse grained multithreading:} a thread executes on a core until a
     long-latency event such as a memory stall occurs. Because of the delay
