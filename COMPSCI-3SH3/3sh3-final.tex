@@ -518,8 +518,7 @@ pthread_mutex_unlock(&mutex);
     page size is $2^y$ bytes,
     and number of frames or pages is $2^z$,
     then $x = y + z$.\\
-    If there are $2^x$ amount of pages/frames and the page size is $2^y$, then the logical/physical address is $x+y$ bits long. 
-    % I think this is true? If not delete.
+    If there are $2^x$ amount of pages/frames and the page size is $2^y$, then the logical/physical address is $x+y$ bits long. \\
     \textbf{Conventional single level} page table stores an entry for each virtual page or page number.
     \textbf{Inverted page table} stores an entry for each physical frame.
 
@@ -591,6 +590,11 @@ pthread_mutex_unlock(&mutex);
     \textbf{Write amplification:} The creation of I/O requests not by applications
     but by the NVM device doing garbage collection and space management. Can
     greatly impact the write performance of the device.
+    \subsection{latency \& I/O time}
+    Latency based on spindle speed: 1/ (RPM/60) = 60/RPM\\
+    Average latency = 1/2 latency\\
+    Access Latency = average seek time + average latency\\
+    Average I/O time = access latency + (amount to transfer / transfer rate) + controller overhead
 
     \section{Conversions}
     \qty{1}{\second} = \qty{1000}{\milli\second},
@@ -600,8 +604,6 @@ pthread_mutex_unlock(&mutex);
     \qty{1}{\kilo\byte} = \qty[parse-numbers=false]{2^{10}}{\byte},
     \qty{1}{\mega\byte} = \qty[parse-numbers=false]{2^{20}}{\byte},
     \qty{1}{\giga\byte} = \qty[parse-numbers=false]{2^{30}}{\byte}
-    % Previous final and lecture questions that I managed to put in without copying the whole thing word for word. Omitted ez questions that is just plugging formulas. Might need additional formatting.
-    % \section{Techniques for Predicted Questions}
 
 \end{multicols*}
 \end{document}
