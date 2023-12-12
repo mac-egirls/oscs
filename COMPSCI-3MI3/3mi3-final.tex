@@ -117,23 +117,12 @@
     % -> Lambda calculus - Call-by-name vs Call-by-value
     % domain-specific languages
     % shallow vs deep vs tagless embeddings
-    \subsection{Static Semantics}
-    % types
-    % Progress rule (always be able to make a step towards the value)
-    % (for every well-typed program, either I can make a step, or e is a value)
-    % Preservation rule ()
 
-    % context list and how it works
-    % unification (????? idk i didnt pay attention to this section)
-    % u jus like me fr
-
-    % featherweight java (wtf?)
-
-    \section{Evaluation Strategies}
+    \subsubsection{Evaluation Strategies}
 
     Can't evaluate anything under a lambda in both of the below strategies.
 
-    \subsection{Call by name}
+    \textbf{Call by name} --
     Can't evaluate anything that isn't an outermost term.
     % idk put the rules or an example here
 
@@ -150,17 +139,35 @@
     \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
     \(\inferrule{ }{\operatorname{let} x = e_1 \operatorname{in} e_2 \to e_2[e_1/x]}\)
 
-    \subsection{Call by Value}
-    Reduce arguments first.
+    \textbf{Call by Value} --
+    Reduce arguments first
 
-    \section{Q1 Practice Answer}
+    \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
+    \(\inferrule{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'}\)
+    \(\inferrule{ }{(\lambda x.e_1) v_2 \to e_1[v_2/x]}\)
+
+    \subsection{Static Semantics}
+    % types
+    % Progress rule (always be able to make a step towards the value)
+    % (for every well-typed program, either I can make a step, or e is a value)
+    % Preservation rule ()
+
+    % context list and how it works
+    % unification (????? idk i didnt pay attention to this section)
+    % u jus like me fr
+
+    % featherweight java (wtf?)
+
+    \section{Q\&A}
+
+    \subsection{Q1 Practice Answer}
 
     % CBN Example
     %((λx.λy.y y)((λw.w w)(λw.w w)))(λw.w)  
     %(λy.y y) (λw.w) - λx is called, all x’s replaced w/ (λw.w w)(λw.w w) 
     %(λw.w) (λw.w) - λy is called, all y’s replaced w/ (λw.w)
     %(λw.w) - λw is called, all w’s replaced w/ (λw.w)
-    \subsection{CBN}
+    \subsubsection{CBN}
     \begin{align*}
          & ((\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w)))(\lambda w.w)      \\
          & \textrm{//\(\lambda x\) is called, all \(x\)'s replaced}                      \\
@@ -175,13 +182,14 @@
     % (λx.λy.y y)((λw.w w)(λw.w w))(λw.w) 
     %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
     % Does not terminate, infinite loop of (λw.w w)(λw.w w)
-    \subsection{CBV}
+    \subsubsection{CBV}
     \begin{align*}
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & \textrm{//infinite loop}
     \end{align*}
 
+    % FIXME: this should go under one of the headings above, not in it's own section
     \section{Church Encodings}
     \subsection{Pairs}
     pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$
