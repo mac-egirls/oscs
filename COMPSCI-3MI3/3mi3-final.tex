@@ -200,6 +200,17 @@
     nil = $\lambda c.\lambda n.n$
     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
 
+    \section{Subtyping}
+    T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
+    S-RcdWidth: \(\{ l_{i}: T_{i}^{i \in  1..n +k} \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}\)
+    S-RcdDepth: \(\frac{\text{for each } i \quad S_{i} <: T_{i}}{\{ l_{i}: S_{i}^{i \in  1..n } \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}}\)
+    S-RcdPerm: \(\frac{\{k_{j} :S_{j}^{j \in 1..n}\} \text{ is perm. of } \{l_{i}:T_{i}^{i \in 1..n} \}}{\{k_{j}:S_{j}^{j \in 1..n} \} <: \{l_{i}: T_{I}^{i \in 1..n} \}}\)
+    S-Arrow: \(\frac{T_{1} <: S_{1} \quad S_{2} <: T_{2}}{S_{1} \to S_{2} <: T_{1} \to T_{2}}\)\\
+    This S-Arrow subtype relation is \textbf{contravariant} in the left-hand sides of arrows, and
+    \textbf{covariant} in the right-hand sides of arrows.
+    The intuition is that if we have a function \(S_1 \to S_2\),
+    then it will accept any subtype of \(S_1\) as input, 
+    and the result \(S_2\) can be viewed as belonging to any supertype of \(S_2\).
 
 \end{multicols*}
 
