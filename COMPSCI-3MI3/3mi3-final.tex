@@ -199,6 +199,10 @@
     \subsection{Lists}
     nil = $\lambda c.\lambda n.n$
     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
+    
+    \section{Unification Algorithm}
+    % Note: screenshotted from tb p327, transcribe if you want
+    \includegraphics[width=\linewidth]{unification-algorithm.png}
 
     \section{Subtyping}
     T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
