@@ -146,6 +146,23 @@
     \(\inferrule{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'}\)
     \(\inferrule{ }{(\lambda x.e_1) v_2 \to e_1[v_2/x]}\)
 
+
+    \subsection{Domain Specific Languages (DSLs)}
+    \subsubsection{Shallow}
+    Implement the DSL as functions.
+    Ex. for pic DSL, stuff is given as functions.
+    Easy to add new functions,
+    but can suck if you want to extend to more interpretations since you can't reuse functions.
+    \subsubsection{Deep}
+    Datatype to represent syntax.
+    Can easily write new interpretation functions.
+    But annoying to add new operations because all interpretations need to be extended.
+    \subsubsection{Tagless}
+    Best of shallow and deep.
+    The language is the interpretation.
+    If we want to add a new operation we can easily add a new class that extends the original.
+    To create a new interpretation just create an instance of the class.
+
     \subsection{Static Semantics}
     % types
     % Progress rule (always be able to make a step towards the value)
@@ -193,29 +210,19 @@
     % FIXME: this should go under one of the headings above, not in it's own section
     \section{Church Encodings}
     \subsection{Pairs}
-    pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$
-    fst = $\lambda p.p (\lambda x.\lambda y.x)$
+    pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$\\
+    fst = $\lambda p.p (\lambda x.\lambda y.x)$\\
     snd = $\lambda p.p (\lambda x.\lambda y.y)$
 
     \subsection{Lists}
-    nil = $\lambda c.\lambda n.n$
+    nil = $\lambda c.\lambda n.n$\\
     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
 
-    \section{Domain Specific Languages (DSLs)}
-    \subsection{Shallow}
-    Implement the DSL as functions.
-    Ex. for pic DSL, stuff is given as functions.
-    Easy to add new functions,
-    but can suck if you want to extend to more interpretations since you can't reuse functions.
-    \subsection{Deep}
-    Datatype to represent syntax.
-    Can easily write new interpretation functions.
-    But annoying to add new operations because all interpretations need to be extended.
-    \subsection{Tagless}
-    Best of shallow and deep.
-    The language is the interpretation. 
-    If we want to add a new operation we can easily add a new class that extends the original. 
-    To create a new interpretation just create an instance of the class.
+    % credit to milenb17#9439 on Discord
+    \subsection{Trees}
+    leaf = \(\lambda x.\lambda b.\lambda l.l ,x\)\\
+    branch = \(\lambda x.\lambda y.\lambda b.\lambda l. ,b ,(x, l, b) ,(y, l, b)\)
+
 
 
     \section{Subtyping}
