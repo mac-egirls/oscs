@@ -273,6 +273,22 @@
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & \textrm{//infinite loop}
     \end{align*}
+
+    \subsection{Q8 - Expression evaluates in more steps under cbv}
+    \begin{align*}
+        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
+        \text{under cbn:}\\
+        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        = (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)\\
+        = ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        = b ((\lambda x. x) b) ((\lambda x. x) b) \\
+        \text{under cbv:}\\
+        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)
+        = (\lambda x,y. x x y) b ((\lambda x. x) b)
+        = (\lambda x,y. x x y) b b
+        = (\lambda y. b b y) b
+        = b b b
+    \end{align*}
 \end{multicols*}
 
 \end{document}
