@@ -130,26 +130,38 @@
 
     \section{Evaluation Strategies}
 
-        Can't evaluate anything under a lambda in both of the below strategies.
+    Can't evaluate anything under a lambda in both of the below strategies.
 
-        \subsection{Call by name}
-        Can't evaluate anything that isn't an outermost term.
-        % idk put the rules or an example here
+    \subsection{Call by name}
+    Can't evaluate anything that isn't an outermost term.
+    % idk put the rules or an example here
 
-        \subsection{Call by Value}
-        Reduce arguments first.
+    \subsection{Call by Value}
+    Reduce arguments first.
 
     \section{Q1 Practice Answer}
     % CBN Example
-      %((λx.λy.y y)((λw.w w)(λw.w w)))(λw.w)  
-      %(λy.y y) (λw.w) - λx is called, all x’s replaced w/ (λw.w w)(λw.w w) 
-      %(λw.w) (λw.w) - λy is called, all y’s replaced w/ (λw.w)
-      %(λw.w) - λw is called, all w’s replaced w/ (λw.w)
-      
-      %CBV Example
-     % (λx.λy.y y)((λw.w w)(λw.w w))(λw.w) 
-      %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
-     % Does not terminate, infinite loop of (λw.w w)(λw.w w)
+    %((λx.λy.y y)((λw.w w)(λw.w w)))(λw.w)  
+    %(λy.y y) (λw.w) - λx is called, all x’s replaced w/ (λw.w w)(λw.w w) 
+    %(λw.w) (λw.w) - λy is called, all y’s replaced w/ (λw.w)
+    %(λw.w) - λw is called, all w’s replaced w/ (λw.w)
+
+    %CBV Example
+    % (λx.λy.y y)((λw.w w)(λw.w w))(λw.w) 
+    %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
+    % Does not terminate, infinite loop of (λw.w w)(λw.w w)
+
+    \section{Subtyping}
+    T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
+    S-RcdWidth: \(\{ l_{i}: T_{i}^{i \in  1..n +k} \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}\)
+    S-RcdDepth: \(\frac{\text{for each } i \quad S_{i} <: T_{i}}{\{ l_{i}: S_{i}^{i \in  1..n } \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}}\)
+    S-RcdPerm: \(\frac{\{k_{j} :S_{j}^{j \in 1..n}\} \text{ is perm. of } \{l_{i}:T_{i}^{i \in 1..n} \}}{\{k_{j}:S_{j}^{j \in 1..n} \} <: \{l_{i}: T_{I}^{i \in 1..n} \}}\)
+    S-Arrow: \(\frac{T_{1} <: S_{1} \quad S_{2} <: T_{2}}{S_{1} \to S_{2} <: T_{1} \to T_{2}}\)\\
+    This S-Arrow subtype relation is \textbf{contravariant} in the left-hand sides of arrows, and
+    \textbf{covariant} in the right-hand sides of arrows.
+    The intuition is that if we have a function \(S_1 \to S_2\),
+    then it will accept any subtype of \(S_1\) as input, 
+    and the result \(S_2\) can be viewed as belonging to any supertype of \(S_2\).
 
 \end{multicols*}
 
