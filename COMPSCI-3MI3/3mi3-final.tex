@@ -159,6 +159,18 @@
     \(\inferrule{ }{\operatorname{let} x = v_1 \operatorname{in} e_2 \to e_2[v_1/x]}\)
 
     \subsection{Church Encodings}
+
+    \subsubsection{Booleans}
+    tru = $\lambda t. \lambda f. t $\\
+    fls = $\lambda t. \lambda. f. f $\\
+    and = $\lambda b. \lambda c. b c fls$\\
+    or = $\lambda b. \lambda c. b tru c$ %correct this if wrong idk if this is right
+
+    \subsubsection{Numerals}
+    0 = $\lambda s. \lambda z. z$\\
+    1 = $\lambda s. \lambda z. s z$\\
+    2 = $\lambda s. \lambda z. s (s z)$
+
     \subsubsection{Pairs}
     pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$\\
     fst = $\lambda p.p (\lambda x.\lambda y.x)$\\
@@ -257,7 +269,6 @@
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & \textrm{//infinite loop}
     \end{align*}
-
 \end{multicols*}
 
 \end{document}
