@@ -23,6 +23,7 @@
 \usepackage{xcolor}
 \usepackage{courier}
 \usepackage{syntax}
+\usepackage{mathpartir}
 
 % minimal line spacing
 \setstretch{0.1}
@@ -136,6 +137,19 @@
     Can't evaluate anything that isn't an outermost term.
     % idk put the rules or an example here
 
+    % TODO: if we run out of space delete this and replace it with an explanation
+    \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
+    \(\inferrule{ }{(\lambda x.e_1)e_2 \to e_1[e_2/x]}\)
+    \(\inferrule{ }{\operatorname{fst}(e_2, e_2) \to e_2}\)
+    \(\inferrule{ }{\operatorname{snd}(e_1, e_2) \to e_2}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{and} e_1 e_2 \to \operatorname{and} e_1' e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{true} e_2 \to e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{false} e_2 \to \operatorname{false}}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{if} e_1 \operatorname{then} e_2 \operatorname{else} e_3 \to \operatorname{if} e_1' \operatorname{then} e_2 \operatorname{else} e_3}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{true}\operatorname{then} e_2 \operatorname{else} e_3 \to e_2}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
+    \(\inferrule{ }{\operatorname{let} x = e_1 \operatorname{in} e_2 \to e_2[e_1/x]}\)
+
     \subsection{Call by Value}
     Reduce arguments first.
 
@@ -168,16 +182,16 @@
          & \textrm{//infinite loop}
     \end{align*}
 
-     \section{Church Encodings}
-     \subsection{Pairs}
-     pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$
-     fst = $\lambda p.p (\lambda x.\lambda y.x)$
-     snd = $\lambda p.p (\lambda x.\lambda y.y)$
+    \section{Church Encodings}
+    \subsection{Pairs}
+    pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$
+    fst = $\lambda p.p (\lambda x.\lambda y.x)$
+    snd = $\lambda p.p (\lambda x.\lambda y.y)$
 
-     \subsection{Lists}
-     nil = $\lambda c.\lambda n.n$
-     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
-     
+    \subsection{Lists}
+    nil = $\lambda c.\lambda n.n$
+    cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
+
 
 \end{multicols*}
 
