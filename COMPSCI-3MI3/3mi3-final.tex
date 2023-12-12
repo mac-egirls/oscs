@@ -151,6 +151,17 @@
       %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
      % Does not terminate, infinite loop of (λw.w w)(λw.w w)
 
+     \section{Church Encodings}
+     \subsection{Pairs}
+     pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$
+     fst = $\lambda p.p (\lambda x.\lambda y.x)$
+     snd = $\lambda p.p (\lambda x.\lambda y.y)$
+
+     \subsection{Lists}
+     nil = $\lambda c.\lambda n.n$
+     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
+     
+
 \end{multicols*}
 
 \end{document}
