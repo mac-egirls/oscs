@@ -98,7 +98,7 @@
 \setlength{\postmulticols}{1pt}
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
-\begin{multicols*}{6}
+\begin{multicols*}{5}
     \section{Syntax}
     How a programming language ``looks''.
     Often a string, but can be a picture (Monet), or a grid of cells (Excel).
@@ -130,26 +130,43 @@
 
     \section{Evaluation Strategies}
 
-        Can't evaluate anything under a lambda in both of the below strategies.
+    Can't evaluate anything under a lambda in both of the below strategies.
 
-        \subsection{Call by name}
-        Can't evaluate anything that isn't an outermost term.
-        % idk put the rules or an example here
+    \subsection{Call by name}
+    Can't evaluate anything that isn't an outermost term.
+    % idk put the rules or an example here
 
-        \subsection{Call by Value}
-        Reduce arguments first.
+    \subsection{Call by Value}
+    Reduce arguments first.
 
     \section{Q1 Practice Answer}
+
     % CBN Example
-      %((λx.λy.y y)((λw.w w)(λw.w w)))(λw.w)  
-      %(λy.y y) (λw.w) - λx is called, all x’s replaced w/ (λw.w w)(λw.w w) 
-      %(λw.w) (λw.w) - λy is called, all y’s replaced w/ (λw.w)
-      %(λw.w) - λw is called, all w’s replaced w/ (λw.w)
-      
-      %CBV Example
-     % (λx.λy.y y)((λw.w w)(λw.w w))(λw.w) 
-      %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
-     % Does not terminate, infinite loop of (λw.w w)(λw.w w)
+    %((λx.λy.y y)((λw.w w)(λw.w w)))(λw.w)  
+    %(λy.y y) (λw.w) - λx is called, all x’s replaced w/ (λw.w w)(λw.w w) 
+    %(λw.w) (λw.w) - λy is called, all y’s replaced w/ (λw.w)
+    %(λw.w) - λw is called, all w’s replaced w/ (λw.w)
+    \subsection{CBN}
+    \begin{align*}
+         & ((\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w)))(\lambda w.w)      \\
+         & \textrm{//\(\lambda x\) is called, all \(x\)'s replaced}                      \\
+         & (\lambda y.y y) (\lambda w.w)                                                 \\
+         & \textrm{//\(\lambda y\) is called, all \(y\)'s replaced w/ \((\lambda w.w)\)} \\
+         & (\lambda w.w) (\lambda w.w)                                                   \\
+         & \textrm{//\(\lambda w\) is caled, all \(w\)'s replaced w/ \((\lambda w.w)\)}  \\
+         & (\lambda w.w)
+    \end{align*}
+
+    %CBV Example
+    % (λx.λy.y y)((λw.w w)(λw.w w))(λw.w) 
+    %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
+    % Does not terminate, infinite loop of (λw.w w)(λw.w w)
+    \subsection{CBV}
+    \begin{align*}
+         & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
+         & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
+         & \textrm{//infinite loop}
+    \end{align*}
 
      \section{Church Encodings}
      \subsection{Pairs}
