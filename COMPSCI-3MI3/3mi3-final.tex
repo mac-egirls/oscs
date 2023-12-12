@@ -122,7 +122,7 @@
 
     Can't evaluate anything under a lambda in both of the below strategies.
 
-    \textbf{Call by name} --
+    \textbf{Call by name}\\
     Can't evaluate anything that isn't an outermost term.
     % idk put the rules or an example here
 
@@ -139,12 +139,24 @@
     \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
     \(\inferrule{ }{\operatorname{let} x = e_1 \operatorname{in} e_2 \to e_2[e_1/x]}\)
 
-    \textbf{Call by Value} --
+    \textbf{Call by Value}\\
     Reduce arguments first
 
     \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
     \(\inferrule{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'}\)
     \(\inferrule{ }{(\lambda x.e_1) v_2 \to e_1[v_2/x]}\)
+    \(\inferrule{e_1 \to e_1'}{(e_1, e_2) \to (e_1', e_2)}\)
+    \(\inferrule{e_2 \to e_2'}{(v_1, e_2) \to (v_1, e_2')}\)
+    \(\inferrule{ }{\operatorname{fst} (v_1, v_2) \to v_1}\)
+    \(\inferrule{ }{\operatorname{snd} (v_1, v_2) \to v_2}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{and} e_1 e_2 \to \operatorname{and} e_1' e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{true} e_2 \to e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{false} e_2 \to \operatorname{false}}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{if} e_1 \operatorname{then} e_2 \operatorname{else} e_3 \to \operatorname{if} e_1' \operatorname{then} e_2 \operatorname{else} e_3}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{true}\operatorname{then} e_2 \operatorname{else} e_3 \to e_2}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{let} x = e_1 \operatorname{in} e_2 \to \operatorname{let} x = e_1' \operatorname{in} e_2}\)
+    \(\inferrule{ }{\operatorname{let} x = v_1 \operatorname{in} e_2 \to e_2[v_1/x]}\)
 
     \subsection{Static Semantics}
     % types
