@@ -176,6 +176,10 @@
     fst = $\lambda p.p (\lambda x.\lambda y.x)$\\
     snd = $\lambda p.p (\lambda x.\lambda y.y)$
 
+    \subsubsection{Either} % someone check if these are wrong
+    left = $\lambda a. \lambda l. \lambda r. l a$\\
+    right = $\lambda b. \lambda l. \lambda r. r b$
+
     \subsubsection{Lists}
     nil = $\lambda c.\lambda n.n$\\
     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
