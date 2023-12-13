@@ -512,19 +512,20 @@
 
     % shoutout elite
     \subsection{Q9 - Expression evaluates in more steps under cbn}
-    \begin{flalign*}
-         & (\lambda x. (\lambda y. y y) x x) (\lambda y. y) x  &  & \\
-         & \text{under cbn:}                                   &  & \\
-         & = (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x &  & \\
-         & = (\lambda y. y) (\lambda y. y) (\lambda y. y)  x   &  & \\
-         & = (\lambda y. y) (\lambda y. y)  x                  &  & \\
-         & = (\lambda y. y)  x                                 &  & \\
-         & = x                                                      \\
-         & \text{under cbv:}                                   &  & \\
-         & = (\lambda x. (\lambda y. y y) x x) x               &  & \\
-         & = (\lambda y. y y) x x                              &  & \\
-         & = x x x                                             &  & \\
-    \end{flalign*}
+    % apparently this is wrong
+    % \begin{flalign*}
+    %      & (\lambda x. (\lambda y. y y) x x) (\lambda y. y) x  &  & \\
+    %      & \text{under cbn:}                                   &  & \\
+    %      & = (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x &  & \\
+    %      & = (\lambda y. y) (\lambda y. y) (\lambda y. y)  x   &  & \\
+    %      & = (\lambda y. y) (\lambda y. y)  x                  &  & \\
+    %      & = (\lambda y. y)  x                                 &  & \\
+    %      & = x                                                      \\
+    %      & \text{under cbv:}                                   &  & \\
+    %      & = (\lambda x. (\lambda y. y y) x x) x               &  & \\
+    %      & = (\lambda y. y y) x x                              &  & \\
+    %      & = x x x                                             &  & \\
+    % \end{flalign*}
     \textbf{alt answer} \\
     Justify that your example is correct.
     $(\lambda x . x x ) (( \lambda x . x) (\lambda y.y))$\\
