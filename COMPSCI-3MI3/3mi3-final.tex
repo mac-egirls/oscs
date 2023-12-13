@@ -562,6 +562,32 @@
          & \sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
     \end{align*}
 
+    \textbf{alt explanation} \\
+    $\textbf{i)}$ $a \to \text{ intT } \& \text{ boolT } \to b$
+    We use reduction rule \#2\\
+    \{a = boolT, intT = b\}  so [Int/b] $\circ$ [Bool/a]\\
+    $\textbf{ii)}$  $a \to  a \text{ \& boolT } \to  b$
+    We use reduction rule \#2\\
+    {a = boolT, a  = b}   so  [boolT/b] $\circ$ [boolT/a]\\
+    $\textbf{iii)}$ $a \text{ \& } (a \to a)$
+    This is reduction rule \#3, where ‘x is a and t is $(a \to a)$. However, this is the case where
+    ‘x appears in t, because a appears in $(a \to a)$.
+    Therefore, it cannot be reduced. You can also think about how if $a = (a \to a)$,
+    then it also equals [$(a \to a) \to (a \to a)$], etc. (infinitely recurses)
+
+    $\textbf{iv)}$ unify $a \to (a \to b)$ and $(c \to d) \to (b \to b)$.
+    $a = (c \to d)   \text{ \& }  (a \to b) = (b \to b)$ (based on rule 2)
+    $\{(c \to d)/a\} \text{ \& }  (a=b) = (b=b))$ (based on rule 3)
+    $b = (c \to d)$  (based on substitution)
+    $[(c \to d)/b] \circ [(c \to d)/a]$
+
+    $\textbf{v)}$ unify $a \to a$ and $(b \to c) \to (d \to e)$ and $(d \to c) \to a$.\\
+    $\{(d \to c) / a\}$  (use reduction rule 3)
+    $((d \to c) \to (d \to c)) \text{ \& } ((b \to c) \to (d \to e))$  (by normal substitution rule)
+    $((d \to c) = (b \to c)) \text{ \& } ((d \to c) = (d \to e))$  (by rule 2)
+    $(d=b) \text{ \& } (c=e)$ (by equalities)
+    $[d/b] \circ [c/e] \circ [(d \to c)/a]$
+
     \subsection{Question 19}
     \begin{enumerate}
         \item{
@@ -592,6 +618,37 @@
               \end{flalign*}
               }
     \end{enumerate}
+    \textbf{alt explanation}\\
+    \begin{lstlisting}
+    i)  (a -> a -> b) -> a -> b
+    ii)  (a -> b) -> ( b -> c) -> c
+    iii) (a -> b) -> (a ->  b -> c) -> c
+    iv)  (a -> a) -> a
+    v)  (a -> b) -> b
+
+    i) (a -> a -> b) -> a -> b
+    (a->a ->b) is type of f
+    And x is type a
+    Because we are calling f as output, we return b
+
+    ii)  (a -> b) -> ( b -> c) -> (a -> c)
+    (a->b) is type for f
+    G take f output as its input, so its type is (b->c)
+    Since output is lambda function and its output is calling g function, its output is (a->c)
+
+    iii)  (a -> b) -> (a ->  b -> c) -> (a -> c)
+    (a->b) is type for f
+    G take f output as its input, so its type is (a->b->c)
+    Since output is lambda function and its output is calling g function, its output is (a->c)
+
+    iv) (a -> a) -> (a -> a)
+    F is type (a->a) since it is same as type for h-function
+    Since we need input for x, we can write output signature as if it was for a lambda function
+
+    v) Not possible
+    We have two inputs/constants and just applied with each other,which is impossible
+    \end{lstlisting}
+
 
     \subsection{Question Q21}
     Subtyping of function types illustrates both covariance and contravariance - explain those terms.
