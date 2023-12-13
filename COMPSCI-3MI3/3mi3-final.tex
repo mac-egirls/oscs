@@ -159,6 +159,46 @@
     \(\inferrule{e_1 \to e_1'}{\operatorname{let} x = e_1 \operatorname{in} e_2 \to \operatorname{let} x = e_1' \operatorname{in} e_2}\)
     \(\inferrule{ }{\operatorname{let} x = v_1 \operatorname{in} e_2 \to e_2[v_1/x]}\)
 
+    % somebody please fix the formatting on this
+    % \textbf{Call by Value rules for pairs only}
+    % $\begin{array}{ccc}
+    %     \begin{array}{c}
+    %     e_{1}\rightarrow e_{1}'\\
+    %     \hline
+    %     (e_{1}, e_{2}) \rightarrow (e_{1}', e_{2})
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     e_{2}\rightarrow e_{2}'\\
+    %     \hline
+    %     (v_{1}, e_{2}) \rightarrow (v_{1}, e_{2}')
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     e\rightarrow e'\\
+    %     \hline
+    %     \mathrm{fst}\ e \rightarrow \mathrm{snd}\ e'
+    %     \end{array}\\
+    %     \\
+    %     \begin{array}{c}
+    %     e\rightarrow e'\\
+    %     \hline
+    %     \mathrm{snd}\ e\rightarrow \mathrm{snd}\ e'
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     \\
+    %     \hline
+    %     \mathrm{fst}\ (v_{1}, v_{2}) \rightarrow v_1
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     \\
+    %     \hline
+    %     \mathrm{snd}\ (v_{1}, v_{2}) \rightarrow v_2
+    %     \end{array}
+    %     \end{array}$
+
     \subsection{Church Encodings}
 
     \subsubsection{Booleans}
