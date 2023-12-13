@@ -674,6 +674,8 @@
     Why are the semantics of case-of (for sums) in a CbV language weird? Why is this inevitable? Why are the semantics fine in CbN? Contrast this with `either` in Haskell.\\
     In CbV we would expect to evaluate the inside fully before the outside. However, this is again not the case, as we first evaluate the case statement, before deciding where to substitute it. This is inevitable, as for sum types, the valid evaluation steps changes based on the specific type we are dealing with.\\
     In CbN we do not evaluate the argument before passing it to begin with, so it is as one would expect.\\
+    This is also exactly how Haskell approaches this, as it uses a variant of CbN,
+    and thus lazily evaluates in the case of Either.
     % Is either supposed to be different???
 
     \section{Miscellaneous}
