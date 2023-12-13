@@ -368,10 +368,10 @@
     $\text{else let } \{S = T\} \bigcup C' = C \text{ in} $\\
     $\text{if } S = T$\\
     $\qquad \text{then } \operatorname{unify}(C')$\\
-    $\text{else if } S = X \text{ and }X \not \in FV(T)$\\
-    $\qquad \text{then } \operatorname{unify}([X \to S]C' \circ [X \to T]$\\
-    $\text{else if } T = X \text{ and } X \not \in FV(S)$\\
-    $\qquad \text{then } \operatorname{unify}([X \to T]C') \circ [X \to S]$\\
+    $\text{else if } S = X \text{ and }X \not \in FV(T)$ (If S is unbounded in T:)\\
+    $\qquad \text{then } \operatorname{unify}([X \mapsto S]C' \circ [X \mapsto T]$\\
+    $\text{else if } T = X \text{ and } X \not \in FV(S)$ (If T is unbounded in S:)\\
+    $\qquad \text{then } \operatorname{unify}([X \mapsto T]C') \circ [X \mapsto S]$\\
     $\text{else if } S = S_1 \to S_2 \text{ and } T =T_1 \to T_2$\\
     $\qquad \text{then } \operatorname{unify}(C' \cup \{S_1 = T_1, S_2 = T_2\})$\\
     $\text{else}$\\
@@ -385,9 +385,9 @@
     $\;\;\;\;\;\;\text{If } S=T \text{ directly:}$\\
     $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C')$\\
     $\;\;\;\;\;\;\text{If S is unbounded in T:}$\\
-    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[S \to T]) \circ [S \to T]$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[S \mapsto T]) \circ [S \mapsto T]$\\
     $\;\;\;\;\;\;\text{If T is unbounded in S:}$\\
-    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[T \to S]) \circ [T \to S]$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[T \mapsto S]) \circ [T \mapsto S]$\\
     $\;\;\;\;\;\;\text{If S=T follows }s_1 \to s_2 = t_1 \to t_2$:\\
     $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C' + \{s_1 = t_1, s_2 = t_2\})$\\
 
@@ -633,7 +633,7 @@
         (d \rightarrow c) \rightarrow a$.
     \begin{align*}
          & \{a \ra a = (b \ra c) \ra (d \ra e), \, a \ra a = (d \ra c) \ra a \} | []         \\
-         & \{a = (b \ra c), \, a = (d \ra e), \, a = (d \ra c), \, a \ra a \} | []           \\
+         & \{a = (b \ra c), \, a = (d \ra e), \, a = (d \ra c), \, a = a \} | []             \\
          & \{a = (d \ra e), \, a = (d \ra c) \} | \sigma_1 [a / (b \ra c)]                   \\
          & \{(b \ra c) = (d \ra e), \, (b \ra c) = (d \ra c) \} | \sigma_2 [] \circ \sigma_1 \\
          & \{b = d, \, c = e, \, b = d, \, c = c \} | \sigma_2 [] \circ \sigma_1             \\
