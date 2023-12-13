@@ -415,8 +415,46 @@
         &\sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
     \end{align*}
 
-    \section{miscellaneous}
-    \textbf{Y-combinator:} $(\lambda x. x x)$
+    \subsection{Question 19}
+    \begin{enumerate}
+        \item{
+            \begin{flalign*}
+                &h :: (a \ra a \ra b) \ra a \ra b &&\\
+                &h \ f \ x = f \ x \ x &&
+            \end{flalign*}
+        } 
+        \item{
+            \begin{flalign*}
+                &c :: (a \ra b) \ra (b \ra c) \ra (a \ra c) && \\
+                &c \ f \ g = \backslash x \ra g \ (f \ x) &&
+            \end{flalign*}
+        } 
+        \item{
+            \begin{flalign*}
+                &d :: (a \ra b) \ra (a \ra b \ra c) \ra (a \ra c)  && \\
+                &d \ f \ g = \backslash x \ra g \ x \ (f \ x) && 
+            \end{flalign*}
+        } 
+        \item{
+            \begin{flalign*}
+                &l \ f = \text{let} \ g \ h \ x = h \ (h \ x) \ \text{in} \ g \ f && \\
+                &x :: a && \\
+                &h :: a \ra a && \\
+                &g :: (a \ra a) \ra a \ra a && \\
+                &l :: (a \ra a) \ra a \ra a &&
+            \end{flalign*}
+        } 
+        \item{
+            % someone do this pls
+            \begin{flalign*}
+                &k :: ??? idk
+                &k \ x = x \ x
+            \end{flalign*}
+        } 
+    \end{enumerate}
+
+    \section{Miscellaneous}
+    \textbf{Y-combinator:} $(\lambda x. x x)$ \\
     \textbf{$\Omega$-combinator:} $(\lambda x. x x) (\lambda x. x x)$
 \end{multicols*}
 
