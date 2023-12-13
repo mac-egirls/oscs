@@ -215,16 +215,16 @@
     0 = $\lambda s. \lambda z. z$\\
     1 = $\lambda s. \lambda z. s z$\\
     2 = $\lambda s. \lambda z. s (s z)$
-    plus = $\lambda m.\lambda n.\lambda f.\lambda x. m\ f\ (n\ f\ x)$
-    succ = $\lambda n.\lambda f.\lambda x. f\ (n\ f\ x)$
-    mult = $\lambda m.\lambda n.\lambda f.\lambda x.m\ (n\ f)\ x$
-    exp = $\lambda m.\lambda n. n\ m$
-    pred = $\lambda n.\lambda f.\lambda x. n\ (\lambda g.\lambda h. h\ (g\ f))\ (\lambda u. x)\ (\lambda u. u)$
+    plus = $\lambda m.\lambda n.\lambda f.\lambda x. m\ f\ (n\ f\ x)$ \\
+    succ = $\lambda n.\lambda f.\lambda x. f\ (n\ f\ x)$\\
+    mult = $\lambda m.\lambda n.\lambda f.\lambda x.m\ (n\ f)\ x$\\
+    exp = $\lambda m.\lambda n. n\ m$\\
+    pred = $\lambda n.\lambda f.\lambda x. n\ (\lambda g.\lambda h. h\ (g\ f))\ (\lambda u. x)\ (\lambda u. u)$\\
     pred = $\lambda m. fst (m ss zz)$ where $ss = \lambda p. pair (snd p) (plus c_1 (snd p))$ and 
-    $zz = pair c_0 c_0$
-    minus = $\lambda m.\lambda n. (n \ \text{pred})\ m$
-    iszero = $(\text{minus}\ n\ m)$
-    iszero = $\lambda m.m (\lambda x.\ \text{fls}) \text{tru}$
+    $zz = pair c_0 c_0$\\
+    minus = $\lambda m.\lambda n. (n \ \text{pred})\ m$\\
+    iszero = $(\text{minus}\ n\ m)$\\
+    iszero = $\lambda m.m (\lambda x.\ \text{fls}) \text{tru}$\\
 
     \subsubsection{Pairs}
     pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$\\
@@ -237,10 +237,10 @@
 
     \subsubsection{Lists}
     nil = $\lambda c.\lambda n.n$\\
-    cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
-    isnil = $\lambda l. l (\lambda h. \lambda t. \ \text{fls}) \ \text{tru}$
-    head = $\lambda l. l (\lambda h. \lambda t. h) \ \text{fls}$
-    tail = $\lambda l. \lambda c. \lambda n. l (\lambda h. \lambda t. \lambda g. g h (t c)) (\lambda t. n) (\lambda h. \lambda t. t)$
+    cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$\\
+    isnil = $\lambda l. l (\lambda h. \lambda t. \ \text{fls}) \ \text{tru}$\\
+    head = $\lambda l. l (\lambda h. \lambda t. h) \ \text{fls}$\\
+    tail = $\lambda l. \lambda c. \lambda n. l (\lambda h. \lambda t. \lambda g. g h (t c)) (\lambda t. n) (\lambda h. \lambda t. t)$\\
 
     % credit to milenb17#9439 on Discord
     \subsubsection{Trees}
@@ -394,36 +394,36 @@
 
     % shoutout elite
     \subsection{Q8 - Expression evaluates in more steps under cbv}
-    \begin{align*}
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
-        &\text{under cbn:}\\
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
-        &= (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)\\
-        &= ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)\\
-        &= b ((\lambda x. x) b) ((\lambda x. x) b) \\
-        &\text{under cbv:}\\
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
-        &= (\lambda x,y. x x y) b ((\lambda x. x) b)\\
-        &= (\lambda x,y. x x y) b b\\
-        &= (\lambda y. b b y) b\\
-        &= b b b
-    \end{align*}
+    \begin{flalign*}
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) && \\ 
+        &\text{under cbn:}&& \\
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)&& \\
+        &= (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)&& \\
+        &= ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)&& \\
+        &= b ((\lambda x. x) b) ((\lambda x. x) b) && \\
+        &\text{under cbv:}&& \\
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)&& \\
+        &= (\lambda x,y. x x y) b ((\lambda x. x) b)&& \\
+        &= (\lambda x,y. x x y) b b&& \\
+        &= (\lambda y. b b y) b&& \\
+        &= b b b && 
+    \end{flalign*}
 
     % shoutout elite
     \subsection{Q9 - Expression evaluates in more steps under cbn}
-    \begin{align*}
-        (\lambda x. (\lambda y. y y) x x) (\lambda y. y) x \\
-        &\text{under cbn:}\\
-        &= (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x \\
-        &= (\lambda y. y) (\lambda y. y) (\lambda y. y)  x \\
-        &= (\lambda y. y) (\lambda y. y)  x \\
-        &= (\lambda y. y)  x \\
+    \begin{flalign*}
+        &(\lambda x. (\lambda y. y y) x x) (\lambda y. y) x && \\
+        &\text{under cbn:}&& \\
+        &= (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x && \\
+        &= (\lambda y. y) (\lambda y. y) (\lambda y. y)  x && \\
+        &= (\lambda y. y) (\lambda y. y)  x && \\
+        &= (\lambda y. y)  x && \\
         &= x \\
-        &\text{under cbv:}\\
-        &= (\lambda x. (\lambda y. y y) x x) x \\
-        &= (\lambda y. y y) x x \\
-        &= x x x \\
-    \end{align*}
+        &\text{under cbv:}&& \\
+        &= (\lambda x. (\lambda y. y y) x x) x && \\
+        &= (\lambda y. y y) x x && \\
+        &= x x x && \\
+    \end{flalign*}
 
     % shoutout bani
     \subsection{Q10 - Expression evaluates in exactly 2 steps under both but then gets stuck}
@@ -432,7 +432,7 @@
     \underline{Note 2:} This solution can be extended for any number of eval steps greater than 
     2. Add as many identity functions in between the first two terms as you want to increase the 
     number of eval steps by the same amount. 
-    \begin{align*}
+    \begin{flalign*}
         &(\lambda x. x) ((\lambda x. x) z) (\lambda x. x) \\
         &\text{under cbn:}\\
         &= ((\lambda x. x) z) (\lambda x. x) \\
@@ -440,7 +440,7 @@
         &\text{under cbv:}\\
         &= (\lambda x. x) z (\lambda x. x) \\
         &= z (\lambda x. x) \\
-    \end{align*}
+    \end{flalign*}
 
     \subsection{Q13 - What's the point of an eval strategy?}
     The point of having an evaluation strategy is for you or a computer to know how to evaluate an
@@ -499,13 +499,6 @@
                 &h :: a \ra a && \\
                 &g :: (a \ra a) \ra a \ra a && \\
                 &l :: (a \ra a) \ra a \ra a &&
-            \end{flalign*}
-        } 
-        \item{
-            % someone do this pls
-            \begin{flalign*}
-                &k :: ??? idk
-                &k \ x = x \ x
             \end{flalign*}
         } 
     \end{enumerate}
