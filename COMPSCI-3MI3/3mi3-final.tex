@@ -678,6 +678,39 @@
     and thus lazily evaluates in the case of Either.
     % Is either supposed to be different???
 
+
+    \subsection{Question 24}
+    Subtyping of function types involves contravariance. Explain what that is
+    and give an example.
+
+    %%%%%
+
+    Let's say we have a number type, an integer type, and a short integer type, where short integer
+    is a subtype of integer and integer is a subtype of number. Then, if we have a function `integer
+    -> integer`, we can use the S-Arrow rule to see that:
+    1. For the input of the function, we could provide a short integer. This is intuitively valid
+    because if we need to supply an integer, a short integer works.
+    2. The output could be a number or we could treat it like a number. This is intuitively valid
+    because if the output is an integer, then anything that applies to numbers would also
+    apply to the output.
+    So we can see that `short integer -> number` is a subset of `integer -> integer`. In this example,
+    contravariance refers to the left-hand side of the arrow, i.e., the input, where we could use a
+    short integer in the place of an integer.\\
+    \inferrule
+    {T_1 <: S_1 \qquad S_2 <: T_2}
+    {S_1 \to S_2 <: T_1 \to T_2}
+    Note the order of $T_1$ and $S_1$ in the first premise.
+    The subtype relation is contravariant in the left-hand side of the arrows
+    and covariant in the right-hand side of the arrows.\\
+
+    \subsection{Question 25}
+    (Bonus) Given an example of the failure of \emph{preservation}. Define
+    everything you need to illustrate this.
+
+    %%%%%
+    - undecidable type checking: type checking in lambda calculus can become undecidable. for example systems that involve recursive types might lead to undecidable. \\
+    - polymorphism: systems with polymorphic types, maintaining preservation could be challenging and contradictory. \\
+
     \section{Miscellaneous}
     \textbf{Y-combinator:} $(\lambda x. x x)$ \\
     \textbf{$\Omega$-combinator:} $(\lambda x. x x) (\lambda x. x x)$
