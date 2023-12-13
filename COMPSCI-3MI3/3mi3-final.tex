@@ -101,6 +101,19 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 \begin{multicols*}{5}
+    \section{Programming languages}
+    \subsection{Important languages}
+    \textbf{Fortran} -- First lang w/ a compiler, syntax is whatever the compiler accepts, no formal standards set.
+    \textbf{Lisp} -- Computing abstract / symbolic stuff, dynamic scope for variables.
+    \textbf{COBOL} -- Used for ``business'' programming, verbose and made to read like English, good layout capabilities.
+    \textbf{Algol 60} -- First language with a standard (BNF invented for this), designed by committee.
+    \textbf{ML} -- Abstract data types, hides details about types from programmer, can't lie to compiler, tradeoff of more debugging for less hassle down the line.
+
+    \subsection{Esoteric languages}
+    Esolangs are programming languages designed to experiment with weird ideas, made intentionally hard to program in, or as a joke, rather than practical use.
+    Esolangs are known for breaking modern coding conventions to possible innovate with new ideas.
+    Some examples of esolangs are Shakespeare, Befunge (2D text syntax), LOLCODE, Malbolge (designed to be unwritable - `crazy operation', base-three arithmetic, and self-altering code), INTERCAL (satire of programming languages and new notation), Brainfuck (minimal, unreadable turing machine simulator), and PIET (syntax as blocks of colour in an image).
+
     \section{Syntax}
     How a programming language ``looks''.
     Often a string, but can be a picture (Monet), or a grid of cells (Excel).
@@ -220,7 +233,7 @@
     mult = $\lambda m.\lambda n.\lambda f.\lambda x.m\ (n\ f)\ x$\\
     exp = $\lambda m.\lambda n. n\ m$\\
     pred = $\lambda n.\lambda f.\lambda x. n\ (\lambda g.\lambda h. h\ (g\ f))\ (\lambda u. x)\ (\lambda u. u)$\\
-    pred = $\lambda m. fst (m ss zz)$ where $ss = \lambda p. pair (snd p) (plus c_1 (snd p))$ and 
+    pred = $\lambda m. fst (m ss zz)$ where $ss = \lambda p. pair (snd p) (plus c_1 (snd p))$ and
     $zz = pair c_0 c_0$\\
     minus = $\lambda m.\lambda n. (n \ \text{pred})\ m$\\
     iszero = $(\text{minus}\ n\ m)$\\
@@ -253,7 +266,7 @@
     Ex. for pic DSL, stuff is given as functions.
     Easy to add new functions,
     but can suck if you want to extend to more interpretations since you can't reuse functions.
-    Pros: 
+    Pros:
     \begin{itemize}
         \item{easy extensibility of terms}
         \item{Has nice syntax due to being programmed in an established language}
@@ -264,8 +277,8 @@
         \item{no reuse of ASTs}
         \item{Hard to re-interpret terms with other meanings (e.g. hard to change format of a picture)}
         \item{things are immediately evaluated}
-  		\item{piggyback on host language's type system (con in some cases), e.g. if you want
-                to move your dsl to another language}
+        \item{piggyback on host language's type system (con in some cases), e.g. if you want
+              to move your dsl to another language}
         \item{Cannot easily perform program transformations (e.g. optimizations)}
     \end{itemize}
     \subsubsection{Deep}
@@ -275,22 +288,22 @@
     Pros:
     \begin{itemize}
         \item{easy reuse of programs written in the DSL}
-  		\item{custom validity system}
-  		\item{simulatable}
-  		\item{domain-specific interpretations, e.g. tool creation, analysis, re-writing, optimization passes, etc.}
+        \item{custom validity system}
+        \item{simulatable}
+        \item{domain-specific interpretations, e.g. tool creation, analysis, re-writing, optimization passes, etc.}
         \item{Can easily perform program transformations (e.g. optimizations)}
     \end{itemize}
     Cons:
     \begin{itemize}
         \item{Ugly syntax}
         \item{extra tag i.e. the DSL is a little less efficient}
-  		\item{term set is typically not 'open'} 
-        \begin{itemize}
-            \item{we can't easily extend a language without recompilation 
-            and defining interpreation of new terms for all previously
-            defined operators}
-            \item{expression problem (? related to above?)}
-        \end{itemize}
+        \item{term set is typically not 'open'}
+              \begin{itemize}
+                  \item{we can't easily extend a language without recompilation
+                        and defining interpreation of new terms for all previously
+                        defined operators}
+                  \item{expression problem (? related to above?)}
+              \end{itemize}
     \end{itemize}
     \subsubsection{Tagless}
     Best of shallow and deep.
@@ -304,8 +317,8 @@
     \end{itemize}
     Cons:
     \begin{itemize}
-        \item{Speed: the compiler does not know what you are working against with an abstract 
-            interface so compiler optimizations might not work properly}
+        \item{Speed: the compiler does not know what you are working against with an abstract
+              interface so compiler optimizations might not work properly}
     \end{itemize}
 
     \section{Static Semantics (Typing)}
@@ -316,13 +329,13 @@
     % single-step operational semantics, the resulting term is also well typed.)
 
     \subsection{Progress}
-        Definition: a well-typed term is either a value or, or 
-        may be evaluated once under single-step operational semantics. That is, a 
-        well-typed term is not stuck. 
+    Definition: a well-typed term is either a value or, or
+    may be evaluated once under single-step operational semantics. That is, a
+    well-typed term is not stuck.
     \subsection{Preservation}
-        Definition: if a term is well-typed, and we evaluate it 
-        once under single-step operational semantics, the resulting term is also
-        well typed.
+    Definition: if a term is well-typed, and we evaluate it
+    once under single-step operational semantics, the resulting term is also
+    well typed.
 
 
 
@@ -355,10 +368,10 @@
     S-Top: \(S<: \text{Top}\), where \(\text{Top}\) is a new type constant that is a supertype of every type.\\
     \textbf{Definition:} Liskov's substitution principle: If X inherits from Y, then X should pass
     all of Y's black box texts. Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it. A function works on all subclasses of a class. \\
-    \textbf{Rules:} (1) Inherited methods of a class must not strengthen preconditions or weaken 
-    postconditions; it must accept a superset of the values the parent method accepts and output a subset 
+    \textbf{Rules:} (1) Inherited methods of a class must not strengthen preconditions or weaken
+    postconditions; it must accept a superset of the values the parent method accepts and output a subset
     of the parent’s possible outputs. The parameters must be contravariant and the return values covariant.
-    (2) Subtypes must not weaken the class invariants. (3) History rule: the subtype cannot change in a 
+    (2) Subtypes must not weaken the class invariants. (3) History rule: the subtype cannot change in a
     way prohibited by the supertype,
 
     \section{Q\&A}
@@ -394,95 +407,95 @@
 
     \subsection{Q2 - CBV rules given CBN rules for pairs and projections}
     \begin{mathpar}
-    \inferrule
-    { e_1 \to e_1'}
-    { (e_1, e_2) \to (e_1', e_2) }
-    \qquad
-    \inferrule
-    { e_2 \to e_2'}
-    { (v_1, e_2) \to (v_1, e_2') }
-    \qquad\\
-    \inferrule
-    { e_1 \to e_1'}
-    { \mathrm{fst}\ e_1 \to \mathrm{fst}\ e_1' }
-    \qquad
-    \inferrule
-    { e_1 \to e_1'}
-    { \mathrm{snd}\ e_1 \to \mathrm{snd}\ e_1' }
-    \qquad\\
-    \inferrule
-    { }
-    { \mathrm{fst}\ (v_1, v_2) \to v_1 }
-    \qquad
-    \inferrule
-    { }
-    { \mathrm{snd}\ (v_1, v_2) \to v_2 }
+        \inferrule
+        { e_1 \to e_1'}
+        { (e_1, e_2) \to (e_1', e_2) }
+        \qquad
+        \inferrule
+        { e_2 \to e_2'}
+        { (v_1, e_2) \to (v_1, e_2') }
+        \qquad\\
+        \inferrule
+        { e_1 \to e_1'}
+        { \mathrm{fst}\ e_1 \to \mathrm{fst}\ e_1' }
+        \qquad
+        \inferrule
+        { e_1 \to e_1'}
+        { \mathrm{snd}\ e_1 \to \mathrm{snd}\ e_1' }
+        \qquad\\
+        \inferrule
+        { }
+        { \mathrm{fst}\ (v_1, v_2) \to v_1 }
+        \qquad
+        \inferrule
+        { }
+        { \mathrm{snd}\ (v_1, v_2) \to v_2 }
     \end{mathpar}
-    CBV requires the full evaluation of the expression under fst/snd before operating on it. This means that the pair fst/snd is operating over must contain two expressions that can be fully evaluated.   
+    CBV requires the full evaluation of the expression under fst/snd before operating on it. This means that the pair fst/snd is operating over must contain two expressions that can be fully evaluated.
     % shoutout elite
     \subsection{Q8 - Expression evaluates in more steps under cbv}
     \begin{flalign*}
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) && \\ 
-        &\text{under cbn:}&& \\
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)&& \\
-        &= (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)&& \\
-        &= ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)&& \\
-        &= b ((\lambda x. x) b) ((\lambda x. x) b) && \\
-        &\text{under cbv:}&& \\
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)&& \\
-        &= (\lambda x,y. x x y) b ((\lambda x. x) b)&& \\
-        &= (\lambda x,y. x x y) b b&& \\
-        &= (\lambda y. b b y) b&& \\
-        &= b b b && 
+         & (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & \text{under cbn:}                                                         &  & \\
+         & (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & = (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b) &  & \\
+         & = ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & = b ((\lambda x. x) b) ((\lambda x. x) b)                                 &  & \\
+         & \text{under cbv:}                                                         &  & \\
+         & (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & = (\lambda x,y. x x y) b ((\lambda x. x) b)                               &  & \\
+         & = (\lambda x,y. x x y) b b                                                &  & \\
+         & = (\lambda y. b b y) b                                                    &  & \\
+         & = b b b                                                                   &  &
     \end{flalign*}
 
     \subsection{Q3 - Fix Incoherent Rules}
     \begin{mathpar}
-    \inferrule
-    { e_1 \to e_1' }
-    { \mathrm{and}\ e_1\ e_2 \to \mathrm{and}\ e_1'\ e_2 }
-    \qquad
-    \inferrule
-    { }
-    { \mathrm{and}\ \mathrm{true} \ e_2 \to e_2}
-    \qquad\\
-    \inferrule
-    { }
-    { \mathrm{and}\ \mathrm{false} \ e_2 \to \mathrm{false}}
+        \inferrule
+        { e_1 \to e_1' }
+        { \mathrm{and}\ e_1\ e_2 \to \mathrm{and}\ e_1'\ e_2 }
+        \qquad
+        \inferrule
+        { }
+        { \mathrm{and}\ \mathrm{true} \ e_2 \to e_2}
+        \qquad\\
+        \inferrule
+        { }
+        { \mathrm{and}\ \mathrm{false} \ e_2 \to \mathrm{false}}
     \end{mathpar}
     The first rule is for and checks if $e_1$ can be evaluated. The old rules checked if the second term was true or false, meaning that $e_2$ would have to be the term true or false since there is no rule to evaluate $e_2$ to see if it is true or false.
 
     % shoutout elite
     \subsection{Q9 - Expression evaluates in more steps under cbn}
     \begin{flalign*}
-        &(\lambda x. (\lambda y. y y) x x) (\lambda y. y) x && \\
-        &\text{under cbn:}&& \\
-        &= (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x && \\
-        &= (\lambda y. y) (\lambda y. y) (\lambda y. y)  x && \\
-        &= (\lambda y. y) (\lambda y. y)  x && \\
-        &= (\lambda y. y)  x && \\
-        &= x \\
-        &\text{under cbv:}&& \\
-        &= (\lambda x. (\lambda y. y y) x x) x && \\
-        &= (\lambda y. y y) x x && \\
-        &= x x x && \\
+         & (\lambda x. (\lambda y. y y) x x) (\lambda y. y) x  &  & \\
+         & \text{under cbn:}                                   &  & \\
+         & = (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x &  & \\
+         & = (\lambda y. y) (\lambda y. y) (\lambda y. y)  x   &  & \\
+         & = (\lambda y. y) (\lambda y. y)  x                  &  & \\
+         & = (\lambda y. y)  x                                 &  & \\
+         & = x                                                      \\
+         & \text{under cbv:}                                   &  & \\
+         & = (\lambda x. (\lambda y. y y) x x) x               &  & \\
+         & = (\lambda y. y y) x x                              &  & \\
+         & = x x x                                             &  & \\
     \end{flalign*}
 
     % shoutout bani
     \subsection{Q10 - Expression evaluates in exactly 2 steps under both but then gets stuck}
-    \underline{Note 1:} stuck means that a term evaluates to a normal form (no other possible 
+    \underline{Note 1:} stuck means that a term evaluates to a normal form (no other possible
     eval rules can be applied) but not a value (as defined by bnf usually). \\
-    \underline{Note 2:} This solution can be extended for any number of eval steps greater than 
-    2. Add as many identity functions in between the first two terms as you want to increase the 
-    number of eval steps by the same amount. 
+    \underline{Note 2:} This solution can be extended for any number of eval steps greater than
+    2. Add as many identity functions in between the first two terms as you want to increase the
+    number of eval steps by the same amount.
     \begin{flalign*}
-        &(\lambda x. x) ((\lambda x. x) z) (\lambda x. x) \\
-        &\text{under cbn:}\\
-        &= ((\lambda x. x) z) (\lambda x. x) \\
-        &= z (\lambda x. x) \\
-        &\text{under cbv:}\\
-        &= (\lambda x. x) z (\lambda x. x) \\
-        &= z (\lambda x. x) \\
+         & (\lambda x. x) ((\lambda x. x) z) (\lambda x. x) \\
+         & \text{under cbn:}                                \\
+         & = ((\lambda x. x) z) (\lambda x. x)              \\
+         & = z (\lambda x. x)                               \\
+         & \text{under cbv:}                                \\
+         & = (\lambda x. x) z (\lambda x. x)                \\
+         & = z (\lambda x. x)                               \\
     \end{flalign*}
 
     \subsection{Q13 - What's the point of an eval strategy?}
@@ -491,59 +504,59 @@
     there isnt an eval strategy then evaluating an expression would be nondeterministic.
 
     \subsection{17 - Convention used with respect to bound variables}
-    The convention used is alpha-equivalence. It captures the idea that it's safe to rename a variable in 
-    a program if you also fix all the references to that variable. That is, when you change the parameter 
+    The convention used is alpha-equivalence. It captures the idea that it's safe to rename a variable in
+    a program if you also fix all the references to that variable. That is, when you change the parameter
     of a lambda term, you also have to go into the lambda's body and change the usages of that variable.
     Terms that differ only in the names of bound variables are interchangeable in all context.
-    You can change the name of a bound variable in a statement and 
-    the statements before and after the change are the same. e.g. $(\lambda x.x)$ is alpha equivalent to 
+    You can change the name of a bound variable in a statement and
+    the statements before and after the change are the same. e.g. $(\lambda x.x)$ is alpha equivalent to
     $(\lambda y.y)$.
 
     \subsection{Question 18 (5) - Unification}
-    Unify $a \rightarrow a, \, (b \rightarrow c) \rightarrow (d \rightarrow e), \, \text{and} \, 
+    Unify $a \rightarrow a, \, (b \rightarrow c) \rightarrow (d \rightarrow e), \, \text{and} \,
         (d \rightarrow c) \rightarrow a$.
     \begin{align*}
-        &\{a \ra a = (b \ra c) \ra (d \ra e), \, a \ra a = (d \ra c) \ra a \} | [] \\
-        &\{a = (b \ra c), \, a = (d \ra e), \, a = (d \ra c), \, a \ra a \} | [] \\
-        &\{a = (d \ra e), \, a = (d \ra c) \} | \sigma_1 [a / (b \ra c)] \\
-        &\{(b \ra c) = (d \ra e), \, (b \ra c) = (d \ra c) \} | \sigma_2 [] \circ \sigma_1 \\
-        &\{b = d, \, c = e, \, b = d, \, c = c \} | \sigma_2 [] \circ \sigma_1 \\
-        &\{b = d, \, c = e \} | \sigma_2 [] \circ \sigma_1 \\
-        &\{c = e \} | \sigma_2 [b / d] \circ \sigma_1 \\
-        &\{c = e \} | \sigma_3 [] \circ \sigma_2 \circ \sigma_1 \\
-        &\{ \} | \sigma_3 [c / e] \circ \sigma_2 \circ \sigma_1 \\
-        &\sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
+         & \{a \ra a = (b \ra c) \ra (d \ra e), \, a \ra a = (d \ra c) \ra a \} | []         \\
+         & \{a = (b \ra c), \, a = (d \ra e), \, a = (d \ra c), \, a \ra a \} | []           \\
+         & \{a = (d \ra e), \, a = (d \ra c) \} | \sigma_1 [a / (b \ra c)]                   \\
+         & \{(b \ra c) = (d \ra e), \, (b \ra c) = (d \ra c) \} | \sigma_2 [] \circ \sigma_1 \\
+         & \{b = d, \, c = e, \, b = d, \, c = c \} | \sigma_2 [] \circ \sigma_1             \\
+         & \{b = d, \, c = e \} | \sigma_2 [] \circ \sigma_1                                 \\
+         & \{c = e \} | \sigma_2 [b / d] \circ \sigma_1                                      \\
+         & \{c = e \} | \sigma_3 [] \circ \sigma_2 \circ \sigma_1                            \\
+         & \{ \} | \sigma_3 [c / e] \circ \sigma_2 \circ \sigma_1                            \\
+         & \sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
     \end{align*}
 
     \subsection{Question 19}
     \begin{enumerate}
         \item{
-            \begin{flalign*}
-                &h :: (a \ra a \ra b) \ra a \ra b &&\\
-                &h \ f \ x = f \ x \ x &&
-            \end{flalign*}
-        } 
+              \begin{flalign*}
+                   & h :: (a \ra a \ra b) \ra a \ra b &  & \\
+                   & h \ f \ x = f \ x \ x            &  &
+              \end{flalign*}
+              }
         \item{
-            \begin{flalign*}
-                &c :: (a \ra b) \ra (b \ra c) \ra (a \ra c) && \\
-                &c \ f \ g = \backslash x \ra g \ (f \ x) &&
-            \end{flalign*}
-        } 
+              \begin{flalign*}
+                   & c :: (a \ra b) \ra (b \ra c) \ra (a \ra c) &  & \\
+                   & c \ f \ g = \backslash x \ra g \ (f \ x)   &  &
+              \end{flalign*}
+              }
         \item{
-            \begin{flalign*}
-                &d :: (a \ra b) \ra (a \ra b \ra c) \ra (a \ra c)  && \\
-                &d \ f \ g = \backslash x \ra g \ x \ (f \ x) && 
-            \end{flalign*}
-        } 
+              \begin{flalign*}
+                   & d :: (a \ra b) \ra (a \ra b \ra c) \ra (a \ra c) &  & \\
+                   & d \ f \ g = \backslash x \ra g \ x \ (f \ x)     &  &
+              \end{flalign*}
+              }
         \item{
-            \begin{flalign*}
-                &l \ f = \text{let} \ g \ h \ x = h \ (h \ x) \ \text{in} \ g \ f && \\
-                &x :: a && \\
-                &h :: a \ra a && \\
-                &g :: (a \ra a) \ra a \ra a && \\
-                &l :: (a \ra a) \ra a \ra a &&
-            \end{flalign*}
-        } 
+              \begin{flalign*}
+                   & l \ f = \text{let} \ g \ h \ x = h \ (h \ x) \ \text{in} \ g \ f &  & \\
+                   & x :: a                                                           &  & \\
+                   & h :: a \ra a                                                     &  & \\
+                   & g :: (a \ra a) \ra a \ra a                                       &  & \\
+                   & l :: (a \ra a) \ra a \ra a                                       &  &
+              \end{flalign*}
+              }
     \end{enumerate}
 
     \subsection{Question 23}
