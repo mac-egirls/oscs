@@ -353,13 +353,26 @@
 
     % subtyping
     \subsection{Subtyping}
+    $S <: T$ says `$S$ is a subtype of $T$'.\\
+    Unlike `subsets' a subtype is `more informative', meaning it may contain more parameters, but never fewer. So a subtype can always be used safely in place of the `supertype.'\\
+    e.g. $S = \{x : \text{Nat}, y: \text{Nat}\}, T = \{x : \text{Nat}\}$, so $S <: T$.\\
+
+    \subsubsection{Rules}
     T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
+    \textit{`subtype can be typed as its supertype, too'}\\
     S-Refl: \(S <: S\)\\
+    \textit{`everything is a subtype of itself'}\\
     S-Trans: \(\frac{S<: U \quad U<:T}{S<:T}\)\\
+    \textit{`subtype relation is transitive'}\\
     S-RcdWidth: \(\{ l_{i}: T_{i}^{i \in  1..n +k} \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}\)\\
+    \textit{`we can add extra fields in a record, still a subtype'}\\
     S-RcdDepth: \(\frac{\text{for each } i \quad S_{i} <: T_{i}}{\{ l_{i}: S_{i}^{i \in  1..n } \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}}\)\\
+    \textit{`can also add depth-wise (within each field's fields)'}\\
     S-RcdPerm: \(\frac{\{k_{j} :S_{j}^{j \in 1..n}\} \text{ is perm. of } \{l_{i}:T_{i}^{i \in 1..n} \}}{\{k_{j}:S_{j}^{j \in 1..n} \} <: \{l_{i}: T_{I}^{i \in 1..n} \}}\)\\
+    \textit{`order of fields does not matter (can be a permutation)'}\\
     S-Arrow: \(\frac{T_{1} <: S_{1} \quad S_{2} <: T_{2}}{S_{1} \to S_{2} <: T_{1} \to T_{2}}\)\\
+    \textit{`a function that takes in less information and outputs more, is a subtype of a function that takes in more information and outputs less'}\newline
+
     \textbf{Definition}: $S <: T$ means that an element of S may be safely used whereever an element of T is expected.\\
     This S-Arrow subtype relation is \textbf{contravariant} in the left-hand sides of arrows , and
     \textbf{covariant} in the right-hand sides of arrows.
