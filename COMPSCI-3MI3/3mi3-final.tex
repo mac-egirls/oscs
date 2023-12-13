@@ -68,6 +68,7 @@
 % Shorthand definitions
 \newcommand{\To}{\Rightarrow}
 \newcommand{\ttt}{\texttt}
+\newcommand{\ra}{\rightarrow}
 
 % condense itemize & enumerate
 \let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
@@ -274,6 +275,7 @@
          & \textrm{//infinite loop}
     \end{align*}
 
+    % shoutout elite
     \subsection{Q8 - Expression evaluates in more steps under cbv}
     \begin{align*}
         (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
@@ -289,6 +291,28 @@
         = (\lambda y. b b y) b
         = b b b
     \end{align*}
+
+    \subsection{Q13 - What's the point of an eval strategy?}
+    The point of having an evaluation strategy is for you or a computer to know how to evaluate an
+    expression if multiple reductions are possible. We need them for building operational semantics. If
+    there isnt an eval strategy then evaluating an expression would be nondeterministic.
+
+    \subsection{Question 18 (5) - Unification}
+    Unify $a \rightarrow a, \, (b \rightarrow c) \rightarrow (d \rightarrow e), \, \text{and} \, 
+        (d \rightarrow c) \rightarrow a$.
+    \begin{align*}
+        &\{a \ra a = (b \ra c) \ra (d \ra e), \, a \ra a = (d \ra c) \ra a \} | [] \\
+        &\{a = (b \ra c), \, a = (d \ra e), \, a = (d \ra c), \, a \ra a \} | [] \\
+        &\{a = (d \ra e), \, a = (d \ra c) \} | \sigma_1 [a / (b \ra c)] \\
+        &\{(b \ra c) = (d \ra e), \, (b \ra c) = (d \ra c) \} | \sigma_2 [] \circ \sigma_1 \\
+        &\{b = d, \, c = e, \, b = d, \, c = c \} | \sigma_2 [] \circ \sigma_1 \\
+        &\{b = d, \, c = e \} | \sigma_2 [] \circ \sigma_1 \\
+        &\{c = e \} | \sigma_2 [b / d] \circ \sigma_1 \\
+        &\{c = e \} | \sigma_3 [] \circ \sigma_2 \circ \sigma_1 \\
+        &\{ \} | \sigma_3 [c / e] \circ \sigma_2 \circ \sigma_1 \\
+        &\sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
+    \end{align*}
+
 \end{multicols*}
 
 \end{document}
