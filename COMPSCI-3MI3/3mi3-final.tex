@@ -449,6 +449,26 @@
         { \mathrm{snd}\ (v_1, v_2) \to v_2 }
     \end{mathpar}
     CBV requires the full evaluation of the expression under fst/snd before operating on it. This means that the pair fst/snd is operating over must contain two expressions that can be fully evaluated.
+
+    \subsection{Q3 - Fix Incoherent Rules}
+    \begin{mathpar}
+        \inferrule
+        { e_1 \to e_1' }
+        { \mathrm{and}\ e_1\ e_2 \to \mathrm{and}\ e_1'\ e_2 }
+        \qquad
+        \inferrule
+        { }
+        { \mathrm{and}\ \mathrm{true} \ e_2 \to e_2}
+        \qquad\\
+        \inferrule
+        { }
+        { \mathrm{and}\ \mathrm{false} \ e_2 \to \mathrm{false}}
+    \end{mathpar}
+    The first rule is for and checks if $e_1$ can be evaluated.
+    The old rules checked if the second term was true or false,
+    meaning that $e_2$ would have to be the term true or false
+    since there is no rule to evaluate $e_2$ to see if it is true or false.
+
     % shoutout elite
     \subsection{Q8 - Expression evaluates in more steps under cbv}
     \begin{flalign*}
@@ -465,22 +485,6 @@
          & = (\lambda y. b b y) b                                                    &  & \\
          & = b b b                                                                   &  &
     \end{flalign*}
-
-    \subsection{Q3 - Fix Incoherent Rules}
-    \begin{mathpar}
-        \inferrule
-        { e_1 \to e_1' }
-        { \mathrm{and}\ e_1\ e_2 \to \mathrm{and}\ e_1'\ e_2 }
-        \qquad
-        \inferrule
-        { }
-        { \mathrm{and}\ \mathrm{true} \ e_2 \to e_2}
-        \qquad\\
-        \inferrule
-        { }
-        { \mathrm{and}\ \mathrm{false} \ e_2 \to \mathrm{false}}
-    \end{mathpar}
-    The first rule is for and checks if $e_1$ can be evaluated. The old rules checked if the second term was true or false, meaning that $e_2$ would have to be the term true or false since there is no rule to evaluate $e_2$ to see if it is true or false.
 
     % shoutout elite
     \subsection{Q9 - Expression evaluates in more steps under cbn}
