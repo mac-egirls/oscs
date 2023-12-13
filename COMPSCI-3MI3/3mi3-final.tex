@@ -625,6 +625,23 @@
          & \sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
     \end{align*}
 
+    \subsection{Question 18 Full}
+    Answers Vary.
+
+    \begin{enumerate}
+        \item unify $\{a \to I, B \to b\}$. \\ A: $[] \circ [b \to B] \circ [a \to I]$
+
+        \item unify $\{a\ to a, B \to b\}$. \\ A: $[] \circ [b \to B] \circ [a \to b]$
+
+        \item Why can't $\{a, a \to a\}$ reduce? \\ A: because there is no case for the algorithm to continue. Cannot ensure $a \to a$ holds in regards to $a$.
+
+        \item unify $\{a \to (a \to b), (c \to d) \to (b \to b)  \}$. \\
+              A: $[] \circ [b \to (c \to d)] \circ [a \to (c \to d)]$
+
+        \item unify $\{a \to a, (b \to c) \to (d \to e), (d \to c) \to a \}$. \\
+              A: $[] \circ [b \to d] \circ [c \to e] \circ [a \to (b \to c)]$
+    \end{enumerate}
+
     \textbf{alt explanation} \\
     $\textbf{i)}$ $a \to \text{ intT } \& \text{ boolT } \to b$
     We use reduction rule \#2\\
