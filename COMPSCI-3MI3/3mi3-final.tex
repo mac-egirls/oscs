@@ -352,6 +352,21 @@
         &= b b b
     \end{align*}
 
+    \subsection{Q9 - Expression evaluates in more steps under cbn}
+    \begin{align*}
+        (\lambda x. (\lambda y. y y) x x) (\lambda y. y) x \\
+        &\text{under cbn:}\\
+        &= (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x \\
+        &= (\lambda y. y) (\lambda y. y) (\lambda y. y)  x \\
+        &= (\lambda y. y) (\lambda y. y)  x \\
+        &= (\lambda y. y)  x \\
+        &= x \\
+        &\text{under cbv:}\\
+        &= (\lambda x. (\lambda y. y y) x x) x \\
+        &= (\lambda y. y y) x x \\
+        &= x x x \\
+    \end{align*}
+
     \subsection{Q13 - What's the point of an eval strategy?}
     The point of having an evaluation strategy is for you or a computer to know how to evaluate an
     expression if multiple reductions are possible. We need them for building operational semantics. If
@@ -373,6 +388,9 @@
         &\sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
     \end{align*}
 
+    \section{miscellaneous}
+    \textbf{Y-combinator:} $(\lambda x. x x)$
+    \textbf{$\Omega$-combinator:} $(\lambda x. x x) (\lambda x. x x)$
 \end{multicols*}
 
 \end{document}
