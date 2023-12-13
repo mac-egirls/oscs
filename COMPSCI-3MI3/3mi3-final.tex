@@ -377,6 +377,25 @@
     $\text{else}$\\
     $\qquad \text{fail}$
 
+    \subsection{Unification Less Yap}
+
+    if $C = \O \implies []$\\
+    $\;\;\;\text{Attempt to get }S=T \text{ from } C:$\\
+    $\;\;\;\;\;\;C' = C - \{S = T\}$\\
+    $\;\;\;\;\;\;\text{If } S=T \text{ directly:}$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C')$\\
+    $\;\;\;\;\;\;\text{If S is unbounded in T:}$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[S \to T]) \circ [S \to T]$\\
+    $\;\;\;\;\;\;\text{If T is unbounded in S:}$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[T \to S]) \circ [T \to S]$\\
+    $\;\;\;\;\;\;\text{If S=T follows }s_1 \to s_2 = t_1 \to t_2$:\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C' + \{s_1 = t_1, s_2 = t_2\})$\\
+
+    $\;\;\;\text{If no }S=T \subseteq C:$\\
+    $\;\;\;\;\;\;\text{Choose } S = s_1 \to t_1 \text{ and } T = t_1 \to t_2:$\\
+    $\;\;\;\;\;\;C' = C - \{S, T\}$\\
+    $\;\;\;\;\;\;\implies \text{unify}(C' + \{s_1 = t_1, s_2 = t_2\})$\\
+
     % featherweight java (wtf?)
 
     % subtyping
