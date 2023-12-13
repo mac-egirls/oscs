@@ -265,6 +265,14 @@
     leaf = \(\lambda x.\lambda b.\lambda l.l ,x\)\\
     branch = \(\lambda x.\lambda y.\lambda b.\lambda l. ,b ,(x, l, b) ,(y, l, b)\)
 
+    % credit to xeqla on Discord
+    \subsubsection{Maybe}
+    nothing = $\lambda n.\lambda j. n$\\
+    just = $\lambda a. \lambda n.\lambda j. j a$\\
+    isNothing = $\lambda n. n (\lambda _. \text{true})(\lambda _. \text{false})$\\
+    isJust = $\lambda n. n (\lambda _. \text{false})(\lambda _. \text{true})$\\
+    maybe = $\lambda \text{def}. \lambda f. \lambda m. m \text{def}(\lambda a.\;f\;a)$
+
     \subsection{Domain Specific Languages (DSLs)}
     \subsubsection{Shallow}
     Implement the DSL as functions.
