@@ -195,6 +195,9 @@
     \subsubsection{Lists}
     nil = $\lambda c.\lambda n.n$\\
     cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
+    isnil = $\lambda l. l (\lambda h. \lambda t. \ \text{fls}) \ \text{tru}$
+    head = $\lambda l. l (\lambda h. \lambda t. h) \ \text{fls}$
+    tail = $\lambda l. \lambda c. \lambda n. l (\lambda h. \lambda t. \lambda g. g h (t c)) (\lambda t. n) (\lambda h. \lambda t. t)$
 
     % credit to milenb17#9439 on Discord
     \subsubsection{Trees}
