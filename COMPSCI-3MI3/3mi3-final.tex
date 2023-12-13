@@ -166,11 +166,22 @@
     fls = $\lambda t. \lambda. f. f $\\
     and = $\lambda b. \lambda c. b c \ \text{fls}$\\
     or = $\lambda b. \lambda c. b \ \text{tru} \  c$ %correct this if wrong idk if this is right
+    not = $\lambda p. p \ \text{fls}\ \text{tru}$
 
     \subsubsection{Numerals}
     0 = $\lambda s. \lambda z. z$\\
     1 = $\lambda s. \lambda z. s z$\\
     2 = $\lambda s. \lambda z. s (s z)$
+    plus = $\lambda m.\lambda n.\lambda f.\lambda x. m\ f\ (n\ f\ x)$
+    succ = $\lambda n.\lambda f.\lambda x. f\ (n\ f\ x)$
+    mult = $\lambda m.\lambda n.\lambda f.\lambda x.m\ (n\ f)\ x$
+    exp = $\lambda m.\lambda n. n\ m$
+    pred = $\lambda n.\lambda f.\lambda x. n\ (\lambda g.\lambda h. h\ (g\ f))\ (\lambda u. x)\ (\lambda u. u)$
+    pred = $\lambda m. fst (m ss zz)$ where $ss = \lambda p. pair (snd p) (plus c_1 (snd p))$ and 
+    $zz = pair c_0 c_0$
+    minus = $\lambda m.\lambda n. (n \ \text{pred})\ m$
+    iszero = $(\text{minus}\ n\ m)$
+    iszero = $\lambda m.m (\lambda x.\ \text{fls}) \text{tru}$
 
     \subsubsection{Pairs}
     pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$\\
