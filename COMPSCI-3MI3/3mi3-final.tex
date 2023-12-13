@@ -712,8 +712,11 @@
     - polymorphism: systems with polymorphic types, maintaining preservation could be challenging and contradictory. \\
 
     \section{Miscellaneous}
+    \textbf{$\Omega$-combinator:} $(\lambda x. x\ x) (\lambda x. x\ x)$ \\
+    Simplest function that recurses infinitely without calling itself.
+
     \textbf{Y-combinator:} \(\lambda f. (\lambda x.f (x\ x)) (\lambda x.f (x\ x))\) \\
-    \textbf{$\Omega$-combinator:} $(\lambda x. x\ x) (\lambda x. x\ x)$
+    This function generalizes recursion to any other function in lambda calculus.
 \end{multicols*}
 
 \end{document}
