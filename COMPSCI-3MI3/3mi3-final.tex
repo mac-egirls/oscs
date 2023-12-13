@@ -273,7 +273,7 @@
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & \textrm{//infinite loop}
     \end{align*}
-
+    
     \subsection{Q8 - Expression evaluates in more steps under cbv}
     \begin{align*}
         (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
@@ -289,6 +289,42 @@
         = (\lambda y. b b y) b
         = b b b
     \end{align*}
+
+    % FIXME: this should go under one of the headings above, not in it's own section
+    \section{Church Encodings}
+    \subsection{Pairs}
+    pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$
+    fst = $\lambda p.p (\lambda x.\lambda y.x)$
+    snd = $\lambda p.p (\lambda x.\lambda y.y)$
+
+    \subsection{Lists}
+    nil = $\lambda c.\lambda n.n$
+    cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
+    
+     \subsection{Trees}
+    leaf = $\lambda x.\lambda b. \lambda l. l \,x$
+    
+    branch = $\lambda x. \lambda y.\lambda b. \lambda l. \,b \,(x\, l\, b) \,(y\, l\, b)$
+
+    \section{Subtyping}
+    T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
+    S-Refl: \(S <: S\)\\
+    S-Trans: \(\frac{S<: U \quad U<:T}{S<:T}\)\\
+    S-RcdWidth: \(\{ l_{i}: T_{i}^{i \in  1..n +k} \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}\)\\
+    S-RcdDepth: \(\frac{\text{for each } i \quad S_{i} <: T_{i}}{\{ l_{i}: S_{i}^{i \in  1..n } \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}}\)\\
+    S-RcdPerm: \(\frac{\{k_{j} :S_{j}^{j \in 1..n}\} \text{ is perm. of } \{l_{i}:T_{i}^{i \in 1..n} \}}{\{k_{j}:S_{j}^{j \in 1..n} \} <: \{l_{i}: T_{I}^{i \in 1..n} \}}\)\\
+    S-Arrow: \(\frac{T_{1} <: S_{1} \quad S_{2} <: T_{2}}{S_{1} \to S_{2} <: T_{1} \to T_{2}}\)\\
+    This S-Arrow subtype relation is \textbf{contravariant} in the left-hand sides of arrows, and
+    \textbf{covariant} in the right-hand sides of arrows.
+    The intuition is that if we have a function \(S_1 \to S_2\),
+    then it will accept any subtype of \(S_1\) as input, 
+    and the result \(S_2\) can be viewed as belonging to any supertype of \(S_2\).\\
+    S-Top: \(S<: \text{Top}\), where \(\text{Top}\) is a new type constant that is a supertype of every type.
+    
+    \section{Unification Algorithm}
+    % Note: screenshotted from tb p327, transcribe if you want
+    \includegraphics[width=\linewidth]{unification-algorithm.png}
+
 \end{multicols*}
 
 \end{document}
