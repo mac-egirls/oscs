@@ -135,9 +135,10 @@
     \subsection{Evaluation Strategies}
 
     Can't evaluate anything under a lambda in both of the below strategies.
-
-    \textbf{Call by name} --
-    Can't evaluate anything that isn't an outermost term.
+    \subsubsection{Full Beta-Reduction:} beta-reduce in any order: non-deterministic.
+    \subsubsection{Normal Order:} reduce the leftmost, outermost expression until no more expressions.
+    \subsubsection{Call by Name} --
+    Evaluate function calls without evaluating arguments. Stop when the outermost term is a lambda.
     % idk put the rules or an example here
 
     % TODO: if we run out of space delete this and replace it with an explanation
@@ -153,8 +154,8 @@
     \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
     \(\inferrule{ }{\operatorname{let} x = e_1 \operatorname{in} e_2 \to e_2[e_1/x]}\)
 
-    \textbf{Call by Value} --
-    Reduce arguments first
+    \subsubsection{Call by Value} --
+    Evaluate arguments to function calls before evaluating the function call itself. Stop when the outermost term is a lambda. This is the evaluation strategy most languages adopt.
 
     \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
     \(\inferrule{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'}\)
