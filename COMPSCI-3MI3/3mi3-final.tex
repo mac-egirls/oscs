@@ -55,6 +55,7 @@
 \makeatother
 \setcounter{secnumdepth}{0} % disable section numbering
 
+
 % disable indenting
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt plus 0.5ex}
@@ -558,6 +559,25 @@
          & = (\lambda x. x) z (\lambda x. x)                \\
          & = z (\lambda x. x)                               \\
     \end{flalign*}
+    \textbf{alt answer} \\
+    When a term is in normal form, but not a value, it is stuck.\\
+    \textbf{Example Expr:} and True $((\lambda x. x) a)$\\
+    CBN: $1: \lambda x. x a \to 2:$ a\\
+    CBV: $1.$ and True a $\to 2.$ a
+
+    \subsection{Question 11}
+    Explain why the $\Omega$ combinator ($\lambda x. x\ x$)($\lambda x. x\ x$), using CbN, does not lead to a
+    terminating evaluation.
+
+    Under Call-by-Name (CbN), the function $\lambda x.x x$ simply
+    substitutes the argument $(\lambda x.x x)$
+    wherever x appears in the body of the function without evaluating it.
+    So, the result is $(\lambda x.x x) (\lambda x.x x)$
+    after one reduction step.
+    As you can see, the result is the same as the original expression.
+    If you try to reduce it further, you'll get the same expression again.
+    This process will continue indefinitely,
+    leading to a non-terminating evaluation
 
     \subsection{Q13 - What's the point of an eval strategy?}
     The point of having an evaluation strategy is for you or a computer to know how to evaluate an
