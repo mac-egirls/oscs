@@ -259,7 +259,14 @@
     % single-step operational semantics, the resulting term is also well typed.)
 
     \subsection{Progress}
+        Definition: a well-typed term is either a value or, or 
+        may be evaluated once under single-step operational semantics. That is, a 
+        well-typed term is not stuck. 
     \subsection{Preservation}
+        Definition: if a term is well-typed, and we evaluate it 
+        once under single-step operational semantics, the resulting term is also
+        well typed.
+
 
 
     \subsection{Context}
@@ -330,10 +337,10 @@
         &= ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)\\
         &= b ((\lambda x. x) b) ((\lambda x. x) b) \\
         &\text{under cbv:}\\
-        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)
-        &= (\lambda x,y. x x y) b ((\lambda x. x) b)
-        &= (\lambda x,y. x x y) b b
-        &= (\lambda y. b b y) b
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        &= (\lambda x,y. x x y) b ((\lambda x. x) b)\\
+        &= (\lambda x,y. x x y) b b\\
+        &= (\lambda y. b b y) b\\
         &= b b b
     \end{align*}
 
