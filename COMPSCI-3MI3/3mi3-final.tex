@@ -593,6 +593,10 @@
     the statements before and after the change are the same. e.g. $(\lambda x.x)$ is alpha equivalent to
     $(\lambda y.y)$.
 
+    When writing lambda terms for humans, we use a convention called \textbf{alpha-conversion} to avoid confusion between free and bound variables. Simply, this is the process of renaming parameters in functions without changing the meaning of the function. For example, $(\lambda x.x)( \lambda y.yx)$. Here, the first instance of x is bound while the second instance is free. To avoid confusion, we rename the bound variable to get $(\lambda z.z)( \lambda y.yx)$. This renaming method does not change the meaning of the term and makes it easier to read and understand.
+
+    In linear algebra, it's common to use alpha conversion renaming when working with subsets and quantifiers of certain sets which contain vairables U V W, where you can modify and manipulate a set and keep its original contents but when working with its modified version to show its still different we rename it in terms of bound variables like (a + b = 0) for all b and there exists an a, is the same as (x + y = 0) for all x and there exists an y. In predicate calculus, we usually do renaming with quantifiers $\forall$ and $\exists$ since it sometimes may contain a variable that's not free. In integrals, when you do double integrals, you don't integrate based on the same variable. As long as the mathematical equation is preserved in its meaning, so theres no direct change when substituting values from their bound counter part.
+
     \subsection{Question 18 (5) - Unification}
     Unify $a \rightarrow a, \, (b \rightarrow c) \rightarrow (d \rightarrow e), \, \text{and} \,
         (d \rightarrow c) \rightarrow a$.
