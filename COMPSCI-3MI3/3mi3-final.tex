@@ -111,14 +111,14 @@
         \alt <e> <e>
         \alt (<e>)
     \end{grammar}
-    \section{Semantics}
-    \subsection{Dynamic Semantics}
+
+    \section{Dynamic Semantics}
     % Small-step semantics
     % -> Lambda calculus - Call-by-name vs Call-by-value
     % domain-specific languages
     % shallow vs deep vs tagless embeddings
 
-    \subsubsection{Evaluation Strategies}
+    \subsection{Evaluation Strategies}
 
     Can't evaluate anything under a lambda in both of the below strategies.
 
@@ -145,19 +145,103 @@
     \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
     \(\inferrule{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'}\)
     \(\inferrule{ }{(\lambda x.e_1) v_2 \to e_1[v_2/x]}\)
+    \(\inferrule{e_1 \to e_1'}{(e_1, e_2) \to (e_1', e_2)}\)
+    \(\inferrule{e_2 \to e_2'}{(v_1, e_2) \to (v_1, e_2')}\)
+    \(\inferrule{ }{\operatorname{fst} (v_1, v_2) \to v_1}\)
+    \(\inferrule{ }{\operatorname{snd} (v_1, v_2) \to v_2}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{and} e_1 e_2 \to \operatorname{and} e_1' e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{true} e_2 \to e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{false} e_2 \to \operatorname{false}}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{if} e_1 \operatorname{then} e_2 \operatorname{else} e_3 \to \operatorname{if} e_1' \operatorname{then} e_2 \operatorname{else} e_3}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{true}\operatorname{then} e_2 \operatorname{else} e_3 \to e_2}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{let} x = e_1 \operatorname{in} e_2 \to \operatorname{let} x = e_1' \operatorname{in} e_2}\)
+    \(\inferrule{ }{\operatorname{let} x = v_1 \operatorname{in} e_2 \to e_2[v_1/x]}\)
 
-    \subsection{Static Semantics}
+    \subsection{Church Encodings}
+
+    \subsubsection{Booleans}
+    tru = $\lambda t. \lambda f. t $\\
+    fls = $\lambda t. \lambda. f. f $\\
+    and = $\lambda b. \lambda c. b c fls$\\
+    or = $\lambda b. \lambda c. b tru c$ %correct this if wrong idk if this is right
+
+    \subsubsection{Numerals}
+    0 = $\lambda s. \lambda z. z$\\
+    1 = $\lambda s. \lambda z. s z$\\
+    2 = $\lambda s. \lambda z. s (s z)$
+
+    \subsubsection{Pairs}
+    pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$\\
+    fst = $\lambda p.p (\lambda x.\lambda y.x)$\\
+    snd = $\lambda p.p (\lambda x.\lambda y.y)$
+
+    \subsubsection{Either} % someone check if these are wrong
+    left = $\lambda a. \lambda l. \lambda r. l a$\\
+    right = $\lambda b. \lambda l. \lambda r. r b$
+
+    \subsubsection{Lists}
+    nil = $\lambda c.\lambda n.n$\\
+    cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$
+
+    % credit to milenb17#9439 on Discord
+    \subsubsection{Trees}
+    leaf = \(\lambda x.\lambda b.\lambda l.l ,x\)\\
+    branch = \(\lambda x.\lambda y.\lambda b.\lambda l. ,b ,(x, l, b) ,(y, l, b)\)
+
+    \subsection{Domain Specific Languages (DSLs)}
+    \subsubsection{Shallow}
+    Implement the DSL as functions.
+    Ex. for pic DSL, stuff is given as functions.
+    Easy to add new functions,
+    but can suck if you want to extend to more interpretations since you can't reuse functions.
+    \subsubsection{Deep}
+    Datatype to represent syntax.
+    Can easily write new interpretation functions.
+    But annoying to add new operations because all interpretations need to be extended.
+    \subsubsection{Tagless}
+    Best of shallow and deep.
+    The language is the interpretation.
+    If we want to add a new operation we can easily add a new class that extends the original.
+    To create a new interpretation just create an instance of the class.
+
+    \section{Static Semantics (Typing)}
     % types
     % Progress rule (always be able to make a step towards the value)
     % (for every well-typed program, either I can make a step, or e is a value)
     % Preservation rule (if a term is well-typed, and we evaluate it once under
     % single-step operational semantics, the resulting term is also well typed.)
 
+    \subsection{Progress}
+    \subsection{Preservation}
+
+
+    \subsection{Context}
     % context list and how it works
     % unification (????? idk i didnt pay attention to this section)
     % u jus like me fr
+    \subsection{Unification}
+    \subsubsection{Unification Algorithm}
+    % Note: screenshotted from tb p327, transcribe if you want
+    \includegraphics[width=\linewidth]{unification-algorithm.png}
 
     % featherweight java (wtf?)
+
+    % subtyping
+    \subsection{Subtyping}
+    T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
+    S-Refl: \(S <: S\)\\
+    S-Trans: \(\frac{S<: U \quad U<:T}{S<:T}\)\\
+    S-RcdWidth: \(\{ l_{i}: T_{i}^{i \in  1..n +k} \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}\)\\
+    S-RcdDepth: \(\frac{\text{for each } i \quad S_{i} <: T_{i}}{\{ l_{i}: S_{i}^{i \in  1..n } \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}}\)\\
+    S-RcdPerm: \(\frac{\{k_{j} :S_{j}^{j \in 1..n}\} \text{ is perm. of } \{l_{i}:T_{i}^{i \in 1..n} \}}{\{k_{j}:S_{j}^{j \in 1..n} \} <: \{l_{i}: T_{I}^{i \in 1..n} \}}\)\\
+    S-Arrow: \(\frac{T_{1} <: S_{1} \quad S_{2} <: T_{2}}{S_{1} \to S_{2} <: T_{1} \to T_{2}}\)\\
+    This S-Arrow subtype relation is \textbf{contravariant} in the left-hand sides of arrows, and
+    \textbf{covariant} in the right-hand sides of arrows.
+    The intuition is that if we have a function \(S_1 \to S_2\),
+    then it will accept any subtype of \(S_1\) as input,
+    and the result \(S_2\) can be viewed as belonging to any supertype of \(S_2\).\\
+    S-Top: \(S<: \text{Top}\), where \(\text{Top}\) is a new type constant that is a supertype of every type.
 
     \section{Q\&A}
 
@@ -188,6 +272,22 @@
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
          & \textrm{//infinite loop}
+    \end{align*}
+    
+    \subsection{Q8 - Expression evaluates in more steps under cbv}
+    \begin{align*}
+        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
+        \text{under cbn:}\\
+        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        = (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)\\
+        = ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        = b ((\lambda x. x) b) ((\lambda x. x) b) \\
+        \text{under cbv:}\\
+        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)
+        = (\lambda x,y. x x y) b ((\lambda x. x) b)
+        = (\lambda x,y. x x y) b b
+        = (\lambda y. b b y) b
+        = b b b
     \end{align*}
 
     % FIXME: this should go under one of the headings above, not in it's own section
@@ -224,6 +324,7 @@
     \section{Unification Algorithm}
     % Note: screenshotted from tb p327, transcribe if you want
     \includegraphics[width=\linewidth]{unification-algorithm.png}
+
 \end{multicols*}
 
 \end{document}
