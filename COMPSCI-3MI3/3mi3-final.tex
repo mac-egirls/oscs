@@ -498,6 +498,16 @@
          & = (\lambda y. b b y) b                                                    &  & \\
          & = b b b                                                                   &  &
     \end{flalign*}
+    \textbf{alt answer} \\
+    $(\lambda x . a )((\lambda y.y) b)$\\
+    CBV (2 steps):\\
+    $(\lambda x . a)((\lambda y .y ) b)$\\
+    $(\lambda x . a)(b) \to a$\\
+    CBN (1 step):
+    $(\lambda x . a)((\lambda y .y) b) \to a$ $|$
+    $(\lambda x. \lambda y.\ y)($anything very long that can evaluate$)$ \\
+    In CbV this will need to evaluate the very long term, but in CbN it will try to substitute it exactly for $x$, but $x$ is not used, so the evaluation does not need to be done.
+
 
     % shoutout elite
     \subsection{Q9 - Expression evaluates in more steps under cbn}
@@ -514,6 +524,23 @@
          & = (\lambda y. y y) x x                              &  & \\
          & = x x x                                             &  & \\
     \end{flalign*}
+    \textbf{alt answer} \\
+    Justify that your example is correct.
+    $(\lambda x . x x ) (( \lambda x . x) (\lambda y.y))$\\
+    \textbf{CbV:}
+    $(\lambda x . x x) (( \lambda x .x ) (\lambda y .y )) \to$
+    $(\lambda x . xx) (\lambda y .y )\to$
+    $(\lambda y .y ) (\lambda y .y ) \to$
+    $(\lambda y . y)$\\
+    \textbf{CbN:}
+    $(\lambda x . xx) (( \lambda x . x) (\lambda y . y))\to$
+    $((\lambda x . x) (\lambda y. y)) ((\lambda x .x) (\lambda y .y))\to$
+    $(\lambda y.y) ((\lambda x . x) ( \lambda y .y))\to$
+    $(\lambda x .x) (\lambda y .y)\to$
+    $(\lambda y .y)$
+    (or)
+    $(\lambda y.\ y y y y y)($any lambda expression that can evaluate$)$ \\
+    CbV will evaluate the second term once and then substitute the value of it, but CbN will substitute it exactly into every $y$. B/c of this, the evaluation will need to be done 5 times.
 
     % shoutout bani
     \subsection{Q10 - Expression evaluates in exactly 2 steps under both but then gets stuck}
