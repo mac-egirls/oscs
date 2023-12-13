@@ -100,7 +100,7 @@
 \setlength{\postmulticols}{1pt}
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
-\begin{multicols*}{5}
+\begin{multicols*}{4}
     \section{Programming languages}
     \subsection{Important languages}
     \textbf{Fortran} -- First lang w/ a compiler, syntax is whatever the compiler accepts, no formal standards set.
@@ -328,6 +328,9 @@
     % (for every well-typed program, either I can make a step, or e is a value)
     % Preservation rule (if a term is well-typed, and we evaluate it once under
     % single-step operational semantics, the resulting term is also well typed.)
+    \textbf{Type safety} is an assurance that computations do not lead to mismatched types in other computations — program execution does not lead to ill-defined states.
+    A \textbf{type system} consists of two pieces; judgements and inference rules. A judgement is some property that the type system lets us show; for instance, we might have a judgement that asserts that some term x has type A. The inference rules allow us to actually prove that some judgement holds. For instance, this is how one might prove that (true, false) has type Bool × Bool.
+    DSLs are particularly neat because they allow for domain-specific: analysis, validation, interpretation, optimization, tooling, etc.
 
     \subsection{Progress}
     Definition: a well-typed term is either a value or, or
