@@ -350,7 +350,20 @@
     \subsection{Unification}
     \subsubsection{Unification Algorithm}
     % Note: screenshotted from tb p327, transcribe if you want
-    \includegraphics[width=\linewidth]{unification-algorithm.png}
+    % \includegraphics[width=\linewidth]{unification-algorithm.png}
+    unify(C) =\\
+    $\text{if } C = \O, \text{then [ ]} $\\
+    $\text{else let } \{S = T\} \bigcup C' = C \text{ in} $\\
+    $\text{if } S = T$\\
+    $\qquad \text{then } \operatorname{unify}(C')$\\
+    $\text{else if } S = X \text{ and }X \not \in FV(T)$\\
+    $\qquad \text{then } \operatorname{unify}([X \to S]C' \circ [X \to T]$\\
+    $\text{else if } T = X \text{ and } X \not \in FV(S)$\\
+    $\qquad \text{then } \operatorname{unify}([X \to T]C') \circ [X \to S]$\\
+    $\text{else if } S = S_1 \to S_2 \text{ and } T =T_1 \to T_2$\\
+    $\qquad \text{then } \operatorname{unify}(C' \cup \{S_1 = T_1, S_2 = T_2\})$\\
+    $\text{else}$\\
+    $\qquad \text{fail}$
 
     % featherweight java (wtf?)
 
@@ -579,6 +592,26 @@
               \end{flalign*}
               }
     \end{enumerate}
+
+    \subsection{Question Q21}
+    Subtyping of function types illustrates both covariance and contravariance - explain those terms.
+
+    Subtyping: hierarchical relation on types, $<:$ can be read as $\leq$ "is less than"\\
+    Covariance: The ordering of component types is preserved.
+    Contravariance: The ordering of component types is reversed.\\
+    \begin{mathpar}
+        \inferrule{T_1 <: S_2 \qquad S_2 <: T_2}{S_1 \to S_2 <: T_1 \to T_2}
+    \end{mathpar}
+    Here $S_1, T_1$ is contravariance (swapped sides of $<:$) and $S_2, T_2$ is covariance
+    (ordering of $<:$ is the same)
+
+    $\textbf{Covariance:}$
+    In a covariant relationship, the subtyping relationship preserves the direction of the original
+    types.
+    If A is subtype of B, then assume we have additional type C, then A $\to$ C is a subtype of B $\to$ C
+    $\textbf{Contravariance:}$
+    In a contravariant relationship, the subtyping relationship is reversed in direction.
+    If A is subtype of B, then assume we have additional type C, then B $\to$ C is a subtype of A $\to$ C.
 
     \subsection{Question 23}
     Why are the semantics of case-of (for sums) in a CbV language weird? Why is this inevitable? Why are the semantics fine in CbN? Contrast this with `either` in Haskell.\\
