@@ -196,15 +196,60 @@
     Ex. for pic DSL, stuff is given as functions.
     Easy to add new functions,
     but can suck if you want to extend to more interpretations since you can't reuse functions.
+    Pros: 
+    \begin{itemize}
+        \item{easy extensibility of terms}
+        \item{Has nice syntax due to being programmed in an established language}
+        \item{piggyback on host language's type system (pro in some cases)}
+    \end{itemize}
+    Cons:
+    \begin{itemize}
+        \item{no reuse of ASTs}
+        \item{Hard to re-interpret terms with other meanings (e.g. hard to change format of a picture)}
+        \item{things are immediately evaluated}
+  		\item{piggyback on host language's type system (con in some cases), e.g. if you want
+                to move your dsl to another language}
+        \item{Cannot easily perform program transformations (e.g. optimizations)}
+    \end{itemize}
     \subsubsection{Deep}
     Datatype to represent syntax.
     Can easily write new interpretation functions.
     But annoying to add new operations because all interpretations need to be extended.
+    Pros:
+    \begin{itemize}
+        \item{easy reuse of programs written in the DSL}
+  		\item{custom validity system}
+  		\item{simulatable}
+  		\item{domain-specific interpretations, e.g. tool creation, analysis, re-writing, optimization passes, etc.}
+        \item{Can easily perform program transformations (e.g. optimizations)}
+    \end{itemize}
+    Cons:
+    \begin{itemize}
+        \item{Ugly syntax}
+        \item{extra tag i.e. the DSL is a little less efficient}
+  		\item{term set is typically not 'open'} 
+        \begin{itemize}
+            \item{we can't easily extend a language without recompilation 
+            and defining interpreation of new terms for all previously
+            defined operators}
+            \item{expression problem (? related to above?)}
+        \end{itemize}
+    \end{itemize}
     \subsubsection{Tagless}
     Best of shallow and deep.
     The language is the interpretation.
     If we want to add a new operation we can easily add a new class that extends the original.
     To create a new interpretation just create an instance of the class.
+    Pros:
+    \begin{itemize}
+        \item{Both of the pros from shallow and deep embeds}
+        \item{Programming against an abstract interface is nice}
+    \end{itemize}
+    Cons:
+    \begin{itemize}
+        \item{Speed: the compiler does not know what you are working against with an abstract 
+            interface so compiler optimizations might not work properly}
+    \end{itemize}
 
     \section{Static Semantics (Typing)}
     % types
@@ -278,18 +323,18 @@
     % shoutout elite
     \subsection{Q8 - Expression evaluates in more steps under cbv}
     \begin{align*}
-        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
-        \text{under cbn:}\\
-        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
-        = (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)\\
-        = ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)\\
-        = b ((\lambda x. x) b) ((\lambda x. x) b) \\
-        \text{under cbv:}\\
-        (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)
-        = (\lambda x,y. x x y) b ((\lambda x. x) b)
-        = (\lambda x,y. x x y) b b
-        = (\lambda y. b b y) b
-        = b b b
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b) \\ 
+        &\text{under cbn:}\\
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        &= (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b)\\
+        &= ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)\\
+        &= b ((\lambda x. x) b) ((\lambda x. x) b) \\
+        &\text{under cbv:}\\
+        &(\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)
+        &= (\lambda x,y. x x y) b ((\lambda x. x) b)
+        &= (\lambda x,y. x x y) b b
+        &= (\lambda y. b b y) b
+        &= b b b
     \end{align*}
 
     \subsection{Q13 - What's the point of an eval strategy?}
