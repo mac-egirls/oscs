@@ -392,6 +392,33 @@
          & \textrm{//infinite loop}
     \end{align*}
 
+    \subsection{Q2 - CBV rules given CBN rules for pairs and projections}
+    \begin{mathpar}
+    \inferrule
+    { e_1 \to e_1'}
+    { (e_1, e_2) \to (e_1', e_2) }
+    \qquad
+    \inferrule
+    { e_2 \to e_2'}
+    { (v_1, e_2) \to (v_1, e_2') }
+    \qquad\\
+    \inferrule
+    { e_1 \to e_1'}
+    { \mathrm{fst}\ e_1 \to \mathrm{fst}\ e_1' }
+    \qquad
+    \inferrule
+    { e_1 \to e_1'}
+    { \mathrm{snd}\ e_1 \to \mathrm{snd}\ e_1' }
+    \qquad\\
+    \inferrule
+    { }
+    { \mathrm{fst}\ (v_1, v_2) \to v_1 }
+    \qquad
+    \inferrule
+    { }
+    { \mathrm{snd}\ (v_1, v_2) \to v_2 }
+    \end{mathpar}
+    CBV requires the full evaluation of the expression under fst/snd before operating on it. This means that the pair fst/snd is operating over must contain two expressions that can be fully evaluated.   
     % shoutout elite
     \subsection{Q8 - Expression evaluates in more steps under cbv}
     \begin{flalign*}
@@ -408,6 +435,22 @@
         &= (\lambda y. b b y) b&& \\
         &= b b b && 
     \end{flalign*}
+
+    \subsection{Q3 - Fix Incoherent Rules}
+    \begin{mathpar}
+    \inferrule
+    { e_1 \to e_1' }
+    { \mathrm{and}\ e_1\ e_2 \to \mathrm{and}\ e_1'\ e_2 }
+    \qquad
+    \inferrule
+    { }
+    { \mathrm{and}\ \mathrm{true} \ e_2 \to e_2}
+    \qquad\\
+    \inferrule
+    { }
+    { \mathrm{and}\ \mathrm{false} \ e_2 \to \mathrm{false}}
+    \end{mathpar}
+    The first rule is for and checks if $e_1$ can be evaluated. The old rules checked if the second term was true or false, meaning that $e_2$ would have to be the term true or false since there is no rule to evaluate $e_2$ to see if it is true or false.
 
     % shoutout elite
     \subsection{Q9 - Expression evaluates in more steps under cbn}
@@ -502,6 +545,12 @@
             \end{flalign*}
         } 
     \end{enumerate}
+
+    \subsection{Question 23}
+    Why are the semantics of case-of (for sums) in a CbV language weird? Why is this inevitable? Why are the semantics fine in CbN? Contrast this with `either` in Haskell.\\
+    In CbV we would expect to evaluate the inside fully before the outside. However, this is again not the case, as we first evaluate the case statement, before deciding where to substitute it. This is inevitable, as for sum types, the valid evaluation steps changes based on the specific type we are dealing with.\\
+    In CbN we do not evaluate the argument before passing it to begin with, so it is as one would expect.\\
+    % Is either supposed to be different???
 
     \section{Miscellaneous}
     \textbf{Y-combinator:} $(\lambda x. x x)$ \\
