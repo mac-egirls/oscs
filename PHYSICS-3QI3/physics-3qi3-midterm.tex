@@ -1,0 +1,182 @@
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{courier}
+\usepackage{syntax}
+\usepackage{mathpartir}
+\usepackage{braket}
+
+% minimal line spacing
+% \setstretch{0.1}
+
+% set borders (experimentally determined to minimize cutoff and maximize space on school printers)
+\geometry{top=.25in,left=.25in,right=.25in,bottom=.35in}
+
+% make figures work better in multicol
+% \newenvironment{Figure}
+% {\par\medskip\noindent\minipage}
+% {\endminipage\par\medskip}
+
+% \pagestyle{empty} % clear page
+
+% rewrite section commands to be smaller
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0} % disable section numbering
+
+
+% disable indenting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+\newcommand{\To}{\Rightarrow}
+\newcommand{\ttt}{\texttt}
+\newcommand{\ra}{\rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+\title{3QI3}
+
+\begin{document}
+\raggedright
+\tiny
+
+% make listings look nicer
+% \lstset{
+%     tabsize = 2, %% set tab space width
+%     showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
+%     basicstyle = \tiny\ttfamily, %% set listing font and size
+%     breaklines = true, %% enable line breaking
+%     numberstyle = \tiny,
+%     postbreak = \mbox{\textcolor{red}{\(\hookrightarrow\)}\space}
+% }
+
+\begin{center}
+    {\textbf{3QI3 - Popular Science Edition}} \\
+\end{center}
+% set column spacing rules
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\begin{multicols*}{6}
+    \section{Linalg}
+    Matrix Multiplication:
+    \(
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+    \begin{pmatrix}
+        e & f \\
+        g & h
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        ae+bg & af+bh \\
+        ce+dg & cf+dh
+    \end{pmatrix}
+    \)
+
+    \textbf{Adjoint (Hermitian Conjugate):}
+    \(A^\dagger = A^*\)
+    (transpose the matrix and take the complex conjugate of each element)
+
+    \textbf{Complex Conjugate:}
+    Flip the sign of the imaginary part of a complex number
+
+    \section{Classical Information Theory}
+    Shannon Entropy/Information: \(H = -\sum p(a_i) \log p(a_i)\)
+
+    \section{Thermodynamics}
+    Gibbs Entropy: \(S = -k \sum p_i \log p_i\)
+
+    \section{Communication Theory}
+    \textbf{Shannon's Noiseless Coding Theorem:}
+    For a given message,
+    we only need \(N H(p)\) bits to encode it,
+    where \(H(p) = -\sum p_i \log p_i\)
+    \textbf{Shannon's Noisy Coding Theorem:}
+    On average, we need at least \(\frac{N_0}{1-H(q)}\)
+    bits to encode one of \(2^{N_0}\) equally probable messages,
+    where \(H(q) = -[q \log q + (1-q) \log (1-q)]\)
+
+    \section{Dirac Notation}
+    \(\bra{\Psi} \Longleftrightarrow \ket{\psi}^\dagger\)
+
+    \begin{tabular}{@{}lc@{}}\toprule
+        Ket                        & Matrix                                                      \\ \midrule
+        \(\ket{0}\) or \(\ket{H}\) & \(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\)                    \\
+        \(\ket{1}\) or \(\ket{V}\) & \(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\)                    \\
+        Diagonal Up                & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}\)  \\
+        Diagonal Down              & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ -1 \end{bmatrix}\) \\
+        Left Circular              & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ i \end{bmatrix}\)  \\
+        Right Circular             & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ -i \end{bmatrix}\) \\
+        \bottomrule
+    \end{tabular}
+
+    \includegraphics[width=\linewidth]{Bloch\_sphere.svg.png}
+
+    \(\ket{\Psi} = \cos\frac{\theta}{2}\ket{0}+e^{i \phi}\sin\frac{\theta}{2}\ket{1}\)
+
+    \textbf{Change of basis}
+    Let \(\theta\) be a rotation of basis vectors,
+    counterclockwise.
+
+    \(\ket{x} = \cos\theta\ket{x'} - \sin\theta\ket{y'}\)
+    and
+    \(\ket{y} = \sin\theta\ket{x'} + \cos\theta\ket{y'}\)
+
+    where \(\ket{x'}\) and \(\ket{y'}\) are the new basis vectors.
+
+    \textbf{Outer Product}
+    Given that
+    \(\ket{\psi} = \)
+    \(\ket{\psi}\bra{\phi} = \begin{bmatrix} \psi_1\phi_1 & \psi_1\phi_2 \\ \psi_2\phi_1 & \psi_2\phi_2 \end{bmatrix}\)
+
+    % TODO: quantum state tomography
+
+\end{multicols*}
+
+\end{document}
