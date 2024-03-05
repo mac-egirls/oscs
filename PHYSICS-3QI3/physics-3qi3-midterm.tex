@@ -93,7 +93,7 @@
 % }
 
 \begin{center}
-    {\textbf{3QI3 - Popular Science Edition}} \\
+    {\textbf{Physics 3QI3 - Key Exchange Edition}} \\
 \end{center}
 % set column spacing rules
 \setlength{\premulticols}{1pt}
@@ -309,6 +309,115 @@
     is a unit vector.
 
     For spin-1/2, \(\vec{\hat{J}} = \frac{1}{2}\vec{\hat{\sigma}}\)
+
+    \section{Tensor Products}
+    Given that \(\ket{\psi} = \begin{pmatrix} a \\ b \end{pmatrix}\)
+    and \(\ket{\phi} = \begin{pmatrix} c \\ d \end{pmatrix}\)
+    \[
+        \ket{\psi} \otimes \ket{\phi}
+        = \begin{pmatrix}
+            a\begin{pmatrix} c \\ d \end{pmatrix} \\
+            b\begin{pmatrix} c \\ d \end{pmatrix}
+        \end{pmatrix}
+        = \begin{pmatrix}
+            ac \\
+            ad \\
+            bc \\
+            bd
+        \end{pmatrix}
+    \]
+
+    For operators,
+    \begin{align*}
+        \hat{A} \otimes \hat{B}
+         & = \begin{pmatrix}
+                 a & b \\
+                 c & d
+             \end{pmatrix}
+        \otimes
+        \begin{pmatrix}
+            \alpha & \beta  \\
+            \gamma & \delta
+        \end{pmatrix}                            \\
+         & = \begin{pmatrix}
+                 a\begin{pmatrix}
+                 \alpha & \beta  \\
+                 \gamma & \delta
+             \end{pmatrix} &
+                 b\begin{pmatrix}
+                 \alpha & \beta  \\
+                 \gamma & \delta
+             \end{pmatrix} \\
+                 c\begin{pmatrix}
+                 \alpha & \beta  \\
+                 \gamma & \delta
+             \end{pmatrix} &
+                 d\begin{pmatrix}
+                 \alpha & \beta  \\
+                 \gamma & \delta
+             \end{pmatrix}
+             \end{pmatrix}         \\
+         & = \begin{pmatrix}
+                 a\alpha & a\beta  & b\alpha & b\beta  \\
+                 a\gamma & a\delta & b\gamma & b\delta \\
+                 c\alpha & c\beta  & d\alpha & d\beta  \\
+                 c\gamma & c\delta & d\gamma & d\delta
+             \end{pmatrix}
+    \end{align*}
+
+    \subsection{Properties}
+    Not commutative.
+    Distributive:
+    \(\ket{\psi}\otimes(\ket{\phi}+\ket{\varphi}) = \ket{\psi}\otimes\ket{\phi}+\ket{\psi}\otimes\ket{\varphi}\)
+    \(\hat{A}\otimes(\hat{B}+\hat{C}) = \hat{A}\otimes\hat{B}+\hat{A}\otimes\hat{C}\)
+
+    Operators can act on one photon and not the other:
+    Eg, let
+    \[
+        \sigma_A^x
+        = \begin{pmatrix}
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0
+        \end{pmatrix}
+    \]
+    thus,
+    \begin{align*}
+        \sigma_A^x \ket{HH}
+         & = \sigma_A^x \otimes \mathcal{I} (\ket{H}_A \otimes \ket{H}_B) \\
+         & = (\sigma_A^x \ket{H}_A) \otimes (\mathcal{I} \ket{H}_B)       \\
+         & = \ket{V}_A \otimes \ket{H}_B                                  \\
+         & = \ket{VH}
+    \end{align*}
+    or
+    \[
+        \begin{pmatrix}
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 \\
+            0 \\
+            0 \\
+            0
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0 \\
+            0 \\
+            1 \\
+            0
+        \end{pmatrix}
+    \]
+
+    \section{Classical Cryptography}
+    \textbf{Criterion for Perfect Secrecy}
+    \(
+    P(p_i | C_j) = P(p_i) \forall i, j
+    \)
 
 \end{multicols*}
 
