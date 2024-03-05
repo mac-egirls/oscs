@@ -100,7 +100,7 @@
 \setlength{\postmulticols}{1pt}
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
-\begin{multicols*}{6}
+\begin{multicols*}{5}
     \section{Linalg}
     Matrix Multiplication:
     \(
@@ -160,6 +160,13 @@
 
     \(\ket{\Psi} = \cos\frac{\theta}{2}\ket{0}+e^{i \phi}\sin\frac{\theta}{2}\ket{1}\)
 
+    \begin{multicols*}{2}
+        \(+x = \frac{1}{\sqrt{2}}(\ket{0}+\ket{1})\)
+        \(-x = \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\)
+        \(+y = \frac{1}{\sqrt{2}}(\ket{0}+i\ket{1})\)
+        \(-y = \frac{1}{\sqrt{2}}(\ket{0}-i\ket{1})\)
+    \end{multicols*}
+
     \textbf{Change of basis}
     Let \(\theta\) be a rotation of basis vectors,
     counterclockwise.
@@ -176,6 +183,132 @@
     \(\ket{\psi}\bra{\phi} = \begin{bmatrix} \psi_1\phi_1 & \psi_1\phi_2 \\ \psi_2\phi_1 & \psi_2\phi_2 \end{bmatrix}\)
 
     % TODO: quantum state tomography
+
+    \section{Operators}
+    Operators produce another ket
+
+    \textbf{Mean value of an observable}
+    Measuring an observable
+    \(\hat{V} = \sum_i v_i \ket{v_i}\bra{v_i}\)
+    in the state \(\ket{\Psi}\)
+
+    Obtains result \(v_i\) with probability
+    \(p(v_i) = |\braket{v_i|\Psi}|^2\)
+
+    Repeating measurement many times obtains \textbf{expectation value}
+    \(\braket{V}=\sum_i P_i v_i = \sum_i |\braket{v_i|\Psi}|^2 v_i\)
+    \(\braket{V}_\Psi = \braket{\Psi|\hat{V}|\Psi}\)
+
+    \subsection{Uncertainty}
+    Variance is
+    \(
+    \Delta V^2
+    = \braket{\Psi|(\hat{V}-\braket{\Psi|\hat{V}|\Psi})^2|\Psi}
+    \)
+    \(
+    \Delta V^2
+    = \braket{\Psi|\hat{V}^2|\Psi} - \braket{\Psi|\hat{V}|\Psi}^2
+    = \braket{\hat{V}^2}-\braket{\hat{V}}^2
+    \)
+
+    \subsection{Heisenberg Uncertainty Principle}
+    \(\Delta x \Delta p \geq \frac{1}{2} |\braket{\psi | [\hat{A}, \hat{B}]| \psi}|\)
+    (e.g. for \([\hat{x}, \hat{p}] = i \hbar\) we find \(\Delta x \Delta p \geq \frac{\hbar}{2}\))
+
+    \subsection{Pauli Operators}
+
+    \begin{tabular}{@{}l@{}} \toprule
+        \(\hat{\sigma}_x
+        = \begin{pmatrix}
+              0 & 1 \\
+              1 & 0
+          \end{pmatrix}
+        = \ket{0}\bra{1}+\ket{1}\bra{0}\)    \\
+        \quad Eigenvectors: \(
+        \begin{pmatrix}1\\0\end{pmatrix},
+        \begin{pmatrix}0\\1\end{pmatrix}
+        \)                                   \\
+        \(\hat{\sigma}_y
+        = \begin{pmatrix}
+              0 & -i \\
+              i & 0
+          \end{pmatrix}
+        = i(\ket{1}\bra{0}-\ket{0}\bra{1})\) \\
+        \quad Eigenvectors: \(
+        \frac{1}{\sqrt{2}}\begin{pmatrix}1\\i\end{pmatrix},
+        \frac{1}{\sqrt{2}}\begin{pmatrix}1\\-i\end{pmatrix}
+        \)                                   \\
+        \(\hat{\sigma}_z
+        = \begin{pmatrix}
+              1 & 0  \\
+              0 & -1
+          \end{pmatrix}
+        = \ket{0}\bra{0}-\ket{1}\bra{1}\)    \\
+        \quad Eigenvectors: \(
+        \frac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix},
+        \frac{1}{\sqrt{2}}\begin{pmatrix}1\\-1\end{pmatrix}
+        \)                                   \\
+        \(\hat{I}
+        = \begin{pmatrix}
+              1 & 0 \\
+              0 & 1
+          \end{pmatrix}
+        = \ket{0}\bra{0}+\ket{1}\bra{1}\)    \\
+        \quad Eigenvectors: \(
+        \begin{pmatrix}0\\1\end{pmatrix},
+        \begin{pmatrix}1\\0\end{pmatrix}
+        \)                                   \\
+        \bottomrule
+    \end{tabular}
+
+    (All have respective eigenvalues of +1 and -1)
+
+    \subsubsection{Commutaton Relations}
+    \begin{multicols*}{2}
+        \begin{align*}
+            [\hat{\sigma}_x, \hat{\sigma}_y] & = 2i\hat{\sigma}_z \\
+            [\hat{\sigma}_y, \hat{\sigma}_z] & = 2i\hat{\sigma}_x \\
+            [\hat{\sigma}_z, \hat{\sigma}_x] & = 2i\hat{\sigma}_y
+        \end{align*}
+        \begin{align*}
+            \{\hat{\sigma}_x, \hat{\sigma}_y\} & = 0 \\
+            \{\hat{\sigma}_y, \hat{\sigma}_z\} & = 0 \\
+            \{\hat{\sigma}_z, \hat{\sigma}_x\} & = 0
+        \end{align*}
+    \end{multicols*}
+    \([\hat{\sigma}_a, \hat{\sigma}_b]=2 i \epsilon_{abc} \hat{\sigma}_c\)
+
+    For direction \(\vec{n}\),
+    \(
+    \vec{n} \cdot \vec{\hat{\sigma}}
+    = n_x \hat{\sigma}_x
+    + n_y \hat(\sigma)_y
+    + n_z \hat{\sigma}_z
+    \)
+
+    For any operator,
+    \begin{align*}
+        \hat{H} & = \begin{pmatrix}
+                        a      & c - id \\
+                        c + id & b
+                    \end{pmatrix}                                                                                 \\
+                & = \frac{a+b}{2}\hat{\mathbb{I}} + \frac{a-b}{2}\hat{\sigma}_z + c\hat{\sigma}_x + d\hat{\sigma}_y
+    \end{align*}
+
+    \subsection{Common Gates}
+    \textbf{Hadamard gate:}
+    \(\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+        1 & 1  \\
+        1 & -1
+    \end{pmatrix}
+    = \frac{1}{\sqrt{2}} (\hat{\sigma_z} + \hat{\sigma_x})\)
+    \textbf{Rotation operator:}
+    \(\hat{R}(\vec{n}, \theta) = e^{-i \theta \vec{n} \cdot \vec{\hat{J}}}\)
+    Where \(\vec{\hat{J}}\) is the angular momentum operator,
+    and \(\vec{n} = (\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)\)
+    is a unit vector.
+
+    For spin-1/2, \(\vec{\hat{J}} = \frac{1}{2}\vec{\hat{\sigma}}\)
 
 \end{multicols*}
 
