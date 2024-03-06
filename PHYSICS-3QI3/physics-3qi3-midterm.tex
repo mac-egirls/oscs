@@ -126,21 +126,78 @@
     \textbf{Complex Conjugate:}
     Flip the sign of the imaginary part of a complex number
 
+    \textbf{Trace}
+    Sum the diagonal elements of a square matrix
+
+    \textbf{Multi-bit Dirac Notation}
+    \(\ket{A} \ket{B} = \ket{AB}\)
+    The dual of this is \(\bra{BA}\)
+
+    \textbf{Properties}
+    \(\ket{A}\bra{A} = \hat{I}\)
+
+    \section{Probability and Bayes' Rule}
+    \textbf{Bayes' theorem formula:}
+    \[
+        P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+    \]
+
+    Examples of calculating conditional probabilities (medical tests, particle detectors)
+
+    \textbf{Poisson distribution:}
+    \[
+        P(n) = \frac{\lambda^n e^{-\lambda}}{n!}
+    \]
+
     \section{Classical Information Theory}
-    Shannon Entropy/Information: \(H = -\sum p(a_i) \log p(a_i)\)
+    \subsection{Shannon Entropy/Information}
+    \(H = - k \sum_i p(a_i) \log p(a_i)\)
+    By convention, we use \(k = 1\) and \(\log\) is base 2.
+    \subsubsection{Properties of entropy}
+    Entropy must be non-negative, and is maximized for a uniform distribution.
 
     \section{Thermodynamics}
     Gibbs Entropy: \(S = -k \sum p_i \log p_i\)
 
     \section{Communication Theory}
-    \textbf{Shannon's Noiseless Coding Theorem:}
+    \textbf{Number of Typical Messages}
+    \(W \simeq 2^{N H(p)}\) where \(H(p)\) is the entropy of the message
+    and \(N\) is the number of bits in the message.
+
+    \includegraphics[width=.7\linewidth]{SCR-20240305-qtnt.png}
+    Compression factor for different values of \(p\).
+    As \(p\) approaches 0.5 from either side,
+    we can compress the message less and less,
+    since there is more entropy we need to encode.
+
+    \subsection{Shannon's Noiseless Coding Theorem:}
     For a given message,
-    we only need \(N H(p)\) bits to encode it,
-    where \(H(p) = -\sum p_i \log p_i\)
-    \textbf{Shannon's Noisy Coding Theorem:}
+    we only need \(N H(p)\) bits to encode it (definition of \(H(p)\) above)
+
+    \textbf{Example:}
+    Let us have an alphabet A, B, C, D
+    with probabilities of \(1/2, 1/4, 1/8, 1/8\) respectively.
+    Entropy is \(H = -(1/2 \log 1/2 + 1/4 \log 1/4 \dots) = 7/4\text{ bits}\)
+    Therefore, a message \(N\) characters long can be encoded in \(7/4 \cdot N\) bits.
+
+    \subsection{Shannon's Noisy Coding Theorem:}
     On average, we need at least \(\frac{N_0}{1-H(q)}\)
-    bits to encode one of \(2^{N_0}\) equally probable messages,
+    bits to encode one of \(2^{N_0}\) equally probable messages
+    (\(N_0\) is the original message length)
     where \(H(q) = -[q \log q + (1-q) \log (1-q)]\)
+    is the entropy associated with single bit error q.
+
+    \textbf{Efficient Coding:}
+    Plot \(N/N_0 - 1\) vs \(q\) to see when overhead becomes too ``large''
+
+    \textbf{Huffman Coding}
+    \begin{enumerate}
+        \item Sort the probabilities
+        \item Combine the two lowest probabilities into a tree,
+              storing characters as branches and the sum of their probabilities as the root
+        \item Repeat until all probabilities are combined, and we reach a probability of 1
+        \item Set 0/1 to left/right (either pairing), and traverse the tree to find the encoding
+    \end{enumerate}
 
     \section{Dirac Notation}
     \(\bra{\Psi} \Longleftrightarrow \ket{\psi}^\dagger\)
@@ -156,7 +213,7 @@
         \bottomrule
     \end{tabular}
 
-    \includegraphics[width=\linewidth]{Bloch\_sphere.svg.png}
+    \includegraphics[width=.7\linewidth]{Bloch\_sphere.svg.png}
 
     \(\ket{\Psi} = \cos\frac{\theta}{2}\ket{0}+e^{i \phi}\sin\frac{\theta}{2}\ket{1}\)
 
@@ -415,9 +472,102 @@
 
     \section{Classical Cryptography}
     \textbf{Criterion for Perfect Secrecy}
+    Let \(\{p_i\}\) be the set of possible plaintexts,
+    and \(\{c_j\}\) be the set of possible ciphertexts.
     \(
     P(p_i | C_j) = P(p_i) \forall i, j
     \)
+    (discovering a ciphertext provides no information about the plaintext)
+
+    % TODO: add classical cryptosystem examples
+
+    \section{Quantum Cryptography}
+    Based on no-cloning theorem (cannot copy an unknown quantum state)
+
+    \subsection{BB84 (Quantum Key Distribution)}
+    \begin{enumerate}
+        \item Alice sends a random sequence of bits, randomly encoded in either H/V or +45/-45 basis, to Bob
+        \item Bob measures each qubit in a random basis
+        \item Alice and Bob compare bases used
+        \item Alice and Bob discard qubits measured in different bases
+        \item Alice and Bob compare a subset of their qubits to check for eavesdropping
+        \item Alice and Bob use the remaining qubits as a shared key
+        \item Alice and Bob use the shared key to encrypt and decrypt messages
+    \end{enumerate}
+    Errors in the key indicate eavesdropping
+    (probability that Eve does not cause an error is \((3/4)^N\),
+    where \(N\) is the number of qubits tested)
+
+    \subsection{B92 Protocol}
+    Non-orthogonal bases, eg \(\ket{0}, \ket{1}\) and \(\ket{0'}, \ket{1'}\)
+    Alice prepares states in \(\ket{0}, \ket{1'}\),
+    associating them with 0 and 1, and sends them to Bob.
+
+    Bob measures in the two basis randomly.
+    If he receives a \(\ket{0}\), he discards it,
+    as it could have been prepared as \(\ket{0}\) or \(\ket{1'}\),
+    but if he receives a \(\ket{1}\), he knows it was prepared as \(\ket{1'}\).
+    Same for \(\ket{0'}, \ket{1'}\)
+
+    \textbf{Advantages:} Only needs 2 states and 2 basis, unconditionally secure in a lossless channel,
+    does not make use of entanglement.
+
+    \section{Entanglement}
+    \subsection{Bell states}
+    \begin{align*}
+        \ket{\Psi^+} = \frac{1}{\sqrt{2}} (\ket{HV} + \ket{VH}) \\
+        \ket{\Psi^-} = \frac{1}{\sqrt{2}} (\ket{HV} - \ket{VH}) \\
+        \ket{\Phi^+} = \frac{1}{\sqrt{2}} (\ket{HH} + \ket{VV}) \\
+        \ket{\Phi^-} = \frac{1}{\sqrt{2}} (\ket{HH} - \ket{VV})
+    \end{align*}
+    \(\Psi^-\) is isotropic (it remains the same no matter which axes we choose to measure it along)
+    By decomposing it into \(\theta\) basis, we can show that
+    \(\Psi^- = \frac{1}{\sqrt{2}}(\ket{HV} - \ket{VH}) = \frac{1}{\sqrt{2}}(\ket{\theta, \theta + \pi/2} - \ket{\theta + \pi/2, \theta})\)
+
+    \subsection{Examples of entangled states (\(\ket{\psi^-}\))}
+    \subsection{Density matrix formalism}
+    \textbf{Density Operator:}
+    Represents a mixture of states
+    \(\hat{\rho} = \sum_n p_n \ket{\phi_n}\bra{\phi_n}\)
+
+    \textbf{Expectation Value:}
+    \(\braket{A} = Tr(\hat{p} \hat{A})\)
+
+    \textbf{Purity:}
+    \(Tr(\hat{\rho}^2) = \sum_m \rho_m^2\) is the purity of a state
+    Essentially how separable / correlated the two states are.
+
+    \subsection{Reduced density matrices}
+    For a two-bit state that can be factored,
+    \[
+        \ket{\psi_{AB}} = \ket{\psi_A} \otimes \ket{\psi_B}
+    \]
+    We can use the reduced density matrix to describe the state of one of the qubits.
+    \(
+    Tr_B \rho_{AB} \equiv \ket{\psi_A}\bra{\psi_A} Tr \ket{\psi_B}\bra{\psi_B}
+    = \ket{\psi_A}\bra{\psi_A}
+    = \rho_A
+    \)
+
+    \subsection{Von Neumann entropy}
+    \(S_A = -Tr(\hat{\rho_A} \log \hat{\rho_A} = -\sum_i p_i^A \ln p_i^A = -\sum_i |a_i|^2 \ln |a_i|^2 \neq 0)\)
+    and
+    \(S_A \equiv S_B\)
+    (Characterizes how strongly \(A\) and \(B\) are entangled)
+
+    Local Measurements:
+
+    \textbf{Generalized Born Rule:}
+    We can extend the Born rule to density matrices:
+
+    \[
+        p(a) = Tr(\hat{\rho} \hat{\Pi}_a)
+    \]
+    Where \(\hat{\Pi}_a\) is the projector onto the eigenspace of \(\hat{A}\) with eigenvalue \(a\),
+    e.g. \(\hat{\Pi}_a = \sum_i \ket{a_i}\bra{a_i}\)
+
+    \section{Bell's Inequalities}
+    \subsection{Local Realism}
 
 \end{multicols*}
 
