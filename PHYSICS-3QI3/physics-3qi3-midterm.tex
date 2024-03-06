@@ -239,7 +239,13 @@
     \(\ket{\psi} = \)
     \(\ket{\psi}\bra{\phi} = \begin{bmatrix} \psi_1\phi_1 & \psi_1\phi_2 \\ \psi_2\phi_1 & \psi_2\phi_2 \end{bmatrix}\)
 
-    % TODO: quantum state tomography
+    \textbf{Quantum State Tomography}
+    \begin{itemize}
+        \item Set a set of observables to uniquely determine a state.
+              For a single qubit, we can use the Pauli operators.
+        \item Prepare many copies of the state
+        \item Measure the observables and use probability and regression to reconstruct the state
+    \end{itemize}
 
     \section{Operators}
     Operators produce another ket
@@ -525,6 +531,16 @@
     \(\Psi^- = \frac{1}{\sqrt{2}}(\ket{HV} - \ket{VH}) = \frac{1}{\sqrt{2}}(\ket{\theta, \theta + \pi/2} - \ket{\theta + \pi/2, \theta})\)
 
     \subsection{Examples of entangled states (\(\ket{\psi^-}\))}
+
+    \textbf{EPR Pair:}
+    \(\ket{\psi^-} = \frac{1}{\sqrt{2}}(\ket{01} - \ket{10})\)
+
+    \textbf{GHZ State:}
+    \(\ket{\psi^-} = \frac{1}{\sqrt{2}}(\ket{000} - \ket{111})\)
+
+    \textbf{W State:}
+    \(\ket{\psi^-} = \frac{1}{\sqrt{3}}(\ket{001} + \ket{010} + \ket{100})\)
+
     \subsection{Density matrix formalism}
     \textbf{Density Operator:}
     Represents a mixture of states
@@ -568,6 +584,25 @@
 
     \section{Bell's Inequalities}
     \subsection{Local Realism}
+    Local realism is the idea that the properties of a system are determined by the properties of the system's parts.
+    AKA, no spooky action at a distance.
+
+    \textbf{Bell's Inequality:}
+    For any local hidden variable theory, the following inequality holds:
+    \[
+        |<M_A M_B - M_A N_B + N_A M_B + N_A N_B >| \leq 2
+    \]
+    Where \(M_A, M_B, N_A, N_B\) are the results of measurements on two entangled particles.
+
+    \textbf{CHSH Game:}
+    We can construct a game to test Bell's inequality.
+    Alice and Bob each have a bit, and they can choose to measure it in one of two bases.
+    They win if the XOR of their bits is 0.
+
+    Using deterministic strategies, the maximum win rate is 75\%.
+
+    However, using entangled particles, we can achieve a win rate of 85\%,
+    violating Bell's inequality.
 
 \end{multicols*}
 
