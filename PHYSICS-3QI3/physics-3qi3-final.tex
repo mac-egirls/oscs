@@ -93,7 +93,7 @@
 % }
 
 \begin{center}
-    {\textbf{Physics 3QI3 - Key Exchange Edition}} \\
+    {\textbf{Physics 3QI3 - Hope For Curve Edition}} \\
 \end{center}
 % set column spacing rules
 \setlength{\premulticols}{1pt}
@@ -756,6 +756,36 @@
     so $m$ is to the order of $2^{n/2}$.
 
     \includegraphics[width=\linewidth]{Simon's Algo.png}
+
+    Using the multiple measurements performed at $y$, the bit indicies with 1s form a linear equation,
+    that equal 0. Combining multiple of these measurements, we can build a valid solution.
+
+    \includegraphics[width=\linewidth]{Simon's Algo Results.png}
+    e.g. in this case,
+    $a3 = 0$, $a2 + a4 = 0$, $a2 + a4 + a5 = 0$... and we find that $a = 010101$.
+
+    \subsection{Shor's Algorithm}
+    Given an integer $N$, what are its prime factors?
+
+    \begin{itemize}
+        \item Let $N$ be the product of two prime numbers $p$ and $q$.
+              Thus, the sequence $m \mod N, m^2 \mod N, m^3 \mod N, \dots$ will repeat with a period
+              that is a perfect divisor of $(p-1)(q-1)$
+        \item Use Quantum Fourier Transform to find the period of this sequence
+    \end{itemize}
+    TODO: EXPAND ON THIS
+
+    \section{Coherent Superposition}
+    \begin{itemize}
+        \item Must be a well-defined phase between pieces in superposition
+        \item e.g. there can eventually be interference between pieces
+        \item If the phase is random, no interference exists,
+              and we return to classical addition of probabilities
+        \item Coherent sum of amplitudes: $1/2 |\alpha + \beta|^2$
+        \item Incoherent average over probabilities: $1/2 (|\alpha|^2 + |\beta|^2)$
+    \end{itemize}
+
+    \section{Quantum Error Correction}
 
 \end{multicols*}
 
