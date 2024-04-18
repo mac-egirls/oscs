@@ -101,20 +101,39 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 \begin{multicols*}{5}
-    \section{Trig Identities}
+    \section{General}
     $\sin^2 \theta + \cos^2 \theta = 1$ \qquad
     $2 \sin \theta = 2 \sin \theta \cos \theta$ \qquad
     $2 \cos \theta = \cos^2 \theta - \sin^2 \theta$
+    $\log_b (x) = \log_c (x) / \log_c (b)$
 
     \section{Linalg}
     Matrix Multiplication:
     \(
     \begin{pmatrix}
-
         a & b
-    \end{pmatrix}\begin{pmatrix}
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c \\ d
+    \end{pmatrix}
+    = \begin{pmatrix}
+        ac + bd
+    \end{pmatrix}
+    \)
+
+    \(
+    \begin{pmatrix}
         a \\ b
-    \end{pmatrix}\)
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c & d
+    \end{pmatrix}
+    = \begin{pmatrix}
+        ac & ad \\ bd & bd
+    \end{pmatrix}
+    \)
 
     \(
     \begin{pmatrix}
@@ -131,6 +150,27 @@
         ce+dg & cf+dh
     \end{pmatrix}
     \)
+
+    \textbf{Diagonalization}
+    Given $X$,
+    $\det|X - \lambda \mathbb{I}| = 0$, solve for values of $\lambda$ (eigenvalues)
+    $X v = \lambda v$ (substitute in $\lambda$, solve for $v$ (eigenvector))
+
+    \textbf{Determinant}
+    $
+        \begin{pmatrix}
+            a & b \\ c & d
+        \end{pmatrix}
+        = ad - cb
+    $
+    $
+        \begin{pmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{pmatrix}
+        = a \operatorname{Det}(e,h,f,i)
+        - b \operatorname{Det}(d,g,f,i)
+        + c \operatorname{Det}(d,g,e,h)
+    $
 
     \textbf{Adjoint (Hermitian Conjugate):}
     \(A^\dagger = A^*\)
@@ -530,6 +570,12 @@
     \textbf{Advantages:} Only needs 2 states and 2 basis, unconditionally secure in a lossless channel,
     does not make use of entanglement.
 
+    \subsection{Ekert's Entangled State Protocol}
+    \begin{itemize}
+        \item $\ket \Psi^-$ kets, keep qubit A, send b
+        \item Generated key is anti-correlated, Bob flips his measured result
+    \end{itemize}
+
     \section{Entanglement}
     \subsection{Bell states}
     \begin{align*}
@@ -724,7 +770,7 @@
 
     \subsection{Unitary}
     Unitary if $A^\dagger A = \mathbb{I}$,
-    where $\dagger$ represents conjugate transform.
+    where $\dagger$ represents conjugate transform (Hermitian Conjugate).
 
     \subsection{Common Gates}
     \textbf{Hadamard gate:}
