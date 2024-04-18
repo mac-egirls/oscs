@@ -101,8 +101,21 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 \begin{multicols*}{5}
+    \section{Trig Identities}
+    $\sin^2 \theta + \cos^2 \theta = 1$ \qquad
+    $2 \sin \theta = 2 \sin \theta \cos \theta$ \qquad
+    $2 \cos \theta = \cos^2 \theta - \sin^2 \theta$
+
     \section{Linalg}
     Matrix Multiplication:
+    \(
+    \begin{pmatrix}
+
+        a & b
+    \end{pmatrix}\begin{pmatrix}
+        a \\ b
+    \end{pmatrix}\)
+
     \(
     \begin{pmatrix}
         a & b \\
@@ -128,6 +141,10 @@
 
     \textbf{Trace}
     Sum the diagonal elements of a square matrix
+
+    \textbf{Partial Trace}
+    Partial trace for B:
+    $Tr_B \rho_{AB} \equiv \ket \psi_A \bra \psi_A Tr(\ket \psi_B \bra \psi_A)$
 
     \textbf{Multi-bit Dirac Notation}
     \(\ket{A} \ket{B} = \ket{AB}\)
@@ -203,13 +220,15 @@
     \(\bra{\Psi} \Longleftrightarrow \ket{\psi}^\dagger\)
 
     \begin{tabular}{@{}lc@{}}\toprule
-        Ket                        & Matrix                                                      \\ \midrule
-        \(\ket{0}\) or \(\ket{H}\) & \(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\)                    \\
-        \(\ket{1}\) or \(\ket{V}\) & \(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\)                    \\
-        Diagonal Up                & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}\)  \\
-        Diagonal Down              & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ -1 \end{bmatrix}\) \\
-        Left Circular              & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ i \end{bmatrix}\)  \\
-        Right Circular             & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ -i \end{bmatrix}\) \\
+        Ket                        & Matrix                                                         \\ \midrule
+        \(\ket{0}\) or \(\ket{H}\) & \(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\)                       \\
+        \(\ket{1}\) or \(\ket{V}\) & \(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\)                       \\
+        Diagonal Up                & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}\)     \\
+        Diagonal Down              & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ -1 \end{bmatrix}\)    \\
+        Left Circular              & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ i \end{bmatrix}\)     \\
+        Right Circular             & \(\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ -i \end{bmatrix}\)    \\
+        \( \theta \)               & \(\begin{bmatrix} \cos \theta \\ \sin \theta \end{bmatrix}\)   \\
+        \(\pi / 2 + \theta \)      & \(\begin{bmatrix} - \sin \theta \\ \cos \theta \end{bmatrix}\) \\
         \bottomrule
     \end{tabular}
 
@@ -703,6 +722,10 @@
 
     % TODO: maybe add other approaches
 
+    \subsection{Unitary}
+    Unitary if $A^\dagger A = \mathbb{I}$,
+    where $\dagger$ represents conjugate transform.
+
     \subsection{Common Gates}
     \textbf{Hadamard gate:}
     \(\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix}
@@ -717,6 +740,15 @@
     is a unit vector.
 
     For spin-1/2, \(\vec{\hat{J}} = \frac{1}{2}\vec{\hat{\sigma}}\)
+
+    \subsection{2-qubit Quantum Gates}
+    $\ket{00} \Leftrightarrow \begin{pmatrix}1\\0\\0\\0\end{pmatrix}$
+    $\ket{01} \Leftrightarrow \begin{pmatrix}0\\1\\0\\0\end{pmatrix}$
+    $\ket{10} \Leftrightarrow \begin{pmatrix}0\\0\\1\\0\end{pmatrix}$
+    $\ket{11} \Leftrightarrow \begin{pmatrix}0\\0\\0\\1\end{pmatrix}$
+
+    Matrix is 4 by 4, selected column(s) can be treated as ``inputs'',
+    row values in said column(s) are ``outputs''.
 
     \section{Quantum Algorithms}
     \subsection{Deutsch-Joza Algorithm}
@@ -767,13 +799,29 @@
     \subsection{Shor's Algorithm}
     Given an integer $N$, what are its prime factors?
 
+    Classical algorithm: ``General number field sieve'',
+    runs in exponential time w.r.t. input length.
+
+    Theory
     \begin{itemize}
         \item Let $N$ be the product of two prime numbers $p$ and $q$.
               Thus, the sequence $m \mod N, m^2 \mod N, m^3 \mod N, \dots$ will repeat with a period
               that is a perfect divisor of $(p-1)(q-1)$
         \item Use Quantum Fourier Transform to find the period of this sequence
     \end{itemize}
-    TODO: EXPAND ON THIS
+
+    Algorithm
+    \begin{enumerate}
+        \item Pick a random integer $a$ with no common factors with $N$.
+        \item Calculate $a, a^2, a^4 \dots, a^{2^n} \pmod N$, where $2^n > N^2$
+        \item Perform modular exponentiation for all $x$, a.k.a $a^x = \prod_{j=0}^{n-1} (a^{2^j})^{x_j}$
+              (algorithm below up to $\Psi_1$)
+        \item QFT to extract the period of probabilities from upper register
+        \item If successful, we find $y$ within $1/2$ of $2^n m/r$, and thus $|y/2^n - m/r| < 1/2^{n+1}$.
+        \item Thus, $m/r$ is one of partial sums of continued fraction expansion of $y/2^n$
+    \end{enumerate}
+
+    \includegraphics[width=\linewidth]{Shor.png}
 
     \section{Coherent Superposition}
     \begin{itemize}
@@ -786,6 +834,33 @@
     \end{itemize}
 
     \section{Quantum Error Correction}
+    \includegraphics[width=\linewidth]{Ancilla Quantum Error Correction.png}
+    Measurement of Ancilla identifies and collapses the error,
+    and applying the appropriate operator corrects the error.
+
+    \subsection{Stabilizers}
+    \begin{itemize}
+        \item Square to 1 (so eigenvalues are $\pm 1$)
+        \item Mutually commute, so have same eigenstates
+        \item Syndromes are eigenstates
+        \item Uncorrupted syndrome has eigenvalue +1 for all stabilizers
+        \item Set of $\pm 1$ eigenvalues of stabilizers uniquely specifies syndrome
+    \end{itemize}
+
+    \subsection{Phase Flip Errors}
+
+    Given errors of the type
+    $\ket \psi = \alpha \ket 0 + \beta \ket 1 \to \alpha \ket 0 - \beta \ket 1$
+
+    \begin{itemize}
+        \item Correct by transforming to +- basis of X operator
+        \item Use Hadamard:
+              $H \ket 0 = \ket +, H \ket 1 = \ket -$
+              $H \ket + = \ket 0, H \ket - = \ket 1$
+              (Role of X and Z are interchanged)
+    \end{itemize}
+
+    \includegraphics[width=\linewidth]{Quantum Error Correction Phase.png}
 
 \end{multicols*}
 
