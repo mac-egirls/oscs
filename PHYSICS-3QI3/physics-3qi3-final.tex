@@ -358,21 +358,6 @@
                 & = \frac{a+b}{2}\hat{\mathbb{I}} + \frac{a-b}{2}\hat{\sigma}_z + c\hat{\sigma}_x + d\hat{\sigma}_y
     \end{align*}
 
-    \subsection{Common Gates}
-    \textbf{Hadamard gate:}
-    \(\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix}
-        1 & 1  \\
-        1 & -1
-    \end{pmatrix}
-    = \frac{1}{\sqrt{2}} (\hat{\sigma_z} + \hat{\sigma_x})\)
-    \textbf{Rotation operator:}
-    \(\hat{R}(\vec{n}, \theta) = e^{-i \theta \vec{n} \cdot \vec{\hat{J}}}\)
-    Where \(\vec{\hat{J}}\) is the angular momentum operator,
-    and \(\vec{n} = (\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)\)
-    is a unit vector.
-
-    For spin-1/2, \(\vec{\hat{J}} = \frac{1}{2}\vec{\hat{\sigma}}\)
-
     \section{Tensor Products}
     Given that \(\ket{\psi} = \begin{pmatrix} a \\ b \end{pmatrix}\)
     and \(\ket{\phi} = \begin{pmatrix} c \\ d \end{pmatrix}\)
@@ -530,17 +515,6 @@
     By decomposing it into \(\theta\) basis, we can show that
     \(\Psi^- = \frac{1}{\sqrt{2}}(\ket{HV} - \ket{VH}) = \frac{1}{\sqrt{2}}(\ket{\theta, \theta + \pi/2} - \ket{\theta + \pi/2, \theta})\)
 
-    \subsection{Examples of entangled states (\(\ket{\psi^-}\))}
-
-    \textbf{EPR Pair:}
-    \(\ket{\psi^-} = \frac{1}{\sqrt{2}}(\ket{01} - \ket{10})\)
-
-    \textbf{GHZ State:}
-    \(\ket{\psi^-} = \frac{1}{\sqrt{2}}(\ket{000} - \ket{111})\)
-
-    \textbf{W State:}
-    \(\ket{\psi^-} = \frac{1}{\sqrt{3}}(\ket{001} + \ket{010} + \ket{100})\)
-
     \subsection{Density matrix formalism}
     \textbf{Density Operator:}
     \(\hat{\rho} = \sum_n p_n \ket{\psi_n}\bra{\psi_n}\)
@@ -560,12 +534,18 @@
     \[
         \ket{\psi_{AB}} = \ket{\psi_A} \otimes \ket{\psi_B}
     \]
-    We can use the reduced density matrix to describe the state of one of the qubits.
-    \(
-    Tr_B \rho_{AB} \equiv \ket{\psi_A}\bra{\psi_A} Tr \ket{\psi_B}\bra{\psi_B}
-    = \ket{\psi_A}\bra{\psi_A}
-    = \rho_A
-    \)
+    The density operator for this state isotropic
+    \[
+        \rho_{AB} = \ket{\psi_AB}\bra{\psi_AB}
+        = \ket{\psi_A}\bra{\psi_A} \otimes \ket{\psi_B}\bra{\psi_B}
+    \]
+    And satisfies the equality \(\operatorname{Tr} \rho_{AB}^2 = 1\),
+    since it is coherent.
+    Therefore,
+    \begin{align*}
+        \operatorname{Tr}_B \rho_{AB} = \rho_A & \ \operatorname{Tr}_A \rho{AB} = \rho_B \\
+        \rho_A = \ket{\psi_A}\bra{\psi_A}      & \ \rho_B = \ket{\psi_B}\bra{\psi_B}
+    \end{align*}
 
     \subsection{Von Neumann entropy}
     \(S_A = -Tr(\hat{\rho_A} \log \hat{\rho_A} = -\sum_i p_i^A \ln p_i^A = -\sum_i |a_i|^2 \ln |a_i|^2 \neq 0)\)
@@ -573,30 +553,65 @@
     \(S_A \equiv S_B\)
     (Characterizes how strongly \(A\) and \(B\) are entangled)
 
-    Local Measurements:
+    \subsection{Von Neumann Born Rule}
+    Measurement associated with operator \(M = \sum_i m_i \ket{m_i} \bra{m_i}\)
+    results in one of its eigenvalues \(m_i\),
+    the probability of obtaining a nondegenerate eigenvalue \(m_i\) is
+    \(p(m_i) = \operatorname{Tr} [\rho M_i]\)
 
-    \textbf{Generalized Born Rule:}
-    We can extend the Born rule to density matrices:
+    \section{EPR Paradox}
+    Say Alice and Bob share state \(\ket{\Psi^-} = \frac{1}{\sqrt{2}} (\ket{0} - \ket{1})\)
+    \begin{itemize}
+        \item If A is measured in Z, then B measures opposite Z
+        \item Same for X measurement on A
+        \item Predict either Z or X of qubit B by performing one or the other on A.
+        \item If our choice does not disturb B, then the values for X and Z must exist simultaneously, so there must be hidden variables
+        \item TL;DR, believed there was a theory as correct as QM that could deterministically predict results of Bob's measurements
+    \end{itemize}
 
-    \[
-        p(a) = Tr(\hat{\rho} \hat{\Pi}_a)
-    \]
-    Where \(\hat{\Pi}_a\) is the projector onto the eigenspace of \(\hat{A}\) with eigenvalue \(a\),
-    e.g. \(\hat{\Pi}_a = \sum_i \ket{a_i}\bra{a_i}\)
-
-    \section{Bell's Inequalities}
     \subsection{Local Realism}
     Local realism is the idea that the properties of a system are determined by the properties of the system's parts.
     AKA, no spooky action at a distance.
 
-    \textbf{Bell's Inequality:}
-    For any local hidden variable theory, the following inequality holds:
-    \[
-        |<M_A M_B - M_A N_B + N_A M_B + N_A N_B >| \leq 2
-    \]
-    Where \(M_A, M_B, N_A, N_B\) are the results of measurements on two entangled particles.
+    \subsection{Bell's Inequality:}
+    Front-panel explanation:
+    \begin{itemize}
+        \item Source sends out pairs of particles, each appratus has buttons marked M, N,
+              Alice and Bob randomly measure in these states w/o communication.
+        \item Each apparatus displayes a readout depending on results.
+        \item Alice and Bob record their events.
+        \item We assert that $\sum{M_A M_B N_A N_B} P(M_A, M_B, N_A, N_B) = 1$,
+              such that all 4 quantities have well-defined values (say in a hidden variable),
+              even though only 2 of them are displayed. (Locality)
+        \item From this, we assert that $|< M_A M_B - M_A N_B + N_A M_B + N_A N_B >| \leq 2$ if locality holds.
+        \item However, each expectation value is actually $\pm 1/\sqrt{2}$, leading to a final value of $<S> = -2 \sqrt{2}$.
+        \item Contradiction!
+    \end{itemize}
 
-    \textbf{CHSH Game:}
+    \subsubsection{Loop Holes}
+    \textbf{Locality loophole}
+    If Alice and Bob are close, then information could be transmitted, and thus measurements are no longer ``local''
+
+    \textbf{Detection loophole}
+    If one or more photons are lost, then the situation is no longer consistent with the ``front panel'' described.
+    Taking into account only the events that do occur doesn't refute local realism.
+    e.g. a hidden variable that decides if it should appear ``invisible'',
+    causing it to not have values for M and N at the same time
+
+    \subsubsection{GHZ State}
+    GHZ State can also show non-locality:
+    \begin{itemize}
+        \item 3 observers, each with a Bell apparatus,
+              but buttons are for $\hat\sigma_x$ and $\hat\sigma_y$ measurements.
+        \item Source sends out 3 particles at a time
+        \item Note that whenever 2 are $\hat\sigma_y$ and 1 is $\hat\sigma_x$,
+              result is -1.
+        \item Local realism predicts that $\sigma_{xA}\sigma_{xB}\sigma_{xC} = -1$
+        \item However, $\sigma_{xA}\sigma_{xB}\sigma_{xC} \ket{GHZ} = +\ket{GHZ}$, with an eigenvalue of +1.
+              Contradiction.
+    \end{itemize}
+
+    \subsection{CHSH Game:}
     We can construct a game to test Bell's inequality.
     Alice and Bob each have a bit, and they can choose to measure it in one of two bases.
     They win if the XOR of their bits is 0.
@@ -605,6 +620,79 @@
 
     However, using entangled particles, we can achieve a win rate of 85\%,
     violating Bell's inequality.
+
+    TODO: Part C and Part D
+
+    \section{Quantum Dense Coding}
+    \begin{itemize}
+        \item Start with shared qubit $\ket{\Psi^-}$
+        \item Alice applies one of $\{\hat I, \hat\sigma_x, \hat\sigma_y, \hat\sigma_z\}$ to just her qubit,
+              producing the following conversions:
+              $\hat I \otimes \hat I \ket{\Psi^-} = \ket{\Psi^-}$
+              $\hat \sigma_x \otimes \hat I \ket{\Psi^-} = -\ket{\Phi^-}$
+              $\hat \sigma_y \otimes \hat I \ket{\Psi^-} = i\ket{\Phi^+}$
+              $\hat \sigma_z \otimes \hat I \ket{\Psi^-} = \ket{\Psi^+}$
+              (we ignore global phases $-$ and $i$)
+        \item Alice then sends single qubit to Bob
+        \item Bob then measures in Bell-state basis, with a CNOT with 1 as control and 2 as target,
+              and a Hadamard gate on 1. This maps
+              $\ket{\Psi^-} \to \ket{11}$,
+              $\ket{\Psi^+} \to \ket{01}$,
+              $\ket{\Phi^-} \to \ket{10}$,
+              $\ket{\Phi^+} \to \ket{00}$.
+        \item Neither Bob nor Alice can recover the encoded information alone,
+              instead the information resides in correlations between two qubits, and is non-local.
+    \end{itemize}
+
+    \section{Quantum Teleportation}
+    \begin{itemize}
+        \item Transfers unknown quantum state between 2 locations
+        \item Uses classical communications channel
+        \item Original state is destroyed
+    \end{itemize}
+    \subsection{Procedure}
+    \begin{itemize}
+        \item Input state of $\ket{\chi} = \alpha \ket{H} + \beta \ket{V}$ in Hilbert space $V_1$
+        \item Alice and Bob share entangled state $\ket{\Psi^-}$ in Hilbert space $V_2 \otimes V_3$
+        \item Alice measures in $V_1 \otimes V_2$ space in the bell basis
+    \end{itemize}
+
+    \begin{tabular}{@{}llll@{}} \toprule
+        Alice    & Prob & Bob                                 & Op                         \\ \midrule
+        $\Phi^+$ & 1/4  & $-\beta \ket{H} + \alpha \ket{V}$   & $\rho_z \rho_x = i \rho_y$ \\
+        $\Phi^-$ & 1/4  & $\beta \ket{H} + \alpha \ket{V}$    & $\rho_x$                   \\
+        $\Psi^+$ & 1/4  & $-\alpha \ket{H} + \beta \ket{V}$   & $\rho_z$                   \\
+        $\Psi^-$ & 1/4  & $-(\alpha \ket{H} + \beta \ket{V})$ & none                       \\
+        \bottomrule
+    \end{tabular}
+
+    \section{Quantum Repeater}
+    \begin{itemize}
+        \item Entangle each link's cells, not very likely to succeed but each link can be retried until connection is made
+        \item Entangle link ends (that are very close and will very likely succeed) to form final long link
+    \end{itemize}
+    \includegraphics[width=\linewidth]{Quantum Repeater.png}
+
+    \section{Quantum Gates}
+    \textbf{Hadamard gate:}
+    \(\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+        1 & 1  \\
+        1 & -1
+    \end{pmatrix}
+    = \frac{1}{\sqrt{2}} (\hat{\sigma_z} + \hat{\sigma_x})\)
+    \textbf{Rotation operator:}
+    \(\hat{R}(\vec{n}, \theta) = e^{-i \theta \vec{n} \cdot \vec{\hat{J}}}\)
+    Where \(\vec{\hat{J}}\) is the angular momentum operator,
+    and \(\vec{n} = (\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)\)
+    is a unit vector.
+
+    For spin-1/2, \(\vec{\hat{J}} = \frac{1}{2}\vec{\hat{\sigma}}\)
+
+    \section{Quantum Algorithms}
+    \subsection{Deutsch-Joza Algorithm}
+
+    \subsection{Bernstein-Vazirani Algorithm}
+    \includegraphics[width=\linewidth]{BV Algo.png}
 
 \end{multicols*}
 
