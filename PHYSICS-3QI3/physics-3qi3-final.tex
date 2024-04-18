@@ -224,7 +224,7 @@
         \(-y = \frac{1}{\sqrt{2}}(\ket{0}-i\ket{1})\)
     \end{multicols*}
 
-    \textbf{Change of basis}
+    \subsection{Change of basis}
     Let \(\theta\) be a rotation of basis vectors,
     counterclockwise.
 
@@ -234,17 +234,25 @@
 
     where \(\ket{x'}\) and \(\ket{y'}\) are the new basis vectors.
 
-    \textbf{Outer Product}
+    \subsection{Outer Product}
     Given that
     \(\ket{\psi} = \)
     \(\ket{\psi}\bra{\phi} = \begin{bmatrix} \psi_1\phi_1 & \psi_1\phi_2 \\ \psi_2\phi_1 & \psi_2\phi_2 \end{bmatrix}\)
 
-    \textbf{Quantum State Tomography}
+    \subsection{Quantum State Tomography}
     \begin{itemize}
         \item Set a set of observables to uniquely determine a state.
               For a single qubit, we can use the Pauli operators.
         \item Prepare many copies of the state
-        \item Measure the observables and use probability and regression to reconstruct the state
+        \item Measure the observables in states $\{H, V\}, \{+45, -45\}, \{LCP, RCP\}$
+        \item Decompose state as $\ket{\psi} = r_H \ket{H} + r_V e^{i \phi} \ket{V}$
+              where $\phi = \phi_V - \phi_H$
+        \item Procedure
+              \begin{enumerate}
+                  \item Perform measurement in \{H, V\} basis - Probability of detecting H is $r_H^2$, so $r_H = \sqrt{Pr_H}, r_v = \sqrt{1 - Pr_H}$
+                  \item $\cos \phi = \frac{Pr_{+45} - 1/2}{\sqrt{(1 - Pr_H)(Pr_H)}}$
+                  \item $\sin_\phi = \frac{1/2 - Pr_{RCP}}{\sqrt{(1 - Pr_H)(Pr_H)}}$
+              \end{enumerate}
     \end{itemize}
 
     \section{Operators}
@@ -674,6 +682,28 @@
     \includegraphics[width=\linewidth]{Quantum Repeater.png}
 
     \section{Quantum Gates}
+    \subsection{Properties}
+    \begin{itemize}
+        \item Can only perform unitary operations
+              \begin{itemize}
+                  \item Due to all quantum operations being unitary, follows from Schrodinger's equation
+                  \item If it were not unitary, we would be discarding data which is a ``measurement''
+              \end{itemize}
+        \item Any controlled-unitary gate can be made from CNOT and single qubit gates.
+    \end{itemize}
+
+    \subsection{Necessary Conditions}
+    \begin{itemize}
+        \item Well-defined, extendible qubit array that is stable
+        \item Ability to prepare qubit array in suitable starting state, eg all $\ket{0}$
+        \item Good isolation from environment (long coherence times)
+        \item Ability to perform universal set of gate operations (e.g. single-qubit rotations, CNOT between any pair of qubits)
+        \item Ability to perform close to ideal von Neumann measurements on each of the qubits
+    \end{itemize}
+
+    % TODO: maybe add other approaches
+
+    \subsection{Common Gates}
     \textbf{Hadamard gate:}
     \(\hat{H} = \frac{1}{\sqrt{2}} \begin{pmatrix}
         1 & 1  \\
@@ -690,9 +720,42 @@
 
     \section{Quantum Algorithms}
     \subsection{Deutsch-Joza Algorithm}
+    Determine whether an unknown selection from 4 1-bit functions is constant or balanced.
+
+    Classical algorithm requires 2 evaluations for f(0) and f(1)
+
+    Quantum algorithm evaluates both f(0) and f(1) at the same time:
+    \includegraphics[width=\linewidth]{DJ Algo.png}
+    If $f(0) = f(1) = \pm \ket{0}$, else $f(0) = \pm \ket{1} \neq f(1)$.
+
+    \subsubsection{N qubit extension}
+    Classical has $O(2^N)$ time complexity, QM has constant time (single Oracle use).
+
+    \includegraphics[width=\linewidth]{DJ Algo Extension.png}
+
+    If $f$ is constant, amplitude is either +1 or -1, so measurement must give all 0s.
+    Otherwise, it will not be all 0s.
 
     \subsection{Bernstein-Vazirani Algorithm}
+    Given a function $f(x) = a \cdot x$, find $a$.
+
+    Classically, we would need to do $n$ queries, one for each bit.
+
     \includegraphics[width=\linewidth]{BV Algo.png}
+
+    Using QM, we can get the positisons in $a$ that are 1 using one query.
+
+    \subsection{Simon's Algorithm}
+    Given a black-box function that has the property $f(x \oplus a) = f(x)$, find $a$.
+    Since $x \oplus a \oplus a = x$, $f(x) = f(x \oplus a) = f(x \oplus a \oplus a)$,
+    therefore $f(x)$ is periodic with period $a$ under bitwise mod 2 addition.
+
+    Classically, we evaluate functions on different inputs until we find a repetition,
+    and then compare $m(m-1)/2$ pairs.
+    For a good chance of success, number of pairs must be close to $2^n$,
+    so $m$ is to the order of $2^{n/2}$.
+
+    \includegraphics[width=\linewidth]{Simon's Algo.png}
 
 \end{multicols*}
 
