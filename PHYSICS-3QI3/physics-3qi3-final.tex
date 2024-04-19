@@ -93,7 +93,7 @@
 % }
 
 \begin{center}
-    {\textbf{Physics 3QI3 - Hope For Curve Edition}} \\
+    {\textbf{Physics 3QI3 - IM LOSING IT EDITION}} \\
 \end{center}
 % set column spacing rules
 \setlength{\premulticols}{1pt}
@@ -316,6 +316,16 @@
 
     \section{Operators}
     Operators produce another ket
+
+    \subsection{Spectral Decomposition}
+    Operator $A$ can be decomposed
+    $
+        \hat{A} = \sum_i a_i \ket{a_i} \bra{a_i}
+    $
+
+    \subsection{Observable}
+    Is an operator, likely one of the Pauli operators.
+    The measured results when observing in this ``direction'' will be one of its eigenvalues.
 
     \textbf{Mean value of an observable}
     Measuring an observable
@@ -593,44 +603,59 @@
     \(\hat{\rho} = \sum_n p_n \ket{\psi_n}\bra{\psi_n}\)
     \(\sum_i p_i = 1\)
     We can treat this as a ``sum of probabilities'',
-    where \(p_i\) is the probability of a given state \(\ket{\psi_i}\) appearing
+    where \(p_i\) is the probability of a given state \(\ket{\psi_i}\) appearing.
+    The states for \(\psi_n\) need not be orthogonal.
 
-    \textbf{Expectation Value:}
-    \(\braket{A} = Tr(\hat{p} \hat{A})\)
+    We can rewrite it as
+    \(\hat \rho = \sum_m p_m \ket p_m \bra p_m \)
+
+    \textbf{Measurement / Expectation Value / Generalized Born Rule}
+    Measuring using a Hermitian operator $M = \sum_i m_i \ket{m_i} \bra{m_i}$
+    results in one of its eigenvalues $m_i$.
+    The probability of obtaining a nondegenerate eigenvalue $m_i$ is
+    $p(m_i) = Tr[\rho \Pi_i]$,
+    where $\Pi_i \equiv \ket m_i \bra m_i$.
+    If eigenvalues are degenerate, with value $m$,
+    the probability of finding that value is $\sum_i Tr[\rho \Pi_i]$,
+    where the sum is over the values of $i$ where $m_i = m$.
+
+    \textbf{Measuring GHZ State}
+    To measure only the first two qubits, measure all 3 qubits twice,
+    performing 2 measurements for the last qubit.
+
 
     \textbf{Purity:}
     \(Tr(\hat{\rho}^2) = \sum_m \rho_m^2\) is the purity of a state
     Essentially how separable / correlated the two states are.
 
+    \subsubsection{Properties}
+    If $\hat{\rho}$ is diagonal and more than a single diagonal element is not 0,
+    then it must be a mixed state.
+    Measurements reduce a quantum state to a statistical mixture.
+    $Tr(\ket 0 \bra 0) = Tr(\ket 1 \bra 1) = 1$
+    $Tr(\ket 0 \bra 1) = Tr(\ket 1 \bra 0) = 0$
+
     \subsection{Reduced density matrices}
-    For a two-bit state that can be factored,
+    Given a state,
     \[
-        \ket{\psi_{AB}} = \ket{\psi_A} \otimes \ket{\psi_B}
+        \ket{\psi_{AB}}
     \]
-    The density operator for this state isotropic
+    The density operator for this state can be separated
     \[
-        \rho_{AB} = \ket{\psi_AB}\bra{\psi_AB}
+        \rho_{AB} = \ket{\psi_{AB}}\bra{\psi_{AB}}
         = \ket{\psi_A}\bra{\psi_A} \otimes \ket{\psi_B}\bra{\psi_B}
     \]
     And satisfies the equality \(\operatorname{Tr} \rho_{AB}^2 = 1\),
     since it is coherent.
     Therefore,
     \begin{align*}
-        \operatorname{Tr}_B \rho_{AB} = \rho_A & \ \operatorname{Tr}_A \rho{AB} = \rho_B \\
-        \rho_A = \ket{\psi_A}\bra{\psi_A}      & \ \rho_B = \ket{\psi_B}\bra{\psi_B}
+        \operatorname{Tr}_B \rho_{AB} = \rho_A & \quad \operatorname{Tr}_A \rho_{AB} = \rho_B \\
+        \rho_A = \ket{\psi_A}\bra{\psi_A}      & \quad \rho_B = \ket{\psi_B}\bra{\psi_B}
     \end{align*}
 
     \subsection{Von Neumann entropy}
-    \(S_A = -Tr(\hat{\rho_A} \log \hat{\rho_A} = -\sum_i p_i^A \ln p_i^A = -\sum_i |a_i|^2 \ln |a_i|^2 \neq 0)\)
-    and
-    \(S_A \equiv S_B\)
-    (Characterizes how strongly \(A\) and \(B\) are entangled)
-
-    \subsection{Von Neumann Born Rule}
-    Measurement associated with operator \(M = \sum_i m_i \ket{m_i} \bra{m_i}\)
-    results in one of its eigenvalues \(m_i\),
-    the probability of obtaining a nondegenerate eigenvalue \(m_i\) is
-    \(p(m_i) = \operatorname{Tr} [\rho M_i]\)
+    \(S = -Tr(\rho \ln \rho) = -\sum_i p_i \ln p_i\)
+    where $p_i^A$ are diagonal elements in $\rho_A$
 
     \section{EPR Paradox}
     Say Alice and Bob share state \(\ket{\Psi^-} = \frac{1}{\sqrt{2}} (\ket{0} - \ket{1})\)
@@ -694,7 +719,10 @@
     However, using entangled particles, we can achieve a win rate of 85\%,
     violating Bell's inequality.
 
-    TODO: Part C and Part D
+    \subsection{Quantum Socks}
+    \begin{itemize}
+        \item Generate $\ket \psi^-$
+    \end{itemize}
 
     \section{Quantum Dense Coding}
     \begin{itemize}
