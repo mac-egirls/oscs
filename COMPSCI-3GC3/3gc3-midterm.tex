@@ -26,7 +26,7 @@
 \usepackage{mathpartir}
 
 % minimal line spacing
-\setstretch{0.1}
+% \setstretch{0.1}
 
 % set borders (experimentally determined to minimize cutoff and maximize space on school printers)
 \geometry{top=.25in,left=.25in,right=.25in,bottom=.35in}
@@ -156,7 +156,7 @@ f(p)
 \end{bmatrix}
 \)
 
-\textbf{3D Rotatioins}
+\textbf{3D Rotations}
 For a generic 3D rotation:
 \(
 R =
@@ -170,6 +170,33 @@ Where the \(a*\) column is the coordinates of the object's \(x'\) vector,
 the \(b*\) column is the \(y'\) vector,
 and the \(c*\) column is the \(z'\) vector:
 \includegraphics[width=\linewidth]{3d-rotation.png}
+
+\textbf{2D Reflection}
+Reflect X:\@
+\(
+\begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}
+\)
+Reflect Y:\@
+\(
+\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
+\)
+
+\textbf{3D Scaling}
+\(
+\begin{bmatrix}
+    s_x & 0 & 0 \\
+    0 & s_y & 0 \\
+    0 & 0 & s_z
+\end{bmatrix}
+\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+=
+\begin{bmatrix}
+    s_x x \\ s_y y \\ s_z z
+\end{bmatrix}
+\)
+
 
 \section{Math}
 
