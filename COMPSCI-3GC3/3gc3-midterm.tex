@@ -135,6 +135,9 @@ f(c\mathbf{u}) = cf(\mathbf{u})
 
 In other words, origin is unchanged, straight lines remain straight lines.
 
+\textbf{Affine Transformation}
+Straight lines remain lines.
+
 \textbf{2D Rotations}
 \(
 f(p)
@@ -153,8 +156,20 @@ f(p)
 \end{bmatrix}
 \)
 
-\textbf{Affine Transformation}
-Straight lines remain lines.
+\textbf{3D Rotatioins}
+For a generic 3D rotation:
+\(
+R =
+\begin{bmatrix}
+    ax & bx & cx \\
+    ay & by & cy \\
+    az & bz & cz
+\end{bmatrix}
+\)
+Where the \(a*\) column is the coordinates of the object's \(x'\) vector,
+the \(b*\) column is the \(y'\) vector,
+and the \(c*\) column is the \(z'\) vector:
+\includegraphics[width=\linewidth]{3d-rotation.png}
 
 \section{Math}
 
