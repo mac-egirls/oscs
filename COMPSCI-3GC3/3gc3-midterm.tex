@@ -293,6 +293,151 @@ Used for perspective projection, \(z\) becomes depth value.
 
 \section{Camera}
 
+\vspace{-0.3cm}
+\includegraphics[width=\linewidth]{cam-total.png}
+\vspace{-0.5cm}
+
+\textbf{Viewing General Steps}
+\begin{enumerate}
+    \item Model 3D Objects in local space
+    \item Put 3D object at world coordinates
+    \item View scene in Camera space
+    \item Project camera space into cannonical space
+    \item Transform cannonical space to screen
+\end{enumerate}
+
+\textbf{World Space $\to$ Camera Space: $M_{cam}$}
+Given camera position $e$, gaze direction $g$ and `up' direction $t$, construct basis $uwv$ for camera coordinate system.
+$w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$ 
+
+\includegraphics[height=3cm]{camera-basis.png} 
+% Todo Replace Picture, it's too big
+
+\textit{Camera Space $\to$ World Space:}\\
+\(
+\begin{bmatrix}
+    1 & 0 & 0 & x_e \\
+    0 & 1 & 0 & y_e \\
+    0 & 0 & 1 & z_e \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)
+\(
+\begin{bmatrix}
+    x_u & x_v & x_w & 0 \\
+    y_u & y_v & y_w & 0 \\
+    z_u & z_v & z_w & 0 \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)\\
+
+\textbf{World Space $\to$ Camera Space: $M_{cam}=$}\\
+\(
+\begin{bmatrix}
+    x_u & y_u & z_u & 0 \\
+    x_v & y_v & z_v & 0 \\
+    x_w & y_w & z_w & 0 \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)
+\(
+\begin{bmatrix}
+    1 & 0 & 0 & -x_e \\
+    0 & 1 & 0 & -y_e \\
+    0 & 0 & 1 & -z_e \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)
+\\
+Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
+Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$ 
+
+\textbf{Cannonical Space}\\
+Cannonical space is the space $(x, y, z)$ s.t. $x,y,z \in [-1, 1]$.
+
+\textbf{Orthographic Projection}\\
+
+\includegraphics[width=\linewidth]{cam-ortho.png} 
+Given left plane x, $l$, right plane x, $r$, top plane y, $t$, bottom plane y $b$, near plane $n$, far plane $f$.
+\textit{Recall that $f$, $n$ are negative z values. See diagram.}
+
+$M_{orth}$ projects the view box defined above onto the cannonical space. 
+
+
+$M_{orth}$ = \(
+\begin{bmatrix}
+    \frac{2}{r-l} & 0 & 0 & 0 \\
+    0 & \frac{2}{t-b} & 0 & 0 \\
+    0 & 0 & \frac{2}{n-f} & 0 \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)
+\(
+\begin{bmatrix}
+    1 & 0 & 0 & -\frac{r+l}{2} \\
+    0 & 1 & 0 & -\frac{t+b}{2} \\
+    0 & 0 & 1 & -\frac{n+f}{2} \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)\\
+=
+\(
+\begin{bmatrix}
+    \frac{2}{r-l} & 0 & 0 & -\frac{r+l}{r-l} \\
+    0 & \frac{2}{t-b} & 0 & -\frac{t+b}{t-b} \\
+    0 & 0 & \frac{2}{n-f} & -\frac{f+n}{n-f} \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)\\
+Right: translate center to origin\\
+Left: scales width of all dimensions to be 2, fitting inside [-1, 1].
+
+\textbf{Perspective Projection}\\
+\includegraphics[width=\linewidth]{cam-persp.png} 
+$l,r,b,t$ now define the near plane $XY$, with $n$ being the $Z$. Far plane is only defined by $f$. 
+\textbf{OR} use depth of field: 
+$\theta$ = FOV on y-axis, $ratio = (r-l)/(t-b)$, $n$ is near plane z, $f$ is far plane z.
+
+\textbf{Frustrum to Box:}
+Recall Homogenous Coordinates. We want frustrum $\mapsto$ box s.t. $n$ stays near and $f$ stays far.
+
+$P$ = 
+\(
+\begin{bmatrix}
+    n & 0 & 0 & 0 \\
+    0 & n & 0 & 0 \\
+    0 & 0 & n+f & -fn \\
+    0 & 0 & 1 & 0 \\
+\end{bmatrix}
+\)\\
+$M_{per}$ = $M_{orth}P =$
+\(
+\begin{bmatrix}
+    \frac{2n}{r-l} & 0 & \frac{l+r}{l-r} & 0 \\
+    0 & \frac{2n}{t-b} & \frac{b+t}{b-t} & 0 \\
+    0 & 0 & \frac{f+n}{n-f} & \frac{2fn}{n-f} \\
+    0 & 0 & 1 & 0 \\
+\end{bmatrix}
+\)\\
+
+\textbf{Cannonical Space To View Port (VP)}\\
+
+View port is a screen of size $(n_x, n_y)$, no $z$ depth.\\
+1. Translate $x,y$ center from $(0,0)$ to $((n_x-1)/2, (n_y-1)/2)$. 
+2. Scale $x,y$ size from $(2,2)$ to $(n_x, n_y)$.
+
+$M_{vp} = $
+\(
+\begin{bmatrix}
+    \frac{n_x}{2} & 0 & 0 & \frac{n_x-1}{2} \\
+    0 & \frac{n_y}{2} & 0 & \frac{n_y-1}{2} \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\)\\
+
+
+
 \section{Rasterization}
 
 \section{Fragment Shader}
