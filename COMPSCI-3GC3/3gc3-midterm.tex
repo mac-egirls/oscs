@@ -621,13 +621,13 @@ for (int x = minx; x <= maxx; ++x) {
 }
 \end{lstlisting}
     
-\textit{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing. 
+\textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing. 
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
 Choose offscreen point $q$.
 
 $T_1$ should be responsible of drawing the edge if $q$ falls on the same side of the edge as $a$. Likewise for $T_2$ and $b$.
 
-\textit{Proper Perspective Attribute Attribution}: How we set up the above code leads to incorect attribute interpolation when taking perspective into account.
+\textbf{Proper Perspective Attribute Attribution}: How we set up the above code leads to incorect attribute interpolation when taking perspective into account.
 This is because we are interpolating on the 2d projection of the triangle and not considering the distace of the 3d space.
 
 We can interpolate using the following code, which scales based on a scaling metric.
@@ -646,13 +646,11 @@ float B = Bs / Is;
 \includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
 
 
-\textbf{Anti-Aliasing}
-\textit{Supersample}\\ 
-Screen Goal is 256x256. We instead render x4, meaing we actually render a 1024x1024 image.
+\textbf{Anti-Aliasing}\\
+\textbf{Supersample: }Screen Goal is 256x256. We instead render x4, meaing we actually render a 1024x1024 image.
 Then, on scale down, we can average* the 16 virtual pixels into 1 screen pixel.
-
 Can use box filter or a gaussian filter.\\
-\textit{Subsample / Multisample}
+\textbf{Subsample / Multisample: }
 Screen goal is 256x256. We still rasterize for a higher resolution, but fragment (triangle) colour computation is only calculated once.
 Then, we sample $n$ times from the pixel area, averaging the samples to get the true pixel colour.
 
