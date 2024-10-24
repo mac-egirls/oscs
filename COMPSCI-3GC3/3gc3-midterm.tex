@@ -103,6 +103,47 @@
 \setlength{\columnsep}{2pt}
 \begin{multicols*}{4}
 
+\section{Math}
+
+\textbf{Dot Product}:
+\(
+\mathbf{a} \cdot \mathbf{b}
+= x_a x_b + y_a y_b + z_a z_b
+= ||\mathbf{a}|| ||\mathbf{b}|| \cos \phi
+\)
+
+\textbf{Cross Product}:
+\(
+\mathbf{a} \times \mathbf{b}
+= (y_a z_b - z_a y_b, z_a x_b - x_a z_b, x_a y_b - y_a x_b)
+= ||\mathbf{a}|| ||\mathbf{b}|| \sin(\theta) \mathbf{n}
+\)
+
+\textbf{Interpolation}:
+\(t\) is how far along the line \(p_t\) is from \(p_0\) to \(p_1\) as a percentage between 0 and 1.
+\(
+t = (x_t - x_0) / (x_1 - x_0)
+\text{ or }
+t = (y_t - y_0) / (y_1 - y_0)
+\)
+\(
+v_t = (1-t) v_0 + t v_1
+\)
+
+\textbf{Barycentric Interpolation}:
+\(
+\alpha = A_a / A \quad
+\beta = A_b / A \quad
+\gamma = A_c / A \quad
+s.t.\ \alpha + \beta + \gamma = 1
+\)
+
+Now,
+\(
+\mathbf{p}(\alpha, \beta, \gamma)
+= \alpha \mathbf{a} + \beta \mathbf{b} + \gamma \mathbf{c}
+\)
+
 \section{Graphics Pipeline}
 
 \section{Transformations \& Coordinate Systems}
@@ -242,47 +283,13 @@ Shear on XY Plane:
 \end{bmatrix}
 \)
 
+\textbf{Homogenous Coordinate}
+2D points represented by \((x, y, z)\), 2D location is \((x/z, y/z) \mid z=1\) or other value
+3D points represented by \((x, y, z, w)\), 3D location is \((x/w, y/w, z/w) \mid w=1\) or other value
+Used for perspective projection, \(z\) becomes depth value.
 
-\section{Math}
-
-\textbf{Dot Product}:
-\(
-\mathbf{a} \cdot \mathbf{b}
-= x_a x_b + y_a y_b + z_a z_b
-= ||\mathbf{a}|| ||\mathbf{b}|| \cos \phi
-\)
-
-\textbf{Cross Product}:
-\(
-\mathbf{a} \times \mathbf{b}
-= (y_a z_b - z_a y_b, z_a x_b - x_a z_b, x_a y_b - y_a x_b)
-= ||\mathbf{a}|| ||\mathbf{b}|| \sin(\theta) \mathbf{n}
-\)
-
-\textbf{Interpolation}:
-\(t\) is how far along the line \(p_t\) is from \(p_0\) to \(p_1\) as a percentage between 0 and 1.
-\(
-t = (x_t - x_0) / (x_1 - x_0)
-\text{ or }
-t = (y_t - y_0) / (y_1 - y_0)
-\)
-\(
-v_t = (1-t) v_0 + t v_1
-\)
-
-\textbf{Barycentric Interpolation}:
-\(
-\alpha = A_a / A \quad
-\beta = A_b / A \quad
-\gamma = A_c / A \quad
-s.t.\ \alpha + \beta + \gamma = 1
-\)
-
-Now,
-\(
-\mathbf{p}(\alpha, \beta, \gamma)
-= \alpha \mathbf{a} + \beta \mathbf{b} + \gamma \mathbf{c}
-\)
+\textit{Transformation Matrix}
+\includegraphics[width=\linewidth]{homogenous-coord-transformation-matrix.png}
 
 \section{Camera}
 
