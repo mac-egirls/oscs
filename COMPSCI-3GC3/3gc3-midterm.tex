@@ -501,7 +501,36 @@ Check \(f(c)\), \(c\)'s signed distance to plane, see if it intersects or is wit
 \subsubsection{Clipping}
 View volume cuts primitive to avoid drawing out of bounds
 
+\textbf{Clipping a Line}
+\textit{Plane Function}:
+\(f(p) = n \cdot p + D = 0\), \(p\) is any point on the plane,
+\(n\) is the normal, \(D\) is a known const.
 
+\textit{Line Function}:
+\(p(t) = \mathbf{a} + t (\mathbf{b} - \mathbf{a})\)
+
+\textit{Intersection Point}
+Plug \(p\) into plan function \(f(p) = n \cdot (\mathbf{a} + t(\mathbf{b} - \mathbf{a})) + D = 0\)
+Solve for \(t = \frac{n \cdot \textbf{a} + D}{n \cdot (\textbf{a} - \textbf{b})}\)
+
+\textbf{Clipping a Triangle}
+\includegraphics[width=\linewidth]{triangle-clipping.png}
+
+\textit{Plane Function}:
+Same as above
+
+\textit{Intersection}:
+Assume \(a, b\) is on one side, \(c\) is on the other side
+Compute intersection points \(\mathbf{A}, \mathbf{B}\) using line clipping method.
+
+\textit{Split Triangle}
+\(\mathbf{T}_1=\triangle abA, \mathbf{T}_2=\triangle bBA, \mathbf{T}_3\)
+
+\textit{Throw Away}
+If \(f(c) \geq 0\), keep \(T_3\); if \(f(c) < 0\), keep \(\mathbf{T}_1, \mathbf{T}_2\)
+
+\textit{Special Case}
+Handle zero-area triangles
 
 \end{multicols*}
 
