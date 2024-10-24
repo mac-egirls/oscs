@@ -9,7 +9,7 @@
 [Download cheat sheets directly here](https://github.com/mac-egirls/oscs/releases/tag/latest)
 
 ## Become a contributor
-Open a pull request with the changes you want!
+Open a pull request with the changes you want! Once you've been approved as a contributor, you'll be able to directly push to the repo during exam cram periods so we can iterate faster.
 
 ## Github Codespaces Setup (Recommended)
 1. Fork the repository
