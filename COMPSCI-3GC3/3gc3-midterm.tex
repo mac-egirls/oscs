@@ -458,6 +458,205 @@ $M_{vp} = $
 
 \section{Rasterization}
 
+\textit{Definition:} finding all pixels on the screen that are occupied by a geometric primitive.
+
+\textbf{Line Rasterization}
+Given pixels $P_0 = (x_0, y_0), P_1 = (x_1, y_1)$, fill the pixels on the screen between them.
+
+$f(x, y): y = mx + c$\\given $m=(y_1 - y_0)/(x_1 - x_0), c=(x_1y_0 - x_0y_1)/(x_1 - x_0)$\\begin{align*}
+Implicitly, $f(x,y): Ax + By - C = 0$
+
+\textbf{Naive Implementation:} Use the function $y=mx+c$ and iterate $x$ from $x_0$ to $x_1$. No vertical lines!\\
+\textbf{Digital Difference Analyser DDA:} Similar, but move in the axis that is shallower.
+
+% \includegraphics[width=\linewidth]{rasterize-dda.png} 
+\begin{lstlisting}
+drawDDA(p0, p1):
+    ranges = p1-p0
+    numSteps = (ranges.x > ranges.y) 
+        ? ranges.x
+        : ranges.y
+
+    delta = ranges / numSteps
+    p = p0
+
+    for i in 0..numSteps:
+        fill pixel (round(p.x), round(p.y))
+        p += delta
+\end{lstlisting}
+
+\textbf{Midpoint Algorithm:} Assume $x_0 < x_1$. Otherwise, swap $P_0, P_1$.
+Seperate cases based on $m$ either $\in \{(-\infty, -1], (-1, 0],(0, 1], (1, \infty)\}$. 
+The case will affect which pixels are the candidate pixels.
+
+\includegraphics[width=\linewidth]{rasterize-candidates.png}\\
+For following cases, assume $m \in [0, 1)$.
+
+Assume $(x, y)$ is drawn. Compute the midpoint of the next candidates, in this case $(x+1, y+0.5)$
+
+To check if point is above line, calculate if $f(x+1, y+0.5) > 0$. Otherwise, count it as below. Select the candidate and draw it.
+
+\begin{lstlisting} 
+drawMidpointTraditional(x0, y0, x1, y1):
+    y = y0
+    for x=x0; x<=x1; x++:
+        fill pixel (x,y)
+
+        float f = (y0-y1)*(x+1) 
+                + (x1-x0)*(y+0.5) 
+                + x0*y1 
+                - x1*y0
+
+        if (f < 0): 
+            y++;
+\end{lstlisting}
+
+
+\textbf{Midpoint Incremental Algorithm:} We don't need to evaluate $f$ at every case, since $m$ is constant.
+evaluate $f$ at the first midpoint. We know that our next candidates are either on the same level or above the last candidate.
+If we increase diagonal, then $f(x+1, y+1) = f(x,y) + (y_0 - y_1) + (x_1 - x_0)$. If we increase horizontal, then $f(x+1, y) = f(x, y) + (y_1 - y_0)$
+
+% \includegraphics[width=\linewidth]{rasterize-iteration.png}\\
+\begin{lstlisting}
+drawMidpointIter(x0, y0, x1, x0):
+    p = p0
+    f = (y0 - y1)*(x0 + 1) 
+        + (x1 - x0)*(y0+0.5) 
+        + x0*y1
+        - x1*y0
+
+    y = y0
+    for x = x0; x <= x1; x++:
+        fill pixels[x][y]
+        if (f < 0): //line above M
+            f += (x1-x0) + (y0-y1) 
+            y++;
+        else: //line below M
+            f += y0-y1
+\end{lstlisting}
+
+\textbf{Bresenham Algorithm:} 
+
+% \includegraphics[width=\linewidth]{rasterize-bresen.png}\\
+\begin{lstlisting} 
+drawBresenham(x0, y0, x1, y1):
+    deltaX = x1-x0
+    deltaY = y1-y0
+    D = 2*deltaY - deltaX
+
+    fill pixel (x0,y0)
+    y = y0
+
+    for x=x0+1; x<=x1; x++:
+
+        //Diagonal Increment
+        if D > 0:
+            y++
+            D += 2*(deltaY-deltaX)
+
+        //H Increment
+        else:
+            D += 2*deltaY
+        
+        fill pixel (x,y)
+\end{lstlisting}
+
+\textbf{Triangle Rasterization}
+
+First, we find the bounding box (rectangle) of the triangle using the min and max positions of all 3 vertexes.
+Then, we iterate over every pixel ($n^2$), checking if the barycentric coordinate of the pixel lies inside the triangle.
+
+We can tell if it's outside if all coordinates are $\geq 0$. If one is not, then it is outside, and we skip drawing.
+
+The rest of the following code interpolates the colour of the pixels (p0 is red, p1 is green and p2 is blue).
+
+
+\begin{lstlisting}[language=C++]
+void DrawTriangle(int x0, int y0, 
+        int x1, int y1, 
+        int x2, int y2, 
+        std::vector<std::vector<std::string>> &pixels) {
+
+// Bounding box
+int minx = std::min({x0, x1, x2});
+int maxx = std::max({x0, x1, x2});
+int miny = std::min({y0, y1, y2});
+int maxy = std::max({y0, y1, y2});
+
+// Precompute terms for barycentric coordinates
+float F01 = (y0-y1)*x2 + (x1-x0)*y2 + x0*y1 - x1*y0;
+float F12 = (y1-y2)*x0 + (x2-x1)*y0 + x1*y2 - x2*y1;
+float F20 = (y2-y0)*x1 + (x0-x2)*y1 + x2*y0 - x0*y2;
+
+// Vertex colors: p0 - Red, p1 - Green, p2 - Blue
+int R0 = 255, G0 = 0, B0 = 0;  // p0 - Red
+int R1 = 0, G1 = 255, B1 = 0;  // p1 - Green
+int R2 = 0, G2 = 0, B2 = 255;  // p2 - Blue
+
+// Loop over bounding box pixels
+for (int x = minx; x <= maxx; ++x) {
+    for (int y = miny; y <= maxy; ++y) {
+
+        // Calculate barycentric coordinates
+        float f01 = (y0-y1)*x + (x1-x0)*y + x0*y1 - x1*y0;
+        float f12 = (y1-y2)*x + (x2-x1)*y + x1*y2 - x2*y1;
+        float f20 = (y2-y0)*x + (x0-x2)*y + x2*y0 - x0*y2;
+
+        float b0 = f12 / F12, b1 = f20 / F20, b2 = f01 / F01;
+
+        // Check if inside the triangle
+        if (b0 >= 0 && b1 >= 0 && b2 >= 0) {
+            // Interpolate color
+            int R = b0*R0 + b1*R1 + b2*R2;
+            int G = b0*G0 + b1*G1 + b2*G2;
+            int B = b0*B0 + b1*B1 + b2*B2;
+
+            // Set pixel color
+            pixels[y][x] = std::to_string(R) + ',' +
+                            std::to_string(G) + ',' +
+                            std::to_string(B);
+        }
+    }
+}
+}
+\end{lstlisting}
+    
+\textit{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing. 
+Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
+Choose offscreen point $q$.
+
+$T_1$ should be responsible of drawing the edge if $q$ falls on the same side of the edge as $a$. Likewise for $T_2$ and $b$.
+
+\textit{Proper Perspective Attribute Attribution}: How we set up the above code leads to incorect attribute interpolation when taking perspective into account.
+This is because we are interpolating on the 2d projection of the triangle and not considering the distace of the 3d space.
+
+We can interpolate using the following code, which scales based on a scaling metric.
+
+\begin{lstlisting}
+float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
+float Gs = b0*(G0/w0) + b1*(G1/w1) + b2*(G2/w2);
+float Bs = 60*(B0/w0) + b1*(B1/w1) + b2*(B2/w2);
+float Is = b0*(1/w0) + b1*(1/w1) + b2*(1/w2);
+
+float R = Rs / Is;
+float G = Gs / Is;
+float B = Bs / Is;
+\end{lstlisting}
+
+\includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
+
+
+\textbf{Anti-Aliasing}
+\textit{Supersample}\\ 
+Screen Goal is 256x256. We instead render x4, meaing we actually render a 1024x1024 image.
+Then, on scale down, we can average* the 16 virtual pixels into 1 screen pixel.
+
+Can use box filter or a gaussian filter.\\
+\textit{Subsample / Multisample}
+Screen goal is 256x256. We still rasterize for a higher resolution, but fragment (triangle) colour computation is only calculated once.
+Then, we sample $n$ times from the pixel area, averaging the samples to get the true pixel colour.
+
+
 \section{Pipeline}
 \includegraphics[width=\linewidth]{basic-graphics-pipeline.png}
 
