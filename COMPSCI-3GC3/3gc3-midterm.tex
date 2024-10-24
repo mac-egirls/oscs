@@ -485,7 +485,22 @@ Look at face normal / right hand rule,
 face normal points in same direction as face.
 
 \subsubsection{View Frustrum Culling}
-Removes geometries outside view volume
+Removes geometries outside view volume.
+6 planes: near, far, left, right, top, bottom.
+Plane function is
+\(
+f(p) = n \cdot (p - a)
+= n \cdot p + n \cdot a
+= n \cdot p + D
+= 0
+\)
+\textbf{Test if outside view volume}
+Take bounding box of object, e.g. a sphere with centre c, radius r.
+Check \(f(c)\), \(c\)'s signed distance to plane, see if it intersects or is within frustrum.
+
+\subsubsection{Clipping}
+View volume cuts primitive to avoid drawing out of bounds
+
 
 
 \end{multicols*}
