@@ -200,6 +200,43 @@ f(p)
 \)
 
 \textbf{3D Rotations}
+
+\textit{Rotate around X}
+\(
+f(p) = \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & \cos \theta & -\sin \theta \\
+    0 & \sin \theta & \cos \theta
+\end{bmatrix}
+\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+\)
+
+\textit{Rotate around Y}
+\(
+f(p) = \begin{bmatrix}
+    \cos \theta & 0 & \sin \theta \\
+    0 & 1 & 0 \\
+    -\sin \theta & 0 & \cos \theta
+\end{bmatrix}
+\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+\)
+
+\textit{Rotate around Z}
+\(
+f(p) = \begin{bmatrix}
+    \cos \theta & -\sin \theta & 0 \\
+    \sin \theta & \cos \theta & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+\)
+
 For a generic 3D rotation:
 \(
 R =
@@ -305,6 +342,8 @@ To scale an object along a non uniform axis, 1 rotate the object to align with a
 For rotation, scaling, and translating,
 the inverse of a matrix \(M^{-1}\) can be used.
 For rotation specifically, \(M^{-1}_{rotate}=M^T_{rotate}\)
+For scaling, inversion is essentially \(1/s\) for your scale factor.
+For translating, do \(-x\).
 
 \textbf{Coordinate Systems}
 \textit{World/Global Coordinate}
