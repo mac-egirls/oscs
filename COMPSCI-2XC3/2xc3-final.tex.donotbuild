@@ -1,0 +1,1667 @@
+
+ % IF YOU CAN SEE THIS GO CONTRIBUTE >:(
+
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{setspace} 
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{courier}
+
+\setstretch{0.1}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.25in,left=.25in,right=.25in,bottom=.35in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage}
+  {\endminipage\par\medskip}
+
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+% \tymin=37pt
+% \tymax=\maxdimen
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+\newcommand{\To}{\Rightarrow}
+\newcommand\ttt\texttt
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+\title{2XC3}
+
+\begin{document}
+\usetikzlibrary{automata,positioning,arrows}
+\raggedright
+\tiny
+
+\lstset{
+    tabsize = 2, %% set tab space width
+    showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
+    basicstyle = \tiny \ttfamily , %% set listing font and size
+    breaklines = true, %% enable line breaking
+    numberstyle = \tiny,
+    postbreak = \mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    literate={\ \ }{{\ }}1 %% convert 2 spaces into 1 space
+}
+
+\begin{center}
+    {\textbf{Final Crib Sheet v0.2 -- Bocchi The ROCK Edition}} \\
+\end{center}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\begin{multicols*}{5}
+    \section{}
+
+    % \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.08\paperheight]{../COMPSCI-2ME3/had-to-do-it-to-em.png}};
+    %\tikz[remember picture,overlay] \node[opacity=0.1,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{./bocchi1.png}};
+
+    %\tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{./cope.png}};
+    % Jason:
+    % I think the midterm's probaby a mix of implementation and optimization techniques
+
+    %TODO: Someone add notes on Python's list and dict operation time complexities (both worst case and amortized)
+
+    %TODO: ik hazard fumin rn
+    % facts
+
+    \section{General Notes}
+    \begin{itemize}
+        \item The constant factor matters!
+        \item Small numbers of trials = higher variability, therefore run a large number of trials to reduce variability
+        \item Amortization: when the worst case happens rarely, but is necessary for the normal case to occur (eg allocating more memory for a static array after it's filled)
+    \end{itemize}
+    \subsection{Optimizations}
+    \begin{itemize}
+        \item Put the options most likely to evaluate as true earlier in the if/else chain to reduce the number of checks the computer does
+        \item When moving an element in a list, instead of swapping each pair of elements,
+              performing 2 operations for each \verb|i|, we keep a variable for \verb|i|
+              and shift values down as needed,
+              only inserting the element into position at the very end.
+        \item Memoization can reduce the runtime of otherwise exponential (e.g. $O(2^n)$) recursive algorithms to linear by simply storing the results of previous function calls.
+    \end{itemize}
+
+    \section{List and Dict operations}
+    %taken from https://wiki.python.org/moin/TimeComplexity
+    \subsection{List operations}
+    \begin{itemize}
+        %yo is pop from end of list amortized o(1) but worstcase o(n) like append?
+        \item A list is represented as an array; the largest costs come from growing beyond the current allocation size, or from inserting or deleting somewhere near the beginning
+        \item Copy: O(n), Append: Worst case O(n) and Amortized O(1), Insert: O(n), Delete: O(n), length: O(1), min or max: O(n)
+        \item ``The worst case of this is amortized across some constant time operation so the total amount is still linear.''
+        \item Lists grow at full capacity, doubling it's size, and shrink at 1/4 capacity, halving it's size.
+    \end{itemize}
+    \subsection{Dictionary operations}
+    \begin{itemize}
+        \item Python uses a hashmap for its dictionaries; you can have collisions leading to worstcase O(n), but its usually O(1) w/ no collisions
+        \item get: Avg O(1)/Worst O(n), set: Avg O(1)/Worst O(n), delete: Avg O(1)/Worst O(n).
+        \item Dicts resize at 2/3 load.
+    \end{itemize}
+
+    % \section{Bad Sorts}
+    %   \subsection{Bubble Sort}
+    %   Bubble up the elements one at a time.
+    %   Somehow even worse than selection sort, as it \textbf{ALWAYS} has $N^2$ comparisons, regardless of array disorder.
+    %   Also $\Theta(N^2)$
+    %   \begin{lstlisting}[language=Python]
+    % def bubble_sort(L):
+    %     for i in range(len(L)):
+    %         for j in range(len(L) - 1):
+    %             if L[j] > L[j+1]:
+    %                 swap(L, j, j+1)
+    %   \end{lstlisting}
+
+    %   \subsection{Selection Sort}
+    %   Build up a sorted section of array, by
+    %   \begin{enumerate}
+    %     \item Find min element
+    %     \item Swap min \& first element
+    %     \item Examine array, skipping first element.
+    %   \end{enumerate}
+    %   \textbf{Pros:}
+    %   Minimal number of write operations (eg tiny RAM?)
+    %   \textbf{Cons:}
+    %   Slow as shit
+    %   $\Theta(N^2)$
+
+    %   \begin{lstlisting}[language=Python]
+    % def selection_sort(L):
+    %     for i in range(len(L)):
+    %         min_index = find_min_index(L, i)
+    %         swap(L, i, min_index)
+
+
+    % def find_min_index(L, n):
+    %     min_index = n
+    %     for i in range(n+1, len(L)):
+    %         if L[i] < L[min_index]:
+    %             min_index = i
+    %     return min_index
+    %   \end{lstlisting}
+
+    %   \subsection{Insertion Sort}
+    %   \begin{itemize}
+    %     \item
+    %           Start from 2 elements, build up sorted subarray,
+    %           "inserting" a new element each iteration by swapping
+    %           until it is in the right position.
+    %     \item
+    %           \# of operations depends on the degree
+    %           of disorder (how unsorted the array is).
+    %   \end{itemize}
+    %   \textbf{Pros:} If the array has a low degree of disorder, it is faster.
+    %   \textbf{Cons:} Worst case is still slow as shit.
+    %   $\Omega(N), O(n^2)$
+
+
+    %   \begin{lstlisting}[language=Python]
+    % def insertion_sort(L):
+    %     for i in range(1, len(L)):
+    %         insert(L, i)
+
+
+    % def insert(L, i):
+    %     while i > 0:
+    %         if L[i] < L[i-1]:
+    %             swap(L, i-1, i)
+    %             i -= 1
+    %         else:
+    %             return
+    %   \end{lstlisting}
+
+    \section{Good Sorts}
+    \subsection{Mergesort}
+    Divide array in half recursively, until it is down to 1 element.
+    Merge array together like a zipper.
+
+    \textbf{Time Complexity:} $O(n \log n)$ \\
+    \textbf{Memory Complexity:} $O(N)$
+
+    \subsubsection{Top-down vs Bottom-up TL;DR}
+    Top-down uses recursion: starts at \textbf{top} of tree and proceeds \textbf{downwards}.
+    Bottom-up does not use recursion: starts at \textbf{bottom} of tree and iterates over pieces moving \textbf{upwards}.
+
+    \subsubsection{Top-down}
+    Traditional recursive approach
+    \begin{lstlisting}[language=Python]
+def mergesort(L):
+    if len(L) <= 1:
+        return
+    mid = len(L) // 2
+    left, right = L[:mid], L[mid:]
+
+    mergesort(left)
+    mergesort(right)
+    temp = merge(left, right)
+    
+    for i in range(len(temp)):
+        L[i] = temp[i]
+
+
+def merge(left, right):
+    L = []
+    i = j = 0
+    
+    while i < len(left) or j < len(right):
+        if i >= len(left):
+            L.append(right[j])
+            j += 1
+        elif j >= len(right):
+            L.append(left[i])
+            i += 1
+        else:
+            if left[i] <= right[j]:
+                L.append(left[i])
+                i += 1
+            else:
+                L.append(right[j])
+                j += 1
+    return L
+  \end{lstlisting}
+
+    \subsubsection{Bottom-up}
+    Pass through array, merging as we go to double size of sorted subarrays. Keep performing the passes and merging subarrays, until you do a merge that encompasses the whole array.\\
+    Generally more efficient than top-down, since recursive calls are expensive.
+
+    \begin{lstlisting}[language=Python]
+def mergesort2(L):
+    if len(L) < 2:
+        return L
+    
+    i = 1
+    while i < len(L):
+        j = 0
+        while j < len(L):
+            L[j:j+i*2] = merge(L[j:j+i], L[j+i:j+i*2])
+            j += i*2
+        i *= 2
+    pass
+  \end{lstlisting}
+
+
+    \subsection{Quicksort}
+    \begin{enumerate}
+        \item Shuffle array to reduce impact of order on sorting speed
+        \item Pick first element of array as pivot
+        \item Create two sub arrays from remaining elements, one selecting those smaller,
+              one selecting those larger. Put them on either side of the pivot
+        \item Recurse for each side of the pivot until everything is sorted.
+    \end{enumerate}
+
+    % TODO: pseudo or cut
+    %   \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def partition (arr, lo, hi):
+    %       pivot = hi
+    %       i = lo
+    %       for j from lo+1 to hi:
+    %         if arr[j]<pivot:
+    %           swap(arr[i], arr[j])
+    %           i++
+
+    % def quicksort (arr, lo, hi) {
+    %       if lo<hi:
+    %         pivot = partition(arr, lo, hi)
+    %         quicksort(arr, lo, pivot-1)
+    %         quicksort(arr, pivot+1, hi)
+    %     # Alternate implementation
+    %     def quicksort(arr):
+    %     if len(arr) < 2:
+    %         return arr
+    %     else:
+    %         pivot = arr[0]
+    %         less = [i for i in arr[1:] if i <= pivot]
+    %         greater = [i for i in arr[1:] if i > pivot]
+    %         return quicksort(less) + [pivot] + quicksort(greater)
+
+    %   \end{lstlisting}
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+def quicksort(L):
+    copy = quicksort_copy(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
+
+
+def quicksort_copy(L):
+    if len(L) < 2:
+        return L
+    pivot = L[0]
+    left, right = [], []
+    for num in L[1:]:
+        if num < pivot:
+            left.append(num)
+        else:
+            right.append(num)
+    return quicksort_copy(left) + [pivot] + quicksort_copy(right)
+ \end{lstlisting}
+    \begin{itemize}
+        \item Fastest for disordered arrays, slowest for already sorted arrays
+        \item Randomize array or select a random pivot to prevent worst case. (Best choice of a pivot is the median)
+        \item \textbf{Best case}: The partitions are always of equal size : $\Omega(N \log N)$. Recurrence relation is $T(n) = 2T(n/2) + cn$.
+        \item \textbf{Worst case}: One partition is always of size 0 (if the array is already sorted and we are picking pivots from the ends) : $O(N^2)$. Recurrence relation is $T(n) = T(n - 1) + T(0) + cn$.
+        \item \textbf{Average case}: 1.39 $N\log{N} \in \Theta(N \log N)$
+        \item Uses less memory than merge sort. Space complexity $O(n)$
+    \end{itemize}
+
+    \subsection{Heapsort}
+    \begin{itemize}
+        \item Heaps/PQs are binary trees such that: (1). parents are always greater than both children, (2). tree is complete, (3). (assuming 0-indexing) the parent of node $i$ is at array index $(i+1)//2$, the left child is at $2(i+1)-1$, and right at $2(i+1)$.
+        \item To build a heap/PQ from a list, call \ttt{heapify()/sink\_down()} in a loop, starting at the first non-leaf node (index \ttt{len(arr)//2-1}) to the root node. This step is $O(n)$. After this, you can call \ttt{extract\_max/min()} repeatedly to obtain sorted list
+        \item In regular usage the best, worst, and avg. case is $O(n\log n)$
+              % TODO: add more here?
+        \item bottom up heapify is O(n) while top down is O(n$log_n$)
+        \item Along with storing the PQ data as an array, we can store the value/index pair in a dict, giving us amortized $O(\log n)$ \ttt{incr/decr\_key()}
+    \end{itemize}
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+def heapsort(L):
+    heap = Heap(L)
+    for _ in range(len(L)):
+        heap.extract_max()
+class Heap:
+    length = 0
+    data = []
+
+    def __init__(self, L):
+        self.data = L
+        self.length = len(L)
+        self.build_heap()
+
+    def build_heap(self):
+        for i in range(self.length // 2 - 1, -1, -1):
+            self.heapify(i)
+
+    def heapify(self, i): # sink down
+        largest_known = i
+        if self.left(i) < self.length and self.data[self.left(i)] > self.data[i]:
+            largest_known = self.left(i)
+        if self.right(i) < self.length and self.data[self.right(i)] > self.data[largest_known]:
+            largest_known = self.right(i)
+        if largest_known != i:
+            self.data[i], self.data[largest_known] = self.data[largest_known], self.data[i]
+            self.heapify(largest_known)
+
+    def insert(self, value):
+        if len(self.data) == self.length:
+            self.data.append(value)
+        else:
+            self.data[self.length] = value
+        self.length += 1
+        self.bubble_up(self.length - 1)
+
+    def insert_values(self, L):
+        for num in L:
+            self.insert(num)
+
+    def bubble_up(self, i):
+        while i > 0 and self.data[i] > self.data[self.parent(i)]:
+            self.data[i], self.data[self.parent(i)] = self.data[self.parent(i)], self.data[i]
+            i = self.parent(i)
+
+    def extract_max(self):
+        self.data[0], self.data[self.length - 1] = self.data[self.length - 1], self.data[0]
+        max_value = self.data[self.length - 1]
+        self.length -= 1
+        self.heapify(0)
+        return max_value
+
+    def left(self, i):
+        return 2 * (i + 1) - 1
+
+    def right(self, i):
+        return 2 * (i + 1)
+
+    def parent(self, i):
+        return (i + 1) // 2 - 1
+
+    def incr/decr_key(v, s):
+        # optimization over for loop search: dict
+        data[map[v]] +/-= s
+        bubble_up(map[v])
+  \end{lstlisting}
+    \section{Graphs}
+    % \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{./cope.png}};
+    \subsection{BFS}
+    \begin{itemize}
+        \item BFS is a graph traversal algorithm that visits nodes in breadth-first order using a queue data structure.
+        \item It is useful for finding the shortest path between two nodes in an unweighted graph because it explores all nodes at a given distance from the starting node before moving on to nodes that are farther away.
+        \item BFS has a time complexity of O(V+E), where V is the number of nodes and E is the number of edges in the graph.
+        \item It can be implemented iteratively or recursively, but the iterative approach is typically preferred due to avoiding stack overflow errors on large graphs.
+        \item BFS can also be used to detect cycles in a graph. If a node is visited twice during the BFS traversal, then there is a cycle in the graph.
+    \end{itemize}
+
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+def BFS(G, node1, node2):
+    Q = deque([node1])
+    marked = {node1 : True}
+    for node in G.adj:
+        if node != node1:
+            marked[node] = False
+    while len(Q) != 0:
+        current_node = Q.popleft()
+        for node in G.adj[current_node]:
+            if node == node2:
+                return True
+            if not marked[node]:
+                Q.append(node)
+                marked[node] = True
+    return False
+\end{lstlisting}
+
+    \subsection{DFS}
+    \begin{enumerate}
+        \item Mark starting node as visited,
+        \item Go to next unmarked node in the current node's adjacent vertices,
+        \item Repeat.
+        \item If all adjacent nodes are marked, pop back up the stack and repeat with the next node.
+    \end{enumerate}
+    \begin{itemize}
+        \item Useful for finding all vertices connected to one vertex, or finding a path between two.
+    \end{itemize}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def DFS(G, node1, node2):
+    %     S = [node1]
+    %     marked = {}
+    %     for node in G.adj:
+    %         marked[node] = False
+    %     while len(S) != 0:
+    %         current_node = S.pop()
+    %         if not marked[current_node]:
+    %             marked[current_node] = True
+    %             for node in G.adj[current_node]:
+    %                 if node == node2:
+    %                     return True
+    %                 S.append(node)
+    %     return False
+    % # recursive basic ver.:
+    % def DFS(G, start):
+    %     mrkd = {}
+    %     for node in G.adj:
+    %         mrkd[node] = False
+    %     DFS_R(G, start, mrkd)
+    % def DFS_R(G, on):
+    %     mrkd[on] = True
+    %     for node in G.adj[on]:
+    %         if not mrkd[node]:
+    %             DFS_R(G, node, mrkd)
+
+    % \end{lstlisting}
+
+    % \subsection{Min. Vertex Cover}
+    % \begin{itemize}
+    %     \item Can be calculated by a brute-force algorithm: (1). iterate over $\mathcal{P}(V)$, (2) if current iteration is a vertex cover, then store it, (3). after loop, compare size and return smallest set. This is $\Omega(2^n)$, which is why we use approx. functions.
+    % \end{itemize}
+    % \vspace{-2mm} % hack, I don't know the actual command for reducing space
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def prepend(s, e):
+    %     copy = s.copy()
+    %     for set in copy:
+    %         set.append(e)
+    %     return copy
+    % def pset(s): #or easier binary method
+    %     if s == []:
+    %         return [[]]
+    %     return pset(s[1:])+prepend(pset[s1:]),set[0])
+    % def is_vertex_cover(G, C):
+    %     for start in G.adj:
+    %         for end in G.adj[start]
+    %             if not(start in C or end in C)
+    %                 return False
+    %     return True
+    % def MVC(G):
+    %     n = G.number_of_nodes()
+    %     nodes = [i for i in range(n))]
+    %     subsets = power_set(nodes)
+    %     min_cover = nodes
+    %     for subset in subsets:
+    %         if is_vertex_cover(G, subset):
+    %             if len(subset) < len(min_cover):
+    %                 min_cover = subset
+    %     return min_cover
+    % \end{lstlisting}
+    % \subsubsection{Approximate functions}
+    % Approx1 
+    % \begin{itemize}
+    %     \item Start with an empty set C = $\{\}$
+    %     \item Find the vertex with the highest degree in G, call this vertex v. 
+    %     \item Add v to C
+    %     \item Remove all edges incident to node v from G
+    %     \item If C is a Vertex Cover return C, else go to Step 2
+    % \end{itemize}
+    % Approx2
+    % \begin{itemize}
+    %     \item Start with an empty set C = $\{\}$
+    %     \item Select a vertex randomly from G which is not already in C, call this vertex v
+    %     \item Add v to C
+    %     \item If C is a Vertex Cover return C, else go to Step 2
+    % \end{itemize}
+    % Approx3
+    % \begin{itemize}
+    %     \item Start with an empty set C = $\{\}$
+    %     \item Select an edge randomly from G, call this edge (u,v)
+    %     \item Add u and v to C
+    %     \item Remove all edges incident to u or v from G
+    %     \item If C is a Vertex Cover return C, else go to Step 2
+    % \end{itemize}
+
+    % A1 tends to perform best in all cases and metrics.
+
+    % \begin{lstlisting}[language=Python]
+    % def approx1(G: Graph):
+    %     # Make a deep copy of G
+    %     G = copy.deepcopy(G)
+    %     # Start with empty set C = {}
+    %     C = []
+    %     while True:
+    %         # Find vertex with highest degree in G, call it vertex v
+    %         v = max(G.adj, key=lambda x: len(G.adj[x]))
+    %         # Add v to C
+    %         C.append(v)
+    %         # Remove all edges incident to v from G
+    %         for node in G.adj[v]:
+    %             G.adj[node].remove(v)
+    %         G.adj[v] = []
+    %         # If C is a vertex cover of G, return C
+    %         if is_vertex_cover(G, C):
+    %             return C
+
+    % def approx2(G: Graph):
+    %     # Make a deep copy of G
+    %     G = copy.deepcopy(G)
+    %     # Start with empty set C = {}
+    %     C = []
+    %     while True:
+    %         # Randomly pick a vertex from G not in C, call it vertex v
+    %         v = random.choice([i for i in range(G.get_size()) if i not in C])
+    %         # Add v to C
+    %         C.append(v)
+    %         # If C is a vertex cover of G, return C
+    %         if is_vertex_cover(G, C):
+    %             return C
+
+    % def approx3(G):
+    %     # Make a deep copy of G
+    %     G = copy.deepcopy(G)
+    %     # Start with empty set C = {}
+    %     C = []
+    %     while True:
+    %         # Randomly pick an edge that exists from G, called (u,v)
+    %         u = random.choice([i for i in range(G.get_size())])
+    %         while len(G.adj[u]) == 0:
+    %             u = random.choice([i for i in range(G.get_size())])
+    %         v = random.choice(G.adj[u])
+    %         # Add u and v to C
+    %         C.append(u)
+    %         C.append(v)
+    %         # Remove all edges incident to u and v from G
+    %         for node in G.adj[u]:
+    %             G.adj[node].remove(u)
+    %         G.adj[u] = []
+    %         for node in G.adj[v]:
+    %             G.adj[node].remove(v)
+    %         G.adj[v] = []
+    %         # If C is a vertex cover of G, return C
+    %         if is_vertex_cover(G, C):
+    %             return C
+    % \end{lstlisting}
+
+    \subsection{Cycle detection}
+    \begin{itemize}
+        \item Use depth-first search to traverse the graph and check for cycles by keeping track of visited nodes and their parent nodes.
+        \item If the neighbor has been visited before and it is not the parent node of the current node, it means there is a cycle in the graph, so the function returns True.
+    \end{itemize}
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+def has_cycle(G):
+    visited = set()
+
+    for node in G.adj:
+        if node not in visited:
+            if has_cycle_helper(G, node, visited, None):
+                return True
+
+    return False
+
+
+def has_cycle_helper(G, node, visited, parent):
+    visited.add(node)
+
+    for neighbor in G.adj[node]:
+        if neighbor not in visited:
+            if has_cycle_helper(G, neighbor, visited, node):
+                return True
+        elif neighbor != parent:
+            return True
+
+    return False
+\end{lstlisting}
+
+    \subsection{Checking connectedness}
+    \begin{itemize}
+        \item BFS / DFS on all nodes, check if every other node is connected
+    \end{itemize}
+    \begin{lstlisting}[language=Python]
+def is_connected(G: Graph):
+    # Return True if and only if there is a path between any two nodes in G
+    for i in range(len(G.adj)):
+        for j in range(i, len(G.adj)):
+            if not DFS(G, i, j):
+                return False
+    return True
+\end{lstlisting}
+
+    % \subsection{Min. Spanning Trees}
+    % \begin{itemize}
+    %     \item An MST is a subset of edges such that all vertices are contained with minimum weights (i.e. sum of weights is no larger than any other MST). Has $V-1$ edges.
+    %     \item Weights can be implemented via a dictionary of vertex pair/weight value pairs (i.e. \ttt{w[(vert1, vert2, weight)]})
+    % \end{itemize}
+    % \subsubsection{Prim's Algorithm}
+    % \begin{enumerate}
+    %     \item Create empty weighted graph for MST
+    %     \item Add vertex 0 from original graph to MST
+    %     \item Add edge (and included vertex) to the MST which connects a vertex in the MST and one outside (with lowest weight)
+    %     \item Repeat previous step until all vertices are covered
+    % \end{enumerate}
+    % \begin{itemize}
+    %     \item Implementation 1:
+    %     \begin{itemize}
+    %         \item A naive bruteforce which loops through all edges and uses simple if-statements to find smallest weights. Terrible performance: $O((V-1)E)$
+    %         \begin{enumerate}
+    %             \item Set all vertices to unmarked
+    %             \item Loop through all vertices, selecting a start vertex, and end vertex (which is adjacent to the start vertex). For each iteration, start off with storing an edge with incredibly high weight (AKA infinity)
+    %             \item If the start vertex is marked, and the end vertex is not, then if the weight is less than the stored edge from step 2, set this edge to the stored edge
+    %             \item At the end of the loop, mark the stored edge (which will be of minimal weight now), and add it to the MST
+    %             \item Repeat looping through all vertices! ($V-1$ times).
+    %         \end{enumerate}
+
+    %     \end{itemize}
+
+    % \end{itemize}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def prim1(G):
+    %     n = G.number_of_nodes()
+    %     MST = WeightedGraph(n)
+    %     mrkd = {}
+    %     for i in range(n):
+    %         mrkd[i] = False
+    %     mrkd[0] = True
+    %     for i in range(n-1):
+    %         curr = (0, 0, 9999999)
+    %         for start in G.adj:
+    %             for end in G.adj[start]:
+    %                 w = G.w[(start,end)]
+    %                 if mrkd[start] and !mrkd[end]:
+    %                     if w < curr[2]:
+    %                         curr = (start,end,w)
+    %         mrkd[curr[1]] = True
+    %         MST.add_edge(curr[0], curr[1], curr[2])
+    %     return MST
+    %     \end{lstlisting}
+
+    % \begin{itemize}
+    %     \item Implementation 2:
+    %     \begin{itemize}
+    %         \item An improved Prim's which uses a minheap that stores pairs like so: $((v1, v2), weight)$ (tuple is the value, weight is the key in the min heap implementation) to find smallest weights. Better performance: $O(E \log V)$
+    %     \end{itemize}
+    %     \begin{enumerate}
+    %         \item Set all vertices to unmarked
+    %         \item Add all edges from vertex 0 to another vertex into the min heap (along with its weight as the priority key)
+    %         \item Start a loop that breaks only when the min heap is empty. First extract the min. from the heap: if it is not marked, add it to the MST
+    %         \item Then, still in the loop, iterate through all adjacent vertices to the vertex we just added to the MST, adding each adjacent vertex to the heap. Lastly mark the extracted vertex.
+    %         \item Continue with another iteration of the loop
+    %     \end{enumerate}
+
+    % \end{itemize}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def prim2(G):
+    %     MST = WeightedGraph(G.number_of_nodes())
+    %     marked = {}
+    %     for i in range(G.number_of_nodes()):
+    %         marked[i] = False
+    %     Q = min_heap.MinHeap([])
+    %     v = 0
+    %     for end_node in G.adj[v]:
+    %         Q.insert(min_heap.Element((v,end_node),
+    %         G.w[(v,end_node)]))
+    %     while not Q.is_empty():
+    %         print(Q)
+    %         min_edge = Q.extract_min().value
+    %         v = min_edge[1]
+    %         if not marked[v]:
+    %             MST.add_edge(min_edge[0], v, G.w[min_edge])
+    %             for end_node in G.adj[v]:
+    %                 Q.insert(min_heap.Element((v, end_node), G.w[(v, end_node)]))
+    %             marked[v] = True
+    %     return MST
+    %     \end{lstlisting}
+
+    % \begin{itemize}
+    %     \item Implementation 3:
+    %     % Is this too in-depth?
+    %     \begin{itemize}
+    %         \item A more improved Prim's which uses a minheap to find smallest weights, and keeps track of the predecessor. Has same time complexity, but is usually faster: $O(E \log V)$. Has a less complex and populated heap in comparison with the 2nd implementation.
+    %     \end{itemize}
+    %     \begin{enumerate}
+    %         \item Set all vertices as unmarked, and initialize predecessor dictionary
+    %         \item Add all vertices minus the 0th to the min heap, except this time the format is $(vertex, weight)$ where weight is the priority key (and is set to 99999/infinity by default), and vertex is simply any vertex, representing the cost to travel to that vertex
+    %         \item Add the 0th vertex with weight 0 (no cost to get to vertex 0 as we start with it)
+    %         \item Start a loop that breaks only when the min heap is empty. First extract the min. from the heap and mark it. If the min. was not the 0th vertex, add it to the MST along with its predecessor vertex and weight
+    %         \item Then iterate through all adjacent unmarked vertices, and if an edge has a smaller weight than what is known in the heap, decrease the heap's key and update the predecessor dict.
+    %     \end{enumerate}
+
+    %     The reason why \#3 is faster than \#2 is because of the way the nodes are added to the priority queue. In \#2, all nodes are added to the priority queue initially, which can be expensive if the graph is large. In contrast, \#3 initializes the priority queue with a single element, node 0, and then adds the remaining nodes as needed.
+
+    %     This means that in \#3, the priority queue initially contains only one element, which reduces the amount of memory used and the time required to build the priority queue. Additionally, the number of operations required to update the priority queue is lower, since only a small subset of nodes are being considered at any given time.
+
+    %     Overall, the use of a lazy initialization strategy in \#3 reduces the number of operations required and the amount of memory used, resulting in faster execution times.
+
+    % \end{itemize}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def prim3(G):
+    %     MST = WeightedGraph(G.number_of_nodes())
+    %     marked = {}
+    %     pred = {}
+    %     for i in range(G.number_of_nodes()):
+    %         marked[i] = False
+    %     Q = min_heap.MinHeap([])
+    %     for i in range(1, G.number_of_nodes()):
+    %         Q.insert(min_heap.Element(i, 999999))
+    %     Q.insert(min_heap.Element(0,0))
+    %     while not Q.is_empty():
+    %         v = Q.extract_min().value
+    %         marked[v] = True
+    %         if v != 0:
+    %             w = G.w[(v, pred[v])]
+    %             MST.add_edge(v, pred[v], w)
+    %         for end_node in G.adj[v]:
+    %             if not marked[end_node]:
+    %                 d = G.w[(v, end_node)]
+    %                 if d < Q.get_element_from_value(end_node).key:
+    %                     Q.decrease_key(end_node, d)
+    %                     pred[end_node] = v
+    %     return MST
+    % \end{lstlisting}
+
+    % \subsubsection{Kruskal's Algorithm}
+    % \begin{enumerate}
+    %     \item Take a union-find (disjoint set) of all vertices, and take all edges and put them in minheap
+    %     \item Take the lowest weight edge; if the vertices it is attached to are not in the same disjoint set, add the edge and union the vertices.
+    %     \item remove edge from minheap
+    %     \item repeat until no edges left in minheap 
+    % \end{enumerate}
+    % Implementation:
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def kruskal(G):
+    %     MST = WeightedGraph(G.number_of_nodes())
+    %     nodes = list(G.adj.keys())
+    %     Q = min_heap.MinHeap([])
+    %     ds = disjoint_set.DisjointSet(nodes)
+
+    %     for node in nodes:
+    %         for neighbour in G.adj[node]:
+    %             Q.insert(min_heap.Element((node, neighbour), G.w[node, neighbour]))
+
+    %     while not Q.is_empty():
+    %         edge = Q.extract_min().value
+    %         if ds.find(edge[0]) != ds.find(edge[1]):
+    %             MST.add_edge(edge[0], edge[1], G.w[(edge[0],edge[1])])
+    %             ds.union(edge[0], edge[1])
+
+    %     return MST
+    %     \end{lstlisting}
+
+    \section{Trees}
+    \subsection{Binary Tree}
+    A tree where nodes have at most two children. A complete binary tree requires that every leaf level be filled, all leaf elements lean left and if there is an "empty space" where there is no even node it must be a right child (ie nodes added to left child first).
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        if self.root == None:
+            self.root = Node(data)
+        else:
+            self._insert(data, self.root)
+
+    def _insert(self, data, cur_node):
+        if data < cur_node.data:
+            if cur_node.left == None:
+                cur_node.left = Node(data)
+            else:
+                self._insert(data, cur_node.left)
+        elif data >= cur_node.data:
+            if cur_node.right == None:
+                cur_node.right = Node(data)
+            else:
+                self._insert(data, cur_node.right)
+
+    def height(self):
+        if self.root == None:
+            return 0
+        else:
+            return self._height(self.root, 0)
+
+    def _height(self, cur_node, cur_height):
+        if cur_node == None:
+            return cur_height
+        left_height = self._height(cur_node.left, cur_height + 1)
+        right_height = self._height(cur_node.right, cur_height + 1)
+        return max(left_height, right_height)
+
+\end{lstlisting}
+    \subsection{XC3 Trees}
+    \begin{itemize}
+        \item if the root node of an XC3-Tree has i children, we say that XC3-Tree has degree i.
+        \item Each child of the root node of an XC3-Tree is also an XC3-Tree.
+        \item The ith child of the root node of an XC3-Tree has degree (i-2), if i > 2, and has degree 0
+              otherwise
+        \item Finding height is O(logn)
+        \item num of nodes in tree is fibinacci sequence offset by 2 (so i=1 is 2 i=2 is 3 etc.)
+    \end{itemize}
+    \begin{lstlisting}[language=Python]
+# value is root node value
+# function is created so value of the node is the level that it is at
+# Ex. root node = node value 0, level 1 = node value 1...
+def create_XC3_tree(degree, value=0):
+    if degree == 0:
+        return Node(value)
+    else:
+        root = Node(value)
+        for i in range(1, degree+1):
+            if (i <= 2):
+                # direct children with no children for i <= 2
+                # single Node is appended to the root
+                child = Node(value+1)
+            else:
+                # for direct children with children,
+                # creates another XC3 tree with the required degree
+                # append the sub-tree to root
+                child_degree = i-2
+                child = create_XC3_tree(child_degree, value+1)
+            root.add_child(child)
+        return root
+\end{lstlisting}
+    More info in Lab 7 findings.
+    \subsection{RBT}
+    Self balancing binary tree.
+    \textbf{Properties}
+    \begin{itemize}
+        \item root is black
+        \item all NIL leaves r black
+        \item all red nodes' children r black
+        \item all paths from any node to their descendant leaves have the same num of black nodes
+        \item new nodes start red
+    \end{itemize}
+    When you have a "problem child" (breaks rules), if the aunt is black then rotate, if it is red then you colour change.
+    Time complexity for operations
+    \begin{itemize}
+        \item Insertion: $O(log n)$
+        \item Deletion: %i think its O(log n)
+    \end{itemize}
+    \begin{lstlisting}[language=Python]
+def rotate_right(self, tree):
+    y = self.left
+    self.left = y.right
+    if y.right != None:
+        y.right.parent = self
+    y.parent = self.parent
+    if self.parent == None:
+        tree.root = y
+    elif self.is_left_child():
+        self.parent.left = y
+    else:
+        self.parent.right = y
+    y.right = self
+    self.parent = y
+
+def rotate_left(self, tree):
+    # see above, swap left and right
+
+def insert(self, value):
+    if self.is_empty():
+        self.root = RBNode(value)
+        self.root.make_black()
+    else:
+        self.__insert(self.root, value)
+
+def __insert(self, node, value):
+    if value < node.value:
+        if node.left == None:
+            node.left = RBNode(value)
+            node.left.parent = node
+            self.fix(node.left)
+        else:
+            self.__insert(node.left, value)
+    else:
+        if node.right == None:
+            node.right = RBNode(value)
+            node.right.parent = node
+            self.fix(node.right)
+        else:
+            self.__insert(node.right, value)
+
+def fix(self, node):
+    if node.parent == None:
+        node.make_black()
+    while node != None and node.parent != None and node.parent.is_red():
+        if node.parent.is_left_child():
+            uncle = node.get_uncle()
+            if uncle != None and uncle.is_red():
+                node.parent.make_black()
+                uncle.make_black()
+                node.parent.parent.make_red()
+                node = node.parent.parent
+            elif node.is_right_child():
+                node = node.parent
+                node.rotate_left(self)
+            else:
+                node.parent.make_black()
+                node.parent.parent.make_red()
+                node.parent.parent.rotate_right(self)
+        else:
+            uncle = node.get_uncle()
+            if uncle != None and uncle.is_red():
+                node.parent.make_black()
+                uncle.make_black()
+                node.parent.parent.make_red()
+                node = node.parent.parent
+            elif node.is_left_child():
+                node = node.parent
+                node.rotate_right(self)
+            else:
+                node.parent.make_black()
+                node.parent.parent.make_red()
+                node.parent.parent.rotate_left(self)
+    self.root.make_black()
+\end{lstlisting}
+
+    % \begin{center}
+    % \begin{tikzpicture}[scale=0.5]
+    %     \node[thick,state] at (1.25,1.25) (5106bc34) {$root$};
+    %     \node[thick,state] at (-0.175,-1.025) (e935dc8a) {$a$};
+    %     \node[thick,state] at (2.275,-0.9625) (397eecdb) {$d$};
+    %     \node[thick,state] at (-1.325,-3.2125) (4fba81a8) {$an$};
+    %     \node[thick,state] at (-2.1,-4.9125) (a7abc828) {$and$};
+    %     \node[thick,state] at (-0.675,-4.7875) (05d29873) {$ant$};
+    %     \node[thick,state] at (1.225,-2.6875) (dfca73dc) {$da$};
+    %     \node[thick,state] at (3.475,-2.7875) (8f4bef41) {$do$};
+    %     \node[thick,state] at (0.625,-4.8625) (b8fd8411) {$dad$};
+    %     \path[->, thick, >=stealth]
+    %     (5106bc34) edge [right,in = 57, out = -121] node {$a$} (e935dc8a)
+    %     (5106bc34) edge [left,in = 115, out = -65] node {$d$} (397eecdb)
+    %     (e935dc8a) edge [left,in = 62, out = -118] node {$n$} (4fba81a8)
+    %     (397eecdb) edge [left,in = 59, out = -121] node {$a$} (dfca73dc)
+    %     (397eecdb) edge [left,in = 123, out = -57] node {$o$} (8f4bef41)
+    %     (4fba81a8) edge [left,in = 65, out = -115] node {$d$} (a7abc828)
+    %     (4fba81a8) edge [left,in = 112, out = -68] node {$t$} (05d29873)
+    %     (dfca73dc) edge [left,in = 75, out = -105] node {$d$} (b8fd8411)
+    %     ;
+    % \end{tikzpicture}
+    % \end{center}
+    \newpage
+
+    %\tikz[remember picture,overlay] \node[opacity=0.4,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{./bocchi_bikini.jpeg}};
+
+    \section{Shortest Path (Graphs)}
+
+    \subsection{Dijkstra's}
+    \begin{itemize}
+        \item Does not work with negative weights because once a vertex is marked, the algorithm never develops this node again - it assumes the path with this node is the shortest
+              %https://stackoverflow.com/questions/13159337/why-doesnt-dijkstras-algorithm-work-for-negative-weight-edges#:~:text=Since%20Dijkstra's%20goal%20is%20to,nodes%20that%20it%20has%20visited.
+        \item When to use and why:
+              \begin{itemize}
+                  \item When there is no easily calculable heuristic
+                  \item When all weights are guaranteed to be positive
+                  \item When you don't know your destination
+              \end{itemize}
+        \item Complexity: $O(V\cdot\text{(get next node)} + E\cdot\text{(update path)})$
+              \begin{itemize}
+                  \item For lists/dicts: $O(V^2 + E)$
+                  \item For fib. heap: $O(V \log V + E)$
+                  \item For fib. heap, dense graph: $O(V \log V + V^2) \approx O(V^2)$
+                  \item For min. heap: $O(V \log V + E \log V)$
+                  \item Multiply all terms by $V$ for all-pairs ver.
+              \end{itemize}
+    \end{itemize}
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+def dijkstra(G,s,d):
+    marked, dist = {}, {}
+    Q = min_heap.MinHeap([])
+    for i in range(G.number_of_nodes()):
+        marked[i] = False
+        dist[i] = float("inf")
+        Q.insert(min_heap.Element(i, float("inf")))
+    Q.decrease_key(s, 0)
+    dist[s] = 0
+    while not (Q.is_empty() or marked[d]):
+        current_node = Q.extract_min().value
+        marked[current_node] = True
+        for neighbour in G.adj[current_node]:
+            edge_weight = G.w(current_node, neighbour)
+            if not marked[neighbour]:
+                if dist[current_node] + edge_weight < dist[neighbour]:
+                    dist[neighbour] = dist[current_node] + edge_weight
+                    Q.decrease_key(neighbour, dist[neighbour])
+    return dist[d]
+    \end{lstlisting}
+
+
+    \subsection{Bellman-Ford}
+    \begin{itemize}
+        \item Works with negative weights, but does not work if there is a negative cycle
+        \item When to use and why:
+              \begin{itemize}
+                  \item When there are negative weights
+              \end{itemize}
+        \item Time complexity:
+              \begin{itemize}
+                  \item Regular: $O(EV)$
+                  \item Complete graph (edge between every pair of vertices): $O(n^3)$
+                  \item All-Pairs: $O(EV^2) = O(V^4)$
+              \end{itemize}
+    \end{itemize}
+    \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+def bellman_ford(G, source):
+    pred = {} #Predecessor dictionary
+    dist = {} #Distance dictionary
+    nodes = list(G.adj.keys())
+    #Initialize distances
+    for node in nodes:
+        dist[node] = float("inf")
+    dist[source] = 0
+    #Meat of the algorithm
+    for _ in range(G.number_of_nodes()):
+        for node in nodes:
+            for neighbour in G.adj[node]:
+                if dist[neighbour] > dist[node] + G.w(node, neighbour):
+                    dist[neighbour] = dist[node] + G.w(node, neighbour)
+                    pred[neighbour] = node
+    return dist
+\end{lstlisting}
+
+    \subsection{Floyd-Warshall}
+    \begin{itemize}
+        \item All-pairs shortest path
+        \item Works on negative weight graphs
+        \item Beats Bellman-Ford for dense graphs, but loses for sparse graphs
+    \end{itemize}
+    \begin{lstlisting}[language=Python]
+def mystery(G):
+    n = G.number_of_nodes()
+    d = init_d(G)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):k
+                if d[i][j] > d[i][k] + d[k][j]: 
+                    d[i][j] = d[i][k] + d[k][j]
+    return d
+
+def init_d(G):
+    n = G.number_of_nodes()
+    d = [[float("inf") for j in range(n)] for i in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if G.are_connected(i, j):
+                d[i][j] = G.w(i, j)
+        d[i][i] = 0
+    return d
+\end{lstlisting}
+
+
+    \subsection{A*}
+    \begin{lstlisting}[language=Python]
+def a_star(G, s, d, h):
+    pred = {} # Predecessor dictionary
+    dist = {} # Distance dictionary
+    marked = {} # Marked dictionary
+    Q = min_heap.MinHeap([])
+    nodes = list(G.adj.keys())
+
+    # Init to inf
+    for node in nodes:
+        Q.insert(min_heap.Element(node, float("inf")))
+        dist[node] = float("inf")
+        marked[node] = False
+    
+    # Set start distance to 0
+    Q.decrease_key(s, 0)
+    dist[s] = 0
+
+    # Meat of the algorithm
+    while not (Q.is_empty() or marked[d]):
+        # extact the next minimum element and mark it
+        current_element = Q.extract_min()
+        current_node = current_element.value
+        marked[current_node] = True
+        # update keys by distance + heuristic
+        for neighbour in G.adj[current_node]:
+            # dont add the heuristic to the shortest path
+            # do add it in the score of the min_heap
+            if not marked[neighbour]:
+                if dist[current_node] + G.w(current_node, neighbour) < dist[neighbour]:
+                    # add heuristic to weight in queue
+                    Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour) + h.get(neighbour))
+                    
+                    dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
+                    
+                    # update the predecessor dictionary
+                    pred[neighbour] = current_node
+        
+    return (pred, dist[d])
+\end{lstlisting}
+
+
+    \section{Dynamic Programming}
+    \subsection{Why Use Dynamic Programming?}
+    Dynamic programming splits a recursive problem into sub problems, and stores the results of these sub problems. This helps reduce the overall complexity of the function since the function does not need to waste time calculating something that has already been calculated.\\ \textbf{Top Down} Pros: 1. Solves fewer sub problems. 2. Only solves the problems it needs to.
+    Cons: 1. Recursive in nature. 2. When solving problems, you're still solving the previous case until you get to a stored case or the base case \\
+    \textbf{Bottom Up} Pros: 1. Iterative in nature. 2. Quick lookup after problems have been solved. Cons: 1. Solves unnecessary subproblems. 2. You need to solve all the subproblems.
+    \subsection{Subset Sum}
+    s(i,t) means you are given a list of numbers i and want to see if u can sum them to a value t
+    % combine with top-down method?
+    Recursive method:
+    \begin{itemize}
+        \item $S(i, t) = S(i - 1, t)$ or $S(i - 1, t-n[i-1])$
+        \item Case 1: You use $n[i-1]$ (where n is the list of numbers)
+        \item Case 2: You don't use $n[i-1]$
+    \end{itemize}
+
+    Bottom-up method:
+    \begin{itemize}
+        \item $sp(i, j) = sp(i-1, j)$ or $sp(i-1,j-nums[i-1])$
+        \item Space complexity: $\theta(nt) \rightarrow \theta(t)$ If all you care about is T or F, you can delete the row you are finished with every time you move to the next row, space complexity goes down to $O(t)$, where $t$ is the length of the row
+        \item Time complexity: $\theta(nt)$
+        \item Iterative; solves all problems
+        \item Bottom-up = you start from the base case (bottom) and build upwards to your solution
+    \end{itemize}
+
+    Top-down method:
+    \begin{itemize}
+        \item Same as recursive method, solves all problems you need to solve, recursion generally loses to iterative
+        \item But for lists with a high max value, top-down beats bottom-up in time
+        \item Top-down = you start with your solution and break it down into sub problems
+    \end{itemize}
+
+
+    \begin{lstlisting}[language=Python]
+def subset_sum_dynamic(numbers, target):
+    sp = [[False for j in range(target + 1)] for i in range(len(numbers) + 1)]
+    d = {}
+    for i in range(len(numbers) + 1):
+        sp[i][0] = True
+    for i in range(1, len(numbers) + 1):
+        for j in range(1, target + 1):
+            if numbers[i - 1] > j:
+                sp[i][j] = sp[i - 1][j]
+                if sp[i - 1][j]:
+                    d[i, j] = ((i - 1, j), False)
+            else:
+                sp[i][j] = sp[i - 1][j] or sp[i - 1][j - numbers[i - 1]]
+                if sp[i - 1][j]:h
+                    d[i, j] = ((i - 1, j), False)
+                elif sp[i - 1][j - numbers[i - 1]]:
+                    d[i, j] = ((i - 1, j - numbers[i - 1]), True)
+    if sp[len(numbers)][target]:
+        print(recover_solution(d, numbers, target))
+    return sp[len(numbers)][target]
+
+def subset_sum_top_down(numbers, target):
+    sp = {}
+    for i in range(len(numbers) + 1):
+        sp[(i,0)] = True
+    for i in range(target + 1):
+        sp[(0,i)] = i == 0
+    top_down_aux(numbers, len(numbers), target, sp)
+    print(len(sp))
+    return sp[(len(numbers),target)]
+
+def top_down_aux(numbers, i, j, sp):
+    if numbers[i - 1] > j:
+        if not (i - 1, j) in sp:
+            top_down_aux(numbers, i - 1, j, sp)
+        sp[(i, j)] = sp[(i - 1, j)]
+    else:
+        if not (i - 1, j) in sp:
+            top_down_aux(numbers, i - 1, j, sp)
+        if not (i - 1, j - numbers[i - 1]) in sp:
+            top_down_aux(numbers, i - 1, j - numbers[i - 1], sp)
+        sp[(i, j)] = sp[(i - 1, j)] or sp[(i - 1, j - numbers[i - 1])]
+\end{lstlisting}
+
+    \subsection{Splitting Strings}
+    This problem uses a function to split a string into substrings of valid english words. Using the Trie data structure, an $add\_word()$ function is used to recursively build up words from a text file. It uses the $can\_split()$ function to split the strings to create substrings and to check if they are valid strings. Note that the DP approach for this problem results in an almost linear time complexity.
+    \begin{itemize}
+        \item Time complexity: $O(m)$ where m is the length of the longest word
+        \item Space complexity: $O(mn)$ where n is the length of the string
+    \end{itemize}
+    \begin{lstlisting}[language=Python]
+def can_split_dynamic(s):
+    sp = [True]
+    d = {}
+    for i in range(len(s)):
+        b = False
+        for j in range(i, max(i - 22, -1), -1):
+            b = (sp[j] and t.check_word(s[j:i+1]))
+            if b:
+                d[i] = j
+                break
+        sp.append(b)
+    return (sp,d)
+\end{lstlisting}
+
+    \subsection{Tries}
+    \begin{lstlisting}[language=Python]
+class Trie:
+    def __init__(self):
+        self.is_word = False
+        self.children = [None for _ in range(26)]
+
+    def add_word(self, word):
+        if word == "":
+            self.is_word = True
+        else:
+            if self.children[letter_index(word[0])] == None:
+                self.children[letter_index(word[0])] = Trie()
+            self.children[letter_index(word[0])].add_word(word[1:])
+
+    def check_word(self, word):
+        if word == "":
+            return self.is_word
+        else:
+            if self.children[letter_index(word[0])] == None:
+                return False
+            return self.children[letter_index(word[0])].check_word(word[1:])
+
+    def get_height(self):
+        heights = []
+        for child in self.children:
+            if child != None:
+                heights.append(child.get_height())
+        if heights == []:
+            return 1
+        return 1 + max(heights)
+
+    def get_num_words(self):
+        num_words = []
+        for child in self.children:
+            if child != None:
+                num_words.append(child.get_num_words())
+        if self.is_word:
+            return 1 + sum(num_words)
+        return sum(num_words)
+
+    def create_random_word(self):
+        index_list = []
+        for i in range(26):
+            if self.children[i] != None:
+                index_list.append(i)
+        if self.is_word:
+            index_list.append(-1)
+        j = random.randint(0, len(index_list) - 1)
+        j = index_list[j]
+        if j == -1:
+            return ""
+        return char_from_index(j) + self.children[j].create_random_word()
+
+
+def letter_index(letter):
+    return ord(letter) - 97
+
+def char_from_index(i):
+    return chr(i+97)
+\end{lstlisting}
+
+    \subsection{Egg Drop Problem}
+    This problem is about determining which floor you can drop an egg from to see if the egg breaks. Below are the cases for the recursion:
+    \begin{itemize}
+        \item Case 1: The egg breaks. Lets say you have k eggs and you drop one and the egg breaks, then you have k-1 eggs and you have between 1 - n' floors to check, so sp(k, n) = sp(k-1, n'-1)
+        \item Case 2: The egg doesn't break. In this case, you search between n' to n, so we get sp(k,n) = sp(k, n-n')
+        \item The overall recursion is max(sp(k-1, n'-1), sp(k, n-n')) + 1
+    \end{itemize}
+    The complexity of this problem is
+    \begin{itemize}
+        \item Time Complexity: O($F^2$E) ?
+        \item Space Complexity:
+    \end{itemize}
+    % idk if this is the proper code for this problem, just found this in the python file
+    \begin{lstlisting}[language=Python]
+def min_drops(floors, eggs):
+    opt_floors = {}
+    L = sp = [[float("inf") for j in range(eggs+1)] for i in range(floors)]
+    for i in range(floors):
+        sp[i][1] = i+1
+    for j in range(1, eggs+1):
+        sp[0][j] = 1
+    for i in range(1, floors):
+        for j in range(2, eggs+1):
+            current_min = float("inf")
+            current_index = -1
+            for n in range(1, i+1):
+                if current_min >= max(sp[i-n][j], sp[n-1][j-1]) + 1:
+                    current_min = max(sp[i-n][j], sp[n-1][j-1]) + 1
+                    current_index = n
+            sp[i][j] = current_min
+            opt_floors[i,j] = current_index
+    return sp[floors-1][eggs], opt_floors
+\end{lstlisting}
+    \subsection{dynamic problem ex: LCS}
+    Given two strings str1 and str2, return the length of their longest common subsequence.
+    \begin{lstlisting}[language=Python]
+def lcs_recursive(str1, str2, m, n): 
+    if m == 0 or n == 0: 
+       return 0
+    if str1[m-1] == str2[n-1]: 
+       return 1 + lcs_recursive(str1, str2, m-1, n-1); 
+    else: 
+       return max(lcs_recursive(str1, str2, m, n-1), lcs_recursive(str1, str2, m-1, n));
+
+#memoization cache
+L = [[None]*(n+1) for i in range(m+1)]
+
+def lcs_topdown(str1, str2, m, n):
+  if m == 0 or n == 0:
+    # Base case: LCS is 0 if either string has length 0.
+    return 0
+  
+  if L[m][n] != -1:
+    # If the length of the LCS for this pair of prefixes has already been computed
+    return L[m][n]
+  
+  if str1[m-1] == str2[n-1]:
+    # If the last characters of the strings match, include them in LCS.
+    # Recursively call the function with the last character removed from each string.
+    L[m][n] = 1 + lcs_topdown(str1, str2, m-1, n-1)
+    return L[m][n]
+  else:
+    # If the last characters of the strings don't match, take max LCS by excluding last character of X or Y.
+    L[m][n] = max(lcs_topdown(str1, str2, m, n-1), lcs_topdown(str1, str2, m-1, n))
+    return L[m][n]
+
+    def lcs_bottomup(str1 , str2): 
+    m = len(str1) 
+    n = len(str2) 
+
+    L = [[None]*(n+1) for i in range(m+1)] 
+
+    for i in range(m+1): 
+        for j in range(n+1): 
+            if i == 0 or j == 0 : 
+                L[i][j] = 0
+            elif str1[i-1] == str2[j-1]: 
+                L[i][j] = L[i-1][j-1]+1
+            else: 
+                L[i][j] = max(L[i-1][j] , L[i][j-1]) 
+
+    return L[m][n] 
+\end{lstlisting}
+    % \subsection{recursion to dp}
+    % \begin{itemize}
+    %     \item Identify the base case and recursive cases of the original recursive program.
+    %     \item Create an array or a matrix to store the results of the recursive calls. This will allow you to avoid recalculating the same values multiple times.
+    %     \item Rewrite the recursive function to use the array or matrix to store and retrieve the results of the recursive calls.
+    %     \item Use a loop to iterate through the array or matrix in the correct order to calculate the values. This will allow you to avoid the function call stack and improve the time complexity of the algorithm.
+    %     \item Return the final result from the array or matrix.
+    % \end{itemize}
+    \section{Lab Takeaways}
+    \subsection{Lab 2}
+    Covers the bad sorts (bubble, selection, insertion)
+    \begin{itemize}
+        \item Despite all the bad algorithms having the same worst-case performance, in the real world they performed significantly differently, with bubble sort being very bad and selection sort being the best (even though insertion sort should be theoretically faster)
+        \item ``Optimizing'' an algorithm might make the runtime worse, if the optimization being performed ends up having more overhead than the non-optimized version
+        \item Selection sort does not change with more or less disorder in the array, while insertion sort and bubble sort both perform better with a more ordered array.
+    \end{itemize}
+
+    \subsection{Lab 3}
+    Covers heap < merge < quick sort.
+    \begin{itemize}
+        \item In general, quicksort is fastest, with mergesort and heapsort trailing behind for one-off sorting.
+        \item When arrays are near-sorted, the performance of quicksort falls off of a cliff
+        \item Modifications to quicksort (dual quicksort) improve performance, up to a limit
+        \item Bottom-up mergesort tends to be a good bit faster than top-down mergesort, as the recursive splitting step is removed
+        \item Insertion sort is faster than mergesort and quicksort for very small lists (less than 10-15
+              elements in the list)
+    \end{itemize}
+
+    \subsection{Lab 4}
+    \begin{itemize}
+        \item As the proportion of edges increases, the probability of a cycle occurring in the graph also increased.
+        \item The probability of all edges in a graph being connected follows a sigmoid curve
+    \end{itemize}
+
+    \subsection{Lab 5}
+    \begin{itemize}
+        \item The set of nodes in a minimum vertex cover and the set of nodes in a maximum independent set can be summed to equal the set of all nodes in a graph.
+    \end{itemize}
+
+    \subsection{Lab 6}
+    \begin{itemize}
+        \item Red-black trees have approximately half the height of a naive binary search tree, when working with random data.
+        \item Binary search trees perform significantly worse with ordered data, versus random data, due to the lack of balancing. Red-black trees have relatively constant performance no matter the degree of disorder.
+        \item If insertion speed is significantly more important than maintaining a perfectly balanced search tree, naive BSTs may be viable, but in most cases RBTs are preferred.
+    \end{itemize}
+
+    \subsection{Lab 7}
+    \begin{itemize}
+        \item Height of XC3-Tree can be determined from its degree $i$ using the equation $h(i) = \lceil i/2 \rceil$, or by leaf node $n$ where $h = \log_\phi (n)$
+        \item Number of nodes in an XC3-Tree with degree $i$ can be found using Fibonacci sequence where $nodes(i) = nodes(i-1) + nodes(i-2)$
+        \item ``Proof'':
+              Suppose $x \in \{\textit{nodes}(i)\}, i \in \mathbb{N}$ and $\phi = \frac{1+ \sqrt{5}}{2}$, the golden ratio.
+              Then,
+              \begin{align*}
+                  h(x) & = \log_\phi (x)                                                                                       \\[-1.3em]
+                       & = \log_\phi \overbrace{(\textit{nodes}(x-1) + \textit{nodes}(x-2))}^{\textnormal{Fibonacci Sequence}}
+              \end{align*}
+
+              By the definition of logarithms, the above equality holds because we are dividing the Fibonacci sequence by $\phi$,
+              until it is equal to $1$. Since the number of nodes in a XC3-Tree is the Fibonacci sequence--as derived at the beginning of this experiment--the
+              division of each node by $\phi$, by the definition of the golden ratio, represents the number of Fibonacci numbers we go through
+              to get to the root node.
+
+              So, $\log_\phi (x)$ gives us the number of times we divided by $\phi$ to get to $1$.
+
+              Since the number of times we divide by $\phi$ represents
+              the number of Fibonacci numbers we go through to get first base case (which is the root node in the XC3 tree),
+              The height of the tree must be $\log_\phi (n)$ for some leaf node $n$. Now, since we have shown that the height of the XC3-tree is $\log_\phi (n)$, we can write
+              that the time complexity of an XC3-tree is $O(\log_\phi (n))$ because of the change of base properties of the logarithm.
+
+              % this shit is too long
+              % someone figure out how to shrink it or cut it
+    \end{itemize}
+
+
+    \subsection{Final Lab}
+    \begin{itemize}
+        \item Bellman-Ford's approximation algorithm performs significantly better than normal Bellman-Ford, while generally not being affected by the reduced number of relaxations
+        \item Dijkstra's approximation algorithm performs poorly when the number of relaxations is small compared to the size and density of the graph
+        \item Empirically testing A* on random data is hard, but using real-world data makes it easier
+        \item Straight-line approximation is a good heuristic for A* on real-world data
+        \item Use A* when we know the ending node, and have a good heuristic to work with.
+    \end{itemize}
+
+    % \section{Red-Black Trees}
+    % Only the insert() and fix() functions tho
+    % \begin{lstlisting}[language=python]
+    %     def __insert(self, node, value):
+    %         if value < node.value:
+    %             if node.left == None:
+    %                 node.left = RBNode(value)
+    %                 node.left.parent = node
+    %                 self.fix(node.left)
+    %             else:
+    %                 self.__insert(node.left, value)
+    %         else:
+    %             if node.right == None:
+    %                 node.right = RBNode(value)
+    %                 node.right.parent = node
+    %                 self.fix(node.right)
+    %             else:
+    %                 self.__insert(node.right, value)
+    %     def fix(self, node):
+    %         #You may alter code in this method if you wish, it's merely a guide.
+    %         if node.parent == None: # makes root black
+    %             node.make_black()
+    %         while node != None and node.parent != None and node.parent.is_red(): 
+    %             # case of uncle being black
+    %             if node.uncle_is_black() :
+    %                 #left left case (parent of node is left child, node is left child)
+    %                 if (node.parent == node.gparent().left) and (node == node.parent.left) : 
+    %                     y = self.rotate_right(node.gparent())
+    %                     y.right.colour, y.colour = y.colour, y.right.colour # swaps colours
+    %                 #left right case (parent of node is left child, node is right child of parent)
+    %                 elif (node.parent == node.gparent().left) and (node == node.parent.right) :
+    %                     temp = node
+    %                     x = self.rotate_left(node.parent)
+    %                     #left left case is reused
+    %                     y = self.rotate_right(x.parent)
+    %                     y.right.colour, y.colour = y.colour, y.right.colour
+    %                 #right right case (parent of node is right child, node is right child of parent)
+    %                 elif (node.parent == node.gparent().right) and (node == node.parent.right) :
+    %                     y = self.rotate_left(node.gparent())
+    %                     y.left.colour, y.colour = y.colour, y.left.colour
+    %                 #right left case (parent of node is right child, node is left child of parent)
+    %                 elif (node.parent == node.gparent().right) and (node == node.parent.left) :
+    %                     temp = node
+    %                     x = self.rotate_right(node.parent)
+    %                     # right right case is reused
+    %                     y = self.rotate_left(x.parent)
+    %                     y.left.colour, y.colour = y.colour, y.left.colour
+    %                 node = node.parent
+    %             # case of uncle being red
+    %             else :
+    %                 node.parent.make_black()
+    %                 node.get_uncle().make_black()
+    %                 node.gparent().make_red()
+    %                 node = node.gparent()
+    %         self.root.make_black()
+    % \end{lstlisting}
+    % \section{Improved Sorts}
+    % \subsection{Insertion Sort}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    %     def insertion_sort2(L) :
+    %        for i in range(1, len(L)):
+    %         insert2(L, i)
+    %     def insert2(L, i):
+    %         value = L[i]
+    %         while i > 0:
+    %             if L[i - 1] > value:
+    %                 L[i] = L[i - 1]
+    %                 i -= 1
+    %             else:
+    %                 L[i] = value
+    %                 return
+    %         L[0] = value
+    % \end{lstlisting}
+
+    % \subsection{Bubble sort (maybe improved?)}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    %     def bubble_sort2(L) :
+    %     value_i = L[0]
+    %     for i in range(len(L)) :
+    %         value_i = L[0]
+    %         for j in range(len(L) - 1) :
+    %             if value_i > L[j+1] :
+    %                 L[j] = L[j+1]
+    %             else :
+    %                 L[j] = value_i
+    %                 value_i = L[j+1]
+    %             if j == len(L) - 2 :
+    %                 L[len(L) - 1] = value_i
+    % \end{lstlisting}
+
+    % \subsection{Selection Sort}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    %     def improved_selection_sort(L):
+    %         for i in range(floor(len(L)/2)):
+    %             minman_index = find_max_min_index(L, i)#get min
+    %             if (L[i] != L[minman_index[0]]): swap(L, i, minman_index[0])#swap min value
+    %             if (L[i] != L[minman_index[1]]): swap(L, len(L) - i - 1, minman_index[1])#swap max value
+
+    %     #aux function for improved select sort
+    %     def find_max_min_index(L, n):
+    %         max_index = len(L) - n - 1
+    %         min_index = n
+    %         for i in range(n, len(L) - n):
+    %             if L[i] > L[max_index]:
+    %                 max_index = i
+    %             if L[i] < L[min_index]:
+    %                 min_index = i
+    %         return (min_index, max_index)
+    % \end{lstlisting}
+
+    % \subsection{Dual Pivot Quicksort}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % def dual_quicksort(L):
+    %     copy = dual_quicksort_copy(L)
+    %     for i in range(len(L)):
+    %         L[i] = copy[i]
+
+    % def dual_quicksort_copy(L):
+    %     if len(L) < 3:
+    %         return L
+    %     pivot1 = L[0]
+    %     pivot2 = L[len(L) - 1]
+    %     if pivot1 > pivot2: 
+    %         pivot1, pivot2 = pivot2, pivot1
+    %     left, middle, right = [], [], []
+    %     for num in L[1:len(L) - 1:]:
+    %         if num < pivot1:
+    %             left.append(num)
+    %         elif num >= pivot1 and num <= pivot2: 
+    %             middle.append(num)
+    %         else:
+    %             right.append(num)
+    %     return dual_quicksort_copy(left) + [pivot1] + dual_quicksort_copy(middle) + [pivot2] + dual_quicksort_copy(right)
+    % \end{lstlisting}
+
+    % \section{Disjoint Set/Union Find (just in case)}
+    % \begin{lstlisting}[language=Python, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+    % class DisjointSet:
+    %     def __init__(self, values):
+    %         self.parents = {}
+    %         self.size = {}
+    %         for value in values:
+    %             self.parents[value] = value
+    %             self.size[value] = 1
+
+    %     def find(self, value):
+    %         if self.parents[value] == value:
+    %             return value
+    %         self.parents[value] = self.find(self.parents[value])
+    %         return self.parents[value]
+
+    %     def union(self, value1, value2):
+    %         root1 = self.find(value1)
+    %         root2 = self.find(value2)
+    %         if root1 == root2:
+    %             return
+
+    %         if self.size[root1] >= self.size[root2]:
+    %             self.parents[root2] = root1
+    %             self.size[root1] += self.size[root2]
+    %         else:
+    %             self.parents[root1] = root2
+    %             self.size[root2] += self.size[root1]
+    % \end{lstlisting}
+
+    % \tikz[remember picture,overlay] \node[opacity=0.2,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight]{./maccio.png}};
+    \section{}
+\end{multicols*}
+
+\end{document}

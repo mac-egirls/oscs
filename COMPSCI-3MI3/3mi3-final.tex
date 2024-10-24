@@ -1,0 +1,821 @@
+% IF YOU CAN SEE THIS GO CONTRIBUTE >:(
+
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{courier}
+\usepackage{syntax}
+\usepackage{mathpartir}
+
+% minimal line spacing
+\setstretch{0.1}
+
+% set borders (experimentally determined to minimize cutoff and maximize space on school printers)
+\geometry{top=.25in,left=.25in,right=.25in,bottom=.35in}
+
+% make figures work better in multicol
+\newenvironment{Figure}
+{\par\medskip\noindent\minipage}
+{\endminipage\par\medskip}
+
+\pagestyle{empty} % clear page
+
+% rewrite section commands to be smaller
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0} % disable section numbering
+
+
+% disable indenting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+\NewDocumentCommand\prefixvalue{m}{%
+\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+\newcommand{\To}{\Rightarrow}
+\newcommand{\ttt}{\texttt}
+\newcommand{\ra}{\rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+\title{3MI3}
+
+\begin{document}
+\raggedright
+\tiny
+
+% make listings look nicer
+\lstset{
+    tabsize = 2, %% set tab space width
+    showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
+    basicstyle = \tiny\ttfamily, %% set listing font and size
+    breaklines = true, %% enable line breaking
+    numberstyle = \tiny,
+    postbreak = \mbox{\textcolor{red}{\(\hookrightarrow\)}\space}
+}
+
+\begin{center}
+    {\textbf{3MI3 Final -- Year of the Rabbit Edition}} \\
+\end{center}
+% set column spacing rules
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\begin{multicols*}{4}
+    \section{Programming languages}
+    \subsection{Important languages}
+    \textbf{Fortran} -- First lang w/ a compiler, syntax is whatever the compiler accepts, no formal standards set.
+    \textbf{Lisp} -- Computing abstract / symbolic stuff, dynamic scope for variables.
+    \textbf{COBOL} -- Used for ``business'' programming, verbose and made to read like English, good layout capabilities.
+    \textbf{Algol 60} -- First language with a standard (BNF invented for this), designed by committee.
+    \textbf{ML} -- Abstract data types, hides details about types from programmer, can't lie to compiler, tradeoff of more debugging for less hassle down the line.
+
+    \subsection{Esoteric languages}
+    Esolangs are programming languages designed to experiment with weird ideas, made intentionally hard to program in, or as a joke, rather than practical use.
+    Esolangs are known for breaking modern coding conventions to possible innovate with new ideas.
+    Some examples of esolangs are Shakespeare, Befunge (2D text syntax), LOLCODE, Malbolge (designed to be unwritable - `crazy operation', base-three arithmetic, and self-altering code), INTERCAL (satire of programming languages and new notation), Brainfuck (minimal, unreadable turing machine simulator), and PIET (syntax as blocks of colour in an image).
+
+    \section{Syntax}
+    How a programming language ``looks''.
+    Often a string, but can be a picture (Monet), or a grid of cells (Excel).
+    \subsection{BNF}
+    Formal specification of string-based syntaxes.
+    \begin{grammar}
+        <e> ::= x
+        \alt \(\lambda x <e>\)
+        \alt <e> <e>
+        \alt (<e>)
+    \end{grammar}
+
+    \section{Dynamic Semantics}
+    % Small-step semantics
+    % -> Lambda calculus - Call-by-name vs Call-by-value
+    % domain-specific languages
+    % shallow vs deep vs tagless embeddings
+
+    \subsection{Substitution}
+    \([x \mapsto s]x = s\) \qquad
+    \(x[v/x] = v\)
+    \subsection{Evaluation Strategies}
+
+    Can't evaluate anything under a lambda in both of the below strategies.
+    \subsubsection{Full Beta-Reduction:} beta-reduce in any order: non-deterministic.
+    \subsubsection{Normal Order:} reduce the leftmost, outermost expression until no more expressions.
+    \subsubsection{Call by Name} --
+    Evaluate function calls without evaluating arguments. Stop when the outermost term is a lambda.
+    % idk put the rules or an example here
+
+    % TODO: if we run out of space delete this and replace it with an explanation
+    \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
+    \(\inferrule{ }{(\lambda x.e_1)e_2 \to e_1[e_2/x]}\)
+    \(\inferrule{ }{\operatorname{fst}(e_2, e_2) \to e_2}\)
+    \(\inferrule{ }{\operatorname{snd}(e_1, e_2) \to e_2}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{and} e_1 e_2 \to \operatorname{and} e_1' e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{true} e_2 \to e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{false} e_2 \to \operatorname{false}}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{if} e_1 \operatorname{then} e_2 \operatorname{else} e_3 \to \operatorname{if} e_1' \operatorname{then} e_2 \operatorname{else} e_3}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{true}\operatorname{then} e_2 \operatorname{else} e_3 \to e_2}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
+    \(\inferrule{ }{\operatorname{let} x = e_1 \operatorname{in} e_2 \to e_2[e_1/x]}\)
+
+    \subsubsection{Call by Value} --
+    Evaluate arguments to function calls before evaluating the function call itself. Stop when the outermost term is a lambda. This is the evaluation strategy most languages adopt.
+
+    \(\inferrule{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2}\)
+    \(\inferrule{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'}\)
+    \(\inferrule{ }{(\lambda x.e_1) v_2 \to e_1[v_2/x]}\)
+    \(\inferrule{e_1 \to e_1'}{(e_1, e_2) \to (e_1', e_2)}\)
+    \(\inferrule{e_2 \to e_2'}{(v_1, e_2) \to (v_1, e_2')}\)
+    \(\inferrule{ }{\operatorname{fst} (v_1, v_2) \to v_1}\)
+    \(\inferrule{ }{\operatorname{snd} (v_1, v_2) \to v_2}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{and} e_1 e_2 \to \operatorname{and} e_1' e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{true} e_2 \to e_2}\)
+    \(\inferrule{ }{\operatorname{and}\operatorname{false} e_2 \to \operatorname{false}}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{if} e_1 \operatorname{then} e_2 \operatorname{else} e_3 \to \operatorname{if} e_1' \operatorname{then} e_2 \operatorname{else} e_3}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{true}\operatorname{then} e_2 \operatorname{else} e_3 \to e_2}\)
+    \(\inferrule{ }{\operatorname{if}\operatorname{false}\operatorname{then} e_2 \operatorname{else} e_3 \to e_3}\)
+    \(\inferrule{e_1 \to e_1'}{\operatorname{let} x = e_1 \operatorname{in} e_2 \to \operatorname{let} x = e_1' \operatorname{in} e_2}\)
+    \(\inferrule{ }{\operatorname{let} x = v_1 \operatorname{in} e_2 \to e_2[v_1/x]}\)
+
+    % somebody please fix the formatting on this
+    % \textbf{Call by Value rules for pairs only}
+    % $\begin{array}{ccc}
+    %     \begin{array}{c}
+    %     e_{1}\rightarrow e_{1}'\\
+    %     \hline
+    %     (e_{1}, e_{2}) \rightarrow (e_{1}', e_{2})
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     e_{2}\rightarrow e_{2}'\\
+    %     \hline
+    %     (v_{1}, e_{2}) \rightarrow (v_{1}, e_{2}')
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     e\rightarrow e'\\
+    %     \hline
+    %     \mathrm{fst}\ e \rightarrow \mathrm{snd}\ e'
+    %     \end{array}\\
+    %     \\
+    %     \begin{array}{c}
+    %     e\rightarrow e'\\
+    %     \hline
+    %     \mathrm{snd}\ e\rightarrow \mathrm{snd}\ e'
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     \\
+    %     \hline
+    %     \mathrm{fst}\ (v_{1}, v_{2}) \rightarrow v_1
+    %     \end{array}\\
+    %     &
+    %     \begin{array}{c}
+    %     \\
+    %     \hline
+    %     \mathrm{snd}\ (v_{1}, v_{2}) \rightarrow v_2
+    %     \end{array}
+    %     \end{array}$
+
+    % add if u want
+    % \section{Typing Rules}
+
+    \subsection{Church Encodings}
+
+    \subsubsection{Booleans}
+    tru = $\lambda t. \lambda f. t $\\
+    fls = $\lambda t. \lambda. f. f $\\
+    and = $\lambda b. \lambda c. b c \ \text{fls}$\\
+    or = $\lambda b. \lambda c. b \ \text{tru} \  c$ %correct this if wrong idk if this is right
+    not = $\lambda p. p \ \text{fls}\ \text{tru}$
+
+    \subsubsection{Numerals}
+    0 = $\lambda s. \lambda z. z$\\
+    1 = $\lambda s. \lambda z. s z$\\
+    2 = $\lambda s. \lambda z. s (s z)$
+    plus = $\lambda m.\lambda n.\lambda f.\lambda x. m\ f\ (n\ f\ x)$ \\
+    succ = $\lambda n.\lambda f.\lambda x. f\ (n\ f\ x)$\\
+    mult = $\lambda m.\lambda n.\lambda f.\lambda x.m\ (n\ f)\ x$\\
+    exp = $\lambda m.\lambda n. n\ m$\\
+    pred = $\lambda n.\lambda f.\lambda x. n\ (\lambda g.\lambda h. h\ (g\ f))\ (\lambda u. x)\ (\lambda u. u)$\\
+    pred = $\lambda m. fst (m ss zz)$ where $ss = \lambda p. pair (snd p) (plus c_1 (snd p))$ and
+    $zz = pair c_0 c_0$\\
+    minus = $\lambda m.\lambda n. (n \ \text{pred})\ m$\\
+    iszero = $(\text{minus}\ n\ m)$\\
+    iszero = $\lambda m.m (\lambda x.\ \text{fls}) \text{tru}$\\
+
+    \subsubsection{Pairs}
+    pair = $\lambda x.\lambda y.\lambda z.z\,x\,y$\\
+    fst = $\lambda p.p (\lambda x.\lambda y.x)$\\
+    snd = $\lambda p.p (\lambda x.\lambda y.y)$
+
+    \subsubsection{Either} % someone check if these are wrong
+    left = $\lambda a. \lambda l. \lambda r. l a$\\
+    right = $\lambda b. \lambda l. \lambda r. r b$
+
+    \subsubsection{Lists}
+    nil = $\lambda c.\lambda n.n$\\
+    cons = $\lambda h.\lambda t.\lambda c.\lambda n.c\,h\,(t\,c\,n)$\\
+    isnil = $\lambda l. l (\lambda h. \lambda t. \ \text{fls}) \ \text{tru}$\\
+    head = $\lambda l. l (\lambda h. \lambda t. h) \ \text{fls}$\\
+    tail = $\lambda l. \lambda c. \lambda n. l (\lambda h. \lambda t. \lambda g. g h (t c)) (\lambda t. n) (\lambda h. \lambda t. t)$\\
+
+    % credit to milenb17#9439 on Discord
+    \subsubsection{Trees}
+    leaf = \(\lambda x.\lambda b.\lambda l.l ,x\)\\
+    branch = \(\lambda x.\lambda y.\lambda b.\lambda l. ,b ,(x, l, b) ,(y, l, b)\)
+
+    % credit to xeqla on Discord
+    \subsubsection{Maybe}
+    nothing = $\lambda n.\lambda j. n$\\
+    just = $\lambda a. \lambda n.\lambda j. j a$\\
+    isNothing = $\lambda n. n (\lambda _. \text{true})(\lambda _. \text{false})$\\
+    isJust = $\lambda n. n (\lambda _. \text{false})(\lambda _. \text{true})$\\
+    maybe = $\lambda \text{def}. \lambda f. \lambda m. m \text{def}(\lambda a.\;f\;a)$
+
+    \subsection{Domain Specific Languages (DSLs)}
+    \subsubsection{Shallow}
+    Implement the DSL as functions.
+    Ex. for pic DSL, stuff is given as functions.
+    Easy to add new functions,
+    but can suck if you want to extend to more interpretations since you can't reuse functions.
+    Pros:
+    \begin{itemize}
+        \item{easy extensibility of terms}
+        \item{Has nice syntax due to being programmed in an established language}
+        \item{piggyback on host language's type system (pro in some cases)}
+    \end{itemize}
+    Cons:
+    \begin{itemize}
+        \item{no reuse of ASTs}
+        \item{Hard to re-interpret terms with other meanings (e.g. hard to change format of a picture)}
+        \item{things are immediately evaluated}
+        \item{piggyback on host language's type system (con in some cases), e.g. if you want
+              to move your dsl to another language}
+        \item{Cannot easily perform program transformations (e.g. optimizations)}
+    \end{itemize}
+    \subsubsection{Deep}
+    Datatype to represent syntax.
+    Can easily write new interpretation functions.
+    But annoying to add new operations because all interpretations need to be extended.
+    Pros:
+    \begin{itemize}
+        \item{easy reuse of programs written in the DSL}
+        \item{custom validity system}
+        \item{simulatable}
+        \item{domain-specific interpretations, e.g. tool creation, analysis, re-writing, optimization passes, etc.}
+        \item{Can easily perform program transformations (e.g. optimizations)}
+    \end{itemize}
+    Cons:
+    \begin{itemize}
+        \item{Ugly syntax}
+        \item{extra tag i.e. the DSL is a little less efficient}
+        \item{term set is typically not 'open'}
+              \begin{itemize}
+                  \item{we can't easily extend a language without recompilation
+                        and defining interpreation of new terms for all previously
+                        defined operators}
+                  \item{expression problem (? related to above?)}
+              \end{itemize}
+    \end{itemize}
+    \subsubsection{Tagless}
+    Best of shallow and deep.
+    The language is the interpretation.
+    If we want to add a new operation we can easily add a new class that extends the original.
+    To create a new interpretation just create an instance of the class.
+    Pros:
+    \begin{itemize}
+        \item{Both of the pros from shallow and deep embeds}
+        \item{Programming against an abstract interface is nice}
+    \end{itemize}
+    Cons:
+    \begin{itemize}
+        \item{Speed: the compiler does not know what you are working against with an abstract
+              interface so compiler optimizations might not work properly}
+    \end{itemize}
+
+    \section{Static Semantics (Typing)}
+    % types
+    % Progress rule (always be able to make a step towards the value)
+    % (for every well-typed program, either I can make a step, or e is a value)
+    % Preservation rule (if a term is well-typed, and we evaluate it once under
+    % single-step operational semantics, the resulting term is also well typed.)
+    \textbf{Type safety} is an assurance that computations do not lead to mismatched types in other computations — program execution does not lead to ill-defined states.
+    A \textbf{type system} consists of two pieces; judgements and inference rules. A judgement is some property that the type system lets us show; for instance, we might have a judgement that asserts that some term x has type A. The inference rules allow us to actually prove that some judgement holds. For instance, this is how one might prove that (true, false) has type Bool × Bool.
+    DSLs are particularly neat because they allow for domain-specific: analysis, validation, interpretation, optimization, tooling, etc.
+
+    \subsection{Progress}
+    Definition: a well-typed term is either a value or, or
+    may be evaluated once under single-step operational semantics. That is, a
+    well-typed term is not stuck.
+    \subsection{Preservation}
+    Definition: if a term is well-typed, and we evaluate it
+    once under single-step operational semantics, the resulting term is also
+    well typed.
+
+
+
+    \subsection{Context}
+    % context list and how it works
+    % unification (????? idk i didnt pay attention to this section)
+    % u jus like me fr
+    \subsection{Unification}
+    \subsubsection{Unification Algorithm}
+    % Note: screenshotted from tb p327, transcribe if you want
+    % \includegraphics[width=\linewidth]{unification-algorithm.png}
+    unify(C) =\\
+    $\text{if } C = \O, \text{then [ ]} $\\
+    $\text{else let } \{S = T\} \bigcup C' = C \text{ in} $\\
+    $\text{if } S = T$\\
+    $\qquad \text{then } \operatorname{unify}(C')$\\
+    $\text{else if } S = X \text{ and }X \not \in FV(T)$ (If S is unbounded in T:)\\
+    $\qquad \text{then } \operatorname{unify}([X \mapsto S]C' \circ [X \mapsto T]$\\
+    $\text{else if } T = X \text{ and } X \not \in FV(S)$ (If T is unbounded in S:)\\
+    $\qquad \text{then } \operatorname{unify}([X \mapsto T]C') \circ [X \mapsto S]$\\
+    $\text{else if } S = S_1 \to S_2 \text{ and } T =T_1 \to T_2$\\
+    $\qquad \text{then } \operatorname{unify}(C' \cup \{S_1 = T_1, S_2 = T_2\})$\\
+    $\text{else}$\\
+    $\qquad \text{fail}$
+
+    \subsection{Unification Less Yap}
+
+    if $C = \O \implies []$\\
+    $\;\;\;\text{Attempt to get }S=T \text{ from } C:$\\
+    $\;\;\;\;\;\;C' = C - \{S = T\}$\\
+    $\;\;\;\;\;\;\text{If } S=T \text{ directly:}$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C')$\\
+    $\;\;\;\;\;\;\text{If S is unbounded in T:}$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[S \mapsto T]) \circ [S \mapsto T]$\\
+    $\;\;\;\;\;\;\text{If T is unbounded in S:}$\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C'[T \mapsto S]) \circ [T \mapsto S]$\\
+    $\;\;\;\;\;\;\text{If S=T follows }s_1 \to s_2 = t_1 \to t_2$:\\
+    $\;\;\;\;\;\;\;\;\;\implies \text{unify}(C' + \{s_1 = t_1, s_2 = t_2\})$\\
+
+    $\;\;\;\text{If no }S=T \subseteq C:$\\
+    $\;\;\;\;\;\;\text{Choose } S = s_1 \to t_1 \text{ and } T = t_1 \to t_2:$\\
+    $\;\;\;\;\;\;C' = C - \{S, T\}$\\
+    $\;\;\;\;\;\;\implies \text{unify}(C' + \{s_1 = t_1, s_2 = t_2\})$\\
+
+    % featherweight java (wtf?)
+
+    % subtyping
+    \subsection{Subtyping}
+    $S <: T$ says `$S$ is a subtype of $T$'.\\
+    Unlike `subsets' a subtype is `more informative', meaning it may contain more parameters, but never fewer. So a subtype can always be used safely in place of the `supertype.'\\
+    e.g. $S = \{x : \text{Nat}, y: \text{Nat}\}, T = \{x : \text{Nat}\}$, so $S <: T$.\\
+
+    \subsubsection{Rules}
+    T-Sub: \(\frac{\Gamma \vdash t : S \quad S <: T}{\Gamma \vdash t : T}\)\\
+    \textit{`subtype can be typed as its supertype, too'}\\
+    S-Refl: \(S <: S\)\\
+    \textit{`everything is a subtype of itself'}\\
+    S-Trans: \(\frac{S<: U \quad U<:T}{S<:T}\)\\
+    \textit{`subtype relation is transitive'}\\
+    S-RcdWidth: \(\{ l_{i}: T_{i}^{i \in  1..n +k} \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}\)\\
+    \textit{`we can add extra fields in a record, still a subtype'}\\
+    S-RcdDepth: \(\frac{\text{for each } i \quad S_{i} <: T_{i}}{\{ l_{i}: S_{i}^{i \in  1..n } \} <: \{ l_{i}: T_{i}^{i \in  1..n} \}}\)\\
+    \textit{`can also add depth-wise (within each field's fields)'}\\
+    S-RcdPerm: \(\frac{\{k_{j} :S_{j}^{j \in 1..n}\} \text{ is perm. of } \{l_{i}:T_{i}^{i \in 1..n} \}}{\{k_{j}:S_{j}^{j \in 1..n} \} <: \{l_{i}: T_{I}^{i \in 1..n} \}}\)\\
+    \textit{`order of fields does not matter (can be a permutation)'}\\
+    S-Arrow: \(\frac{T_{1} <: S_{1} \quad S_{2} <: T_{2}}{S_{1} \to S_{2} <: T_{1} \to T_{2}}\)\\
+    \textit{`a function that takes in less information and outputs more, is a subtype of a function that takes in more information and outputs less'}\newline
+
+    \textbf{Definition}: $S <: T$ means that an element of S may be safely used whereever an element of T is expected.\\
+    This S-Arrow subtype relation is \textbf{contravariant} in the left-hand sides of arrows , and
+    \textbf{covariant} in the right-hand sides of arrows.
+    The intuition is that if we have a function \(S_1 \to S_2\),
+    then it will accept any subtype of \(S_1\) as input,
+    and the result \(S_2\) can be viewed as belonging to any supertype of \(S_2\).\\
+    S-Top: \(S<: \text{Top}\), where \(\text{Top}\) is a new type constant that is a supertype of every type.\\
+    \textbf{Definition:} Liskov's substitution principle: If X inherits from Y, then X should pass
+    all of Y's black box texts. Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it. A function works on all subclasses of a class. \\
+    \textbf{Rules:} (1) Inherited methods of a class must not strengthen preconditions or weaken
+    postconditions; it must accept a superset of the values the parent method accepts and output a subset
+    of the parent’s possible outputs. The parameters must be contravariant and the return values covariant.
+    (2) Subtypes must not weaken the class invariants. (3) History rule: the subtype cannot change in a
+    way prohibited by the supertype,
+
+    \section{Q\&A}
+
+    \subsection{Q1 Practice Answer}
+
+    % CBN Example
+    %((λx.λy.y y)((λw.w w)(λw.w w)))(λw.w)  
+    %(λy.y y) (λw.w) - λx is called, all x’s replaced w/ (λw.w w)(λw.w w) 
+    %(λw.w) (λw.w) - λy is called, all y’s replaced w/ (λw.w)
+    %(λw.w) - λw is called, all w’s replaced w/ (λw.w)
+    \subsubsection{CBN}
+    \begin{align*}
+         & ((\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w)))(\lambda w.w)      \\
+         & \textrm{//\(\lambda x\) is called, all \(x\)'s replaced}                      \\
+         & (\lambda y.y y) (\lambda w.w)                                                 \\
+         & \textrm{//\(\lambda y\) is called, all \(y\)'s replaced w/ \((\lambda w.w)\)} \\
+         & (\lambda w.w) (\lambda w.w)                                                   \\
+         & \textrm{//\(\lambda w\) is caled, all \(w\)'s replaced w/ \((\lambda w.w)\)}  \\
+         & (\lambda w.w)
+    \end{align*}
+
+    %CBV Example
+    % (λx.λy.y y)((λw.w w)(λw.w w))(λw.w) 
+    %(λx.λy.y y)((λw.w w)(λw.w w))(λw.w) - λw is called, all w’s replaced w/ (λw.w w)
+    % Does not terminate, infinite loop of (λw.w w)(λw.w w)
+    \subsubsection{CBV}
+    \begin{align*}
+         & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
+         & (\lambda x.\lambda y.y y)((\lambda w.w w)(\lambda w.w w))(\lambda w.w) \\
+         & \textrm{//infinite loop}
+    \end{align*}
+
+    \subsection{Q2 - CBV rules given CBN rules for pairs and projections}
+    \begin{mathpar}
+        \inferrule
+        { e_1 \to e_1'}
+        { (e_1, e_2) \to (e_1', e_2) }
+        \qquad
+        \inferrule
+        { e_2 \to e_2'}
+        { (v_1, e_2) \to (v_1, e_2') }
+        \qquad\\
+        \inferrule
+        { e_1 \to e_1'}
+        { \mathrm{fst}\ e_1 \to \mathrm{fst}\ e_1' }
+        \qquad
+        \inferrule
+        { e_1 \to e_1'}
+        { \mathrm{snd}\ e_1 \to \mathrm{snd}\ e_1' }
+        \qquad\\
+        \inferrule
+        { }
+        { \mathrm{fst}\ (v_1, v_2) \to v_1 }
+        \qquad
+        \inferrule
+        { }
+        { \mathrm{snd}\ (v_1, v_2) \to v_2 }
+    \end{mathpar}
+    CBV requires the full evaluation of the expression under fst/snd before operating on it. This means that the pair fst/snd is operating over must contain two expressions that can be fully evaluated.
+
+    \subsection{Q3 - Fix Incoherent Rules}
+    \begin{mathpar}
+        \inferrule
+        { e_1 \to e_1' }
+        { \mathrm{and}\ e_1\ e_2 \to \mathrm{and}\ e_1'\ e_2 }
+        \qquad
+        \inferrule
+        { }
+        { \mathrm{and}\ \mathrm{true} \ e_2 \to e_2}
+        \qquad\\
+        \inferrule
+        { }
+        { \mathrm{and}\ \mathrm{false} \ e_2 \to \mathrm{false}}
+    \end{mathpar}
+    The first rule is for and checks if $e_1$ can be evaluated.
+    The old rules checked if the second term was true or false,
+    meaning that $e_2$ would have to be the term true or false
+    since there is no rule to evaluate $e_2$ to see if it is true or false.
+
+    % shoutout elite
+    \subsection{Q8 - Expression evaluates in more steps under cbv}
+    \begin{flalign*}
+         & (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & \text{under cbn:}                                                         &  & \\
+         & (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & = (\lambda y. ((\lambda x. x) b) ((\lambda x. x) b) y) ((\lambda x. x) b) &  & \\
+         & = ((\lambda x. x) b) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & = b ((\lambda x. x) b) ((\lambda x. x) b)                                 &  & \\
+         & \text{under cbv:}                                                         &  & \\
+         & (\lambda x,y. x x y) ((\lambda x. x) b) ((\lambda x. x) b)                &  & \\
+         & = (\lambda x,y. x x y) b ((\lambda x. x) b)                               &  & \\
+         & = (\lambda x,y. x x y) b b                                                &  & \\
+         & = (\lambda y. b b y) b                                                    &  & \\
+         & = b b b                                                                   &  &
+    \end{flalign*}
+    \textbf{alt answer} \\
+    $(\lambda x . a )((\lambda y.y) b)$\\
+    CBV (2 steps):\\
+    $(\lambda x . a)((\lambda y .y ) b)$\\
+    $(\lambda x . a)(b) \to a$\\
+    CBN (1 step):
+    $(\lambda x . a)((\lambda y .y) b) \to a$ $|$
+    $(\lambda x. \lambda y.\ y)($anything very long that can evaluate$)$ \\
+    In CbV this will need to evaluate the very long term, but in CbN it will try to substitute it exactly for $x$, but $x$ is not used, so the evaluation does not need to be done.
+
+
+    % shoutout elite
+    \subsection{Q9 - Expression evaluates in more steps under cbn}
+    % apparently this is wrong
+    % \begin{flalign*}
+    %      & (\lambda x. (\lambda y. y y) x x) (\lambda y. y) x  &  & \\
+    %      & \text{under cbn:}                                   &  & \\
+    %      & = (\lambda y. y y) (\lambda y. y) (\lambda y. y)  x &  & \\
+    %      & = (\lambda y. y) (\lambda y. y) (\lambda y. y)  x   &  & \\
+    %      & = (\lambda y. y) (\lambda y. y)  x                  &  & \\
+    %      & = (\lambda y. y)  x                                 &  & \\
+    %      & = x                                                      \\
+    %      & \text{under cbv:}                                   &  & \\
+    %      & = (\lambda x. (\lambda y. y y) x x) x               &  & \\
+    %      & = (\lambda y. y y) x x                              &  & \\
+    %      & = x x x                                             &  & \\
+    % \end{flalign*}
+    \textbf{alt answer} \\
+    Justify that your example is correct.
+    $(\lambda x . x x ) (( \lambda x . x) (\lambda y.y))$\\
+    \textbf{CbV:}
+    $(\lambda x . x x) (( \lambda x .x ) (\lambda y .y )) \to$
+    $(\lambda x . xx) (\lambda y .y )\to$
+    $(\lambda y .y ) (\lambda y .y ) \to$
+    $(\lambda y . y)$\\
+    \textbf{CbN:}
+    $(\lambda x . xx) (( \lambda x . x) (\lambda y . y))\to$
+    $((\lambda x . x) (\lambda y. y)) ((\lambda x .x) (\lambda y .y))\to$
+    $(\lambda y.y) ((\lambda x . x) ( \lambda y .y))\to$
+    $(\lambda x .x) (\lambda y .y)\to$
+    $(\lambda y .y)$
+    (or)
+    $(\lambda y.\ y y y y y)($any lambda expression that can evaluate$)$ \\
+    CbV will evaluate the second term once and then substitute the value of it, but CbN will substitute it exactly into every $y$. B/c of this, the evaluation will need to be done 5 times.
+
+    % shoutout bani
+    \subsection{Q10 - Expression evaluates in exactly 2 steps under both but then gets stuck}
+    \underline{Note 1:} stuck means that a term evaluates to a normal form (no other possible
+    eval rules can be applied) but not a value (as defined by bnf usually). \\
+    \underline{Note 2:} This solution can be extended for any number of eval steps greater than
+    2. Add as many identity functions in between the first two terms as you want to increase the
+    number of eval steps by the same amount.
+    \begin{flalign*}
+         & (\lambda x. x) ((\lambda x. x) z) (\lambda x. x) \\
+         & \text{under cbn:}                                \\
+         & = ((\lambda x. x) z) (\lambda x. x)              \\
+         & = z (\lambda x. x)                               \\
+         & \text{under cbv:}                                \\
+         & = (\lambda x. x) z (\lambda x. x)                \\
+         & = z (\lambda x. x)                               \\
+    \end{flalign*}
+    \textbf{alt answer} \\
+    When a term is in normal form, but not a value, it is stuck.\\
+    \textbf{Example Expr:} and True $((\lambda x. x) a)$\\
+    CBN: $1: \lambda x. x a \to 2:$ a\\
+    CBV: $1.$ and True a $\to 2.$ a
+
+    \subsection{Question 11}
+    Explain why the $\Omega$ combinator ($\lambda x. x\ x$)($\lambda x. x\ x$), using CbN, does not lead to a
+    terminating evaluation.
+
+    Under Call-by-Name (CbN), the function $\lambda x.x x$ simply
+    substitutes the argument $(\lambda x.x x)$
+    wherever x appears in the body of the function without evaluating it.
+    So, the result is $(\lambda x.x x) (\lambda x.x x)$
+    after one reduction step.
+    As you can see, the result is the same as the original expression.
+    If you try to reduce it further, you'll get the same expression again.
+    This process will continue indefinitely,
+    leading to a non-terminating evaluation
+
+    \subsection{Q13 - What's the point of an eval strategy?}
+    The point of having an evaluation strategy is for you or a computer to know how to evaluate an
+    expression if multiple reductions are possible. We need them for building operational semantics. If
+    there isnt an eval strategy then evaluating an expression would be nondeterministic.
+
+    \subsection{17 - Convention used with respect to bound variables}
+    The convention used is alpha-equivalence. It captures the idea that it's safe to rename a variable in
+    a program if you also fix all the references to that variable. That is, when you change the parameter
+    of a lambda term, you also have to go into the lambda's body and change the usages of that variable.
+    Terms that differ only in the names of bound variables are interchangeable in all context.
+    You can change the name of a bound variable in a statement and
+    the statements before and after the change are the same. e.g. $(\lambda x.x)$ is alpha equivalent to
+    $(\lambda y.y)$.
+
+    When writing lambda terms for humans, we use a convention called \textbf{alpha-conversion} to avoid confusion between free and bound variables. Simply, this is the process of renaming parameters in functions without changing the meaning of the function. For example, $(\lambda x.x)( \lambda y.yx)$. Here, the first instance of x is bound while the second instance is free. To avoid confusion, we rename the bound variable to get $(\lambda z.z)( \lambda y.yx)$. This renaming method does not change the meaning of the term and makes it easier to read and understand.
+
+    In linear algebra, it's common to use alpha conversion renaming when working with subsets and quantifiers of certain sets which contain vairables U V W, where you can modify and manipulate a set and keep its original contents but when working with its modified version to show its still different we rename it in terms of bound variables like (a + b = 0) for all b and there exists an a, is the same as (x + y = 0) for all x and there exists an y. In predicate calculus, we usually do renaming with quantifiers $\forall$ and $\exists$ since it sometimes may contain a variable that's not free. In integrals, when you do double integrals, you don't integrate based on the same variable. As long as the mathematical equation is preserved in its meaning, so theres no direct change when substituting values from their bound counter part.
+
+    \subsection{Question 18 (5) - Unification}
+    Unify $a \rightarrow a, \, (b \rightarrow c) \rightarrow (d \rightarrow e), \, \text{and} \,
+        (d \rightarrow c) \rightarrow a$.
+    \begin{align*}
+         & \{a \ra a = (b \ra c) \ra (d \ra e), \, a \ra a = (d \ra c) \ra a \} | []         \\
+         & \{a = (b \ra c), \, a = (d \ra e), \, a = (d \ra c), \, a = a \} | []             \\
+         & \{a = (d \ra e), \, a = (d \ra c) \} | \sigma_1 [a / (b \ra c)]                   \\
+         & \{(b \ra c) = (d \ra e), \, (b \ra c) = (d \ra c) \} | \sigma_2 [] \circ \sigma_1 \\
+         & \{b = d, \, c = e, \, b = d, \, c = c \} | \sigma_2 [] \circ \sigma_1             \\
+         & \{b = d, \, c = e \} | \sigma_2 [] \circ \sigma_1                                 \\
+         & \{c = e \} | \sigma_2 [b / d] \circ \sigma_1                                      \\
+         & \{c = e \} | \sigma_3 [] \circ \sigma_2 \circ \sigma_1                            \\
+         & \{ \} | \sigma_3 [c / e] \circ \sigma_2 \circ \sigma_1                            \\
+         & \sigma = [c / e] \circ [b / d] \circ  [a / (b \ra c)]
+    \end{align*}
+
+    \subsection{Question 18 Full}
+    Answers Vary.
+
+    \begin{enumerate}
+        \item unify $\{a \to I, B \to b\}$. \\ A: $[] \circ [b \to B] \circ [a \to I]$
+
+        \item unify $\{a\ to a, B \to b\}$. \\ A: $[] \circ [b \to B] \circ [a \to b]$
+
+        \item Why can't $\{a, a \to a\}$ reduce? \\ A: because there is no case for the algorithm to continue. Cannot ensure $a \to a$ holds in regards to $a$.
+
+        \item unify $\{a \to (a \to b), (c \to d) \to (b \to b)  \}$. \\
+              A: $[] \circ [b \to (c \to d)] \circ [a \to (c \to d)]$
+
+        \item unify $\{a \to a, (b \to c) \to (d \to e), (d \to c) \to a \}$. \\
+              A: $[] \circ [b \to d] \circ [c \to e] \circ [a \to (b \to c)]$
+    \end{enumerate}
+
+    \textbf{alt explanation} \\
+    $\textbf{i)}$ $a \to \text{ intT } \& \text{ boolT } \to b$
+    We use reduction rule \#2\\
+    \{a = boolT, intT = b\}  so [Int/b] $\circ$ [Bool/a]\\
+    $\textbf{ii)}$  $a \to  a \text{ \& boolT } \to  b$
+    We use reduction rule \#2\\
+    {a = boolT, a  = b}   so  [boolT/b] $\circ$ [boolT/a]\\
+    $\textbf{iii)}$ $a \text{ \& } (a \to a)$
+    This is reduction rule \#3, where ‘x is a and t is $(a \to a)$. However, this is the case where
+    ‘x appears in t, because a appears in $(a \to a)$.
+    Therefore, it cannot be reduced. You can also think about how if $a = (a \to a)$,
+    then it also equals [$(a \to a) \to (a \to a)$], etc. (infinitely recurses)
+
+    $\textbf{iv)}$ unify $a \to (a \to b)$ and $(c \to d) \to (b \to b)$.
+    $a = (c \to d)   \text{ \& }  (a \to b) = (b \to b)$ (based on rule 2)
+    $\{(c \to d)/a\} \text{ \& }  (a=b) = (b=b))$ (based on rule 3)
+    $b = (c \to d)$  (based on substitution)
+    $[(c \to d)/b] \circ [(c \to d)/a]$
+
+    $\textbf{v)}$ unify $a \to a$ and $(b \to c) \to (d \to e)$ and $(d \to c) \to a$.\\
+    $\{(d \to c) / a\}$  (use reduction rule 3)
+    $((d \to c) \to (d \to c)) \text{ \& } ((b \to c) \to (d \to e))$  (by normal substitution rule)
+    $((d \to c) = (b \to c)) \text{ \& } ((d \to c) = (d \to e))$  (by rule 2)
+    $(d=b) \text{ \& } (c=e)$ (by equalities)
+    $[d/b] \circ [c/e] \circ [(d \to c)/a]$
+
+    \subsection{Question 19}
+    \begin{enumerate}
+        \item{
+              \begin{flalign*}
+                   & h :: (a \ra a \ra b) \ra a \ra b &  & \\
+                   & h \ f \ x = f \ x \ x            &  &
+              \end{flalign*}
+              }
+        \item{
+              \begin{flalign*}
+                   & c :: (a \ra b) \ra (b \ra c) \ra (a \ra c) &  & \\
+                   & c \ f \ g = \backslash x \ra g \ (f \ x)   &  &
+              \end{flalign*}
+              }
+        \item{
+              \begin{flalign*}
+                   & d :: (a \ra b) \ra (a \ra b \ra c) \ra (a \ra c) &  & \\
+                   & d \ f \ g = \backslash x \ra g \ x \ (f \ x)     &  &
+              \end{flalign*}
+              }
+        \item{
+              \begin{flalign*}
+                   & l \ f = \text{let} \ g \ h \ x = h \ (h \ x) \ \text{in} \ g \ f &  & \\
+                   & x :: a                                                           &  & \\
+                   & h :: a \ra a                                                     &  & \\
+                   & g :: (a \ra a) \ra a \ra a                                       &  & \\
+                   & l :: (a \ra a) \ra a \ra a                                       &  &
+              \end{flalign*}
+              }
+    \end{enumerate}
+    \textbf{alt explanation}\\
+    \begin{lstlisting}
+    i)  (a -> a -> b) -> a -> b
+    ii)  (a -> b) -> ( b -> c) -> c
+    iii) (a -> b) -> (a ->  b -> c) -> c
+    iv)  (a -> a) -> a
+    v)  (a -> b) -> b
+
+    i) (a -> a -> b) -> a -> b
+    (a->a ->b) is type of f
+    And x is type a
+    Because we are calling f as output, we return b
+
+    ii)  (a -> b) -> ( b -> c) -> (a -> c)
+    (a->b) is type for f
+    G take f output as its input, so its type is (b->c)
+    Since output is lambda function and its output is calling g function, its output is (a->c)
+
+    iii)  (a -> b) -> (a ->  b -> c) -> (a -> c)
+    (a->b) is type for f
+    G take f output as its input, so its type is (a->b->c)
+    Since output is lambda function and its output is calling g function, its output is (a->c)
+
+    iv) (a -> a) -> (a -> a)
+    F is type (a->a) since it is same as type for h-function
+    Since we need input for x, we can write output signature as if it was for a lambda function
+
+    v) Not possible
+    We have two inputs/constants and just applied with each other,which is impossible
+    \end{lstlisting}
+
+
+    \subsection{Question Q21}
+    Subtyping of function types illustrates both covariance and contravariance - explain those terms.
+
+    Subtyping: hierarchical relation on types, $<:$ can be read as $\leq$ "is less than"\\
+    Covariance: The ordering of component types is preserved.
+    Contravariance: The ordering of component types is reversed.\\
+    \begin{mathpar}
+        \inferrule{T_1 <: S_2 \qquad S_2 <: T_2}{S_1 \to S_2 <: T_1 \to T_2}
+    \end{mathpar}
+    Here $S_1, T_1$ is contravariance (swapped sides of $<:$) and $S_2, T_2$ is covariance
+    (ordering of $<:$ is the same)
+
+    $\textbf{Covariance:}$
+    In a covariant relationship, the subtyping relationship preserves the direction of the original
+    types.
+    If A is subtype of B, then assume we have additional type C, then A $\to$ C is a subtype of B $\to$ C
+    $\textbf{Contravariance:}$
+    In a contravariant relationship, the subtyping relationship is reversed in direction.
+    If A is subtype of B, then assume we have additional type C, then B $\to$ C is a subtype of A $\to$ C.
+
+    \subsection{Question 23}
+    Why are the semantics of case-of (for sums) in a CbV language weird? Why is this inevitable? Why are the semantics fine in CbN? Contrast this with `either` in Haskell.\\
+    In CbV we would expect to evaluate the inside fully before the outside. However, this is again not the case, as we first evaluate the case statement, before deciding where to substitute it. This is inevitable, as for sum types, the valid evaluation steps changes based on the specific type we are dealing with.\\
+    In CbN we do not evaluate the argument before passing it to begin with, so it is as one would expect.\\
+    This is also exactly how Haskell approaches this, as it uses a variant of CbN,
+    and thus lazily evaluates in the case of Either.
+    % Is either supposed to be different???
+
+
+    \subsection{Question 24}
+    Subtyping of function types involves contravariance. Explain what that is
+    and give an example.
+
+    %%%%%
+
+    Let's say we have a number type, an integer type, and a short integer type, where short integer
+    is a subtype of integer and integer is a subtype of number. Then, if we have a function `integer
+    -> integer`, we can use the S-Arrow rule to see that:
+    1. For the input of the function, we could provide a short integer. This is intuitively valid
+    because if we need to supply an integer, a short integer works.
+    2. The output could be a number or we could treat it like a number. This is intuitively valid
+    because if the output is an integer, then anything that applies to numbers would also
+    apply to the output.
+    So we can see that `short integer -> number` is a subset of `integer -> integer`. In this example,
+    contravariance refers to the left-hand side of the arrow, i.e., the input, where we could use a
+    short integer in the place of an integer.\\
+    \inferrule
+    {T_1 <: S_1 \qquad S_2 <: T_2}
+    {S_1 \to S_2 <: T_1 \to T_2}
+    Note the order of $T_1$ and $S_1$ in the first premise.
+    The subtype relation is contravariant in the left-hand side of the arrows
+    and covariant in the right-hand side of the arrows.\\
+
+    \subsection{Question 25}
+    (Bonus) Given an example of the failure of \emph{preservation}. Define
+    everything you need to illustrate this.
+
+    %%%%%
+    - undecidable type checking: type checking in lambda calculus can become undecidable. for example systems that involve recursive types might lead to undecidable. \\
+    - polymorphism: systems with polymorphic types, maintaining preservation could be challenging and contradictory. \\
+
+    \section{Miscellaneous}
+    \textbf{$\Omega$-combinator:} $(\lambda x. x\ x) (\lambda x. x\ x)$ \\
+    Simplest function that recurses infinitely without calling itself.
+
+    \textbf{Y-combinator:} \(\lambda f. (\lambda x.f (x\ x)) (\lambda x.f (x\ x))\) \\
+    This function generalizes recursion to any other function in lambda calculus.
+\end{multicols*}
+
+\end{document}
