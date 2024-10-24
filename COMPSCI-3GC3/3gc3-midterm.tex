@@ -291,6 +291,14 @@ Used for perspective projection, \(z\) becomes depth value.
 \textit{Transformation Matrix}
 \includegraphics[width=\linewidth]{homogenous-coord-transformation-matrix.png}
 
+\textbf{Composite Transformation}
+Since scaling, rotation, etc is about origin, operations are not commutive!
+
+\textit{Examples}
+To rotate around an object's centre, 1 translate object centre to origin, 2 rotate, 3 translate back.
+
+To scale an object along a non uniform axis, 1 rotate the object to align with a canonical axis, 2 scale object, 3 rotate object back.
+
 \textbf{Inversions}
 For rotation, scaling, and translating,
 the inverse of a matrix \(M^{-1}\) can be used.
