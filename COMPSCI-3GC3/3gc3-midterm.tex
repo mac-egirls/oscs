@@ -145,6 +145,8 @@ Now,
 \)
 
 \section{Graphics Pipeline}
+Rendering steps:
+\includegraphics[width=\linewidth]{rendering-steps.png}
 
 \section{Transformations \& Coordinate Systems}
 \textbf{Linear Transformation}:
@@ -304,17 +306,44 @@ For rotation, scaling, and translating,
 the inverse of a matrix \(M^{-1}\) can be used.
 For rotation specifically, \(M^{-1}_{rotate}=M^T_{rotate}\)
 
+\textbf{Coordinate Systems}
+\textit{World/Global Coordinate}
+Only one, unique.
+Each model in scene goes through \(M_{model}\) to transform from model space to world space.
+
 \section{Camera}
 
 \section{Rasterization}
 
-\section{Fragment Shader}
+\section{Pipeline}
+\includegraphics[width=\linewidth]{basic-graphics-pipeline.png}
 
-\section{Depth Testing}
+\subsection{Application}
+\textit{Main Program}
+Runs on CPU
+Defines geometry vertex positions, normals, texture coords, colours, etc.
+Sets up camera position, orientation, projection volume
+Sets screen size
 
-\section{Gransparency \& Blending}
+Copies data to GPU
 
-\section{Other}
+\subsection{Vertex Shader}
+\textit{Per-vertex Computation}
+No transformation: Simply assigns input to output (pass-through shader)
+Transforming vertex: Apply \(M_{proj} M_{cam} M_{model}\) to input
+Shading: determines vertex color (Gouraud)
+
+GPU performs parallel processing on each vertex
+
+\subsection{Culling}
+\subsubsection{Backface Culling}
+Removes primitives facing away from camera
+Look at face normal / right hand rule,
+face normal points in same direction as face.
+
+\subsubsection{View Frustrum Culling}
+Removes geometries outside view volume
+
 
 \end{multicols*}
 
