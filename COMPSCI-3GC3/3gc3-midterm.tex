@@ -765,8 +765,8 @@ View volume cuts primitive to avoid drawing out of bounds
 
 \textbf{Clipping a Line}
 \textit{Plane Function}:
-\(f(p) = n \cdot p + D = 0\), \(p\) is any point on the plane,
-\(n\) is the normal, \(D\) is a known const.
+\(f(p) = n \cdot p + D\) or \(f(p) = n \cdot (p - c)\), \(p\) is some point,
+\(n\) is the normal, \(D\) is a known const, $c$ is a known point on the plane. If $f(p) = 0$, then $p$ is on the plane.
 
 \textit{Line Function}:
 \(p(t) = \mathbf{a} + t (\mathbf{b} - \mathbf{a})\)
