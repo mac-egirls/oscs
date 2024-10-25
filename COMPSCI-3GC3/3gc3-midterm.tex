@@ -134,7 +134,7 @@ v_t = (1-t) v_0 + t v_1
 \textbf{Bi-linear Interpolation}
 \includegraphics[width=\linewidth]{bilinear-interpolation.png}
 
-\textbf{Barycentric Interpolation}:
+\textbf{Barycentric Interpolation (Area)}:
 \(
 \alpha = A_a / A \quad
 \beta = A_b / A \quad
@@ -147,6 +147,14 @@ Now,
 \mathbf{p}(\alpha, \beta, \gamma)
 = \alpha \mathbf{a} + \beta \mathbf{b} + \gamma \mathbf{c}
 \)
+
+\textbf{Barycentric Interpolation (line function)}:
+\begin{gather*}
+    f_{ij}(x, y) = (y_i - y_j) x + (x_j - x_i)y + x_i y_j - x_j y_i \\
+    \alpha = \frac{f_{bc}(x_P, y_P)}{f_{bc}(x_a, y_a)},\
+    \beta = \frac{f_{ac}(x_P, y_P)}{f_{bc}(x_b, y_b)},\
+    \gamma = \frac{f_{ab}(x_P, y_P)}{f_{ab}(x_c, y_c)}
+\end{gather*}
 
 \section{Graphics Pipeline}
 Rendering steps:
