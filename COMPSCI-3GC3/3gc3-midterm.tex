@@ -24,7 +24,6 @@
 \usepackage{courier}
 \usepackage{syntax}
 \usepackage{mathpartir}
-\usepackage{wrapfig}
 
 % minimal line spacing
 % \setstretch{0.1}
@@ -421,6 +420,15 @@ $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
 Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
 Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$
 
+\textbf{3x3 Camera Matrix}
+\(
+M_{cam}
+\begin{bmatrix}
+    x_{cam} & y_{cam} & z_{cam}
+\end{bmatrix}
+\)
+Use column vectors
+
 \textbf{Cannonical Space}\\
 Cannonical space is the space $(x, y, z)$ s.t. $x,y,z \in [-1, 1]$.
 
@@ -672,9 +680,7 @@ for (int x = minx; x <= maxx; ++x) {
 }
 \end{lstlisting}
 
-\begin{wrapfigure}{r}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
-\end{wrapfigure}
+
 \textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing.
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
 Choose offscreen point $q$.
@@ -685,6 +691,8 @@ $T_1$ should be responsible of drawing the edge if $q$ falls on the same side of
 This is because we are interpolating on the 2d projection of the triangle and not considering the distace of the 3d space.
 
 We can interpolate using the following code, which scales based on a scaling metric.
+
+\includegraphics[width=.5\linewidth]{rasterize-triangle-edge.png}
 
 \begin{lstlisting}
 float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
@@ -763,9 +771,8 @@ Plug \(p\) into plane function \(f(p) = n \cdot (\mathbf{a} + t(\mathbf{b} - \ma
 Solve for \(t = \frac{n \cdot \textbf{a} + D}{n \cdot (\textbf{a} - \textbf{b})}\)
 
 \textbf{Clipping a Triangle}
-\begin{wrapfigure}{r}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{triangle-clipping.png}
-\end{wrapfigure}
+
+\includegraphics[width=.5\linewidth]{triangle-clipping.png}
 
 \textit{Plane Function}:
 Same as above
