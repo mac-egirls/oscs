@@ -143,7 +143,7 @@ v_t = (1-t) v_0 + t v_1
 \)
 
 \textbf{Bi-linear Interpolation}
-\includegraphics[width=\linewidth]{bilinear-interpolation.png}
+\includegraphics[width=4cm]{bilinear-interpolation.png}
 
 \textbf{Barycentric Interpolation (Area)}:
 \(
@@ -266,7 +266,7 @@ R =
 Where the \(a*\) column is the coordinates of the object's \(x'\) vector,
 the \(b*\) column is the \(y'\) vector,
 and the \(c*\) column is the \(z'\) vector:
-\includegraphics[width=\linewidth]{3d-rotation.png}
+\includegraphics[width=4cm]{3d-rotation.png}
 
 \textbf{2D Reflection}
 Reflect X:\@
@@ -311,7 +311,7 @@ Vertical shear (right edge is shifted up (positive)):
 \)
 
 \textbf{3D Shear Matrix}
-\includegraphics[width=\linewidth]{3d-shear.png}
+\includegraphics[width=4cm]{3d-shear.png}
 Shear on YZ Plane:
 \(
 \begin{bmatrix}
@@ -371,7 +371,7 @@ Each model in scene goes through \(M_{model}\) to transform from model space to 
 Rendering steps:
 \includegraphics[width=\linewidth]{rendering-steps.png}
 
-\includegraphics[width=\linewidth]{cam-total.png}
+\includegraphics[width=4cm]{cam-total.png}
 
 \textbf{Viewing General Steps}
 \begin{enumerate}
@@ -445,7 +445,7 @@ Cannonical space is the space $(x, y, z)$ s.t. $x,y,z \in [-1, 1]$.
 
 \textbf{Orthographic Projection}\\
 
-\includegraphics[width=\linewidth]{cam-ortho.png}
+\includegraphics[width=4cm]{cam-ortho.png}
 Given left plane x, $l$, right plane x, $r$, top plane y, $t$, bottom plane y $b$, near plane $n$, far plane $f$.
 \textit{Recall that $f$, $n$ are negative z values. See diagram.}
 
@@ -481,7 +481,7 @@ Right: translate center to origin\\
 Left: scales width of all dimensions to be 2, fitting inside [-1, 1].
 
 \textbf{Perspective Projection}\\
-\includegraphics[width=\linewidth]{cam-persp.png}
+\includegraphics[width=4cm]{cam-persp.png}
 $l,r,b,t$ now define the near plane $XY$, with $n$ being the $Z$. Far plane is only defined by $f$.
 \textbf{OR} use depth of field:
 $\theta$ = FOV on y-axis, $ratio = (r-l)/(t-b)$, $n$ is near plane z, $f$ is far plane z.
@@ -550,10 +550,8 @@ drawDDA(p0, p1):
     numSteps = (ranges.x > ranges.y) 
         ? ranges.x
         : ranges.y
-
     delta = ranges / numSteps
     p = p0
-
     for i in 0..numSteps:
         fill pixel (round(p.x), round(p.y))
         p += delta
@@ -563,7 +561,7 @@ drawDDA(p0, p1):
 Seperate cases based on $m$ either $\in \{(-\infty, -1], (-1, 0],(0, 1], (1, \infty)\}$.
 The case will affect which pixels are the candidate pixels.
 
-\includegraphics[width=\linewidth]{rasterize-candidates.png}\\
+\includegraphics[width=4cm]{rasterize-candidates.png}\\
 For following cases, assume $m \in [0, 1)$.
 
 Assume $(x, y)$ is drawn. Compute the midpoint of the next candidates, in this case $(x+1, y+0.5)$
@@ -575,12 +573,10 @@ drawMidpointTraditional(x0, y0, x1, y1):
     y = y0
     for x=x0; x<=x1; x++:
         fill pixel (x,y)
-
         float f = (y0-y1)*(x+1) 
                 + (x1-x0)*(y+0.5) 
                 + x0*y1 
                 - x1*y0
-
         if (f < 0): 
             y++;
 \end{lstlisting}
@@ -598,7 +594,6 @@ drawMidpointIter(x0, y0, x1, x0):
         + (x1 - x0)*(y0+0.5) 
         + x0*y1
         - x1*y0
-
     y = y0
     for x = x0; x <= x1; x++:
         fill pixels[x][y]
@@ -617,21 +612,16 @@ drawBresenham(x0, y0, x1, y1):
     deltaX = x1-x0
     deltaY = y1-y0
     D = 2*deltaY - deltaX
-
     fill pixel (x0,y0)
     y = y0
-
     for x=x0+1; x<=x1; x++:
-
         //Diagonal Increment
         if D > 0:
             y++
             D += 2*(deltaY-deltaX)
-
         //H Increment
         else:
             D += 2*deltaY
-        
         fill pixel (x,y)
 \end{lstlisting}
 
@@ -670,29 +660,22 @@ int R2 = 0, G2 = 0, B2 = 255;  // p2 - Blue
 // Loop over bounding box pixels
 for (int x = minx; x <= maxx; ++x) {
     for (int y = miny; y <= maxy; ++y) {
-
         // Calculate barycentric coordinates
         float f01 = (y0-y1)*x + (x1-x0)*y + x0*y1 - x1*y0;
         float f12 = (y1-y2)*x + (x2-x1)*y + x1*y2 - x2*y1;
         float f20 = (y2-y0)*x + (x0-x2)*y + x2*y0 - x0*y2;
-
         float b0 = f12 / F12, b1 = f20 / F20, b2 = f01 / F01;
-
         // Check if inside the triangle
         if (b0 >= 0 && b1 >= 0 && b2 >= 0) {
             // Interpolate color
             int R = b0*R0 + b1*R1 + b2*R2;
             int G = b0*G0 + b1*G1 + b2*G2;
             int B = b0*B0 + b1*B1 + b2*B2;
-
             // Set pixel color
             pixels[y][x] = std::to_string(R) + ',' +
                             std::to_string(G) + ',' +
                             std::to_string(B);
-        }
-    }
-}
-}
+}}}}
 \end{lstlisting}
 
 
@@ -717,7 +700,6 @@ float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
 float Gs = b0*(G0/w0) + b1*(G1/w1) + b2*(G2/w2);
 float Bs = 60*(B0/w0) + b1*(B1/w1) + b2*(B2/w2);
 float Is = b0*(1/w0) + b1*(1/w1) + b2*(1/w2);
-
 float R = Rs / Is;
 float G = Gs / Is;
 float B = Bs / Is;
@@ -731,12 +713,14 @@ Can use box filter or a gaussian filter.\\
 \textbf{Multisample: }
 Screen goal is 256x256. We still rasterize for a higher resolution, but fragment (triangle) colour computation is only calculated once.
 Then, we sample $n$ times from the pixel area, averaging the samples to get the true pixel colour.
-\includegraphics[width=\linewidth]{multi-sampling.png}
+\includegraphics[width=4cm]{multi-sampling.png}
 \textbf{Fragments} here are each dot on a pixel.
 
 
+\begin{wrapfigure}{r}{0.3\linewidth}
+    \includegraphics[width=\linewidth]{basic-graphics-pipeline.png}
+\end{wrapfigure}
 \section{Pipeline}
-\includegraphics[width=\linewidth]{basic-graphics-pipeline.png}
 
 \subsection{Application}
 \textit{Main Program}
@@ -819,9 +803,9 @@ Multiple primities can occupy the same fragment.
 \textbf{Painter's Algorithm:} Sort primitive by their depths, draw primitives far to near. \textit{Drawbacks:} Sorting is slow, many writes to buffer
 Occlusion cycle: cases where no correct order appears correct
 
-\begin{wrapfigure}{r}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{occlusion-cycle.png}
-\end{wrapfigure}
+% \begin{wrapfigure}{r}{0.5\linewidth}
+%     \includegraphics[width=\linewidth]{occlusion-cycle.png}
+% \end{wrapfigure}
 
 
 \textbf{Color and Z Buffer} Two buffers, one for colour and one for depth. 
@@ -859,6 +843,145 @@ $C_{dest} = C_{src} + (1-\alpha_{src})C_{dest}$.
 
 Zbuffer does not care if the fragment has Transparency -- Fragments are not ordered. However- \textbf{ORDER matters when dealing with transparency!}. 
 Thus, We draw all opaque objects first using the depth buffer, then use painters algorithm to draw transparent objects.
+
+\section{Example Questions}
+\noindent 2. What are the limitations of painter's algorithm?
+
+\begin{enumerate}
+    \item \textbf{Cyclic Overlap}: It fails with overlapping or cyclically overlapping polygons (e.g., A in front of B, B in front of C, and C in front of A).
+
+    \item \textbf{Intersecting Polygons}: It struggles with intersecting polygons, as ordering becomes ambiguous.
+
+    \item \textbf{High Sorting Cost}: Sorting polygons by depth is computationally expensive, slowing performance in complex scenes.
+
+    \item \textbf{Overdraw and No Depth Information}: Without per-pixel depth tracking, it may redraw pixels unnecessarily, reducing efficiency.
+
+    \item \textbf{Inaccurate Transparency}: It handles transparency poorly, as color compositing requires depth per pixel.
+\end{enumerate}
+\noindent 1. Given triangle ABC, Barycentric coord given by $(1,0,0), (0,1,0), (0,0,1).$ Point P is $(0.13,0.17, 0.7)$ Since barycentric, the larger the number is to 1, the closer it is to that point in the triangle.\\
+
+\noindent 4. What is the composite transformation matrix to \textbf{revert} the following sequence of transformations to a 3D object?\\
+
+\noindent First, the object is rotated around x-axis by rx; then it is scaled by s; then it is translated by (x,y,z) to origin; then it is rotated around y-axis by ry; lastly, the object is translated back to its original position;\\
+
+\noindent $\mathbf{M^T} rotate-x(rx), \mathbf{M^{-1}} scale(s), \mathbf{M} translate(-x,-y,-z), \mathbf{M^T} rotate-y(ry), \mathbf{M^{-1}} translate(-x,-y,-z)$\\
+
+\noindent 5. Triangles in the figure below are described as:\\
+\includegraphics[width=3cm]{Screenshot 2024-10-25 at 12.34.02 PM.png}\\
+Following counter-clockwise order, backface culling will remove which faces? (Use right hand rule where fingers curl and thumb points away from you to remove the faces).\\
+
+Remove $T2, T3$\\
+
+\noindent 6. What is the purpose of the model matrix in the graphics pipeline?\\
+
+Transform objects from local space to global world space.\\
+
+The Digital Differential Analyzer (DDA) algorithm improves efficiency by incrementally calculating pixel positions using floating-point arithmetic, reducing redundant calculations. Unlike the naive approach, DDA avoids costly multiplication operations, making it faster for line rasterization. Additionally, it produces smoother lines by directly handling fractional increments.
+
+\noindent \textbf{8b. What is the main benefit of the Bresenham algorithm compared to the Midpoint Incremental line rasterization method?} \\
+The Bresenham algorithm optimizes line drawing by using only integer arithmetic, which is faster than the floating-point calculations of the Midpoint method. It also requires fewer computations per pixel, enhancing performance, and provides more accurate pixel positions for steeper line slopes.\\
+
+9a. What is computed color of pixels without antialiasing?\\
+
+Without antialiasing, the color of each pixel is typically computed based on the color at the center of the pixel.
+
+9b. What is computed colors of pixels, using mutlisample antialiasing?\\
+
+The final pixel color is the average of the sampled colors. This averaging smooths out jagged edges by blending colors from the edges of objects with the background, giving a smoother appearance without fully rendering the entire scene at a higher resolution.\\
+
+\noindent 11. Given line function: $f(x,y) = 3y-2x-1$, rasterize line segment from $(1,1)$ to $(7,5)$ using the midpoint algorithm. At the first step, pixel $(1,1)$ is drawn. Mark the pixels that should be drawn and the midpoint sample positions evaluated:\\
+Midpoint can be between the two squares, either same height or above, based on line. Input the midpoint between the two points:\\
+$M_1 = (2,1.5), f(M_1) = 3(1.5)-2(2)-1 = -0.5$ Since its negative, draw the above square in. Draw $(2,2)$. Follow these steps.\\
+
+12. Triangle ABC, where vertex A, B, C's barycentric coordinates are represented in $(\alpha, \beta, \gamma)$ are $(1,0,0), (0,1,0), (0,0,1)$. A,B,C's (x,y,z) positions in 3D space are $(0,0,0), (10,0,0), (0,20,0).$ Point P's barycentric coordinates are $(0.5,0.15, \gamma_p)$. What is Point P position?\\
+
+$\gamma_p = 1 - 0.5 - 0.15 = 0.35, P(0.5,0.15,0.35) = \alpha A + \beta B + \gamma C.$ $P(0.5,0.15,0.35)$.\\
+
+What are the areas of triangle ABC, PBC, PCA and PAB?\\
+$ABC  = bh/2 = 100$. $\alpha = PBC/ ABC, 0.5 = PBC/100, PBC = 50$. $\beta = PCA/ ABC, 0.15 = PCA/100,  PBC = 15$. $\gamma = PAB/ ABC, 0.35 = PAB/100,  PAB = 35$.\\
+
+Transformation function $f(\begin{bmatrix} x\\ y \end{bmatrix})$ rotates input $\begin{bmatrix} x\\ y \end{bmatrix}$ clockwise by $\theta$. Thus $f(\begin{bmatrix} 1\\ 0 \end{bmatrix}) = \begin{bmatrix}
+    cos(-\theta) \\ sin(-\theta)
+\end{bmatrix}$ i.e transform (1,0) to red point and $f(\begin{bmatrix} 1\\ 0 \end{bmatrix}) = \begin{bmatrix}
+    -sin(-\theta) \\ cos(-\theta)
+\end{bmatrix}$ i.e transform (0,1) to green point. For any point p: $p = \begin{bmatrix}
+    x \ y
+\end{bmatrix} =  x \begin{bmatrix}
+    1 \\ 0
+\end{bmatrix} + y \begin{bmatrix}
+    0 \\1
+\end{bmatrix}$. This $f(p) = f(\begin{bmatrix} x\\ y \end{bmatrix}) = x_p \begin{bmatrix}
+    cos(-\theta) \\ sin (-\theta)
+\end{bmatrix} + y_p \begin{bmatrix}
+    -sin( - \theta) \\ cos(-\theta)
+\end{bmatrix}$. Thus the clockwise rotation matrix is $\begin{bmatrix}
+    cos (- \theta) -sin(-\theta) \\ sin(-\theta) cos(-\theta)
+\end{bmatrix} \begin{bmatrix}
+    x_p \\ y_p
+\end{bmatrix}$.\\
+
+\noindent 14. Orthographic projection, view volume is defined as Left $l = -5$, Right $r = 5$, Top $t =6$, Bottom $b = 1$, Near $n = -8$, Far $f = -28$. To convert this view volume to canonical space box $[-1,1]$, what is the $M_{orth}$ matrix?\\
+
+$\dfrac{s_x}{r-l} = \dfrac{-1}{10}, \dfrac{s_y}{t-b} = \dfrac{1}{5}, \dfrac{s_z}{n-f} = \dfrac{1}{20}.$\\
+
+$-(r+l)/ s_x = 0 , -(t+b) / s_y = 7, -(n+f) / s_z = 36.$
+\\
+$M_{orth} = \begin{bmatrix}
+    \dfrac{-1}{10} 0 0 0 \\
+    0 \dfrac{1}{5} 0 0 \\
+    0 0 \dfrac{1}{20} 0 \\
+    0 0 0 1
+\end{bmatrix}
+\begin{bmatrix}
+1 0 0 6 \\
+0 1 0 7 \\
+0 0 1 36 \\
+0 0 0 1
+\end{bmatrix}$
+
+\noindent 15. Z-buffer and Color buffer, the closer z values (closer to 0) are closer to camera, so they overlap the farther colours, fill in the colours based on their distance from camera then away from camera. For color buffer it should be the updated colours based on the z-buffer.\\
+
+\noindent 16. A camera is put in world space (-1,0,0) looking toward (1,0,0) direction. The up direction is (0,1,0).\\
+\includegraphics[width =4cm]{Screenshot 2024-10-25 at 1.26.35 PM.png}\\
+Contruct the camera coordinate based on the up and view direction. Specify the x,y,z axis and the origin of the camera coordinate in the world.\\
+
+$w = -1 \cdot \begin{bmatrix}
+    1 \\ 0\\ 0
+\end{bmatrix} = \begin{bmatrix}
+     -1 \\ 0\\ 0
+\end{bmatrix}$. $ u = \begin{bmatrix}
+    0 \\ 1\\0
+\end{bmatrix} \cdot \begin{bmatrix}
+    -1 \\ 0 \\ 0
+\end{bmatrix} = \begin{bmatrix}
+    0 \\ 0 \\ 1
+\end{bmatrix}$. $v = \begin{bmatrix}
+    -1 \\ 0\\ 0
+\end{bmatrix} \cdot \begin{bmatrix}
+    0 \\ 0 \\ 1
+\end{bmatrix} = \begin{bmatrix}
+    0 \\  1 \\0
+\end{bmatrix}$.\\
+
+Based on the camera coordinate in world space, write out $4 \times 4$ matrix transforming from camera space to world space?\\
+
+$M_{cam} = \begin{bmatrix}
+    1 0 0 -1 \\ 0 1 0 0 \\ 0 0 1 0 \\ 0 0 0 1
+\end{bmatrix} \cdot \begin{bmatrix}
+    1 0 0 1 \\  0 1 0 0 \\ 0 0 1 0 \\ 0 0 0 1
+\end{bmatrix} = \begin{bmatrix}
+    0 0 1 0 \\ 0 1 0 0 \\ -1 0 0 -1 \\ 0 0 0 1
+\end{bmatrix}$\\
+
+For point p at world space $(4,5,6)$, what is p's coordinate in the camera space?\\
+
+$p = \begin{bmatrix}
+     0 0 1 0 \\ 0 1 0 0 \\ -1 0 0 -1 \\ 0 0 0 1
+\end{bmatrix} \cdot \begin{bmatrix}
+    4 \\ 5 \\ 6 \\ 1
+\end{bmatrix} = \begin{bmatrix}
+    6 \\ 5 \\ -5 \\ 1
+\end{bmatrix} = (6,5,-5,1)$
 
 \end{multicols*}
 
