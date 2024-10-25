@@ -522,8 +522,9 @@ $M_{vp} = $
 \textbf{Line Rasterization}
 Given pixels $P_0 = (x_0, y_0), P_1 = (x_1, y_1)$, fill the pixels on the screen between them.
 
-$f(x, y): y = mx + c$\\given $m=(y_1 - y_0)/(x_1 - x_0), c=(x_1y_0 - x_0y_1)/(x_1 - x_0)$\\begin{align*}
-Implicitly, $f(x,y): Ax + By - C = 0$
+$f(x, y): y = mx + c$\\given $m=(y_1 - y_0)/(x_1 - x_0), c=(x_1y_0 - x_0y_1)/(x_1 - x_0)$\\
+Implicit line function: $f(x,y): Ax + By + C = 0$. Checking sign of $f(x_P, y_P)$ can determine point position relative to line.\\
+
 
 \textbf{Naive Implementation:} Use the function $y=mx+c$ and iterate $x$ from $x_0$ to $x_1$. No vertical lines!\\
 \textbf{Digital Difference Analyser DDA:} Similar, but move in the axis that is shallower.
