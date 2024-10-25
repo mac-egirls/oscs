@@ -24,6 +24,7 @@
 \usepackage{courier}
 \usepackage{syntax}
 \usepackage{mathpartir}
+\usepackage{wrapfig}
 
 % minimal line spacing
 % \setstretch{0.1}
@@ -367,7 +368,7 @@ Each model in scene goes through \(M_{model}\) to transform from model space to 
 Given camera position $e$, gaze direction $g$ and `up' direction $t$, construct basis $uwv$ for camera coordinate system.
 $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$ 
 
-\includegraphics[height=3cm]{camera-basis.png} 
+\includegraphics[height=3cm]{camera-basis.png}
 % Todo Replace Picture, it's too big
 
 \textit{Camera Space $\to$ World Space:}\\
@@ -662,7 +663,10 @@ for (int x = minx; x <= maxx; ++x) {
 }
 }
 \end{lstlisting}
-    
+
+\begin{wrapfigure}{r}{0.5\linewidth}
+    \includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
+\end{wrapfigure}
 \textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing. 
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
 Choose offscreen point $q$.
@@ -684,8 +688,6 @@ float R = Rs / Is;
 float G = Gs / Is;
 float B = Bs / Is;
 \end{lstlisting}
-
-\includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
 
 
 \textbf{Anti-Aliasing}\\
@@ -753,7 +755,9 @@ Plug \(p\) into plan function \(f(p) = n \cdot (\mathbf{a} + t(\mathbf{b} - \mat
 Solve for \(t = \frac{n \cdot \textbf{a} + D}{n \cdot (\textbf{a} - \textbf{b})}\)
 
 \textbf{Clipping a Triangle}
-\includegraphics[width=\linewidth]{triangle-clipping.png}
+\begin{wrapfigure}{r}{0.5\linewidth}
+    \includegraphics[width=\linewidth]{triangle-clipping.png}
+\end{wrapfigure}
 
 \textit{Plane Function}:
 Same as above
