@@ -423,11 +423,14 @@ Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapst
 \textbf{3x3 Camera Matrix}
 \(
 M_{cam}
-\begin{bmatrix}
+= \begin{bmatrix}
     x_{cam} & y_{cam} & z_{cam}
 \end{bmatrix}
 \)
 Use column vectors
+
+Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
+Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$
 
 \textbf{Cannonical Space}\\
 Cannonical space is the space $(x, y, z)$ s.t. $x,y,z \in [-1, 1]$.
@@ -790,6 +793,48 @@ If \(f(c) \geq 0\), keep \(T_3\); if \(f(c) < 0\), keep \(\mathbf{T}_1, \mathbf{
 
 \textit{Special Case}
 Handle zero-area triangles
+
+\section{Depth Testing}
+
+We need to order object rendering so things closer to camera appear `ontop' of things futher away.
+Multiple primities can occupy the same fragment.
+
+\textbf{Painter's Algorithm:} Sort primitive by their depths, draw primitives far to near. \textit{Drawbacks:} Sorting is slow, many writes to buffer
+Occlusion cycle: cases where no correct order appears correct
+
+\includegraphics[width=\linewidth]{occlusion-cycle.png}
+
+
+\textbf{Color and Z Buffer} Two buffers, one for colour and one for depth. 
+Draw primitives as they come in (no sorting), 
+check z buffer (inited with $\infty$). 
+If the primitive's depth is closer to the camera than what is there (smaller), update the z buffer and override the colour buffer.
+
+\textbf{Z Fighting:} is caused by two primitives sharing the same z value. There are $2^n$ distinct values that $z$ can be, where $n$ is the number of bits for the depth value.
+\textit{Mitigation Tactices}: Properly set the near and far planes increase bit count for depth value, Don't put objects too close to each other in scene.
+
+
+\textbf{Transparency / Alpha}
+We can define a primitive's Transparency as $\alpha \in [0, 1]$, color now is RGBA.
+
+$src$ is the colour we want to write, $dest$ is the colour existing in the buffer.
+
+\textbf{Over Operation:} is defined as $\alpha_{src}C_{src} + (1-\alpha_{src})C_{dest}$.
+This keeps buffer alpha after the operation=1.
+
+\textbf{Post-multiplication}
+Set dest rgb using the over operation. $C_{src} = (R,G,B)$.
+
+\textbf{Pre-multiplication}
+Premultiplied alpha has $C_{src}$ already multiplied together with $\alpha_{src}$ when calculating the blending.
+Thus, we set dest rgb. $C_{src} = (R\alpha_{src},G\alpha_{src},B\alpha_{src})$.
+
+$C_{dest} = C_{src} + (1-\alpha_{src})C_{dest}$.
+
+\textbf{Alpha and Depth Test}
+
+Zbuffer does not care if the fragment has Transparency -- Fragments are not ordered. However- \textbf{ORDER matters when dealing with transparency!}. 
+Thus, We draw all opaque objects first using the depth buffer, then use painters algorithm to draw transparent objects.
 
 \end{multicols*}
 
