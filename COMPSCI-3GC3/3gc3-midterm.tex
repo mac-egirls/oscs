@@ -193,7 +193,7 @@ f(p)
 \end{bmatrix}
 = \begin{bmatrix}
     \cos \theta & - \sin \theta \\
-    \sin \theta &   \cos \theta
+    \sin \theta & \cos \theta
 \end{bmatrix}
 \begin{bmatrix}
     x \\ y
@@ -205,7 +205,7 @@ f(p)
 \textit{Rotate around X}
 \(
 f(p) = \begin{bmatrix}
-    1 & 0 & 0 \\
+    1 & 0           & 0            \\
     0 & \cos \theta & -\sin \theta \\
     0 & \sin \theta & \cos \theta
 \end{bmatrix}
@@ -217,8 +217,8 @@ f(p) = \begin{bmatrix}
 \textit{Rotate around Y}
 \(
 f(p) = \begin{bmatrix}
-    \cos \theta & 0 & \sin \theta \\
-    0 & 1 & 0 \\
+    \cos \theta  & 0 & \sin \theta \\
+    0            & 1 & 0           \\
     -\sin \theta & 0 & \cos \theta
 \end{bmatrix}
 \begin{bmatrix}
@@ -230,8 +230,8 @@ f(p) = \begin{bmatrix}
 \(
 f(p) = \begin{bmatrix}
     \cos \theta & -\sin \theta & 0 \\
-    \sin \theta & \cos \theta & 0 \\
-    0 & 0 & 1
+    \sin \theta & \cos \theta  & 0 \\
+    0           & 0            & 1
 \end{bmatrix}
 \begin{bmatrix}
     x \\ y \\ z
@@ -265,9 +265,9 @@ Reflect Y:\@
 \textbf{3D Scaling}
 \(
 \begin{bmatrix}
-    s_x & 0 & 0 \\
-    0 & s_y & 0 \\
-    0 & 0 & s_z
+    s_x & 0   & 0   \\
+    0   & s_y & 0   \\
+    0   & 0   & s_z
 \end{bmatrix}
 \begin{bmatrix}
     x \\ y \\ z
@@ -289,7 +289,7 @@ Horizontal shear (top edge is shifted to the right (positive)):
 Vertical shear (right edge is shifted up (positive)):
 \(
 \begin{bmatrix}
-    1 & 0 \\
+    1   & 0 \\
     s_y & 1
 \end{bmatrix}
 \)
@@ -299,7 +299,7 @@ Vertical shear (right edge is shifted up (positive)):
 Shear on YZ Plane:
 \(
 \begin{bmatrix}
-    1 & 0 & 0 \\
+    1   & 0 & 0 \\
     s_y & 1 & 0 \\
     s_z & 0 & 1
 \end{bmatrix}
@@ -309,7 +309,7 @@ Shear on XZ Plane:
 \(
 \begin{bmatrix}
     1 & s_x & 0 \\
-    0 & 1 & 0 \\
+    0 & 1   & 0 \\
     0 & s_z & 1
 \end{bmatrix}
 \)
@@ -366,7 +366,7 @@ Each model in scene goes through \(M_{model}\) to transform from model space to 
 
 \textbf{World Space $\to$ Camera Space: $M_{cam}$}
 Given camera position $e$, gaze direction $g$ and `up' direction $t$, construct basis $uwv$ for camera coordinate system.
-$w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$ 
+$w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
 
 \includegraphics[height=3cm]{camera-basis.png}
 % Todo Replace Picture, it's too big
@@ -377,7 +377,7 @@ $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
     1 & 0 & 0 & x_e \\
     0 & 1 & 0 & y_e \\
     0 & 0 & 1 & z_e \\
-    0 & 0 & 0 & 1 \\
+    0 & 0 & 0 & 1   \\
 \end{bmatrix}
 \)
 \(
@@ -385,7 +385,7 @@ $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
     x_u & x_v & x_w & 0 \\
     y_u & y_v & y_w & 0 \\
     z_u & z_v & z_w & 0 \\
-    0 & 0 & 0 & 1 \\
+    0   & 0   & 0   & 1 \\
 \end{bmatrix}
 \)\\
 
@@ -395,7 +395,7 @@ $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
     x_u & y_u & z_u & 0 \\
     x_v & y_v & z_v & 0 \\
     x_w & y_w & z_w & 0 \\
-    0 & 0 & 0 & 1 \\
+    0   & 0   & 0   & 1 \\
 \end{bmatrix}
 \)
 \(
@@ -403,31 +403,31 @@ $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
     1 & 0 & 0 & -x_e \\
     0 & 1 & 0 & -y_e \\
     0 & 0 & 1 & -z_e \\
-    0 & 0 & 0 & 1 \\
+    0 & 0 & 0 & 1    \\
 \end{bmatrix}
 \)
 \\
 Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
-Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$ 
+Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$
 
 \textbf{Cannonical Space}\\
 Cannonical space is the space $(x, y, z)$ s.t. $x,y,z \in [-1, 1]$.
 
 \textbf{Orthographic Projection}\\
 
-\includegraphics[width=\linewidth]{cam-ortho.png} 
+\includegraphics[width=\linewidth]{cam-ortho.png}
 Given left plane x, $l$, right plane x, $r$, top plane y, $t$, bottom plane y $b$, near plane $n$, far plane $f$.
 \textit{Recall that $f$, $n$ are negative z values. See diagram.}
 
-$M_{orth}$ projects the view box defined above onto the cannonical space. 
+$M_{orth}$ projects the view box defined above onto the cannonical space.
 
 
 $M_{orth}$ = \(
 \begin{bmatrix}
-    \frac{2}{r-l} & 0 & 0 & 0 \\
-    0 & \frac{2}{t-b} & 0 & 0 \\
-    0 & 0 & \frac{2}{n-f} & 0 \\
-    0 & 0 & 0 & 1 \\
+    \frac{2}{r-l} & 0             & 0             & 0 \\
+    0             & \frac{2}{t-b} & 0             & 0 \\
+    0             & 0             & \frac{2}{n-f} & 0 \\
+    0             & 0             & 0             & 1 \\
 \end{bmatrix}
 \)
 \(
@@ -435,62 +435,62 @@ $M_{orth}$ = \(
     1 & 0 & 0 & -\frac{r+l}{2} \\
     0 & 1 & 0 & -\frac{t+b}{2} \\
     0 & 0 & 1 & -\frac{n+f}{2} \\
-    0 & 0 & 0 & 1 \\
+    0 & 0 & 0 & 1              \\
 \end{bmatrix}
 \)\\
 =
 \(
 \begin{bmatrix}
-    \frac{2}{r-l} & 0 & 0 & -\frac{r+l}{r-l} \\
-    0 & \frac{2}{t-b} & 0 & -\frac{t+b}{t-b} \\
-    0 & 0 & \frac{2}{n-f} & -\frac{f+n}{n-f} \\
-    0 & 0 & 0 & 1 \\
+    \frac{2}{r-l} & 0             & 0             & -\frac{r+l}{r-l} \\
+    0             & \frac{2}{t-b} & 0             & -\frac{t+b}{t-b} \\
+    0             & 0             & \frac{2}{n-f} & -\frac{f+n}{n-f} \\
+    0             & 0             & 0             & 1                \\
 \end{bmatrix}
 \)\\
 Right: translate center to origin\\
 Left: scales width of all dimensions to be 2, fitting inside [-1, 1].
 
 \textbf{Perspective Projection}\\
-\includegraphics[width=\linewidth]{cam-persp.png} 
-$l,r,b,t$ now define the near plane $XY$, with $n$ being the $Z$. Far plane is only defined by $f$. 
-\textbf{OR} use depth of field: 
+\includegraphics[width=\linewidth]{cam-persp.png}
+$l,r,b,t$ now define the near plane $XY$, with $n$ being the $Z$. Far plane is only defined by $f$.
+\textbf{OR} use depth of field:
 $\theta$ = FOV on y-axis, $ratio = (r-l)/(t-b)$, $n$ is near plane z, $f$ is far plane z.
 
 \textbf{Frustrum to Box:}
 Recall Homogenous Coordinates. We want frustrum $\mapsto$ box s.t. $n$ stays near and $f$ stays far.
 
-$P$ = 
+$P$ =
 \(
 \begin{bmatrix}
-    n & 0 & 0 & 0 \\
-    0 & n & 0 & 0 \\
+    n & 0 & 0   & 0   \\
+    0 & n & 0   & 0   \\
     0 & 0 & n+f & -fn \\
-    0 & 0 & 1 & 0 \\
+    0 & 0 & 1   & 0   \\
 \end{bmatrix}
 \)\\
 $M_{per}$ = $M_{orth}P =$
 \(
 \begin{bmatrix}
-    \frac{2n}{r-l} & 0 & \frac{l+r}{l-r} & 0 \\
-    0 & \frac{2n}{t-b} & \frac{b+t}{b-t} & 0 \\
-    0 & 0 & \frac{f+n}{n-f} & \frac{2fn}{n-f} \\
-    0 & 0 & 1 & 0 \\
+    \frac{2n}{r-l} & 0              & \frac{l+r}{l-r} & 0               \\
+    0              & \frac{2n}{t-b} & \frac{b+t}{b-t} & 0               \\
+    0              & 0              & \frac{f+n}{n-f} & \frac{2fn}{n-f} \\
+    0              & 0              & 1               & 0               \\
 \end{bmatrix}
 \)\\
 
 \textbf{Cannonical Space To View Port (VP)}\\
 
 View port is a screen of size $(n_x, n_y)$, no $z$ depth.\\
-1. Translate $x,y$ center from $(0,0)$ to $((n_x-1)/2, (n_y-1)/2)$. 
+1. Translate $x,y$ center from $(0,0)$ to $((n_x-1)/2, (n_y-1)/2)$.
 2. Scale $x,y$ size from $(2,2)$ to $(n_x, n_y)$.
 
 $M_{vp} = $
 \(
 \begin{bmatrix}
-    \frac{n_x}{2} & 0 & 0 & \frac{n_x-1}{2} \\
-    0 & \frac{n_y}{2} & 0 & \frac{n_y-1}{2} \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1 \\
+    \frac{n_x}{2} & 0             & 0 & \frac{n_x-1}{2} \\
+    0             & \frac{n_y}{2} & 0 & \frac{n_y-1}{2} \\
+    0             & 0             & 1 & 0               \\
+    0             & 0             & 0 & 1               \\
 \end{bmatrix}
 \)\\
 
@@ -529,7 +529,7 @@ drawDDA(p0, p1):
 \end{lstlisting}
 
 \textbf{Midpoint Algorithm:} Assume $x_0 < x_1$. Otherwise, swap $P_0, P_1$.
-Seperate cases based on $m$ either $\in \{(-\infty, -1], (-1, 0],(0, 1], (1, \infty)\}$. 
+Seperate cases based on $m$ either $\in \{(-\infty, -1], (-1, 0],(0, 1], (1, \infty)\}$.
 The case will affect which pixels are the candidate pixels.
 
 \includegraphics[width=\linewidth]{rasterize-candidates.png}\\
@@ -578,7 +578,7 @@ drawMidpointIter(x0, y0, x1, x0):
             f += y0-y1
 \end{lstlisting}
 
-\textbf{Bresenham Algorithm:} 
+\textbf{Bresenham Algorithm:}
 
 % \includegraphics[width=\linewidth]{rasterize-bresen.png}\\
 \begin{lstlisting} 
@@ -667,7 +667,7 @@ for (int x = minx; x <= maxx; ++x) {
 \begin{wrapfigure}{r}{0.5\linewidth}
     \includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
 \end{wrapfigure}
-\textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing. 
+\textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing.
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
 Choose offscreen point $q$.
 
@@ -751,7 +751,7 @@ View volume cuts primitive to avoid drawing out of bounds
 \(p(t) = \mathbf{a} + t (\mathbf{b} - \mathbf{a})\)
 
 \textit{Intersection Point}
-Plug \(p\) into plan function \(f(p) = n \cdot (\mathbf{a} + t(\mathbf{b} - \mathbf{a})) + D = 0\)
+Plug \(p\) into plane function \(f(p) = n \cdot (\mathbf{a} + t(\mathbf{b} - \mathbf{a})) + D = 0\)
 Solve for \(t = \frac{n \cdot \textbf{a} + D}{n \cdot (\textbf{a} - \textbf{b})}\)
 
 \textbf{Clipping a Triangle}
