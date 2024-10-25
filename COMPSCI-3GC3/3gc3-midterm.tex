@@ -706,7 +706,6 @@ Choose offscreen point $q$.
 
 $T_1$ should be responsible of drawing the edge if $q$ falls on the same side of the edge as $a$. Likewise for $T_2$ and $b$.
 
-\includegraphics[width=.5\linewidth]{rasterize-triangle-edge.png}
 
 \textbf{Proper Perspective Attribute Attribution}: How we set up the above code leads to incorect attribute interpolation when taking perspective into account.
 This is because we are interpolating on the 2d projection of the triangle and not considering the distace of the 3d space.
