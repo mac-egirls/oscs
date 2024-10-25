@@ -526,7 +526,7 @@ $M_{vp} = $
 Given pixels $P_0 = (x_0, y_0), P_1 = (x_1, y_1)$, fill the pixels on the screen between them.
 
 $f(x, y): y = mx + c$\\given $m=(y_1 - y_0)/(x_1 - x_0), c=(x_1y_0 - x_0y_1)/(x_1 - x_0)$\\
-Implicit line function: $f(x,y): Ax + By + C = 0$. Checking sign of $f(x_P, y_P)$ can determine point position relative to line.\\
+\textbf{Implicit line function:}: $f(x,y): Ax + By + C = 0$. Checking sign of $f(x_P, y_P)$ can determine point position relative to line. If $A>0 \land B<0$, then $f(x_P, y_P) < 0$ means point $P$ is above the line.\\
 
 \textbf{Naive Implementation:} Use the function $y=mx+c$ and iterate $x$ from $x_0$ to $x_1$. No vertical lines!\\
 \textbf{Digital Difference Analyser DDA:} Similar, but move in the axis that is shallower.
@@ -710,12 +710,14 @@ float B = Bs / Is;
 
 
 \textbf{Anti-Aliasing}\\
-\textbf{Supersample: }Screen Goal is 256x256. We instead render x4, meaing we actually render a 1024x1024 image.
-Then, on scale down, we can average* the 16 virtual pixels into 1 screen pixel.
+\textbf{Supersample: }Screen Goal is 256x256. We instead render x4, meaning we actually render a 1024x1024 image. Each highresolution pixel is considered a \textbf{fragment}.
+Then, on scale down, we can average the 16 virtual pixels into 1 screen pixel.
 Can use box filter or a gaussian filter.\\
-\textbf{Subsample / Multisample: }
+\textbf{Multisample: }
 Screen goal is 256x256. We still rasterize for a higher resolution, but fragment (triangle) colour computation is only calculated once.
 Then, we sample $n$ times from the pixel area, averaging the samples to get the true pixel colour.
+\includegraphics[width=\linewidth]{multi-sampling.png}
+\textbf{Fragments} here are each dot on a pixel.
 
 
 \section{Pipeline}
