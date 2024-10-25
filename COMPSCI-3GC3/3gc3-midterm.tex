@@ -405,6 +405,16 @@ $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
     0 & 0 & 0 & 1    \\
 \end{bmatrix}
 \)
+
+\textbf{3x3 Camera Matrix}
+\(
+M_{cam}
+\begin{bmatrix}
+    x_{cam} & y_{cam} & z_{cam}
+\end{bmatrix}
+\)
+Use column vectors
+
 \\
 Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
 Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$
