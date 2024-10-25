@@ -698,14 +698,14 @@ This is because we are interpolating on the 2d projection of the triangle and no
 We can interpolate using the following code, which scales based on a scaling metric.
 
 \begin{lstlisting}[language=C++]
-    float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
-    float Gs = b0*(G0/w0) + b1*(G1/w1) + b2*(G2/w2);
-    float Bs = 60*(B0/w0) + b1*(B1/w1) + b2*(B2/w2);
-    float Is = b0*(1/w0) + b1*(1/w1) + b2*(1/w2);
+float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
+float Gs = b0*(G0/w0) + b1*(G1/w1) + b2*(G2/w2);
+float Bs = 60*(B0/w0) + b1*(B1/w1) + b2*(B2/w2);
+float Is = b0*(1/w0) + b1*(1/w1) + b2*(1/w2);
 
-    float R = Rs / Is;
-    float G = Gs / Is;
-    float B = Bs / Is;
+float R = Rs / Is;
+float G = Gs / Is;
+float B = Bs / Is;
 \end{lstlisting}
 
 
