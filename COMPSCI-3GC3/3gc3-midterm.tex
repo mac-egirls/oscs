@@ -106,6 +106,10 @@
 
 \section{Math}
 
+\begin{wrapfigure}{r}{0.3\linewidth}
+    \includegraphics[width=\linewidth]{right-hand-rule.png}
+\end{wrapfigure}
+
 \textbf{Dot Product}:
 \(
 \mathbf{a} \cdot \mathbf{b}
@@ -119,7 +123,6 @@
 = (y_a z_b - z_a y_b, z_a x_b - x_a z_b, x_a y_b - y_a x_b)
 = ||\mathbf{a}|| ||\mathbf{b}|| \sin(\theta) \mathbf{n}
 \)
-
 \textbf{Right Hand Rule}:
 \includegraphics[width=0.75\linewidth, height=3cm]{right-hand-rule.png} \\
 For axises, $x$ is thumb, $y$ is index, and $z$ is middle finger.
@@ -706,11 +709,7 @@ This is because we are interpolating on the 2d projection of the triangle and no
 
 We can interpolate using the following code, which scales based on a scaling metric.
 
-<<<<<<< HEAD
-\begin{lstlisting}
-=======
 \begin{lstlisting}[language=C++]
->>>>>>> 8856b2dac42b68b3f5d63dbc9e4143633af335fb
 float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
 float Gs = b0*(G0/w0) + b1*(G1/w1) + b2*(G2/w2);
 float Bs = 60*(B0/w0) + b1*(B1/w1) + b2*(B2/w2);
@@ -828,6 +827,11 @@ check z buffer (inited with $\infty$).
 If the primitive's depth is closer to the camera than what is there (smaller), update the z buffer and override the colour buffer.
 
 \textbf{Z Fighting:} is caused by two primitives sharing the same z value. There are $2^n$ distinct values that $z$ can be, where $n$ is the number of bits for the depth value.
+\textit{Precision Formula}:
+\(
+\text{precision} = (z_{far} - z_{near}) / 2^b
+\)
+We want \(\text{precision} < \text{max difference between z values}\)
 \textit{Mitigation Tactices}: Properly set the near and far planes increase bit count for depth value, Don't put objects too close to each other in scene.
 
 
