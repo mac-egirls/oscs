@@ -847,6 +847,13 @@ Zbuffer does not care if the fragment has Transparency -- Fragments are not orde
 Thus, We draw all opaque objects first using the depth buffer, then use painters algorithm to draw transparent objects.
 
 \section{Mesh}
+\textbf{Euler's Formula:} $V - E + F = 2(1 - g) \approx 0$
+Where $F$ is \# of triangles,
+$E$ is \# of edges,
+$V$ is \# of verticies,
+$g$ is genus (\# of holes in surface)
+Each edge is used 2x, each triangle uses 3 edges, $2E = 3F$.
+$F = 2V, E = 3V$.
 
 \section{Mesh Editing}
 \subsection{Quadric Error Simplification}
@@ -906,7 +913,38 @@ Otherwise, it is in shadow.
 \textbf{Radiance:} Power per square unit of area per direction (\unit{W.m^{-2}.sr^{-1}})
 \textbf{Radiant intensity:} Power per direction (\unit{W.sr^{-1}})
 
+Point light irradiance: $E = \frac{\Phi}{4 \pi r^2}$
+Spotlight $E * \frac{2 \pi (1 - cos \varphi)}{4 \pi}$
+
 \section{Material}
+$$
+L(P, \omega_0) = L_e(P, \omega_0) + \int_\Omega f_r(P, \omega_i, \omega_0) L_i(P, \omega_i) \cos \theta_i\ d \omega_i
+$$
+$L(P, \omega_0)$: Outgoing radiance @ $P$ in $\omega_0$ direction
+$L_e(P, \omega_0)$: Emitting light radiance @ $P$ in $\omega_0$ direction if light source, else 0
+$\int_\Omega$: Sum over all incoming direction
+$f_r(P, \omega_i, \omega_0)$: How incoming light at point $P$ in $\omega_i$ direction is reflected in $\omega_0$ direction
+$L_i(P, \omega_i) \cos \theta_i$: Incoming light radiance at point $P$ in $\omega_i$ direction, weighted by $\cos \theta_i$.
+
+\subsection{Diffuse}
+\textbf{Diffuse OpenGL:} \\
+light direction $l = light_{pos} - vertex_{pos}$ \\
+\verb|diffuse_light_clr * diffuse_mat_clr * max(0, dot(n, l)) / r^2|
+($n \cdot l = \cos \theta$)
+
+\subsection{Specular}
+Exponent: lower $p$ is more diffused, higher $p$ is more reflective
+\textbf{Specular OpenGL:}
+Find reflected light direction \\ $r = -l + 2(l \cdot n) n$.
+Vertex direction $P_p$, camera position $P_c$,
+find view direction \\ $v = norm(P_c - P_p)$.
+Color on object = \\ \verb|specular_light_clr * specular_material_clr * max(0, dot(v, r)^p)|
+
+\subsection{Phong}
+
+\subsection{Blinn-Phong}
+
+\subsection{Gouraud}
 
 \section{Ray Tracing}
 
