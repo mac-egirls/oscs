@@ -847,6 +847,16 @@ Zbuffer does not care if the fragment has Transparency -- Fragments are not orde
 Thus, We draw all opaque objects first using the depth buffer, then use painters algorithm to draw transparent objects.
 
 \section{Mesh}
+Manifold intuition:
+Mesh is ``watertight'',
+``a small neighborhood around any point could be smoothed out into a bit of flat surface''
+\textbf{Manifold:} Every edge is shared by exactly two triangles. Every vertex has a single, complete loop of triangles around it.
+\textbf{Manifold with Boundary:} Every edge is used by either one or two triangles. Every vertex connects to a single edge-connected set of triangles.
+
+Manifold useful for 2d regular grid,
+better control of neighboring topology,
+consistent triangle orientation.
+
 \textbf{Euler's Formula:} $V - E + F = 2(1 - g) \approx 0$
 Where $F$ is \# of triangles,
 $E$ is \# of edges,
@@ -854,6 +864,17 @@ $V$ is \# of verticies,
 $g$ is genus (\# of holes in surface)
 Each edge is used 2x, each triangle uses 3 edges, $2E = 3F$.
 $F = 2V, E = 3V$.
+
+\subsection{Mesh data structures}
+\subsubsection{Separate Triangles (Triangle Soup)}
+
+\subsubsection{Indexed Triangle Mesh}
+
+\subsubsection{Triangle Fans}
+
+\subsubsection{Triangle Strips}
+
+\subsubsection{}
 
 \section{Mesh Editing}
 \subsection{Quadric Error Simplification}
@@ -914,7 +935,11 @@ Otherwise, it is in shadow.
 \textbf{Radiant intensity:} Power per direction (\unit{W.sr^{-1}})
 
 Point light irradiance: $E = \frac{\Phi}{4 \pi r^2}$
-Spotlight $E * \frac{2 \pi (1 - cos \varphi)}{4 \pi}$
+Fractional area on sphere $\frac{2 \pi (1 - cos \varphi)}{4 \pi}$
+where $\varphi$ is cone half-angle
+$F_{att} = \frac{1.0}{K_c + K_I \cdot d + K_1 \cdot d^2}$
+Spotlight soft edges, inner cutoff $\varnothing$, outer cutoff $\gamma$
+
 
 \section{Material}
 $$
@@ -950,7 +975,28 @@ Color on object = \\ \verb|specular_light_clr * specular_material_clr * max(0, d
 
 \section{Extra}
 \subsection{Spatial Data Structure}
+
 \subsection{Curves}
+
+\subsubsection{Desirable Properties}
+\textbf{Continuity:} $n^{th}$ derivative remains the same. $C^0$: lines connect,
+$C^1$: velocity remains the same,
+$C^2$: acceleration remains the same.
+\textbf{Locality:} Local - one control point only impacts a small piece of the curve.
+Global - one control point impacts the shape of the whole curve
+\textbf{Interpolation:} Interpolation - Curve passes through all control points.
+Approximation - Curve does not pass through all control points,
+but control points determine curve.
+Ideally we want at least $C^2$ continuity,
+locality, and interpolation.
+
+\subsubsection{Types}
+
+\textbf{Polynomial}
+
+\textbf{Spline}
+
+\textbf{Approximation}
 
 \end{multicols*}
 
