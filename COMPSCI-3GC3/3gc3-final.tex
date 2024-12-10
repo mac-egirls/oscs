@@ -921,7 +921,24 @@ visit edges of face in ccw order.
 Edge in bytes: $E \cdot 8 \cdot 4 = 32E$ (8 references, we can remove prevs to save space and just do 2 nexts instead)
 Triangle in bytes: $F \cot 1 \cdot 4 = 4F$
 Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$ (1 edge ref, xyz)
-TOtal: $32E + 4F + 16V \approx 96V + 8V + 16V \approx 120V$.
+Total: $32E + 4F + 16V \approx 96V + 8V + 16V \approx 120V$.
+
+\subsubsection{Half-Edge Structure}
+Halfedge:
+VertexRef v (vertex half-edge points to)
+TriangleRef t (triangle that the halfedge is on)
+HalfEdgeRef prev, next (prev and next half edges in t)
+HalfEdgeRef pair (the half edge in the opposite direction)
+\textbf{Edge of Vertex Traversal:}
+Pick a half edge with the tail at v,
+then traverse each pair's next halfedge.
+\textbf{Edge of Face Traversal:}
+Pick an edge on the face, go through each next edge to loop around the face in ccw order.
+\textbf{Storage}
+Half-edge in bytes: $(E \cdot 2) \cdot 5 \cdot 4 = 40E$
+Triangle in bytes: $F \cdot 1 \cdot 4 = 4F$
+Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$
+Total: $40E + 4F + 16V \approx 120V + 8V + 16V \approx 144V$
 
 \section{Mesh Editing}
 \subsection{Quadric Error Simplification}
