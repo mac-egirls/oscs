@@ -938,7 +938,7 @@ $n$ is $v$'s degree.
 
 \subsection{Quadric Error Simplification}
 Given a plane $ax + by +_ cz + d = 0$,
-let $u = \begin{bmatrix}
+let \\ $u = \begin{bmatrix}
     a \\ b \\ c \\ d
 \end{bmatrix}$
 then, $K_{plane} = \begin{bmatrix}
@@ -967,8 +967,69 @@ $
 \end{bmatrix}
 $
 
+\subsection{Isotropic Remeshing}
+Let $L$ be mean edge length of input mesh
+If an edge is too long ($>4/3L$), split it
+If an edge is too short ($<4/5L$), collapse it
+If flipping an edge improves degree of neighboring vertices, flip it:
+Deviation is $\sum_A^D|deg(X) - 6|$, if deviation drops after a flip then flip the edge.
+Move vertex positions towards average of their neighbors:
+For vertex $P$, computer centroid $C$ of all neighbours.
+Movement vector is $v = C - P$, move by $1/8 v$.
+Ignore movement in normal direction N by using $v - N(N \cdot v)$
+Vertex normal is weighted sum of face normals
+$N = \sum_{neighbor triangle t} t.area * t.normal = \sum cross(t.edge1, t.edge2)$
+Then normalize
+
+\subsection{Blendshapes}
+This is trivial, just calculate offsets with $o_i = (bs_i - base)$,
+and build final blendshape with $shape = base + \sum w_i \cdot o_i$.
 
 \section{Texture}
+
+\subsection{Projections}
+\subsubsection{Planar Projection}
+$
+\begin{bmatrix}
+    u \\ v \\ * \\ 1
+\end{bmatrix}
+= M_t \begin{bmatrix}
+    x \\ y \\ z \\ 1
+\end{bmatrix}
+$
+Where $M_t$ is affine transformation matrix.
+
+\subsubsection{Spherical Coordinates}
+$
+u = \frac{[\pi + atan2(y, x)]}{2 \pi} \quad (atan2(...) = \phi)
+$
+$
+v = \frac{[\pi - acos(\frac{z}{\sqrt{x^2 + y^2 + z^2}})]}{\pi} \quad (acos(...) = \theta)
+$
+$atan2 \in [-\pi, \pi], acos \in [0, \pi]$
+Has issues for oddly shaped objects (eg cylinders),
+areas with large r are sparse vs areas with small r.
+
+\subsubsection{Cylindrical Coordinates}
+$
+u = \frac{[\pi + atan2(y, x)]}{2\pi} \quad atan2(...) = \phi
+$
+
+$
+v = \frac{1 + z}{2}, z \in [-1, 1]
+$
+
+\subsubsection{Cubemap}
+$
+u = \frac{1 + y / |x|}{2}, v = \frac{1 + z / |x|}{2} \text{ where } |x| > |y|, |x| > |z|, x > 0
+$
+
+\subsubsection{Seams}
+If we don't handle seams, wrapped texture will have
+triangles ``wrap'' across the whole texture, making a bad seam where the texture should repeat.
+Instead, we duplicate the vertices on the left and right edges, such that the left seam's edges only apply to the triangles on it's right,
+and the right seam's edges only apply to the triangles on it's left.
+
 
 \subsection{Mipmap}
 Take the longest length $l$,
@@ -1025,12 +1086,20 @@ find view direction \\ $v = norm(P_c - P_p)$.
 Color on object = \\ \verb|specular_light_clr * specular_material_clr * max(0, dot(v, r)^p)|
 
 \subsection{Phong}
+Phong shading is the sum of ambient, diffuse, and specular lighting. (Multiplied by \
+JASONN!!!! ADD THE PICTURE OK THANKS!!! \
+In OpenGL: ambient_light_clr * ambient_material_clr + diffuse_light_clr * diffuse_material_clr * max(0, n$\cdot$l) + specular_light_clr * specular_material_clr * max$(0, v\cdot r)^p$
 
 \subsection{Blinn-Phong}
+Instead of using the viewing angle for specular, we use the half-vector v, which is halfway between the view and light directions. ($\frac{l+v}{\vert\vert l+v \vert\vert}$). When adding specular it is now specular_light_clr + specular_material_clr * max$(0,n\cdot h)^p$. \
+
+Blinn-Phong can produce bad results when $r \cdot v$ is negative, but $r \cdot h$ is positive. In this case, Blinn-Phong will be too bright. ADD THE SLIDE PART HERE
 
 \subsection{Gouraud}
+% TODO!
 
 \section{Ray Tracing}
+% TODO!
 
 \section{Extra}
 \subsection{Spatial Data Structure}
