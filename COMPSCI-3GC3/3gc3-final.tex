@@ -904,9 +904,37 @@ Edge Split
 
 Edge Collapse
 \includegraphics[width=.5\linewidth]{edge-collapse.png}
-
 \subsection{Triangulation}
 \includegraphics[width=.5\linewidth]{triangulation.png}
+
+\subsection{Subdivision}
+\textbf{Split:} insert new vertices
+\textbf{Interpolate:} recompute positions for original and new vertices
+
+\subsection{Loop Subdivion}
+New vertices are added at positions of weighted sum of original vertices on neighboring faces.
+For interior, $v = 3 \cdot (A + B) / 8 + (C + D) / 8$ where $v$ lies on the edge between $A$ and $B$.
+For boundary, $v = (A + B) / 2$.
+Original vertices are reweighted based on original neighboring vertices.
+$v_{new} = (1 - n \beta) v_{original} + \beta \sum v_{neighbor}$.
+Where $n$ is $v$'s degree.
+Implementation: split each triangle edge in any order, flip any edge connecting a new and an original vertex.
+
+\subsection{Linear Subdivision}
+Input: m-gon. Output: m quads per m-gon.
+Face vertex: average of face corner vertices
+Edge vertices:  average of two vertices at ends of edge
+Vertex from original mesh: keep original.
+
+\subsection{Catmull-Clark Subdivision}
+Face vertex position is average of all original face corner vertex positions
+Edge vertex position is average of two end vertices and two face vertices
+Original vertex position is change according to
+$\frac{Q + 2R + (n-3)S}{n}$
+Where $Q$ is average position of face vertices neighboring $v$,
+$R$ is average position of all edge vertices connected to $v$,
+$S$ is original vertex position of $v$,
+$n$ is $v$'s degree.
 
 \subsection{Quadric Error Simplification}
 Given a plane $ax + by +_ cz + d = 0$,
