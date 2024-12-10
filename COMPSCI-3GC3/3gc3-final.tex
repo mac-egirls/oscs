@@ -123,7 +123,7 @@
 \)
 
 \textbf{MatMul}:\\
-\includegraphics[width=0.75\linewidth]{matrix-multiply-a.png}
+\includegraphics[width=0.3\linewidth]{matrix-multiply-a.png}
 Multiply each pair and add
 
 \textbf{Right Hand Rule}:
@@ -537,71 +537,24 @@ $f(x, y): y = mx + c$\\given $m=(y_1 - y_0)/(x_1 - x_0), c=(x_1y_0 - x_0y_1)/(x_
 \textbf{Implicit line function:}: $f(x,y): Ax + By + C = 0$. Checking sign of $f(x_P, y_P)$ can determine point position relative to line. If $A>0 \land B<0$, then $f(x_P, y_P) < 0$ means point $P$ is above the line.\\
 
 \textbf{Naive Implementation:} Use the function $y=mx+c$ and iterate $x$ from $x_0$ to $x_1$. No vertical lines!\\
-\textbf{Digital Difference Analyser DDA:}
-Precomputes step size for both Y and X from line function.
-Marches in direction based on which value changes slower:
-if y changes slower march in the x direction and vice versa.
+% \textbf{Digital Difference Analyser DDA:}
+% Precomputes step size for both Y and X from line function.
+% Marches in direction based on which value changes slower:
+% if y changes slower march in the x direction and vice versa.
 
 % \includegraphics[width=\linewidth]{rasterize-dda.png} 
-\begin{lstlisting}
-drawDDA(p0, p1):
-    ranges = p1-p0
-    numSteps = (ranges.x > ranges.y) 
-        ? ranges.x
-        : ranges.y
-    delta = ranges / numSteps
-    p = p0
-    for i in 0..numSteps:
-        fill pixel (round(p.x), round(p.y))
-        p += delta
-\end{lstlisting}
-
-\textbf{Midpoint Algorithm:} Assume $x_0 < x_1$. Otherwise, swap $P_0, P_1$.
-Seperate cases based on $m$ either $\in \{(-\infty, -1], (-1, 0],(0, 1], (1, \infty)\}$.
-The case will affect which pixels are the candidate pixels.
-
-\includegraphics[width=4cm]{rasterize-candidates.png}\\
-For following cases, assume $m \in [0, 1)$.
-
-Assume $(x, y)$ is drawn. Compute the midpoint of the next candidates, in this case $(x+1, y+0.5)$
-
-To check if point is above line, calculate if $f(x+1, y+0.5) > 0$. Otherwise, count it as below. Select the candidate and draw it.
-
-\begin{lstlisting} 
-drawMidpointTraditional(x0, y0, x1, y1):
-    y = y0
-    for x=x0; x<=x1; x++:
-        fill pixel (x,y)
-        float f = (y0-y1)*(x+1) 
-                + (x1-x0)*(y+0.5) 
-                + x0*y1 
-                - x1*y0
-        if (f < 0): 
-            y++;
-\end{lstlisting}
-
-
-\textbf{Midpoint Incremental Algorithm:} We don't need to evaluate $f$ at every case, since $m$ is constant.
-evaluate $f$ at the first midpoint. We know that our next candidates are either on the same level or above the last candidate.
-If we increase diagonal, then $f(x+1, y+1) = f(x,y) + (y_0 - y_1) + (x_1 - x_0)$. If we increase horizontal, then $f(x+1, y) = f(x, y) + (y_1 - y_0)$
-
-% \includegraphics[width=\linewidth]{rasterize-iteration.png}\\
-\begin{lstlisting}
-drawMidpointIter(x0, y0, x1, x0):
-    p = p0
-    f = (y0 - y1)*(x0 + 1) 
-        + (x1 - x0)*(y0+0.5) 
-        + x0*y1
-        - x1*y0
-    y = y0
-    for x = x0; x <= x1; x++:
-        fill pixels[x][y]
-        if (f < 0): //line above M
-            f += (x1-x0) + (y0-y1) 
-            y++;
-        else: //line below M
-            f += y0-y1
-\end{lstlisting}
+% \begin{lstlisting}
+% drawDDA(p0, p1):
+%     ranges = p1-p0
+%     numSteps = (ranges.x > ranges.y) 
+%         ? ranges.x
+%         : ranges.y
+%     delta = ranges / numSteps
+%     p = p0
+%     for i in 0..numSteps:
+%         fill pixel (round(p.x), round(p.y))
+%         p += delta
+% \end{lstlisting}
 
 % \textbf{Bresenham Algorithm:}
 
@@ -678,7 +631,7 @@ drawMidpointIter(x0, y0, x1, x0):
 % \end{lstlisting}
 
 
-\includegraphics[width=.3\linewidth]{rasterize-triangle-edge.png}
+% \includegraphics[width=.3\linewidth]{rasterize-triangle-edge.png}
 
 \textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing.
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
@@ -941,6 +894,19 @@ Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$
 Total: $40E + 4F + 16V \approx 120V + 8V + 16V \approx 144V$
 
 \section{Mesh Editing}
+
+\subsection{Local Ops}
+Edge Flip
+\includegraphics[width=.5\linewidth]{edge-flip.png}
+
+Edge Split
+\includegraphics[width=.5\linewidth]{edge-split.png}
+
+Edge Collapse
+\includegraphics[width=.5\linewidth]{edge-collapse.png}
+
+\subsection{Triangulation}
+
 \subsection{Quadric Error Simplification}
 Given a plane $ax + by +_ cz + d = 0$,
 let $u = \begin{bmatrix}
