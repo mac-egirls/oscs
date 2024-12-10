@@ -861,7 +861,7 @@ $F = 2V, E = 3V$.
 \subsection{Mesh data structures}
 \subsubsection{Separate Triangles (Triangle Soup)}
 It's just an unorganized list of triangles.
-Storage cost: $F \cdot 3 \cdot 3 \cdot 4 = 72 \cdot V$
+Storage cost: $F \cdot 3 \cdot 3 \cdot 4 = 72 \cdot V$ (72 bytes per vertex)
 (F triangles, 3 vertices, 3 vector components, Euler formula)
 
 \subsubsection{Indexed Triangle Mesh}
@@ -869,7 +869,7 @@ Store list of vertices, list of triangle indices separately.
 Allows for deduplicating vertices, decoupling vertex positions from connectivity. (Blendshapes)
 Vertices in Bytes: $V \cdot 3 \cdot 4 = 12 V$
 Triangles in Bytes: $F \cdot 3 \cdot 4 = 12 F \approx 24 V$
-Total in bytes is $12V + 24V = 36V$
+Total in bytes is $12V + 24V = 36V$ (36 bytes / vertex)
 
 \subsubsection{Triangle Fans}
 List of vertices, list of fan arrays
@@ -883,12 +883,16 @@ Swap order of remaining two vertices for every other triangle (don't swap 0th, s
 
 Storage for fans and strips, vertices is $12 V$ (same as ITM),
 triangle fans / strips array is $(F + 2) \cdot 4 = 4F + 8 \approx 8V + 8$.
-Total is $12 V + 8 V + 8 \approx 20V$.
+Total is $12 V + 8 V + 8 \approx 20V$ (20 bytes / vertex)
 
 \subsubsection{Triangle-Neighbor Structure}
 Connectivity info stored in Triangle.
 3 vertices in order, 3 neighboring triangles in sync with v.
 The side from $v[i]$ to $v[x]$ belongs to triangle $i$.
+Efficient for adjacency-based operations like smoothing, traversal, and region-growing,
+and is memory-efficient for static meshes.
+Lacks granularity at the edge or vertex level,
+making it unsuitable for operations requiring detailed connectivity or dynamic topology changes.
 \textbf{Traverse triangles of vertex v.}
 Pick any triangle t connects to v.
 Find the neighboring triangle correspoinding to v.
@@ -897,7 +901,27 @@ Loop until we get back to the start.
 \textbf{Storage:}
 Triangles: $F \cdot (3 + 3) \cdot 4 = 24F$
 Vertex: $V \cdot (1 + 3) \cdot 4 = 16V$
-Total is $24F + 16V \approx 48V + 16V \approx 64V$
+Total is $24F + 16V \approx 48V + 16V \approx 64V$ (64 bytes / vertex)
+
+\subsubsection{Winged-Edge Structure}
+Connectivity information stored in edge.
+2 vertices of edge, head and tail
+2 neighboring triangles, left and right
+prev and next edges in left triangle,
+ditto for right triangle.
+Left tri contains lprev, lnext, [tail-head].
+Right tri contains rprev, rnext, [head-tail].
+\textbf{Traversal given vertex:}
+Follows prev (aka always pick the edge to the left),
+edges around v visited in ccw order.
+\textbf{Traversal given face:}
+Stays on the side where face is,
+visit edges of face in ccw order.
+\textbf{Storage}
+Edge in bytes: $E \cdot 8 \cdot 4 = 32E$ (8 references, we can remove prevs to save space and just do 2 nexts instead)
+Triangle in bytes: $F \cot 1 \cdot 4 = 4F$
+Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$ (1 edge ref, xyz)
+TOtal: $32E + 4F + 16V \approx 96V + 8V + 16V \approx 120V$.
 
 \section{Mesh Editing}
 \subsection{Quadric Error Simplification}
