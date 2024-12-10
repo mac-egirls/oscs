@@ -906,6 +906,7 @@ Edge Collapse
 \includegraphics[width=.5\linewidth]{edge-collapse.png}
 
 \subsection{Triangulation}
+\includegraphics[width=.5\linewidth]{triangulation.png}
 
 \subsection{Quadric Error Simplification}
 Given a plane $ax + by +_ cz + d = 0$,
@@ -1005,6 +1006,17 @@ Color on object = \\ \verb|specular_light_clr * specular_material_clr * max(0, d
 
 \section{Extra}
 \subsection{Spatial Data Structure}
+Used to quickly locate objects in space\
+\textbf{Binary space partition (BSP)}
+While every object is not in its own region, split the space in half\
+Hyperplanes; for higher dimensions (3D), splits space similarly to Binary space partitioning. Splitting hyperplanes can be completely arbitrary
+\textbf{Autopartition}
+Candidates for splitting are based on input primitives; when we have inputs, we just extend the planes further to split space.\
+\textbf{K-D Tree} \
+K means number of dimensions. 2D example: we split along the median of the X values, then we split along the Y medians of the 2 resulting partitions, then X, etc, etc. until every point is a median.
+\textbf{Octree / Quadtree}
+\textbf{Octree}: Divide 3d space into 8 quadrants, keep dividing the resulting space until each has <=1 point in each cell
+\textbf{Quadtree}: Divide 2d space into 4 quadrants, keep dividing until each space has <=1 point in each cell
 
 \subsection{Curves}
 
