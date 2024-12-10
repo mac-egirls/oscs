@@ -24,7 +24,6 @@
 \usepackage{courier}
 \usepackage{syntax}
 \usepackage{mathpartir}
-\usepackage{wrapfig}
 \usepackage{siunitx}
 
 % minimal line spacing
@@ -107,9 +106,7 @@
 
 \section{Math}
 
-\begin{wrapfigure}{r}{0.3\linewidth}
-    \includegraphics[width=\linewidth]{right-hand-rule.png}
-\end{wrapfigure}
+\includegraphics[width=.3\linewidth]{right-hand-rule.png}
 
 \textbf{Dot Product}:
 \(
@@ -681,9 +678,7 @@ drawMidpointIter(x0, y0, x1, x0):
 % \end{lstlisting}
 
 
-\begin{wrapfigure}{r}{0.3\linewidth}
-    \includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
-\end{wrapfigure}
+\includegraphics[width=.3\linewidth]{rasterize-triangle-edge.png}
 
 \textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing.
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
@@ -719,9 +714,7 @@ Then, we sample $n$ times from the pixel area, averaging the samples to get the 
 \textbf{Fragments} here are each dot on a pixel.
 
 
-\begin{wrapfigure}{r}{0.3\linewidth}
-    \includegraphics[width=\linewidth]{basic-graphics-pipeline.png}
-\end{wrapfigure}
+\includegraphics[width=.3\linewidth]{basic-graphics-pipeline.png}
 \section{Pipeline}
 
 \subsection{Application}
@@ -867,14 +860,44 @@ $F = 2V, E = 3V$.
 
 \subsection{Mesh data structures}
 \subsubsection{Separate Triangles (Triangle Soup)}
+It's just an unorganized list of triangles.
+Storage cost: $F \cdot 3 \cdot 3 \cdot 4 = 72 \cdot V$
+(F triangles, 3 vertices, 3 vector components, Euler formula)
 
 \subsubsection{Indexed Triangle Mesh}
+Store list of vertices, list of triangle indices separately.
+Allows for deduplicating vertices, decoupling vertex positions from connectivity. (Blendshapes)
+Vertices in Bytes: $V \cdot 3 \cdot 4 = 12 V$
+Triangles in Bytes: $F \cdot 3 \cdot 4 = 12 F \approx 24 V$
+Total in bytes is $12V + 24V = 36V$
 
 \subsubsection{Triangle Fans}
+List of vertices, list of fan arrays
+First vertex is center. Each following adjacent pair forms a triangle with center coord.
 
 \subsubsection{Triangle Strips}
+Three adjacent vertices form a triangle.
+Streaming in new vertex.
+Forget the oldest vertex.
+Swap order of remaining two vertices for every other triangle (don't swap 0th, swap 1st, etc.)
 
-\subsubsection{}
+Storage for fans and strips, vertices is $12 V$ (same as ITM),
+triangle fans / strips array is $(F + 2) \cdot 4 = 4F + 8 \approx 8V + 8$.
+Total is $12 V + 8 V + 8 \approx 20V$.
+
+\subsubsection{Triangle-Neighbor Structure}
+Connectivity info stored in Triangle.
+3 vertices in order, 3 neighboring triangles in sync with v.
+The side from $v[i]$ to $v[x]$ belongs to triangle $i$.
+\textbf{Traverse triangles of vertex v.}
+Pick any triangle t connects to v.
+Find the neighboring triangle correspoinding to v.
+Set t to be neighboring triangle.
+Loop until we get back to the start.
+\textbf{Storage:}
+Triangles: $F \cdot (3 + 3) \cdot 4 = 24F$
+Vertex: $V \cdot (1 + 3) \cdot 4 = 16V$
+Total is $24F + 16V \approx 48V + 16V \approx 64V$
 
 \section{Mesh Editing}
 \subsection{Quadric Error Simplification}
