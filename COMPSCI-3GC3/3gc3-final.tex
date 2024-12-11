@@ -1292,9 +1292,11 @@
 
     \textbf{Deriving Spline Basis for Cubic Curves}
 
-    Recall the cubic functions
-    $f(t) = a_0 + a_1t + a_2t^2 + a_3t^3$ and
+    Recall the cubic functions:
+    $f(t) = a_0 + a_1t + a_2t^2 + a_3t^3$.
     $f`(t) = a_1t + a_2t + 3a_3t^2$.
+
+    Note, if custom slopes, then use that instead.
 
     We also have the Hermite equations for a segment:
     \includegraphics[width=0.8\linewidth]{
@@ -1304,7 +1306,6 @@
 
     Now we have expressions for $a_i$ in terms of $p$. We can replace all $a's$ in the original $f(t)$ to be in terms of $p$. Rearrange that to collect like terms of $p$, we get a basis.
 
-    
 
     \textbf{Hermite Basis:}
     $f(t) = p_1(2t^3 - 3t + 1) + p_1(-2t^3+3t^2) + p_2(t^3-2^2 + t) + p_3(t^3-t^2)$
