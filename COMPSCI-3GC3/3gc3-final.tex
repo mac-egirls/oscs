@@ -149,7 +149,41 @@ Given $Ax=b$, where $A \in R^{nxn}$ has a nonzero determinant, then $x_i = \frac
 From Triangle ABC, point $P(x,y,z)$ can be defined using $u,v,w$, where $P = uA + vB + wC$. \textbf{IMPORTANT:} $u + v + w = 1$.
 
 From World to Bary: 
-\includegraphics[width=0.8\linewidth]{bary-transform.png}
+% \includegraphics[width=0.8\linewidth]{bary-transform.png}
+
+$
+P = uA + vB + wC
+= u \begin{bmatrix}
+    0 \\ 4 \\ 0
+\end{bmatrix}
++ v \begin{bmatrix}
+    0 \\ 0 \\ 0
+\end{bmatrix}
++ w \begin{bmatrix}
+    3 \\ 0 \\ 0
+\end{bmatrix}
+$\\
+$\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+= \begin{bmatrix}
+    3w \\ 4u \\ 0
+\end{bmatrix}
+$;
+\boxed{
+\begin{bmatrix}
+    u \\ v \\ w
+\end{bmatrix}
+= B \begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+= \begin{bmatrix}
+    y/4 \\ 1 - y/4 - x/3 \\ x/3
+\end{bmatrix}
+}\\
+\boxed{w = x/3, u = y/4}\\
+$u + v + w = 1$\\
+\boxed{v = 1 - u - w = 1 - y/4 - x/3}
 
 
 % \textbf{Barycentric Interpolation (Area)}:
@@ -880,7 +914,7 @@ Total: $\approx 120V$.
 
 % \textbf{Winged-Edge and Half Edge Diagram}
 \includegraphics[width=.3\linewidth]{winged-edge.png}
-\includegraphics[width=.3\linewidth]{half-edge.png}
+\includegraphics[width=.2\linewidth]{half-edge.png}
 
 \textbf{Half-Edge Structure}
 Halfedge:
