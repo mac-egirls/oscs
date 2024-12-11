@@ -121,7 +121,7 @@
 
 \textbf{MatMul}:\\
 \includegraphics[width=0.3\linewidth]{matrix-multiply-a.png}
-Multiply each pair and add
+For target $c_{i,j}$ iterate over the $i$th row in the first matrix and the $j$th column in the second -- perform inner product and save.
 
 \textbf{Right Hand Rule}:
 For axises, $x$ is thumb, $y$ is index, and $z$ is middle finger.
@@ -1130,6 +1130,7 @@ K means number of dimensions. 2D example: we split along the median of the X val
 \textbf{Octree}: Divide 3d space into 8 quadrants, keep dividing the resulting space until each has <=1 point in each cell
 \textbf{Quadtree}: Divide 2d space into 4 quadrants, keep dividing until each space has <=1 point in each cell
 
+
 \subsection{Curves}
 
 \subsubsection{Desirable Properties}
@@ -1144,13 +1145,96 @@ but control points determine curve.
 Ideally we want at least $C^2$ continuity,
 locality, and interpolation.
 
-\subsubsection{Types}
+\subsection{Disadvantages of Single Piece Polynomial Curves}
+\begin{itemize}
+    \item Lack of locality. Changes to points affect the whole curve.
+    \item Runge's Phenomenon: Oscillation with polynomial interpolation causes increasing wiggles and overshoots near the outer control points.
+\end{itemize}
 
-\textbf{Polynomial}
 
-\textbf{Spline}
+\subsection{Cubic Spline}
+\begin{itemize}
+    \item Defined as $a_0 + a_1t + a_2t^2 + a_3t^3$.
+    \item Properties: Locality, $C^2$ continuity, Interpolates the control points.
+\end{itemize}
 
-\textbf{Approximation}
+\subsection{Cardinal Spline}
+\begin{itemize}
+    \item Defined by $n+1$ control points.
+    \item Uses positional and derivative constraints.
+    \item Derivatives calculated using a tension constant $c$ and the positions of neighboring points:
+    \begin{align*}
+        F(0) &= p_1 \\
+        F'(0) &= (1-c)(p_2 - p_0)/2
+    \end{align*}
+    \item Catmull-Rom is a special case of Cardinal Spline where $c = 0$, implying $ F'(0) = p_2 - p_0)/2$
+\end{itemize}
+
+\subsection{Properties of Different Curve Types}
+TC = Total Constraints
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+    \hline
+    Curve Type & Continuity & Locality &  TC \\
+    \hline
+    Single Polynomial  & $C^n$ & Global & -- \\
+    Hermite Cubic  & $C^1$ & Local & $4n$ \\
+    Cardinals & $C^2$ & Local & $4n$ \\
+    Catmull-Rom  & $C^2$ & Local & -- \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Deriving Spline Basis for Cubic Curves}
+\begin{itemize}
+    \item Follow the process of deriving Hermite basis.
+    \item Apply the same methodology to derive the basis for Catmull-Rom splines.
+\end{itemize}
+
+Recall the cubic functions
+$f(t) = a_0 + a_1t + a_2t^2 + a_3t^3$ and
+$f`(t) = a_1t + a_2t + 3a_3t^2$.
+
+We also have the Hermite equations for a segment: $f(0) = p_0 = a_0, f(1) = p_1 = a_0 + a_1 + a_2 + a_3, f`(0) = p_2 = a_1, f`(1) = p_3 = a_1 + 2a_2 + 3_a3$. Name $p$ as the set of parameters.
+
+We can rewrite set of equations as $p = Ca$, where $C$ is a matrix of 0's and 1's.
+
+\includegraphics[width=0.3\linewidth]{
+curve-basis-soe.png}
+
+Take $p=Ca$, rearrange $C^{-1}p=a$.
+
+Now we have expressions for $a_i$ in terms of $p$. We can replace all $a's$ in the original $f(t)$ to be in terms of $p$. Rearrange that to collect like terms of $p$, we get a basis.
+
+Hermite Basis:
+$f(t) = p_1(2t^3 - 3t + 1) + p_1(-2t^3+3t^2) + p_2(t^3-2^2 + t) + p_3(t^3-t^2)$
+
+Where $p_1 = p_0, p_2 = p_1, p_3 = p^`_0, p_4 = p^`_1$
+
+
+\subsection{Deriving Bezier Basis}
+
+Depending on the bezier `degree' $n$, we can calculate it via $b_i,n = \frac{n!}{i!(n-i)!}(t^i)(1-t)^n-i$.
+
+$b_0,3 = (1-t)^3$
+$b_1,3 = t(1-t)^2$
+$b_2,3 = t^2(1-t)^1$
+$b_3,3 = t^3$
+
+
+\subsection{Computing Positions on the Curve Using Spline Basis}
+\begin{itemize}
+    \item Given user constraints, compute positions using the basis functions $b$ and constraints $p$:
+    \begin{align*}
+        F(t) = p_0b_0(t) + p_1b_1(t) + p_2b_2(t) + p_3b_3(t)
+    \end{align*}
+\end{itemize}
+
+\subsection{Computing Positions on Bezier Curves Using the de Casteljau Algorithm}
+Define the `control polynomial', then connect the intersections between the points.
+
+\includegraphics[width=0.3\linewidth]{bezier.png}
+
 
 \end{multicols*}
 
