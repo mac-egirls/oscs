@@ -24,7 +24,7 @@
 \usepackage{courier}
 \usepackage{syntax}
 \usepackage{mathpartir}
-\usepackage{wrapfig}
+\usepackage{siunitx}
 
 % minimal line spacing
 % \setstretch{0.1}
@@ -95,7 +95,7 @@
 }
 
 \begin{center}
-    {\textbf{3GC3 Midterm - Solaris-3 Edition}} \\
+    {\textbf{3GC3 Final - RTX ON Edition}} \\
 \end{center}
 % set column spacing rules
 \setlength{\premulticols}{1pt}
@@ -106,9 +106,7 @@
 
 \section{Math}
 
-\begin{wrapfigure}{r}{0.3\linewidth}
-    \includegraphics[width=\linewidth]{right-hand-rule.png}
-\end{wrapfigure}
+\includegraphics[width=.3\linewidth]{right-hand-rule.png}
 
 \textbf{Dot Product}:
 \(
@@ -125,7 +123,7 @@
 \)
 
 \textbf{MatMul}:\\
-\includegraphics[width=0.75\linewidth]{matrix-multiply-a.png}
+\includegraphics[width=0.3\linewidth]{matrix-multiply-a.png}
 Multiply each pair and add
 
 \textbf{Right Hand Rule}:
@@ -386,8 +384,9 @@ Rendering steps:
 Given camera position $e$, gaze direction $g$ and `up' direction $t$, construct basis $uwv$ for camera coordinate system.
 $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
 
-\includegraphics[height=3cm]{camera-basis.png}
-% Todo Replace Picture, it's too big
+Remember that OpenGL LookAt Coordinates is Camera Position + Gaze Direction!
+
+\includegraphics[width=.5\linewidth]{camera-basis.png}
 
 \textit{Camera Space $\to$ World Space:}\\
 \(
@@ -538,150 +537,101 @@ $f(x, y): y = mx + c$\\given $m=(y_1 - y_0)/(x_1 - x_0), c=(x_1y_0 - x_0y_1)/(x_
 \textbf{Implicit line function:}: $f(x,y): Ax + By + C = 0$. Checking sign of $f(x_P, y_P)$ can determine point position relative to line. If $A>0 \land B<0$, then $f(x_P, y_P) < 0$ means point $P$ is above the line.\\
 
 \textbf{Naive Implementation:} Use the function $y=mx+c$ and iterate $x$ from $x_0$ to $x_1$. No vertical lines!\\
-\textbf{Digital Difference Analyser DDA:}
-Precomputes step size for both Y and X from line function.
-Marches in direction based on which value changes slower:
-if y changes slower march in the x direction and vice versa.
+% \textbf{Digital Difference Analyser DDA:}
+% Precomputes step size for both Y and X from line function.
+% Marches in direction based on which value changes slower:
+% if y changes slower march in the x direction and vice versa.
 
 % \includegraphics[width=\linewidth]{rasterize-dda.png} 
-\begin{lstlisting}
-drawDDA(p0, p1):
-    ranges = p1-p0
-    numSteps = (ranges.x > ranges.y) 
-        ? ranges.x
-        : ranges.y
-    delta = ranges / numSteps
-    p = p0
-    for i in 0..numSteps:
-        fill pixel (round(p.x), round(p.y))
-        p += delta
-\end{lstlisting}
+% \begin{lstlisting}
+% drawDDA(p0, p1):
+%     ranges = p1-p0
+%     numSteps = (ranges.x > ranges.y) 
+%         ? ranges.x
+%         : ranges.y
+%     delta = ranges / numSteps
+%     p = p0
+%     for i in 0..numSteps:
+%         fill pixel (round(p.x), round(p.y))
+%         p += delta
+% \end{lstlisting}
 
-\textbf{Midpoint Algorithm:} Assume $x_0 < x_1$. Otherwise, swap $P_0, P_1$.
-Seperate cases based on $m$ either $\in \{(-\infty, -1], (-1, 0],(0, 1], (1, \infty)\}$.
-The case will affect which pixels are the candidate pixels.
-
-\includegraphics[width=4cm]{rasterize-candidates.png}\\
-For following cases, assume $m \in [0, 1)$.
-
-Assume $(x, y)$ is drawn. Compute the midpoint of the next candidates, in this case $(x+1, y+0.5)$
-
-To check if point is above line, calculate if $f(x+1, y+0.5) > 0$. Otherwise, count it as below. Select the candidate and draw it.
-
-\begin{lstlisting} 
-drawMidpointTraditional(x0, y0, x1, y1):
-    y = y0
-    for x=x0; x<=x1; x++:
-        fill pixel (x,y)
-        float f = (y0-y1)*(x+1) 
-                + (x1-x0)*(y+0.5) 
-                + x0*y1 
-                - x1*y0
-        if (f < 0): 
-            y++;
-\end{lstlisting}
-
-
-\textbf{Midpoint Incremental Algorithm:} We don't need to evaluate $f$ at every case, since $m$ is constant.
-evaluate $f$ at the first midpoint. We know that our next candidates are either on the same level or above the last candidate.
-If we increase diagonal, then $f(x+1, y+1) = f(x,y) + (y_0 - y_1) + (x_1 - x_0)$. If we increase horizontal, then $f(x+1, y) = f(x, y) + (y_1 - y_0)$
-
-% \includegraphics[width=\linewidth]{rasterize-iteration.png}\\
-\begin{lstlisting}
-drawMidpointIter(x0, y0, x1, x0):
-    p = p0
-    f = (y0 - y1)*(x0 + 1) 
-        + (x1 - x0)*(y0+0.5) 
-        + x0*y1
-        - x1*y0
-    y = y0
-    for x = x0; x <= x1; x++:
-        fill pixels[x][y]
-        if (f < 0): //line above M
-            f += (x1-x0) + (y0-y1) 
-            y++;
-        else: //line below M
-            f += y0-y1
-\end{lstlisting}
-
-\textbf{Bresenham Algorithm:}
+% \textbf{Bresenham Algorithm:}
 
 % \includegraphics[width=\linewidth]{rasterize-bresen.png}\\
-\begin{lstlisting}
-drawBresenham(x0, y0, x1, y1):
-    deltaX = x1-x0
-    deltaY = y1-y0
-    D = 2*deltaY - deltaX
-    fill pixel (x0,y0)
-    y = y0
-    for x=x0+1; x<=x1; x++:
-        //Diagonal Increment
-        if D > 0:
-            y++
-            D += 2*(deltaY-deltaX)
-        //H Increment
-        else:
-            D += 2*deltaY
-        fill pixel (x,y)
-\end{lstlisting}
+% \begin{lstlisting}
+% drawBresenham(x0, y0, x1, y1):
+%     deltaX = x1-x0
+%     deltaY = y1-y0
+%     D = 2*deltaY - deltaX
+%     fill pixel (x0,y0)
+%     y = y0
+%     for x=x0+1; x<=x1; x++:
+%         //Diagonal Increment
+%         if D > 0:
+%             y++
+%             D += 2*(deltaY-deltaX)
+%         //H Increment
+%         else:
+%             D += 2*deltaY
+%         fill pixel (x,y)
+% \end{lstlisting}
 
-\textbf{Triangle Rasterization}
+% \textbf{Triangle Rasterization}
 
-First, we find the bounding box (rectangle) of the triangle using the min and max positions of all 3 vertexes.
-Then, we iterate over every pixel ($n^2$), checking if the barycentric coordinate of the pixel lies inside the triangle.
+% First, we find the bounding box (rectangle) of the triangle using the min and max positions of all 3 vertexes.
+% Then, we iterate over every pixel ($n^2$), checking if the barycentric coordinate of the pixel lies inside the triangle.
 
-We can tell if it's outside if all coordinates are $\geq 0$. If one is not, then it is outside, and we skip drawing.
+% We can tell if it's outside if all coordinates are $\geq 0$. If one is not, then it is outside, and we skip drawing.
 
-The rest of the following code interpolates the colour of the pixels (p0 is red, p1 is green and p2 is blue).
-
-
-\begin{lstlisting}[language=C++]
-void DrawTriangle(int x0, int y0, 
-        int x1, int y1, 
-        int x2, int y2, 
-        std::vector<std::vector<std::string>> &pixels) {
-
-// Bounding box
-int minx = std::min({x0, x1, x2});
-int maxx = std::max({x0, x1, x2});
-int miny = std::min({y0, y1, y2});
-int maxy = std::max({y0, y1, y2});
-
-// Precompute terms for barycentric coordinates
-float F01 = (y0-y1)*x2 + (x1-x0)*y2 + x0*y1 - x1*y0;
-float F12 = (y1-y2)*x0 + (x2-x1)*y0 + x1*y2 - x2*y1;
-float F20 = (y2-y0)*x1 + (x0-x2)*y1 + x2*y0 - x0*y2;
-
-// Vertex colors: p0 - Red, p1 - Green, p2 - Blue
-int R0 = 255, G0 = 0, B0 = 0;  // p0 - Red
-int R1 = 0, G1 = 255, B1 = 0;  // p1 - Green
-int R2 = 0, G2 = 0, B2 = 255;  // p2 - Blue
-
-// Loop over bounding box pixels
-for (int x = minx; x <= maxx; ++x) {
-    for (int y = miny; y <= maxy; ++y) {
-        // Calculate barycentric coordinates
-        float f01 = (y0-y1)*x + (x1-x0)*y + x0*y1 - x1*y0;
-        float f12 = (y1-y2)*x + (x2-x1)*y + x1*y2 - x2*y1;
-        float f20 = (y2-y0)*x + (x0-x2)*y + x2*y0 - x0*y2;
-        float b0 = f12 / F12, b1 = f20 / F20, b2 = f01 / F01;
-        // Check if inside the triangle
-        if (b0 >= 0 && b1 >= 0 && b2 >= 0) {
-            // Interpolate color
-            int R = b0*R0 + b1*R1 + b2*R2;
-            int G = b0*G0 + b1*G1 + b2*G2;
-            int B = b0*B0 + b1*B1 + b2*B2;
-            // Set pixel color
-            pixels[y][x] = std::to_string(R) + ',' +
-                            std::to_string(G) + ',' +
-                            std::to_string(B);
-}}}}
-\end{lstlisting}
+% The rest of the following code interpolates the colour of the pixels (p0 is red, p1 is green and p2 is blue).
 
 
-\begin{wrapfigure}{r}{0.3\linewidth}
-    \includegraphics[width=\linewidth]{rasterize-triangle-edge.png}
-\end{wrapfigure}
+% \begin{lstlisting}[language=C++]
+% void DrawTriangle(int x0, int y0, 
+%         int x1, int y1, 
+%         int x2, int y2, 
+%         std::vector<std::vector<std::string>> &pixels) {
+
+% // Bounding box
+% int minx = std::min({x0, x1, x2});
+% int maxx = std::max({x0, x1, x2});
+% int miny = std::min({y0, y1, y2});
+% int maxy = std::max({y0, y1, y2});
+
+% // Precompute terms for barycentric coordinates
+% float F01 = (y0-y1)*x2 + (x1-x0)*y2 + x0*y1 - x1*y0;
+% float F12 = (y1-y2)*x0 + (x2-x1)*y0 + x1*y2 - x2*y1;
+% float F20 = (y2-y0)*x1 + (x0-x2)*y1 + x2*y0 - x0*y2;
+
+% // Vertex colors: p0 - Red, p1 - Green, p2 - Blue
+% int R0 = 255, G0 = 0, B0 = 0;  // p0 - Red
+% int R1 = 0, G1 = 255, B1 = 0;  // p1 - Green
+% int R2 = 0, G2 = 0, B2 = 255;  // p2 - Blue
+
+% // Loop over bounding box pixels
+% for (int x = minx; x <= maxx; ++x) {
+%     for (int y = miny; y <= maxy; ++y) {
+%         // Calculate barycentric coordinates
+%         float f01 = (y0-y1)*x + (x1-x0)*y + x0*y1 - x1*y0;
+%         float f12 = (y1-y2)*x + (x2-x1)*y + x1*y2 - x2*y1;
+%         float f20 = (y2-y0)*x + (x0-x2)*y + x2*y0 - x0*y2;
+%         float b0 = f12 / F12, b1 = f20 / F20, b2 = f01 / F01;
+%         // Check if inside the triangle
+%         if (b0 >= 0 && b1 >= 0 && b2 >= 0) {
+%             // Interpolate color
+%             int R = b0*R0 + b1*R1 + b2*R2;
+%             int G = b0*G0 + b1*G1 + b2*G2;
+%             int B = b0*B0 + b1*B1 + b2*B2;
+%             // Set pixel color
+%             pixels[y][x] = std::to_string(R) + ',' +
+%                             std::to_string(G) + ',' +
+%                             std::to_string(B);
+% }}}}
+% \end{lstlisting}
+
+
+% \includegraphics[width=.3\linewidth]{rasterize-triangle-edge.png}
 
 \textbf{Non-overlapping Triangles sharing edges:} We want to ensure no-double drawing.
 Assume $T_1, T_2$ share one edge. Let $a$ be the vertex of $T_1$ not along this edge. Let $b$ be the coresponding vertex in $T_2$.
@@ -717,9 +667,7 @@ Then, we sample $n$ times from the pixel area, averaging the samples to get the 
 \textbf{Fragments} here are each dot on a pixel.
 
 
-\begin{wrapfigure}{r}{0.3\linewidth}
-    \includegraphics[width=\linewidth]{basic-graphics-pipeline.png}
-\end{wrapfigure}
+\includegraphics[width=.3\linewidth]{basic-graphics-pipeline.png}
 \section{Pipeline}
 
 \subsection{Application}
@@ -775,9 +723,9 @@ Plug \(p\) into plane function \(f(p) = n \cdot (\mathbf{a} + t(\mathbf{b} - \ma
 Solve for \(t = \frac{n \cdot \textbf{a} + D}{n \cdot (\textbf{a} - \textbf{b})}\)
 
 \textbf{Clipping a Triangle}
-\begin{wrapfigure}{r}{0.5\linewidth}
+\begin{figure}[!ht]
     \includegraphics[width=\linewidth]{triangle-clipping.png}
-\end{wrapfigure}
+\end{figure}
 
 \textit{Plane Function}:
 Same as above
@@ -844,144 +792,350 @@ $C_{dest} = C_{src} + (1-\alpha_{src})C_{dest}$.
 Zbuffer does not care if the fragment has Transparency -- Fragments are not ordered. However- \textbf{ORDER matters when dealing with transparency!}. 
 Thus, We draw all opaque objects first using the depth buffer, then use painters algorithm to draw transparent objects.
 
-\section{Example Questions}
-\noindent 2. What are the limitations of painter's algorithm?
+\section{Mesh}
+Manifold intuition:
+Mesh is ``watertight'',
+``a small neighborhood around any point could be smoothed out into a bit of flat surface''
+\textbf{Manifold:} Every edge is shared by exactly two triangles. Every vertex has a single, complete loop of triangles around it.
+\textbf{Manifold with Boundary:} Every edge is used by either one or two triangles. Every vertex connects to a single edge-connected set of triangles.
 
-\begin{enumerate}
-    \item \textbf{Cyclic Overlap}: It fails with overlapping or cyclically overlapping polygons (e.g., A in front of B, B in front of C, and C in front of A).
+Manifold useful for 2d regular grid,
+better control of neighboring topology,
+consistent triangle orientation.
 
-    \item \textbf{Intersecting Polygons}: It struggles with intersecting polygons, as ordering becomes ambiguous.
+\textbf{Euler's Formula:} $V - E + F = 2(1 - g) \approx 0$
+Where $F$ is \# of triangles,
+$E$ is \# of edges,
+$V$ is \# of verticies,
+$g$ is genus (\# of holes in surface)
+Each edge is used 2x, each triangle uses 3 edges, $2E = 3F$.
+$F = 2V, E = 3V$.
 
-    \item \textbf{High Sorting Cost}: Sorting polygons by depth is computationally expensive, slowing performance in complex scenes.
+\subsection{Mesh data structures}
+\subsubsection{Separate Triangles (Triangle Soup)}
+It's just an unorganized list of triangles.
+Storage cost: $F \cdot 3 \cdot 3 \cdot 4 = 72 \cdot V$ (72 bytes per vertex)
+(F triangles, 3 vertices, 3 vector components, Euler formula)
 
-    \item \textbf{Overdraw and No Depth Information}: Without per-pixel depth tracking, it may redraw pixels unnecessarily, reducing efficiency.
+\subsubsection{Indexed Triangle Mesh}
+Store list of vertices, list of triangle indices separately.
+Allows for deduplicating vertices, decoupling vertex positions from connectivity. (Blendshapes)
+Vertices in Bytes: $V \cdot 3 \cdot 4 = 12 V$
+Triangles in Bytes: $F \cdot 3 \cdot 4 = 12 F \approx 24 V$
+Total in bytes is $12V + 24V = 36V$ (36 bytes / vertex)
 
-    \item \textbf{Inaccurate Transparency}: It handles transparency poorly, as color compositing requires depth per pixel.
-\end{enumerate}
-\noindent 1. Given triangle ABC, Barycentric coord given by $(1,0,0), (0,1,0), (0,0,1).$ Point P is $(0.13,0.17, 0.7)$ Since barycentric, the larger the number is to 1, the closer it is to that point in the triangle.\\
+\subsubsection{Triangle Fans}
+List of vertices, list of fan arrays
+First vertex is center. Each following adjacent pair forms a triangle with center coord.
 
-\noindent 4. What is the composite transformation matrix to \textbf{revert} the following sequence of transformations to a 3D object?\\
+\subsubsection{Triangle Strips}
+Three adjacent vertices form a triangle.
+Streaming in new vertex.
+Forget the oldest vertex.
+Swap order of remaining two vertices for every other triangle (don't swap 0th, swap 1st, etc.)
 
-\noindent First, the object is rotated around x-axis by rx; then it is scaled by s; then it is translated by (x,y,z) to origin; then it is rotated around y-axis by ry; lastly, the object is translated back to its original position;\\
+Storage for fans and strips, vertices is $12 V$ (same as ITM),
+triangle fans / strips array is $(F + 2) \cdot 4 = 4F + 8 \approx 8V + 8$.
+Total is $12 V + 8 V + 8 \approx 20V$ (20 bytes / vertex)
 
-\noindent $\mathbf{M^T} rotate-x(rx), \mathbf{M^{-1}} scale(s), \mathbf{M} translate(-x,-y,-z), \mathbf{M^T} rotate-y(ry), \mathbf{M^{-1}} translate(-x,-y,-z)$\\
+\subsubsection{Triangle-Neighbor Structure}
+Connectivity info stored in Triangle.
+3 vertices in order, 3 neighboring triangles in sync with v.
+The side from $v[i]$ to $v[x]$ belongs to triangle $i$.
+Efficient for adjacency-based operations like smoothing, traversal, and region-growing,
+and is memory-efficient for static meshes.
+Lacks granularity at the edge or vertex level,
+making it unsuitable for operations requiring detailed connectivity or dynamic topology changes.
+\textbf{Traverse triangles of vertex v.}
+Pick any triangle t connects to v.
+Find the neighboring triangle correspoinding to v.
+Set t to be neighboring triangle.
+Loop until we get back to the start.
+\textbf{Storage:}
+Triangles: $F \cdot (3 + 3) \cdot 4 = 24F$
+Vertex: $V \cdot (1 + 3) \cdot 4 = 16V$
+Total is $24F + 16V \approx 48V + 16V \approx 64V$ (64 bytes / vertex)
 
-\noindent 5. Triangles in the figure below are described as:\\
-\includegraphics[width=3cm]{Screenshot 2024-10-25 at 12.34.02 PM.png}\\
-Following counter-clockwise order, backface culling will remove which faces? (Use right hand rule where fingers curl and thumb points away from you to remove the faces).\\
+\subsubsection{Winged-Edge Structure}
+Connectivity information stored in edge.
+2 vertices of edge, head and tail
+2 neighboring triangles, left and right
+prev and next edges in left triangle,
+ditto for right triangle.
+Left tri contains lprev, lnext, [tail-head].
+Right tri contains rprev, rnext, [head-tail].
+\textbf{Traversal given vertex:}
+Follows prev (aka always pick the edge to the left),
+edges around v visited in ccw order.
+\textbf{Traversal given face:}
+Stays on the side where face is,
+visit edges of face in ccw order.
+\textbf{Storage}
+Edge in bytes: $E \cdot 8 \cdot 4 = 32E$ (8 references, we can remove prevs to save space and just do 2 nexts instead)
+Triangle in bytes: $F \cot 1 \cdot 4 = 4F$
+Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$ (1 edge ref, xyz)
+Total: $32E + 4F + 16V \approx 96V + 8V + 16V \approx 120V$.
 
-Remove $T2, T3$\\
+\subsubsection{Half-Edge Structure}
+Halfedge:
+VertexRef v (vertex half-edge points to)
+TriangleRef t (triangle that the halfedge is on)
+HalfEdgeRef prev, next (prev and next half edges in t)
+HalfEdgeRef pair (the half edge in the opposite direction)
+\textbf{Edge of Vertex Traversal:}
+Pick a half edge with the tail at v,
+then traverse each pair's next halfedge.
+\textbf{Edge of Face Traversal:}
+Pick an edge on the face, go through each next edge to loop around the face in ccw order.
+\textbf{Storage}
+Half-edge in bytes: $(E \cdot 2) \cdot 5 \cdot 4 = 40E$
+Triangle in bytes: $F \cdot 1 \cdot 4 = 4F$
+Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$
+Total: $40E + 4F + 16V \approx 120V + 8V + 16V \approx 144V$
 
-\noindent 6. What is the purpose of the model matrix in the graphics pipeline?\\
+\section{Mesh Editing}
 
-Transform objects from local space to global world space.\\
+\subsection{Local Ops}
+Edge Flip
+\includegraphics[width=.5\linewidth]{edge-flip.png}
 
-The Digital Differential Analyzer (DDA) algorithm improves efficiency by incrementally calculating pixel positions using floating-point arithmetic, reducing redundant calculations. Unlike the naive approach, DDA avoids costly multiplication operations, making it faster for line rasterization. Additionally, it produces smoother lines by directly handling fractional increments.
+Edge Split
+\includegraphics[width=.5\linewidth]{edge-split.png}
 
-\noindent \textbf{8b. What is the main benefit of the Bresenham algorithm compared to the Midpoint Incremental line rasterization method?} \\
-The Bresenham algorithm optimizes line drawing by using only integer arithmetic, which is faster than the floating-point calculations of the Midpoint method. It also requires fewer computations per pixel, enhancing performance, and provides more accurate pixel positions for steeper line slopes.\\
+Edge Collapse
+\includegraphics[width=.5\linewidth]{edge-collapse.png}
+\subsection{Triangulation}
+\includegraphics[width=.5\linewidth]{triangulation.png}
 
-9a. What is computed color of pixels without antialiasing?\\
+\subsection{Subdivision}
+\textbf{Split:} insert new vertices
+\textbf{Interpolate:} recompute positions for original and new vertices
 
-Without antialiasing, the color of each pixel is typically computed based on the color at the center of the pixel.
+\subsection{Loop Subdivion}
+New vertices are added at positions of weighted sum of original vertices on neighboring faces.
+For interior, $v = 3 \cdot (A + B) / 8 + (C + D) / 8$ where $v$ lies on the edge between $A$ and $B$.
+For boundary, $v = (A + B) / 2$.
+Original vertices are reweighted based on original neighboring vertices.
+$v_{new} = (1 - n \beta) v_{original} + \beta \sum v_{neighbor}$.
+Where $n$ is $v$'s degree.
+Implementation: split each triangle edge in any order, flip any edge connecting a new and an original vertex.
 
-9b. What is computed colors of pixels, using mutlisample antialiasing?\\
+\subsection{Linear Subdivision}
+Input: m-gon. Output: m quads per m-gon.
+Face vertex: average of face corner vertices
+Edge vertices:  average of two vertices at ends of edge
+Vertex from original mesh: keep original.
 
-The final pixel color is the average of the sampled colors. This averaging smooths out jagged edges by blending colors from the edges of objects with the background, giving a smoother appearance without fully rendering the entire scene at a higher resolution.\\
+\subsection{Catmull-Clark Subdivision}
+Face vertex position is average of all original face corner vertex positions
+Edge vertex position is average of two end vertices and two face vertices
+Original vertex position is change according to
+$\frac{Q + 2R + (n-3)S}{n}$
+Where $Q$ is average position of face vertices neighboring $v$,
+$R$ is average position of all edge vertices connected to $v$,
+$S$ is original vertex position of $v$,
+$n$ is $v$'s degree.
 
-\noindent 11. Given line function: $f(x,y) = 3y-2x-1$, rasterize line segment from $(1,1)$ to $(7,5)$ using the midpoint algorithm. At the first step, pixel $(1,1)$ is drawn. Mark the pixels that should be drawn and the midpoint sample positions evaluated:\\
-Midpoint can be between the two squares, either same height or above, based on line. Input the midpoint between the two points:\\
-$M_1 = (2,1.5), f(M_1) = 3(1.5)-2(2)-1 = -0.5$ Since its negative, draw the above square in. Draw $(2,2)$. Follow these steps.\\
-
-12. Triangle ABC, where vertex A, B, C's barycentric coordinates are represented in $(\alpha, \beta, \gamma)$ are $(1,0,0), (0,1,0), (0,0,1)$. A,B,C's (x,y,z) positions in 3D space are $(0,0,0), (10,0,0), (0,20,0).$ Point P's barycentric coordinates are $(0.5,0.15, \gamma_p)$. What is Point P position?\\
-
-$\gamma_p = 1 - 0.5 - 0.15 = 0.35, P(0.5,0.15,0.35) = \alpha A + \beta B + \gamma C.$ $P(0.5,0.15,0.35)$.\\
-
-What are the areas of triangle ABC, PBC, PCA and PAB?\\
-$ABC  = bh/2 = 100$. $\alpha = PBC/ ABC, 0.5 = PBC/100, PBC = 50$. $\beta = PCA/ ABC, 0.15 = PCA/100,  PBC = 15$. $\gamma = PAB/ ABC, 0.35 = PAB/100,  PAB = 35$.\\
-
-Transformation function $f(\begin{bmatrix} x\\ y \end{bmatrix})$ rotates input $\begin{bmatrix} x\\ y \end{bmatrix}$ clockwise by $\theta$. Thus $f(\begin{bmatrix} 1\\ 0 \end{bmatrix}) = \begin{bmatrix}
-    cos(-\theta) \\ sin(-\theta)
-\end{bmatrix}$ i.e transform (1,0) to red point and $f(\begin{bmatrix} 1\\ 0 \end{bmatrix}) = \begin{bmatrix}
-    -sin(-\theta) \\ cos(-\theta)
-\end{bmatrix}$ i.e transform (0,1) to green point. For any point p: $p = \begin{bmatrix}
-    x \ y
-\end{bmatrix} =  x \begin{bmatrix}
-    1 \\ 0
-\end{bmatrix} + y \begin{bmatrix}
-    0 \\1
-\end{bmatrix}$. This $f(p) = f(\begin{bmatrix} x\\ y \end{bmatrix}) = x_p \begin{bmatrix}
-    cos(-\theta) \\ sin (-\theta)
-\end{bmatrix} + y_p \begin{bmatrix}
-    -sin( - \theta) \\ cos(-\theta)
-\end{bmatrix}$. Thus the clockwise rotation matrix is $\begin{bmatrix}
-    cos (- \theta) -sin(-\theta) \\ sin(-\theta) cos(-\theta)
-\end{bmatrix} \begin{bmatrix}
-    x_p \\ y_p
-\end{bmatrix}$.\\
-
-\noindent 14. Orthographic projection, view volume is defined as Left $l = -5$, Right $r = 5$, Top $t =6$, Bottom $b = 1$, Near $n = -8$, Far $f = -28$. To convert this view volume to canonical space box $[-1,1]$, what is the $M_{orth}$ matrix?\\
-
-$\dfrac{s_x}{r-l} = \dfrac{-1}{10}, \dfrac{s_y}{t-b} = \dfrac{1}{5}, \dfrac{s_z}{n-f} = \dfrac{1}{20}.$\\
-
-$-(r+l)/ s_x = 0 , -(t+b) / s_y = 7, -(n+f) / s_z = 36.$
-\\
-$M_{orth} = \begin{bmatrix}
-    \dfrac{-1}{10} 0 0 0 \\
-    0 \dfrac{1}{5} 0 0 \\
-    0 0 \dfrac{1}{20} 0 \\
-    0 0 0 1
-\end{bmatrix}
-\begin{bmatrix}
-1 0 0 6 \\
-0 1 0 7 \\
-0 0 1 36 \\
-0 0 0 1
+\subsection{Quadric Error Simplification}
+Given a plane $ax + by +_ cz + d = 0$,
+let \\ $u = \begin{bmatrix}
+    a \\ b \\ c \\ d
 \end{bmatrix}$
+then, $K_{plane} = \begin{bmatrix}
+    a^2 & ab & ac & ad \\
+    ab  & b^2 & bc & bd \\
+    ac & bc & c^2 & cd \\
+    ad & bd & cd & d^2 \\
+\end{bmatrix}$
+$K_{vert} = \sum K_p \forall \text{adj. planes}$
+and $K_{edge-ij} = K_i + K_j$.
+The metric to minimize is $o^T k_{ij} o$,
+the distance from $o(x, y, z)$ to edge $ij$.
+To solve,
+$
+\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}
+=
+\begin{bmatrix}
+    k_{11} & k_{12} & k_{13} \\
+    k_{21} & k_{22} & k_{23} \\
+    k_{31} & k_{32} & k_{33} \\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+    -k_{14} \\ -k_{24} \\ -k{34}
+\end{bmatrix}
+$
 
-\noindent 15. Z-buffer and Color buffer, the closer z values (closer to 0) are closer to camera, so they overlap the farther colours, fill in the colours based on their distance from camera then away from camera. For color buffer it should be the updated colours based on the z-buffer.\\
+\subsection{Isotropic Remeshing}
+Let $L$ be mean edge length of input mesh
+If an edge is too long ($>4/3L$), split it
+If an edge is too short ($<4/5L$), collapse it
+If flipping an edge improves degree of neighboring vertices, flip it:
+Deviation is $\sum_A^D|deg(X) - 6|$, if deviation drops after a flip then flip the edge.
+Move vertex positions towards average of their neighbors:
+For vertex $P$, computer centroid $C$ of all neighbours.
+Movement vector is $v = C - P$, move by $1/8 v$.
+Ignore movement in normal direction N by using $v - N(N \cdot v)$
+Vertex normal is weighted sum of face normals
+$N = \sum_{neighbor triangle t} t.area * t.normal = \sum cross(t.edge1, t.edge2)$
+Then normalize
 
-\noindent 16. A camera is put in world space (-1,0,0) looking toward (1,0,0) direction. The up direction is (0,1,0).\\
-\includegraphics[width =4cm]{Screenshot 2024-10-25 at 1.26.35 PM.png}\\
-Contruct the camera coordinate based on the up and view direction. Specify the x,y,z axis and the origin of the camera coordinate in the world.\\
+\subsection{Blendshapes}
+This is trivial, just calculate offsets with $o_i = (bs_i - base)$,
+and build final blendshape with $shape = base + \sum w_i \cdot o_i$.
 
-$w = -1 \cdot \begin{bmatrix}
-    1 \\ 0\\ 0
-\end{bmatrix} = \begin{bmatrix}
-     -1 \\ 0\\ 0
-\end{bmatrix}$. $ u = \begin{bmatrix}
-    0 \\ 1\\0
-\end{bmatrix} \cdot \begin{bmatrix}
-    -1 \\ 0 \\ 0
-\end{bmatrix} = \begin{bmatrix}
-    0 \\ 0 \\ 1
-\end{bmatrix}$. $v = \begin{bmatrix}
-    -1 \\ 0\\ 0
-\end{bmatrix} \cdot \begin{bmatrix}
-    0 \\ 0 \\ 1
-\end{bmatrix} = \begin{bmatrix}
-    0 \\  1 \\0
-\end{bmatrix}$.\\
+\section{Texture}
 
-Based on the camera coordinate in world space, write out $4 \times 4$ matrix transforming from camera space to world space?\\
+\subsection{Projections}
+\subsubsection{Planar Projection}
+$
+\begin{bmatrix}
+    u \\ v \\ * \\ 1
+\end{bmatrix}
+= M_t \begin{bmatrix}
+    x \\ y \\ z \\ 1
+\end{bmatrix}
+$
+Where $M_t$ is affine transformation matrix.
 
-$M_{cam} = \begin{bmatrix}
-    1 0 0 -1 \\ 0 1 0 0 \\ 0 0 1 0 \\ 0 0 0 1
-\end{bmatrix} \cdot \begin{bmatrix}
-    1 0 0 1 \\  0 1 0 0 \\ 0 0 1 0 \\ 0 0 0 1
-\end{bmatrix} = \begin{bmatrix}
-    0 0 1 0 \\ 0 1 0 0 \\ -1 0 0 -1 \\ 0 0 0 1
-\end{bmatrix}$\\
+\subsubsection{Spherical Coordinates}
+$
+u = \frac{[\pi + atan2(y, x)]}{2 \pi} \quad (atan2(...) = \phi)
+$
+$
+v = \frac{[\pi - acos(\frac{z}{\sqrt{x^2 + y^2 + z^2}})]}{\pi} \quad (acos(...) = \theta)
+$
+$atan2 \in [-\pi, \pi], acos \in [0, \pi]$
+Has issues for oddly shaped objects (eg cylinders),
+areas with large r are sparse vs areas with small r.
 
-For point p at world space $(4,5,6)$, what is p's coordinate in the camera space?\\
+\subsubsection{Cylindrical Coordinates}
+$
+u = \frac{[\pi + atan2(y, x)]}{2\pi} \quad atan2(...) = \phi
+$
 
-$p = \begin{bmatrix}
-     0 0 1 0 \\ 0 1 0 0 \\ -1 0 0 -1 \\ 0 0 0 1
-\end{bmatrix} \cdot \begin{bmatrix}
-    4 \\ 5 \\ 6 \\ 1
-\end{bmatrix} = \begin{bmatrix}
-    6 \\ 5 \\ -5 \\ 1
-\end{bmatrix} = (6,5,-5,1)$
+$
+v = \frac{1 + z}{2}, z \in [-1, 1]
+$
+
+\subsubsection{Cubemap}
+$
+u = \frac{1 + y / |x|}{2}, v = \frac{1 + z / |x|}{2} \text{ where } |x| > |y|, |x| > |z|, x > 0
+$
+
+\subsubsection{Seams}
+If we don't handle seams, wrapped texture will have
+triangles ``wrap'' across the whole texture, making a bad seam where the texture should repeat.
+Instead, we duplicate the vertices on the left and right edges, such that the left seam's edges only apply to the triangles on it's right,
+and the right seam's edges only apply to the triangles on it's left.
+
+
+\subsection{Mipmap}
+Take the longest length $l$,
+the mipmap level to take is $\log_2 l$.
+Level 0 is base image, each texel in level $k$ image is avg of $2^k \times 2^k$ texels in original texture.
+
+\subsection{Maps}
+\textbf{Diffuse Map:} Stores colours, RGB
+\textbf{Normal Map:} Stores normal vectors to determine bounce directions, 3 channels
+\textbf{Displacement Map:} Changes vertex positions by $x$ amount in the normal direction, 1 channel, slow
+\textbf{Bump Map:} Scales normals by $x$ amount in the normal direction, does not change vertex positions, 1 channel, fast
+\textbf{Shadow Map:} Stores distance to first point hit by each light in a preprocessing step (z buffer).
+During rendering, calculate each fragement's distance from light and illuminate it if it's less than or equal to the stored value.
+Otherwise, it is in shadow.
+
+\section{Light}
+2D Angle: $l / r (radians)$
+3D Angle: $A / r^2 (steradians)$
+
+\textbf{Radiant Flux:} Power (\unit{\watt})
+\textbf{Irradiance:} Power per square unit of area (\unit{\watt\per\square\metre})
+\textbf{Radiance:} Power per square unit of area per direction (\unit{W.m^{-2}.sr^{-1}})
+\textbf{Radiant intensity:} Power per direction (\unit{W.sr^{-1}})
+
+Point light irradiance: $E = \frac{\Phi}{4 \pi r^2}$
+Fractional area on sphere $\frac{2 \pi (1 - cos \varphi)}{4 \pi}$
+where $\varphi$ is cone half-angle
+$F_{att} = \frac{1.0}{K_c + K_I \cdot d + K_1 \cdot d^2}$
+Spotlight soft edges, inner cutoff $\varnothing$, outer cutoff $\gamma$
+
+
+\section{Material}
+$$
+L(P, \omega_0) = L_e(P, \omega_0) + \int_\Omega f_r(P, \omega_i, \omega_0) L_i(P, \omega_i) \cos \theta_i\ d \omega_i
+$$
+$L(P, \omega_0)$: Outgoing radiance @ $P$ in $\omega_0$ direction
+$L_e(P, \omega_0)$: Emitting light radiance @ $P$ in $\omega_0$ direction if light source, else 0
+$\int_\Omega$: Sum over all incoming direction
+$f_r(P, \omega_i, \omega_0)$: How incoming light at point $P$ in $\omega_i$ direction is reflected in $\omega_0$ direction
+$L_i(P, \omega_i) \cos \theta_i$: Incoming light radiance at point $P$ in $\omega_i$ direction, weighted by $\cos \theta_i$.
+
+\subsection{Diffuse}
+\textbf{Diffuse OpenGL:} \\
+light direction $l = light_{pos} - vertex_{pos}$ \\
+\verb|diffuse_light_clr * diffuse_mat_clr * max(0, dot(n, l)) / r^2|
+($n \cdot l = \cos \theta$)
+
+\subsection{Specular}
+Exponent: lower $p$ is more diffused, higher $p$ is more reflective
+\textbf{Specular OpenGL:}
+Find reflected light direction \\ $r = -l + 2(l \cdot n) n$.
+Vertex direction $P_p$, camera position $P_c$,
+find view direction \\ $v = norm(P_c - P_p)$.
+Color on object = \\ \verb|specular_light_clr * specular_material_clr * max(0, dot(v, r)^p)|
+
+\subsection{Phong}
+Phong shading is the sum of ambient, diffuse, and specular lighting. (Multiplied by \
+JASONN!!!! ADD THE PICTURE OK THANKS!!! \
+In OpenGL: ambient_light_clr * ambient_material_clr + diffuse_light_clr * diffuse_material_clr * max(0, n$\cdot$l) + specular_light_clr * specular_material_clr * max$(0, v\cdot r)^p$
+
+\subsection{Blinn-Phong}
+Instead of using the viewing angle for specular, we use the half-vector v, which is halfway between the view and light directions. ($\frac{l+v}{\vert\vert l+v \vert\vert}$). When adding specular it is now specular_light_clr + specular_material_clr * max$(0,n\cdot h)^p$. \
+
+Blinn-Phong can produce bad results when $r \cdot v$ is negative, but $r \cdot h$ is positive. In this case, Blinn-Phong will be too bright. ADD THE SLIDE PART HERE
+
+\subsection{Gouraud}
+% TODO!
+
+\section{Ray Tracing}
+% TODO!
+
+\section{Extra}
+\subsection{Spatial Data Structure}
+Used to quickly locate objects in space\
+\textbf{Binary space partition (BSP)}
+While every object is not in its own region, split the space in half\
+Hyperplanes; for higher dimensions (3D), splits space similarly to Binary space partitioning. Splitting hyperplanes can be completely arbitrary
+\textbf{Autopartition}
+Candidates for splitting are based on input primitives; when we have inputs, we just extend the planes further to split space.\
+\textbf{K-D Tree} \
+K means number of dimensions. 2D example: we split along the median of the X values, then we split along the Y medians of the 2 resulting partitions, then X, etc, etc. until every point is a median.
+\textbf{Octree / Quadtree}
+\textbf{Octree}: Divide 3d space into 8 quadrants, keep dividing the resulting space until each has <=1 point in each cell
+\textbf{Quadtree}: Divide 2d space into 4 quadrants, keep dividing until each space has <=1 point in each cell
+
+\subsection{Curves}
+
+\subsubsection{Desirable Properties}
+\textbf{Continuity:} $n^{th}$ derivative remains the same. $C^0$: lines connect,
+$C^1$: velocity remains the same,
+$C^2$: acceleration remains the same.
+\textbf{Locality:} Local - one control point only impacts a small piece of the curve.
+Global - one control point impacts the shape of the whole curve
+\textbf{Interpolation:} Interpolation - Curve passes through all control points.
+Approximation - Curve does not pass through all control points,
+but control points determine curve.
+Ideally we want at least $C^2$ continuity,
+locality, and interpolation.
+
+\subsubsection{Types}
+
+\textbf{Polynomial}
+
+\textbf{Spline}
+
+\textbf{Approximation}
 
 \end{multicols*}
 
