@@ -1291,10 +1291,6 @@
     \end{center}
 
     \textbf{Deriving Spline Basis for Cubic Curves}
-    \begin{itemize}
-        \item Follow the process of deriving Hermite basis.
-        \item Apply the same methodology to derive the basis for Catmull-Rom splines.
-    \end{itemize}
 
     Recall the cubic functions
     $f(t) = a_0 + a_1t + a_2t^2 + a_3t^3$ and
@@ -1308,11 +1304,12 @@
 
     Now we have expressions for $a_i$ in terms of $p$. We can replace all $a's$ in the original $f(t)$ to be in terms of $p$. Rearrange that to collect like terms of $p$, we get a basis.
 
+    
+
     \textbf{Hermite Basis:}
     $f(t) = p_1(2t^3 - 3t + 1) + p_1(-2t^3+3t^2) + p_2(t^3-2^2 + t) + p_3(t^3-t^2)$
 
     Where $p_1 = p_0, p_2 = p_1, p_3 = p^`_0, p_4 = p^`_1$
-
 
     \textbf{Deriving Bezier Basis}
 
