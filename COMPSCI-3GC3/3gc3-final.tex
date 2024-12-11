@@ -898,8 +898,8 @@
     2 neighboring triangles, left and right
     prev and next edges in left triangle,
     ditto for right triangle.
-    Left tri contains lprev, lnext, [tail-head].
-    Right tri contains rprev, rnext, [head-tail].
+    Left tri contains lprev, [tail-head], lnext, .
+    Right tri contains rprev, [head-tail], rnext.
     \textbf{Traversal given vertex:}
     Follows prev (aka always pick the edge to the left),
     edges around v visited in ccw order.
