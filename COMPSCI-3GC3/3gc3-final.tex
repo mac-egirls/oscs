@@ -444,11 +444,11 @@ Cannonical space is the space $(x, y, z)$ s.t. $x,y,z \in [-1, 1]$.
 
 \textbf{Orthographic Projection}\\
 
-\includegraphics[width=4cm]{cam-ortho.png}
+\includegraphics[width=.5\linewidth]{cam-ortho.png}
 Given left plane x, $l$, right plane x, $r$, top plane y, $t$, bottom plane y $b$, near plane $n$, far plane $f$.
 \textit{Recall that $f$, $n$ are negative z values. See diagram.}
 
-$M_{orth}$ projects the view box defined above onto the cannonical space.
+$M_{orth}$ projects the view box defined above onto the canonical space.
 
 
 $M_{orth}$ = \(
@@ -480,7 +480,7 @@ Right: translate center to origin\\
 Left: scales width of all dimensions to be 2, fitting inside [-1, 1].
 
 \textbf{Perspective Projection}\\
-\includegraphics[width=4cm]{cam-persp.png}
+\includegraphics[width=.5\linewidth]{cam-persp.png}
 $l,r,b,t$ now define the near plane $XY$, with $n$ being the $Z$. Far plane is only defined by $f$.
 \textbf{OR} use depth of field:
 $\theta$ = FOV on y-axis, $ratio = (r-l)/(t-b)$, $n$ is near plane z, $f$ is far plane z.
@@ -666,7 +666,6 @@ Then, we sample $n$ times from the pixel area, averaging the samples to get the 
 \textbf{Fragments} here are each dot on a pixel.
 
 \includegraphics[width=.5\linewidth]{multi-sampling.png}
-\includegraphics[width=.3\linewidth]{basic-graphics-pipeline.png}
 \section{Pipeline}
 
 \subsection{Application}
@@ -749,10 +748,6 @@ Multiple primities can occupy the same fragment.
 
 \textbf{Painter's Algorithm:} Sort primitive by their depths, draw primitives far to near. \textit{Drawbacks:} Sorting is slow, many writes to buffer
 Occlusion cycle: cases where no correct order appears correct
-
-% \begin{wrapfigure}{r}{0.5\linewidth}
-%     \includegraphics[width=\linewidth]{occlusion-cycle.png}
-% \end{wrapfigure}
 
 
 \textbf{Color and Z Buffer} Two buffers, one for colour and one for depth. 
@@ -1114,7 +1109,78 @@ Instead of computing color based on lighting in the \textit{fragment shader step
 Gouraud does it using \textit{vertex positions} using vertex colors during the vertex shader.
 
 \section{Ray Tracing}
-% TODO!
+Ray representation: $r = o + td$
+
+\subsection{Ray Gen}
+left, right, top, bottom are coords defining bounds of view volume.
+view volume is $n_x$ px wide, $n_y$ px high.
+
+\textbf{pixel(i, j) $\to$ (u, v, w) coord}
+$u = left + (i + 0.5) * (right - left)/n_x$;
+$v = bottom + (j + 0.5) * (top - bottom)/n_y$;
+$w = -fl$
+\subsubsection{Perspective}
+$o = e$ (e is camera coords);
+$d = u \vec{u} = v \vec{v} - fl \vec{w}$ (uvw is camera view coords, w is away from looking location)
+
+\subsubsection{Orthographic}
+$o = e + u \vec{u} + v \vec{v}$
+$d = -\vec{w}$
+
+
+\subsection{Ray-Object Intersection}
+\subsubsection{Sphere}
+Point $\mathbf{p}$ on ray: $\mathbf{p} = \mathbf{o} + t\mathbf{d}$
+Point $\mathbf{p}$ on sphere centred at $\mathbf{c}$ with radius $R$: $(\mathbf{p} - \mathbf{c}) \cdot (\mathbf{p} - \mathbf{c}) - R^2 = 0$
+Intersection points: $(\mathbf{o} + t\mathbf{d} - \mathbf{c}) \cdot (\mathbf{o} + t\mathbf{d} - \mathbf{c}) - R^2 = 0$
+Solve for $t$:
+$t = \frac{-\mathbf{d} \cdot (\mathbf{o} - \mathbf{c}) \pm \sqrt{(\mathbf{d} \cdot (\mathbf{o} - \mathbf{c}))^2 - (\mathbf{d} \cdot \mathbf{d}) \cdot ((\mathbf{o} - \mathbf{c}) \cdot (\mathbf{o} - \mathbf{c}) - R^2)}}{\mathbf{d} \cdot \mathbf{d}}$
+Normal $\mathbf{n}$ at hit point $\mathbf{p}$:
+$(\mathbf{p} - \mathbf{c}) / R$
+
+\subsubsection{Triangle}
+Representation of $\mathbf{p}$:
+$\mathbf{p} = \alpha \mathbf{A} - \beta \mathbf{B} + \gamma \mathbf{C} = (1 - \beta - \gamma) \mathbf{A} + \beta \mathbf{B} + \gamma \mathbf{C}$
+Point $\mathbf{p}$ on triangle $\mathbf{ABC}$:
+$\mathbf{p}=\mathbf{A} + \beta (\mathbf{B} - \mathbf{A}) + \gamma(\mathbf{C} - \mathbf{A})$
+Intersection point:
+$\mathbf{o} + t \mathbf{d} = \mathbf{A} + \beta(\mathbf{B} - \mathbf{A}) + \gamma(\mathbf{C} - \mathbf{A})$
+$
+\begin{bmatrix}
+    \beta \\ \gamma \\ t
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_A - x_B & x_A - x_C & x_d \\
+y_A - y_B & y_A - y_C & y_d \\
+z_A - z_B & z_A - z_C & z_d \\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+    x_A - x_o \\
+    y_A - y_o \\
+    z_A - z_o \\
+\end{bmatrix}
+$
+
+\subsubsection{Rectangle (this is for xy plane)}
+Point p on axis aligned rect: $z_p = k$
+Intersection: $z_p = z_o + t z_d = k$
+Solve for t: $t = (k - z_o) / z_d$
+Plug back, check $x_p \in [x_0, x_1], y_p \in [y_0, y_1]$ so it's in rect.
+
+\subsection{Shading}
+\textbf{Lambertian:} $res = diffuse \cdot I \cdot max(0, n \cdot l) / (dist^2)$
+diffuse is obj colour, I is light colour, dist is abs(lpos - p), l is (lpos - p) / dist.
+\textbf{Specular:}
+$l = (lpos - p) / |lpos - p|$;
+$h = (l + (-d)) / |l + (-d)|$;
+$res = specular \cdot I \cdot max(0, pow(h \dot n, 5))$
+
+\textbf{Shadows}
+shadow_ray: $p + t l$
+dist: $|lpos - p$
+$t \in [\epsilon, dist]$
+if $t < dist$ then it hit an object before the light and thus is in shadow.
 
 \section{Extra}
 \subsection{Spatial Data Structure}
