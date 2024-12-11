@@ -136,12 +136,14 @@ t = (y_t - y_0) / (y_1 - y_0)
 \(
 v_t = (1-t) v_0 + t v_1
 \)
-
+% 
 \textbf{Bi-linear Interpolation}
-\includegraphics[width=4cm]{bilinear-interpolation.png}
+linearly interpolate both sides, then linearly interpolate that.
+% \includegraphics[width=4cm]{bilinear-interpolation.png}
 
-\textbf{Cramer's Rule}
-\includegraphics[width=4cm]{cramer.png}
+\textbf{Cramer's Rule} \\
+% \includegraphics[width=\linewidth]{cramer.png}
+Given $Ax=b$, where $A \in R^{nxn}$ has a nonzero determinant, then $x_i = \frac{\text{det}(A_i)}{\text{det}(A)}$.. where $A_i$ is $A$ with the $i$th column replaced with $b$.
 
 \textbf{Barycentric Interpolation (Area)}:
 From Triangle ABC, point $P(x,y,z)$ can be defined using $u,v,w$, where $P = uA + vB + wC$. \textbf{IMPORTANT:} $u + v + w = 1$.
@@ -391,9 +393,7 @@ Each model in scene goes through \(M_{model}\) to transform from model space to 
 Given camera position $e$, gaze direction $g$ and `up' direction $t$, construct basis $uwv$ for camera coordinate system.
 $w = - \frac{g}{||g||}, u = \frac{t \times w}{||t \times w||}, v = w \times u$
 
-Remember that OpenGL LookAt Coordinates is Camera Position + Gaze Direction!
-
-\includegraphics[width=.5\linewidth]{camera-basis.png}
+% \includegraphics[width=.5\linewidth]{camera-basis.png}
 
 \textit{Camera Space $\to$ World Space:}\\
 \(
@@ -431,8 +431,8 @@ Remember that OpenGL LookAt Coordinates is Camera Position + Gaze Direction!
 \end{bmatrix}
 \)
 \\
-Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
-Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$
+% Step 1 (left matrix): Translates camera position $e$ to origin $e$. Things originally at $e$ are now at $\vec{0}$.\\
+% Step 2 (right matrix): Rotates, maps basis vectors: $u \mapsto (1,0,0), v \mapsto (0,1,0), w \mapsto (0,0,1)$
 
 \textbf{3\(\times\)3 Camera Matrix}
 \(
@@ -516,7 +516,7 @@ $M_{per}$ = $M_{orth}P =$
 
 \textbf{Cannonical Space To View Port (VP)}\\
 
-\includegraphics[width=\linewidth]{viewport-diagram.png}
+% \includegraphics[width=\linewidth]{viewport-diagram.png}
 Diagram of viewport, which has no $z$ depth.\\
 1. Translate $x,y$ center from $(0,0)$ to $((n_x-1)/2, (n_y-1)/2)$.
 2. Scale $x,y$ size from $(2,2)$ to $(n_x, n_y)$.
@@ -650,17 +650,11 @@ $T_1$ should be responsible of drawing the edge if $q$ falls on the same side of
 \textbf{Proper Perspective Attribute Attribution}: How we set up the above code leads to incorect attribute interpolation when taking perspective into account.
 This is because we are interpolating on the 2d projection of the triangle and not considering the distace of the 3d space.
 
-We can interpolate using the following code, which scales based on a scaling metric.
-
-\begin{lstlisting}[language=C++]
-float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2);
-float Gs = b0*(G0/w0) + b1*(G1/w1) + b2*(G2/w2);
-float Bs = 60*(B0/w0) + b1*(B1/w1) + b2*(B2/w2);
-float Is = b0*(1/w0) + b1*(1/w1) + b2*(1/w2);
-float R = Rs / Is;
-float G = Gs / Is;
-float B = Bs / Is;
-\end{lstlisting}
+% We can interpolate using the following code (only R shown), which scales based on a scaling metric. \begin{verbatim}
+% float Rs = 60*(R0/w0) + b1*(R1/w1) + b2*(R2/w2); 
+% float Is = b0*(1/w0) + b1*(1/w1) + b2*(1/w2); 
+% float R = Rs / Is;
+% \end{verbatim}
 
 
 \textbf{Anti-Aliasing}\\
@@ -693,12 +687,12 @@ Shading: determines vertex color (Gouraud)
 GPU performs parallel processing on each vertex
 
 \subsection{Culling}
-\subsubsection{Backface Culling}
+\textbf{Backface Culling}
 Removes primitives facing away from camera
 Look at face normal / right hand rule,
 face normal points in same direction as face.
 
-\subsubsection{View Frustrum Culling}
+\textbf{View Frustrum Culling}
 Removes geometries outside view volume.
 6 planes: near, far, left, right, top, bottom.
 Plane function is
@@ -712,7 +706,7 @@ f(p) = n \cdot (p - a)
 Take bounding box of object, e.g. a sphere with centre c, radius r.
 Check \(f(c)\), \(c\)'s signed distance to plane, see if it intersects or is within frustrum.
 
-\subsubsection{Clipping}
+\textbf{Clipping}
 View volume cuts primitive to avoid drawing out of bounds
 
 \textbf{Clipping a Line}
@@ -820,23 +814,23 @@ Each edge is used 2x, each triangle uses 3 edges, $2E = 3F$.
 $F = 2V, E = 3V$.
 
 \subsection{Mesh data structures}
-\subsubsection{Separate Triangles (Triangle Soup)}
+\textbf{Separate Triangles (Triangle Soup)}
 It's just an unorganized list of triangles.
-Storage cost: $F \cdot 3 \cdot 3 \cdot 4 = 72 \cdot V$ (72 bytes per vertex)
+Storage cost: 72 bytes per vertex
 (F triangles, 3 vertices, 3 vector components, Euler formula)
 
-\subsubsection{Indexed Triangle Mesh}
+\textbf{Indexed Triangle Mesh}
 Store list of vertices, list of triangle indices separately.
 Allows for deduplicating vertices, decoupling vertex positions from connectivity. (Blendshapes)
 Vertices in Bytes: $V \cdot 3 \cdot 4 = 12 V$
 Triangles in Bytes: $F \cdot 3 \cdot 4 = 12 F \approx 24 V$
-Total in bytes is $12V + 24V = 36V$ (36 bytes / vertex)
+Total in bytes is 36 bytes / vertex
 
-\subsubsection{Triangle Fans}
+\textbf{Triangle Fans}
 List of vertices, list of fan arrays
 First vertex is center. Each following adjacent pair forms a triangle with center coord.
 
-\subsubsection{Triangle Strips}
+\textbf{Triangle Strips}
 Three adjacent vertices form a triangle.
 Streaming in new vertex.
 Forget the oldest vertex.
@@ -844,9 +838,9 @@ Swap order of remaining two vertices for every other triangle (don't swap 0th, s
 
 Storage for fans and strips, vertices is $12 V$ (same as ITM),
 triangle fans / strips array is $(F + 2) \cdot 4 = 4F + 8 \approx 8V + 8$.
-Total is $12 V + 8 V + 8 \approx 20V$ (20 bytes / vertex)
+Total is 20 bytes / vertex
 
-\subsubsection{Triangle-Neighbor Structure}
+\textbf{Triangle-Neighbor Structure}
 Connectivity info stored in Triangle.
 3 vertices in order, 3 neighboring triangles in sync with v.
 The side from $v[i]$ to $v[x]$ belongs to triangle $i$.
@@ -862,9 +856,9 @@ Loop until we get back to the start.
 \textbf{Storage:}
 Triangles: $F \cdot (3 + 3) \cdot 4 = 24F$
 Vertex: $V \cdot (1 + 3) \cdot 4 = 16V$
-Total is $24F + 16V \approx 48V + 16V \approx 64V$ (64 bytes / vertex)
+Total is $\approx$ 64 bytes / vertex
 
-\subsubsection{Winged-Edge Structure}
+\textbf{Winged-Edge Structure}
 Connectivity information stored in edge.
 2 vertices of edge, head and tail
 2 neighboring triangles, left and right
@@ -882,13 +876,13 @@ visit edges of face in ccw order.
 Edge in bytes: $E \cdot 8 \cdot 4 = 32E$ (8 references, we can remove prevs to save space and just do 2 nexts instead)
 Triangle in bytes: $F \cot 1 \cdot 4 = 4F$
 Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$ (1 edge ref, xyz)
-Total: $32E + 4F + 16V \approx 96V + 8V + 16V \approx 120V$.
+Total: $\approx 120V$.
 
-\subsubsection{Winged-Edge and Half Edge Diagram}
+% \textbf{Winged-Edge and Half Edge Diagram}
 \includegraphics[width=.3\linewidth]{winged-edge.png}
 \includegraphics[width=.3\linewidth]{half-edge.png}
 
-\subsubsection{Half-Edge Structure}
+\textbf{Half-Edge Structure}
 Halfedge:
 VertexRef v (vertex half-edge points to)
 TriangleRef t (triangle that the halfedge is on)
@@ -899,7 +893,7 @@ HalfEdgeRef pair
 Half-edge in bytes: $(E \cdot 2) \cdot 5 \cdot 4 = 40E$
 Triangle in bytes: $F \cdot 1 \cdot 4 = 4F$
 Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$
-Total: $40E + 4F + 16V \approx 120V + 8V + 16V \approx 144V$
+Total: $\approx 144V$
 
 \section{Mesh Editing}
 
@@ -994,7 +988,7 @@ and build final blendshape with $shape = base + \sum w_i \cdot o_i$.
 \section{Texture}
 
 \subsection{Projections}
-\subsubsection{Planar Projection}
+\textbf{Planar Projection}
 $
 \begin{bmatrix}
     u \\ v \\ * \\ 1
@@ -1005,7 +999,7 @@ $
 $
 Where $M_t$ is affine transformation matrix.
 
-\subsubsection{Spherical Coordinates}
+\textbf{Spherical Coordinates}
 $
 u = \frac{[\pi + atan2(y, x)]}{2 \pi} \quad (atan2(...) = \phi)
 $
@@ -1016,7 +1010,7 @@ $atan2 \in [-\pi, \pi], acos \in [0, \pi]$
 Has issues for oddly shaped objects (eg cylinders),
 areas with large r are sparse vs areas with small r.
 
-\subsubsection{Cylindrical Coordinates}
+\textbf{Cylindrical Coordinates}
 $
 u = \frac{[\pi + atan2(y, x)]}{2\pi} \quad atan2(...) = \phi
 $
@@ -1030,7 +1024,7 @@ $
 u = \frac{1 + y / |x|}{2}, v = \frac{1 + z / |x|}{2} \text{ where } |x| > |y|, |x| > |z|, x > 0
 $
 
-\subsubsection{Seams}
+\textbf{Seams}
 If we don't handle seams, wrapped texture will have
 triangles ``wrap'' across the whole texture, making a bad seam where the texture should repeat.
 Instead, we duplicate the vertices on the left and right edges, such that the left seam's edges only apply to the triangles on it's right,
@@ -1080,9 +1074,9 @@ Spotlight soft edges, inner cutoff $\varnothing$, outer cutoff $\gamma$
 
 
 \section{Material}
-$$
-L(P, \omega_0) = L_e(P, \omega_0) + \int_\Omega f_r(P, \omega_i, \omega_0) L_i(P, \omega_i) \cos \theta_i\ d \omega_i
-$$
+
+$L(P, \omega_0) = L_e(P, \omega_0) + \int_\Omega f_r(P, \omega_i, \omega_0) L_i(P, \omega_i) \cos \theta_i\ d \omega_i$
+\textbf{components}
 $L(P, \omega_0)$: Outgoing radiance @ $P$ in $\omega_0$ direction
 $L_e(P, \omega_0)$: Emitting light radiance @ $P$ in $\omega_0$ direction if light source, else 0
 $\int_\Omega$: Sum over all incoming direction
@@ -1090,7 +1084,6 @@ $f_r(P, \omega_i, \omega_0)$: How incoming light at point $P$ in $\omega_i$ dire
 $L_i(P, \omega_i) \cos \theta_i$: Incoming light radiance at point $P$ in $\omega_i$ direction, weighted by $\cos \theta_i$.
 
 \subsection{Diffuse}
-\textbf{Diffuse OpenGL:} \\
 light direction $l = light_{pos} - vertex_{pos}$ \\
 \verb|diffuse_light_clr * diffuse_mat_clr * max(0, dot(n, l)) / r^2|
 ($n \cdot l = \cos \theta$)
@@ -1125,7 +1118,7 @@ Gouraud does it using \textit{vertex positions} using vertex colors during the v
 \section{Ray Tracing}
 Ray representation: $r = o + td$
 
-\subsection{Ray Gen}
+\textbf{Ray Gen}
 left, right, top, bottom are coords defining bounds of view volume.
 view volume is $n_x$ px wide, $n_y$ px high.
 
@@ -1133,17 +1126,18 @@ view volume is $n_x$ px wide, $n_y$ px high.
 $u = left + (i + 0.5) * (right - left)/n_x$;
 $v = bottom + (j + 0.5) * (top - bottom)/n_y$;
 $w = -fl$
-\subsubsection{Perspective}
+
+\textbf{Perspective}
 $o = e$ (e is camera coords);
 $d = u \vec{u} = v \vec{v} - fl \vec{w}$ (uvw is camera view coords, w is away from looking location)
 
-\subsubsection{Orthographic}
+\textbf{Orthographic}
 $o = e + u \vec{u} + v \vec{v}$
 $d = -\vec{w}$
 
 
-\subsection{Ray-Object Intersection}
-\subsubsection{Sphere}
+\textbf{Ray-Object Intersection}
+\textbf{Sphere}
 Point $\mathbf{p}$ on ray: $\mathbf{p} = \mathbf{o} + t\mathbf{d}$
 Point $\mathbf{p}$ on sphere centred at $\mathbf{c}$ with radius $R$: $(\mathbf{p} - \mathbf{c}) \cdot (\mathbf{p} - \mathbf{c}) - R^2 = 0$
 Intersection points: $(\mathbf{o} + t\mathbf{d} - \mathbf{c}) \cdot (\mathbf{o} + t\mathbf{d} - \mathbf{c}) - R^2 = 0$
@@ -1152,7 +1146,7 @@ $t = \frac{-\mathbf{d} \cdot (\mathbf{o} - \mathbf{c}) \pm \sqrt{(\mathbf{d} \cd
 Normal $\mathbf{n}$ at hit point $\mathbf{p}$:
 $(\mathbf{p} - \mathbf{c}) / R$
 
-\subsubsection{Triangle}
+\textbf{Triangle}
 Representation of $\mathbf{p}$:
 $\mathbf{p} = \alpha \mathbf{A} - \beta \mathbf{B} + \gamma \mathbf{C} = (1 - \beta - \gamma) \mathbf{A} + \beta \mathbf{B} + \gamma \mathbf{C}$
 Point $\mathbf{p}$ on triangle $\mathbf{ABC}$:
@@ -1176,13 +1170,13 @@ z_A - z_B & z_A - z_C & z_d \\
 \end{bmatrix}
 $
 
-\subsubsection{Rectangle (this is for xy plane)}
+\textbf{Rectangle (this is for xy plane)}
 Point p on axis aligned rect: $z_p = k$
 Intersection: $z_p = z_o + t z_d = k$
 Solve for t: $t = (k - z_o) / z_d$
 Plug back, check $x_p \in [x_0, x_1], y_p \in [y_0, y_1]$ so it's in rect.
 
-\subsection{Shading}
+\textbf{Shading}
 \textbf{Lambertian:} $res = diffuse \cdot I \cdot max(0, n \cdot l) / (dist^2)$
 diffuse is obj colour, I is light colour, dist is abs(lpos - p), l is (lpos - p) / dist.
 \textbf{Specular:}
@@ -1211,9 +1205,9 @@ K means number of dimensions. 2D example: we split along the median of the X val
 \textbf{Quadtree}: Divide 2d space into 4 quadrants, keep dividing until each space has <=1 point in each cell
 
 
-\subsection{Curves}
+\section{Curves}
 
-\subsubsection{Desirable Properties}
+\textbf{Desirable Properties}
 \textbf{Continuity:} $n^{th}$ derivative remains the same. $C^0$: lines connect,
 $C^1$: velocity remains the same,
 $C^2$: acceleration remains the same.
@@ -1225,32 +1219,28 @@ but control points determine curve.
 Ideally we want at least $C^2$ continuity,
 locality, and interpolation.
 
-\subsection{Disadvantages of Single Piece Polynomial Curves}
+\textbf{Disadvantages of Single Piece Polynomial Curves}
 \begin{itemize}
     \item Lack of locality. Changes to points affect the whole curve.
     \item Runge's Phenomenon: Oscillation with polynomial interpolation causes increasing wiggles and overshoots near the outer control points.
 \end{itemize}
 
 
-\subsection{Cubic Spline}
+\textbf{Cubic Spline}
 \begin{itemize}
     \item Defined as $a_0 + a_1t + a_2t^2 + a_3t^3$.
     \item Properties: Locality, $C^2$ continuity, Interpolates the control points.
 \end{itemize}
 
-\subsection{Cardinal Spline}
+\textbf{Cardinal Spline}
 \begin{itemize}
     \item Defined by $n+1$ control points.
     \item Uses positional and derivative constraints.
-    \item Derivatives calculated using a tension constant $c$ and the positions of neighboring points:
-    \begin{align*}
-        F(0) &= p_1 \\
-        F'(0) &= (1-c)(p_2 - p_0)/2
-    \end{align*}
+    \item Derivatives calculated using a tension constant $c$ and the positions of neighboring points: $F(0) = p_1$ $F'(0) = (1-c)(p_2 - p_0)/2$
     \item Catmull-Rom is a special case of Cardinal Spline where $c = 0$, implying $ F'(0) = p_2 - p_0)/2$
 \end{itemize}
 
-\subsection{Properties of Different Curve Types}
+\textbf{Properties of Different Curve Types}
 TC = Total Constraints
 \begin{center}
 \begin{tabular}{|l|c|c|c|}
@@ -1260,12 +1250,12 @@ TC = Total Constraints
     Single Polynomial  & $C^n$ & Global & -- \\
     Hermite Cubic  & $C^1$ & Local & $4n$ \\
     Cardinals & $C^2$ & Local & $4n$ \\
-    Catmull-Rom  & $C^2$ & Local & -- \\
+    Catmull-Rom  & $C^2$ & Local & $4n$ \\
     \hline
 \end{tabular}
 \end{center}
 
-\subsection{Deriving Spline Basis for Cubic Curves}
+\textbf{Deriving Spline Basis for Cubic Curves}
 \begin{itemize}
     \item Follow the process of deriving Hermite basis.
     \item Apply the same methodology to derive the basis for Catmull-Rom splines.
@@ -1275,45 +1265,37 @@ Recall the cubic functions
 $f(t) = a_0 + a_1t + a_2t^2 + a_3t^3$ and
 $f`(t) = a_1t + a_2t + 3a_3t^2$.
 
-We also have the Hermite equations for a segment: $f(0) = p_0 = a_0, f(1) = p_1 = a_0 + a_1 + a_2 + a_3, f`(0) = p_2 = a_1, f`(1) = p_3 = a_1 + 2a_2 + 3_a3$. Name $p$ as the set of parameters.
-
-We can rewrite set of equations as $p = Ca$, where $C$ is a matrix of 0's and 1's.
-
-\includegraphics[width=0.3\linewidth]{
+We also have the Hermite equations for a segment:
+\includegraphics[width=0.8\linewidth]{
 curve-basis-soe.png}
 
 Take $p=Ca$, rearrange $C^{-1}p=a$.
 
 Now we have expressions for $a_i$ in terms of $p$. We can replace all $a's$ in the original $f(t)$ to be in terms of $p$. Rearrange that to collect like terms of $p$, we get a basis.
 
-Hermite Basis:
+\textbf{Hermite Basis:}
 $f(t) = p_1(2t^3 - 3t + 1) + p_1(-2t^3+3t^2) + p_2(t^3-2^2 + t) + p_3(t^3-t^2)$
 
 Where $p_1 = p_0, p_2 = p_1, p_3 = p^`_0, p_4 = p^`_1$
 
 
-\subsection{Deriving Bezier Basis}
+\textbf{Deriving Bezier Basis}
 
-Depending on the bezier `degree' $n$, we can calculate it via $b_i,n = \frac{n!}{i!(n-i)!}(t^i)(1-t)^n-i$.
+Depending on the bezier `degree' $n$, we can calculate it via $b_{i,n} = \frac{n!}{i!(n-i)!}(t^i)(1-t)^n-i$.
 
-$b_0,3 = (1-t)^3$
-$b_1,3 = t(1-t)^2$
-$b_2,3 = t^2(1-t)^1$
-$b_3,3 = t^3$
+$b_{0,3} = (1-t)^3$
+$b_{1,3} = t(1-t)^2$
+$b_{2,3} = t^2(1-t)^1$
+$b_{3,3} = t^3$
 
 
-\subsection{Computing Positions on the Curve Using Spline Basis}
-\begin{itemize}
-    \item Given user constraints, compute positions using the basis functions $b$ and constraints $p$:
-    \begin{align*}
-        F(t) = p_0b_0(t) + p_1b_1(t) + p_2b_2(t) + p_3b_3(t)
-    \end{align*}
-\end{itemize}
+\textbf{Computing Positions on the Curve Using Spline Basis}
+Given user constraints, compute positions using the basis functions $b$ and constraints $p$: $F(t) = p_0b_0(t) + p_1b_1(t) + p_2b_2(t) + p_3b_3(t)$
 
-\subsection{Computing Positions on Bezier Curves Using the de Casteljau Algorithm}
+\textbf{Computing Positions on Bezier Curves Using the de Casteljau Algorithm}
 Define the `control polynomial', then connect the intersections between the points.
 
-\includegraphics[width=0.3\linewidth]{bezier.png}
+\includegraphics[width=0.5\linewidth]{bezier.png}
 
 
 \end{multicols*}
