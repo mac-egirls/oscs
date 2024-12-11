@@ -120,7 +120,7 @@
 \)
 
 \textbf{MatMul}:\\
-\includegraphics[width=0.3\linewidth]{matrix-multiply-a.png}
+\includegraphics[width=0.5\linewidth]{matrix-multiply-a.png}
 For target $c_{i,j}$ iterate over the $i$th row in the first matrix and the $j$th column in the second -- perform inner product and save.
 
 \textbf{Right Hand Rule}:
@@ -797,6 +797,13 @@ Manifold useful for 2d regular grid,
 better control of neighboring topology,
 consistent triangle orientation.
 
+\textbf{Implicit vs Explicit}: Explicit Defines 3D geometry via vertices, edges, and faces. Implicit Defines 3D geometry via a mathematical function
+
+\textbf{Pros of Explicit Representation:} Efficient rendering, direct manipulation, widely supported.
+\textbf{Cons of Explicit Representation:} Memory-heavy, complex storage, explicit connectivity needed.
+\textbf{Pros of Implicit Representation:} Compact for complex shapes, smooth surfaces, ideal for Boolean operations.
+\textbf{Cons of Implicit Representation:} Costly rendering, harder to edit, requires function evaluation.
+
 \textbf{Euler's Formula:} $V - E + F = 2(1 - g) \approx 0$
 Where $F$ is \# of triangles,
 $E$ is \# of edges,
@@ -869,6 +876,8 @@ Edge in bytes: $E \cdot 8 \cdot 4 = 32E$ (8 references, we can remove prevs to s
 Triangle in bytes: $F \cot 1 \cdot 4 = 4F$
 Vertex in bytes: $V \cdot (1 + 3) \cdot 4 = 16V$ (1 edge ref, xyz)
 Total: $32E + 4F + 16V \approx 96V + 8V + 16V \approx 120V$.
+
+\includegraphics[width=.5\linewidth]{winged-edge.png}
 
 \subsubsection{Half-Edge Structure}
 Halfedge:
