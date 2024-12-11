@@ -144,24 +144,31 @@ v_t = (1-t) v_0 + t v_1
 \includegraphics[width=4cm]{cramer.png}
 
 \textbf{Barycentric Interpolation (Area)}:
-\(
-\alpha = A_a / A \quad
-\beta = A_b / A \quad
-\gamma = A_c / A \quad
-s.t.\ \alpha + \beta + \gamma = 1
-\)
+From Triangle ABC, point $P(x,y,z)$ can be defined using $u,v,w$, where $P = uA + vB + wC$. \textbf{IMPORTANT:} $u + v + w = 1$.
 
-Now,
-\(
-\mathbf{p}(\alpha, \beta, \gamma)
-= \alpha \mathbf{a} + \beta \mathbf{b} + \gamma \mathbf{c}
-\)
+From World to Bary: 
+\includegraphics[width=0.8\linewidth]{bary-transform.png}
 
-\textbf{Barycentric Interpolation (line function)}:
-$f_{ij}(x, y) = (y_i - y_j) x + (x_j - x_i)y + x_i y_j - x_j y_i$ \\
-$\alpha = \frac{f_{bc}(x_P, y_P)}{f_{bc}(x_a, y_a)},\
-\beta = \frac{f_{ac}(x_P, y_P)}{f_{bc}(x_b, y_b)},\
-\gamma = \frac{f_{ab}(x_P, y_P)}{f_{ab}(x_c, y_c)}$
+
+% \textbf{Barycentric Interpolation (Area)}:
+% \(
+% \alpha = A_a / A \quad
+% \beta = A_b / A \quad
+% \gamma = A_c / A \quad
+% s.t.\ \alpha + \beta + \gamma = 1
+% \)
+
+% Now,
+% \(
+% \mathbf{p}(\alpha, \beta, \gamma)
+% = \alpha \mathbf{a} + \beta \mathbf{b} + \gamma \mathbf{c}
+% \)
+
+% \textbf{Barycentric Interpolation (line function)}:
+% $f_{ij}(x, y) = (y_i - y_j) x + (x_j - x_i)y + x_i y_j - x_j y_i$ \\
+% $\alpha = \frac{f_{bc}(x_P, y_P)}{f_{bc}(x_a, y_a)},\
+% \beta = \frac{f_{ac}(x_P, y_P)}{f_{bc}(x_b, y_b)},\
+% \gamma = \frac{f_{ab}(x_P, y_P)}{f_{ab}(x_c, y_c)}$
 
 \section{Transformations \& Coordinate Systems}
 \textbf{Linear Transformation}:
@@ -292,50 +299,50 @@ Reflect Y:\@
 \end{bmatrix}
 \)
 
-\textbf{2D Shear Matrix}
-Horizontal shear (top edge is shifted to the right (positive)):
-\(
-\begin{bmatrix}
-    1 & s_x \\
-    0 & 1
-\end{bmatrix}
-\)
-Vertical shear (right edge is shifted up (positive)):
-\(
-\begin{bmatrix}
-    1   & 0 \\
-    s_y & 1
-\end{bmatrix}
-\)
+% \textbf{2D Shear Matrix}
+% Horizontal shear (top edge is shifted to the right (positive)):
+% \(
+% \begin{bmatrix}
+%     1 & s_x \\
+%     0 & 1
+% \end{bmatrix}
+% \)
+% Vertical shear (right edge is shifted up (positive)):
+% \(
+% \begin{bmatrix}
+%     1   & 0 \\
+%     s_y & 1
+% \end{bmatrix}
+% \)
 
-\textbf{3D Shear Matrix}
-\includegraphics[width=4cm]{3d-shear.png}
-Shear on YZ Plane:
-\(
-\begin{bmatrix}
-    1   & 0 & 0 \\
-    s_y & 1 & 0 \\
-    s_z & 0 & 1
-\end{bmatrix}
-\)
+% \textbf{3D Shear Matrix}
+% \includegraphics[width=4cm]{3d-shear.png}
+% Shear on YZ Plane:
+% \(
+% \begin{bmatrix}
+%     1   & 0 & 0 \\
+%     s_y & 1 & 0 \\
+%     s_z & 0 & 1
+% \end{bmatrix}
+% \)
 
-Shear on XZ Plane:
-\(
-\begin{bmatrix}
-    1 & s_x & 0 \\
-    0 & 1   & 0 \\
-    0 & s_z & 1
-\end{bmatrix}
-\)
+% Shear on XZ Plane:
+% \(
+% \begin{bmatrix}
+%     1 & s_x & 0 \\
+%     0 & 1   & 0 \\
+%     0 & s_z & 1
+% \end{bmatrix}
+% \)
 
-Shear on XY Plane:
-\(
-\begin{bmatrix}
-    1 & 0 & s_x \\
-    0 & 1 & s_y \\
-    0 & 0 & 1
-\end{bmatrix}
-\)
+% Shear on XY Plane:
+% \(
+% \begin{bmatrix}
+%     1 & 0 & s_x \\
+%     0 & 1 & s_y \\
+%     0 & 0 & 1
+% \end{bmatrix}
+% \)
 
 \textbf{Homogenous Coordinate}
 2D points represented by \((x, y, z)\), 2D location is \((x/z, y/z) \mid z=1\) or other value
@@ -366,10 +373,10 @@ Only one, unique.
 Each model in scene goes through \(M_{model}\) to transform from model space to world space.
 
 \section{Camera / Viewing Transformations}
-Rendering steps:
-\includegraphics[width=\linewidth]{rendering-steps.png}
+% Rendering steps:
+% \includegraphics[width=\linewidth]{rendering-steps.png}
 
-\includegraphics[width=4cm]{cam-total.png}
+% \includegraphics[width=4cm]{cam-total.png}
 
 \textbf{Viewing General Steps}
 \begin{enumerate}
@@ -451,23 +458,24 @@ Given left plane x, $l$, right plane x, $r$, top plane y, $t$, bottom plane y $b
 $M_{orth}$ projects the view box defined above onto the canonical space.
 
 
-$M_{orth}$ = \(
-\begin{bmatrix}
-    \frac{2}{r-l} & 0             & 0             & 0 \\
-    0             & \frac{2}{t-b} & 0             & 0 \\
-    0             & 0             & \frac{2}{n-f} & 0 \\
-    0             & 0             & 0             & 1 \\
-\end{bmatrix}
-\)
-\(
-\begin{bmatrix}
-    1 & 0 & 0 & -\frac{r+l}{2} \\
-    0 & 1 & 0 & -\frac{t+b}{2} \\
-    0 & 0 & 1 & -\frac{n+f}{2} \\
-    0 & 0 & 0 & 1              \\
-\end{bmatrix}
-\)\\
-=
+$M_{orth}$ = 
+%\(
+% \begin{bmatrix}
+%     \frac{2}{r-l} & 0             & 0             & 0 \\
+%     0             & \frac{2}{t-b} & 0             & 0 \\
+%     0             & 0             & \frac{2}{n-f} & 0 \\
+%     0             & 0             & 0             & 1 \\
+% \end{bmatrix}
+% \)
+% \(
+% \begin{bmatrix}
+%     1 & 0 & 0 & -\frac{r+l}{2} \\
+%     0 & 1 & 0 & -\frac{t+b}{2} \\
+%     0 & 0 & 1 & -\frac{n+f}{2} \\
+%     0 & 0 & 0 & 1              \\
+% \end{bmatrix}
+% \)\\
+% =
 \(
 \begin{bmatrix}
     \frac{2}{r-l} & 0             & 0             & -\frac{r+l}{r-l} \\
@@ -476,11 +484,10 @@ $M_{orth}$ = \(
     0             & 0             & 0             & 1                \\
 \end{bmatrix}
 \)\\
-Right: translate center to origin\\
-Left: scales width of all dimensions to be 2, fitting inside [-1, 1].
+translates center to origin, scales width of all dimensions to be 2, fitting inside [-1, 1].
 
 \textbf{Perspective Projection}\\
-\includegraphics[width=.5\linewidth]{cam-persp.png}
+% \includegraphics[width=.5\linewidth]{cam-persp.png}
 $l,r,b,t$ now define the near plane $XY$, with $n$ being the $Z$. Far plane is only defined by $f$.
 \textbf{OR} use depth of field:
 $\theta$ = FOV on y-axis, $ratio = (r-l)/(t-b)$, $n$ is near plane z, $f$ is far plane z.
@@ -665,7 +672,7 @@ Screen goal is 256x256. We still rasterize for a higher resolution, but fragment
 Then, we sample $n$ times from the pixel area, averaging the samples to get the true pixel colour.
 \textbf{Fragments} here are each dot on a pixel.
 
-\includegraphics[width=.5\linewidth]{multi-sampling.png}
+% \includegraphics[width=.5\linewidth]{multi-sampling.png}
 \section{Pipeline}
 
 \subsection{Application}
@@ -761,7 +768,7 @@ If the primitive's depth is closer to the camera than what is there (smaller), u
 \text{precision} = (z_{far} - z_{near}) / 2^b
 \)
 We want \(\text{precision} < \text{max difference between z values}\)
-\textit{Mitigation Tactices}: Properly set the near and far planes increase bit count for depth value, Don't put objects too close to each other in scene.
+\textit{Mitigation Tactices}: Good near far planes, objects not too close together.
 
 
 \textbf{Transparency / Alpha}
@@ -1018,7 +1025,7 @@ $
 v = \frac{1 + z}{2}, z \in [-1, 1]
 $
 
-\subsubsection{Cubemap}
+\subsubsection{Cubemap (Skybox)}
 $
 u = \frac{1 + y / |x|}{2}, v = \frac{1 + z / |x|}{2} \text{ where } |x| > |y|, |x| > |z|, x > 0
 $
