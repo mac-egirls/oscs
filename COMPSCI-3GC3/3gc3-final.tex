@@ -1085,8 +1085,8 @@
     \subsection{Maps}
     \textbf{Diffuse Map:} Stores colours, RGB
     \textbf{Normal Map:} Stores normal vectors to determine bounce directions, 3 channels
-    \textbf{Displacement Map:} Changes vertex positions by $x$ amount in the normal direction, 1 channel, slow
-    \textbf{Bump Map:} Scales normals by $x$ amount in the normal direction, does not change vertex positions, 1 channel, fast
+    \textbf{Displacement Map:} Changes vertex positions by $x$ amount in the normal direction, 1 channel, slow. The shadow will also have bumps
+    \textbf{Bump Map:} Scales normals by $x$ amount in the normal direction, does not change vertex positions, 1 channel, fast. The shadow won't have bumps.
     \textbf{Shadow Map:} Stores distance to first point hit by each light in a preprocessing step (z buffer).
     During rendering, calculate each fragment's distance from light and illuminate it if it's less than or equal to the stored value.
     Otherwise, it is in shadow.
