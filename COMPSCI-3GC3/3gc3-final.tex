@@ -1111,6 +1111,23 @@ Gouraud does it using \textit{vertex positions} using vertex colors during the v
 \section{Ray Tracing}
 Ray representation: $r = o + td$
 
+\subsection{Ray Gen}
+left, right, top, bottom are coords defining bounds of view volume.
+view volume is $n_x$ px wide, $n_y$ px high.
+
+\textbf{pixel(i, j) $\to$ (u, v, w) coord}
+$u = left + (i + 0.5) * (right - left)/n_x$;
+$v = bottom + (j + 0.5) * (top - bottom)/n_y$;
+$w = -fl$
+\subsubsection{Perspective}
+$o = e$ (e is camera coords);
+$d = u \vec{u} = v \vec{v} - fl \vec{w}$ (uvw is camera view coords, w is away from looking location)
+
+\subsubsection{Orthographic}
+$o = e + u \vec{u} + v \vec{v}$
+$d = -\vec{w}$
+
+
 \subsection{Ray-Object Intersection}
 \subsubsection{Sphere}
 Point $\mathbf{p}$ on ray: $\mathbf{p} = \mathbf{o} + t\mathbf{d}$
