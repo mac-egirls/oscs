@@ -1030,6 +1030,18 @@ triangles ``wrap'' across the whole texture, making a bad seam where the texture
 Instead, we duplicate the vertices on the left and right edges, such that the left seam's edges only apply to the triangles on it's right,
 and the right seam's edges only apply to the triangles on it's left.
 
+\subsection{Barycentric Interpolation}
+Get barycentric of $p$ instide triangle $b1, b2, b3$.
+Interpolate $uv$ for $p$:
+$u_p = b1 \cdot u_a + b_2 \cdot u_b + b_3 \cdot u_c$
+
+\subsection{Sampling}
+\textbf{Nearest:} Self-explanatory
+\textbf{Bilinear:} Also kinda self-explanatory, see interpolation on page 1.
+\subsection{Wrapping}
+UV is in range [0,1], deals with how to handle stuff outside of range.
+Clamp: use edge colour for stuff outside range
+Tile: repeatedly sample the texture (loop it)
 
 \subsection{Mipmap}
 Take the longest length $l$,
@@ -1096,7 +1108,8 @@ Instead of using the viewing angle for specular, we use the half-vector v, which
 Blinn-Phong can produce bad results when $r \cdot v$ is negative, but $r \cdot h$ is positive. In this case, Blinn-Phong will be too bright. ADD THE SLIDE PART HERE
 
 \subsection{Gouraud}
-% TODO!
+Instead of computing color based on lighting in the \textit{fragment shader step},
+Gouraud does it using \textit{vertex positions} using vertex colors during the vertex shader.
 
 \section{Ray Tracing}
 % TODO!
