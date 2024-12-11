@@ -44,15 +44,15 @@
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {-1explus -.5ex minus -.2ex}%
                                 {0.5ex plus .2ex}%x
-                                {\normalfont\normalsize\bfseries}}
+                                {\normalfont\small\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
                                 {-1explus -.5ex minus -.2ex}%
                                 {0.5ex plus .2ex}%
-                                {\normalfont\small\bfseries}}
+                                {\normalfont\tiny\bfseries}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
                                 {1ex plus .2ex}%
-                                {\normalfont\tiny\bfseries}}
+                                {\normalfont\tiny\bfseries\itshape}}
 \makeatother
 \setcounter{secnumdepth}{0} % disable section numbering
 
@@ -663,10 +663,9 @@ Can use box filter or a gaussian filter.\\
 \textbf{Multisample: }
 Screen goal is 256x256. We still rasterize for a higher resolution, but fragment (triangle) colour computation is only calculated once.
 Then, we sample $n$ times from the pixel area, averaging the samples to get the true pixel colour.
-\includegraphics[width=4cm]{multi-sampling.png}
 \textbf{Fragments} here are each dot on a pixel.
 
-
+\includegraphics[width=.5\linewidth]{multi-sampling.png}
 \includegraphics[width=.3\linewidth]{basic-graphics-pipeline.png}
 \section{Pipeline}
 
@@ -895,17 +894,15 @@ Total: $40E + 4F + 16V \approx 120V + 8V + 16V \approx 144V$
 
 \section{Mesh Editing}
 
-\subsection{Local Ops}
-Edge Flip
-\includegraphics[width=.5\linewidth]{edge-flip.png}
+Edge Flip \quad\quad\quad\quad\quad\quad\quad\quad\quad Edge Split
 
-Edge Split
-\includegraphics[width=.5\linewidth]{edge-split.png}
+\includegraphics[width=.45\linewidth]{edge-flip.png}
+\includegraphics[width=.45\linewidth]{edge-split.png}
 
 Edge Collapse
-\includegraphics[width=.5\linewidth]{edge-collapse.png}
-\subsection{Triangulation}
-\includegraphics[width=.5\linewidth]{triangulation.png}
+
+\includegraphics[width=.45\linewidth]{edge-collapse.png}
+\includegraphics[width=.45\linewidth]{triangulation.png}
 
 \subsection{Subdivision}
 \textbf{Split:} insert new vertices
@@ -1054,7 +1051,7 @@ Level 0 is base image, each texel in level $k$ image is avg of $2^k \times 2^k$ 
 \textbf{Displacement Map:} Changes vertex positions by $x$ amount in the normal direction, 1 channel, slow
 \textbf{Bump Map:} Scales normals by $x$ amount in the normal direction, does not change vertex positions, 1 channel, fast
 \textbf{Shadow Map:} Stores distance to first point hit by each light in a preprocessing step (z buffer).
-During rendering, calculate each fragement's distance from light and illuminate it if it's less than or equal to the stored value.
+During rendering, calculate each fragment's distance from light and illuminate it if it's less than or equal to the stored value.
 Otherwise, it is in shadow.
 
 \section{Light}
@@ -1098,14 +1095,19 @@ find view direction \\ $v = norm(P_c - P_p)$.
 Color on object = \\ \verb|specular_light_clr * specular_material_clr * max(0, dot(v, r)^p)|
 
 \subsection{Phong}
-Phong shading is the sum of ambient, diffuse, and specular lighting. (Multiplied by \
-JASONN!!!! ADD THE PICTURE OK THANKS!!! \
+Phong shading is the sum of ambient, diffuse, and specular lighting. (Multiplied by $I/r^2$ to simulate light falloff)
+$
+L(P, v) = [k_a + k_d \cos \theta + k_s (\cos \rho)^p] \cdot \frac{I}{r^2} = [k_a + k_d (n \cdot l) + k_s (r \cdot v)^p] \cdot \frac{I}{r^2}
+$
 In OpenGL: ambient_light_clr * ambient_material_clr + diffuse_light_clr * diffuse_material_clr * max(0, n$\cdot$l) + specular_light_clr * specular_material_clr * max$(0, v\cdot r)^p$
 
 \subsection{Blinn-Phong}
-Instead of using the viewing angle for specular, we use the half-vector v, which is halfway between the view and light directions. ($\frac{l+v}{\vert\vert l+v \vert\vert}$). When adding specular it is now specular_light_clr + specular_material_clr * max$(0,n\cdot h)^p$. \
+Instead of using the viewing angle for specular, we use the half-vector $h$, which is halfway between the view and light directions. ($\frac{l+v}{\vert\vert l+v \vert\vert}$).
+When adding specular it is now specular_light_clr + specular_material_clr * max$(0,n\cdot h)^p$. \
 
-Blinn-Phong can produce bad results when $r \cdot v$ is negative, but $r \cdot h$ is positive. In this case, Blinn-Phong will be too bright. ADD THE SLIDE PART HERE
+Blinn-Phong can produce bad results when $r \cdot v$ is negative, but $n \cdot h$ is positive. In this case, Blinn-Phong will be too bright.
+\includegraphics[width=.5\linewidth]{phong\_vs\_blinn-phong.png}
+
 
 \subsection{Gouraud}
 Instead of computing color based on lighting in the \textit{fragment shader step},
