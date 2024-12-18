@@ -107,7 +107,7 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 \begin{multicols*}{4}
-\section{Systems}
+\section{Intro}
 \textbf{System}:
 Combination of interacting elements organized
 to achieve a stated purpose or meet an operational need.
@@ -135,7 +135,7 @@ Marketing / sales, maintenance, warranty, recalls, feedback.
 End-of-life services.
 Recycling, special disposal, updating / disposing of tooling.
 
-\subsection{Systems Engineering}
+\subsection{Systems Engineering Overview}
 Top-down approach to design, development, operation of systems.
 Iterative, repeats for each lower level until individual elements are defined.
 Used because good planning and clear definition of deliverables makes sure that
@@ -215,6 +215,128 @@ Requirements can be validated (demonstrated to be true).
 Mission requirements starting point for system requirements.
 
 \section{Requirements}
+\subsection{Requirements Engineering}
+Process of translating stakeholder expectations into technical statements
+usable by design team to make a solution that meets the original need.
+Bridges gap between stakeholder expectations, design teams technical instructions.
+
+\subsection{Why requirements}
+Tell us what our system needs to do.
+Tell us scope of system.
+Give opportunity for every stakeholders' input to be captured.
+Help structure, scope work to be done, estimating effort and cost.
+Allow us to track project progress.
+How we know we are done, how well we did.
+
+Separate from the "Needs View", directly define the input to design.
+
+\textbf{Requirement = input to design. Specification = output of design.}
+
+\subsection{Internal Requirements}
+Self-imposed, usually during R\&D, early product development.
+Will evolve, change during early project life-cycle.
+
+\subsection{External Requirements}
+Defined by the customer, contractor must abide by these.
+Changes are more difficult and require more evidence, approvals.
+Various formats, stated order of precedence.
+E.g. contract, statement of work, technical requirements,
+product assurance requirements.
+
+\subsection{Requirement}
+Formally written, agreed upon statement of what the system must do,
+a quality it must posess,
+or a constraint it must operate under in order to meet the need.
+``The <system name> shall <system response>''
+
+\textbf{Shall:} a statement of requirement. This must be met.
+\textbf{Should:} a statement of a goal or non-mandatory request. Desired, but not required.
+\textbf{Will:} a statement of fact, declaration of purpose.
+
+\subsubsection{Functional Requirements:}
+What functions need to be performed to accomplish objective.
+System as a ``black box'' of functions.
+Focus on \textit{what} needs to be done, not \textit{how} to do it.
+
+\subsubsection{Non-functional Requirements:}
+Other properties the system must posess, constraints it must operate under.
+Performance, environment, interfaces, constraints, ``-ilities'', training, personnel, safety.
+
+\textbf{Performance:}
+How well the system should perform functions.
+How much / little, how far, how fast, how many, how often\dots
+E.g. bit error rates.
+
+\textbf{Environmental Requirements:}
+Requirements defining operating system of system. E.g. shock exposure levels, operating temperatures.
+
+\textbf{Interface Requirements:}
+How elements interface with other elements internal / external to system.
+(Accepting inputs, providing outputs are functional, but specifics on how the interface should work are not)
+E.g. what standard of communication is used between systems.
+
+\textbf{Constraints}
+Limitations, boundaries, conditions imposed on system by stakeholders.
+Include cost, timeline, physical dimension, quantity (size, weight, power), rules and regulations.
+
+\textbf{-ilities}
+Deal with life-cycle considerations product quality, other stakeholders.
+Relability, availability, scalability, maintainability, operabiliy, supportability, security, manufacturability, interoperability, etc.
+Major design, cost drivers.
+
+\subsection{Good Requirements}
+Good requirements should be
+\begin{itemize}
+    \item Needed (should be necessary, sufficient to specify system. Nothing extraneous.)
+    \item Verifiable (must have a clear pass/fail criteria, a method to determine if it is met)
+    \item Attainable (no point in requiring the impossible)
+    \item Traceable (must be linked from the lowest component to the highest need)
+\end{itemize}
+Good requirements are also good comms:
+Single thought, concise, simple ad consistent, grammatically correct.
+
+\subsection{Requirement Documentation}
+Requirement ID, Title, Requirement Text, Rationale, Verification, Tracability, Notes.
+
+\subsubsection{Requirement Rationale}
+Additional information on intent, context for a requirement, helps with interpretation.
+Reason for the requirement.
+Documents assumptions made when writing requirement.
+Link to supporting information outside requirement set, e.g. architecture decisions, ConOps, trade studies, customer discussions, etc\dots
+
+\subsubsection{Requirement Verification}
+Reqs need to be verified.
+\begin{itemize}
+    \item Inspection: visual examination of product, supporting documentation
+    \item Demonstration: using product to demonstrate requirement is met
+    \item Analysis: use of modelling, simulation, analytical techniques to predict a product will meet requirement
+    \item Test: highly controlled use, measurement of product to compare to pass/fail criteria
+\end{itemize}
+
+\subsubsection{Requirement Traceability}
+Ability to trace every requirement to it's source.
+Most come from other requirements, not always.
+ALso applies to ConOps, architecture documents, trade studies, analysis, other documentation.
+
+\textbf{Forwards Traceability:} Relationship of parent requirements down to children.
+\textbf{Backwards Traceability:} Relationship of child requirements up to their parents.
+
+\subsection{Requirement Validation}
+Ensure the requirements capture stakeholder's expectation.
+Ensure are complete and correct,
+accurately capturing the stakeholder needs,
+necessary,
+achievable,
+not duplicated or over-specified,
+verifiable.
+
+\subsection{Why manage requirements}
+Requirements will evolve as system evolves.
+Complex projects have hundreds of requirements, allocated across many elements, multiple developers.
+
+\section{Systems Engineering}
+% TODO: CUT ME IF U NEED SPACE
+\includegraphics[width=\linewidth]{SCR-20241218-ouqp.png}
 
 \section{Launch Environment}
 
@@ -233,6 +355,8 @@ $\vec{a}_{\perp \vec{b}} = \vec{a} - proj_{\vec{b}}\vec{a}$.
 $\vec{a} \times \vec{b} = (a_y b_z - a_z b_y)\hat{i} - (a_x b_z - a_z b_x)\hat{j} + (a_x b_y - a_y b_x)\hat{k}$;
 $\hat{n}_{ab} = \frac{\vec{a} \times \vec{b}}{|\vec{a} \times \vec{b}|}$;
 $\vec{a} \times \vec{b} = |a| |b| \sin \theta \hat{n}_{ab}$.
+\textbf{Matrix x Vector Multiplication}:
+\includegraphics[width=\linewidth]{matrix\_vec\_mult\_as\_process.png}
 
 \section{Orbital Mechanics}
 % TODO: see if i'm missing anything here
@@ -546,11 +670,216 @@ $
 \right)
 $
 
+\subsection{Date-related 3D}
+Latitude and Longitude to Cartesian Coordinates
+
+(Radius of line from point at perpendicular height $H$ above reference surface to polar axis)
+$R_\phi = \frac{R_E}{\sqrt{1 - (2f - f^2) \sin^2 \phi}}$
+
+$R_{xyz} = 
+\begin{bmatrix}
+    (R_\phi + H) \cos \phi \cos \Lambda \\
+    (R_\phi + H) \cos \phi \sin \Lambda \\
+    ((1 - f^2) R_\phi + H) \sin \phi
+\end{bmatrix}
+$
+$H$: Altitude of coordinate\\
+$f = (R_E - R_P) / R_E$: Flattening factor of oblate spheroid\\
+$R_E$: Equatorial radius of the Earth\\
+$R_P$: Polar radius\\
+$\phi$: Geodic Latitude\\
+$\Lambda$: Geodic Longitude\\
+
+\textbf{WGS84 Reference Ellipsoid}\\
+$R_E =$ \SI{6378137.0}{\metre}\\
+$f = 1/298.257\,223\,563$ \\
+$R_P \approx$ \SI{6356752.314245}{\metre}\\
+
+\textbf{Julian Date Formula}\\
+$JD = JD_0 + \frac{UT}{24}$\\
+$JD_0 = 367y
+- \left\lfloor\frac{7(y - \left\lfloor\frac{m + 9}{12}\right\rfloor)}{4}\right\rfloor
++ \left\lfloor\frac{275m}{9}\right\rfloor
++ d
++ 1\,721\,013.5$\\
+
+\textbf{Sidereal Time}\\
+\textbf{Centuries since J2000:}
+$T_0 = \frac{JD_0 - 2\,451\,545}{36\,525}$\\
+\textbf{Greenwich sidereal time at 0 UT:}
+$\theta_{G_0} = 100.460\,618\,4
++ 36\,000.770\,04 T_0
++ 0.000\,387\,933 T_0^2
+- 2.583 \times 10^{-8} T_0^3
+(deg)$\\
+\textbf{Greenwich sidreal time at current time in UT:}
+$\theta_G = \theta_{G_0} + 360.985\,647\,24 \frac{UT}{24}$\\
+\textbf{Local sidereal time:}
+$\theta_{SD} = \theta_G + \Lambda$.
+
+To go from Earth-Centered-Earth_fixed to Earth-Centered-Inertial,
+we need to perform a Z axis frame rotation from ECEF to ECI by sidereal time.
+AKA, we need to rotate by $-\theta_G$.
+
 \section{Satellite Communications}
+Channel Capacity:
+$
+C = BW \log_2 \left(1 + \frac{S}{N}\right)
+$ \si{\bit\per\second}
+BW: bandwidth, S: signal, N: noise.
+SNR: $\frac{S}{N} = \frac{P_{sig}}{P_{noise}} = \frac{P_{sig}}{N_0 BW}$
+($N_0$ is power spectral density of noise (e.g. \si{\watt\per\hertz}).
+Usually associated with thermal noise in system,
+$N_0 = k T$, $k = $ \SI{1.38e-23}{\joule\per\kelvin})
+
+\textbf{Symbol Rate:} $R_S = \frac{1}{T_S} = BW$ (inverse of time the symbol takes up)
+
+\textbf{Average Energy per Symbol:} $E_S = \frac{1}{M} \sum_{i=1}^M \int_{-\infty}^{\infty}|s_i (t)|^2 dt$
+
+\textbf{Average Power:} $P_s = E_S R_S$
+
+\textbf{Probability of Error:} $p_e = Q\left(\frac{s_1 - s_0}{\sigma_1 + \sigma_0}\right) = Q\left(\frac{d}{2 \sigma}\right)$
+$p_{e, OOK} = Q\left(\sqrt{\frac{E_b}{N_0}}\right)$
+$p_{e, BPSK} = Q\left(\sqrt{\frac{2 E_b}{N_0}}\right)$
+
+\subsection{Link Budget Equation}
+\textbf{Base SI units:} $P_{RX} = P_{TX} L_{TX} G_{TX} L_{FS} L_P G_{RX} L_{RX}$
+
+\textbf{Logarithmic units:} $P_{RX} (dBm) = P_{TX} (dBm) - L_{TX} (dB) + G_{TX} (dB) - L_{FS} (dB) - L_P (dB) + G_{RX} (dB) - L_{RX} (dB)$
+
+\textbf{Linear to Logarithmic:} $X_dB = 10 \log_{10} X_{lin}$, and $P_{dBm} = 10 \log_{10} \frac{P_{lin}}{1 mW}$
+(\SI{1}{\milli\watt} = \SI{0.001}{\watt})
+
+\subsubsection{Antenna Gain}
+RF antennas:
+$l(r) = \frac{P}{4 \pi r^2} \frac{W}{m^2}$
+Gain for all power concentrated in area S: $G = \frac{4 \pi r^2}{S}$
+E.g.
+Parabolic antenna: $G_{par} = \frac{4 \pi A}{\lambda^2} e_A = \left(\frac{\pi d}{\lambda}\right)^2 e_A$
+
+Optical antenna directional gain scales with wavelength:
+$G_{Tx} = \left(\frac{\pi D}{\lambda}\right)^2$
+
+\subsubsection{Antenna Coverage}
+$\theta = \frac{kd}{\lambda}$,
+$G_{par} = \left(\frac{\pi k}{\theta}\right)^2 e_A$
+
+\subsubsection{Pointing Loss}
+\textbf{RF Antennas} \\
+1/2 power BW: $\theta_{3dB} \approx \frac{70^\circ \lambda}{D}$,
+and pointing loss: $L_{point}(dB) \approx -12 \left(\frac{\Delta \theta}{\theta_{3dB}}\right)^2$
+
+\textbf{Optical Antennas} \\
+$1/e^2$ intensity profile BW:
+$\theta_{div} \approx \frac{\lambda}{\pi \omega_0}$,
+and pointing loss: $L_{point}(dB) \approx -8.7 \left(\frac{\Delta \theta}{\theta_{div}}\right)^2$
+
+\textbf{Free-Space Loss} \\
+$L_{free} = \left(\frac{\lambda}{4 \pi d}\right)^2$,
+$L_{free_{DB}} = 20 \log_{10} \left(\frac{\lambda}{4 \pi d}\right)$.
 
 \section{Satellite Attitude \& Orbit Control Systems}
+\textbf{ADCS Subsystem:}
+System to estimate spacecraft body orientation,
+determine error,
+process spacecraft dynamics to formulate corrective commands,
+command actuators to perform adjustements.
+
+\subsection{Attitude Sensing}
+Estimate of current spacecraft orientation from sensor measurements
+
+\subsection{Sun Sensor}
+Orients at the sun.
+$\alpha = \tan^{-1} \frac{\Delta X}{h}$,
+$\beta = \tan^{-1} \frac{\Delta Y}{h}$.
+
+\subsection{Horizon Sensor}
+Uses local horizon to orient towards Earth
+Earth is warm versus space.
+Horizon depends on altitude, so use a wider FOV for lower orbits.
+
+\subsection{Star tracker}
+$star_{pos} (x_i, y_i) = (f \tan \theta, f \tan \phi)$.
 
 \section{Spacecraft Dynamics}
+How to go from orbital parameters to state vectors?
+
+\begin{enumerate}
+    \item Given orbital parameters, calculate $r, v$ in perifocal frame:
+    $
+    \{\mathbf{r}\}_{\bar{x}} = \frac{h^2}{\mu} \frac{1}{1 + e \cos \theta}
+    \begin{Bmatrix}
+    \cos \theta \\
+    \sin \theta \\
+    0
+    \end{Bmatrix}
+    \quad
+    \{\mathbf{v}\}_{\bar{x}} = \frac{\mu}{h}
+    \begin{Bmatrix}
+    -\sin \theta \\
+    e + \cos \theta \\
+    0
+    \end{Bmatrix}
+    $
+    \item Calculate matrix Q (e.g. Euler zxz)
+    $
+    [\mathbf{Q}]_{\bar{x}\bar{X}} = 
+    \begin{bmatrix}
+    \cos \omega & \sin \omega & 0 \\
+    -\sin \omega & \cos \omega & 0 \\
+    0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & \cos i & \sin i \\
+    0 & -\sin i & \cos i
+    \end{bmatrix}
+    \begin{bmatrix}
+    \cos \Omega & \sin \Omega & 0 \\
+    -\sin \Omega & \cos \Omega & 0 \\
+    0 & 0 & 1
+    \end{bmatrix}
+    $
+    \item Re-calculate $r, v$ in ECI frame
+    $
+    \{\mathbf{r}\}_{X} = [\mathbf{Q}]_{\bar{x}X} \{\mathbf{r}\}_{\bar{x}}
+    \quad
+    \{\mathbf{v}\}_{X} = [\mathbf{Q}]_{\bar{x}X} \{\mathbf{v}\}_{\bar{x}}
+    $
+\end{enumerate}
+
+\subsection{Rigid Body Dynamics}
+
+\textbf{Rotating Body time derivatives of vector (orbit)}
+Given that $\vec{\omega} = \odv{\theta}{t}$ and $\vec{\alpha} = \odv{\vec\omega}{t}$
+
+$
+\odv{\vec{A}}{t} = \vec{\omega} \times \vec{A}
+$
+and
+$
+\odv[2]{\vec{A}}{t} = \vec{\alpha} \times \vec{A} + \vec{\omega} \times (\vec{\omega} \times \vec{A})
+$
+
+\textbf{Time derivative of moving vector in body frame}
+Given that $\vec{B} = [B_x \hat{I} + B_y \hat{J} + B_z \hat{K}] (inertial) = [b_x \hat{j} + b_y \hat{j} + b_z \hat{k}] (rotating frame)$
+
+We have
+$
+\odv{\vec{B}}{t} = \odv{b_x}{t} \hat{i} + \odv{b_y}{t} \hat{j} + \odv{b_z}{t} \hat{k} + \vec{\omega} \times \vec{B}
+$
+i.e. the time derivative of $\vec{B}$ in inertial frame is equal to the time derivative of $\vec{B}$ in the rotating frame,
+plus the correction term $\vec{\omega} \times \vec{B}$.
+
+TODO:
+Translation
+Moment
+Angular Momentum
+Angular Momentum Impulse
+Rigid Body Angular Momentum
+Moment of inertia
+Moment of inertia matrix
+
 
 \end{multicols*}
 
