@@ -45,15 +45,15 @@
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {-1explus -.5ex minus -.2ex}%
                                 {0.5ex plus .2ex}%x
-                                {\normalfont\normalsize\bfseries}}
+                                {\normalfont\small\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
                                 {-1explus -.5ex minus -.2ex}%
                                 {0.5ex plus .2ex}%
-                                {\normalfont\small\bfseries}}
+                                {\normalfont\tiny\bfseries}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
                                 {1ex plus .2ex}%
-                                {\normalfont\tiny\bfseries}}
+                                {\normalfont\tiny\itshape}}
 \makeatother
 \setcounter{secnumdepth}{0} % disable section numbering
 
@@ -80,7 +80,7 @@
 \setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
 
 % make matricies narrower
-\setlength{\arraycolsep}{2pt}
+\setlength{\arraycolsep}{0pt}
 
 \title{3SP3}
 
@@ -106,7 +106,21 @@
 \setlength{\postmulticols}{1pt}
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
-\begin{multicols*}{4}
+\begin{multicols*}{5}
+\begin{tabular}{| c | c | c |}
+    \hline
+    \textbf{Factor} & \textbf{Prefix} & \textbf{Symbol} \\
+    \hline
+    $10^{12}$ & tera & T \\
+    $10^{9}$ & giga & G \\
+    $10^{6}$ & mega & M \\
+    $10^{3}$ & kilo & k \\
+    $10^{-3}$ & milli & m \\
+    $10^{-6}$ & micro & $\mu$ \\
+    $10^{-9}$ & nano & n \\
+    $10^{-12}$ & pico & p \\
+    \hline
+\end{tabular}
 \section{Intro}
 \textbf{System}:
 Combination of interacting elements organized
@@ -337,12 +351,166 @@ Complex projects have hundreds of requirements, allocated across many elements, 
 \section{Systems Engineering}
 % TODO: CUT ME IF U NEED SPACE
 \includegraphics[width=\linewidth]{SCR-20241218-ouqp.png}
+System Design Process:
+Analysis, Synthesis, Evaluation.
+
+\textbf{ConOps:} Operations Concept (aka a diagram)
+
+\textbf{NASA System Design Process}
+\textbf{1. Stakeholder Expectation Definition:}
+Identify stakeholders, expectations, requirements. Capture expectations in ConOps. Identify Measures of Effectiveness.
+\textbf{2. Technical Requirements Definition:}
+Turn stakeholder expectations into formal technical statements used to further decompose, define system.
+Identify system scope (what are we responsible for, what are we not responsible for), system boundary (physical manifestation of scope).
+Identify interfaces. Define functions to use system, as identified in ConOps.
+\textbf{Elicitation:} Drawing out, e.g. stakeholder telling us, recieving it from a source.
+\textbf{Elaboration:} Further develop existing requirements using Decomposition (breaking it down into smaller parts) or Derivation (making inferences and creating new requirements).
+\textbf{3. Logical Decomposition:}
+Problem has been defined, now prepare to solve it.
+Decompose problem into smaller parts (logical or functional).
+Proposing architecture as candidate solution to decomposed problem.
+Allocating functional decomposition to elements in architecture.
+Deriving further requirements.
+Evaluating proposed solution.
+Iterating to find best overall solution for need.
+Finalizing all requirements to bring to design.
+\textbf{4. Design Solution Definition:}
+Translate requirements into design. (Most course work / lab work, here is a problem solv it.)
+Propose and analyze multiple potential solutions.
+Selected alternative fully defined into complete design solution.
 
 \section{Launch Environment}
+\textbf{Thrust Equation:}
+$T = \dot{m_e} v_e + (p_e - p_a)A_e$
+\textbf{Rocketry Equation:}
+$\Delta v = I_{sp} g_0 \ln \frac{m_0}{m_f}$
+\textbf{Design for Launch}
+Max Q: peak dynamic pressure.
+Rocket vibration from thrust, static load/random vibration, structural resonance.
+Acoustic vibration from atmospheric forces.
+Resonance and dampening:
+Q is ratio of output displacement to input.
+Generally aluminum is used.
+Thermal baance, we want $Q_{in} = Q_{out}$,
+where $Q_{out} = Q_{solar} + Q_{albedo} + Q_{EarthIR} + Q_{spacecraft}$.
+(Albedo is reflection of sun from Earth.)
+
+Test thermal properties using TVAC (thermal vaccum chamber), heat lamps to simulate solar / albedo loading.
+
+\section{Quality}
+\textbf{Quality:} How to make sure that your solution meets safety/reliability standards?
+Guard against failure.
+Plan -> Do -> Check -> Act -> Repeat.
+Performed by Product Assurance -> Quality Assurance -> Quality Control -> Audit.
+QC: Inspecting work to ensure quality is maintained.
+QA: Process control, ensuring process is in place, maintain documentation and traceability for audits.
+Manufacturing, test data to verify something conforms to engineering data.
+Process to identify, prevent defects.
+Plans, implements systematic activities to provide confidence that all quality requirements will be fulfilled.
+PA: Make sure product meets specifications, including quality, assurance. ``Voice of customer''.
+Ensure project is built per process using ``stuff'' that meets customer requireents.
+Proposal -> design -> manu -> test -> deliv -> commissioning.
+Certificat of Conformance (indicates deliverable built and tested per reqs.)
+
+PA Requirement e.g.: EEE Components (Electrical, Electronic, or Electromechanical)
+must either be on an approved list or be approved,
+must be purchased from approved manufacturers,
+components must also pass specifications,
+must pass qualification.
+
+E.g. NASA EEE-INST-002:
+Level 1: Lowest risk, highest reliability.
+Level 2: Low to moderate risk.
+Level 3: Higher risk.
+Commercial.
+Higher level = higher standards, testing, can be an order of magnitude more expensive.
+Lower quality components need to undergo additional testing to be accepted.
+
+\textbf{5. Product Realization}
+Design is done, SE switches to ``bottom-up'',
+building smallest components first up to largest.
+Usually either build, buy, or reuse, based on skills, capability, experience, cost, etc.
+Can buy by paying a contractor to build (more requirements need to be exchanged),
+or purchase COTS (existing stuff that is higher risk).
+COTS is hard to qualify, lower performance. Can test new parts on case-by-case basis.
+Reusing is usually attractive, especially if it has worked in space before.
+\textbf{Assembly:} joining individual components together to make higher level products.
+\textbf{Integration:} combining elements to achieve a higher level function. Must include some level of ``using'' product to enable the purpose.
+Integration ensures different subsystems work together properly.
+\textbf{Test:} Test as you go, make sure each part works.
+
+\textbf{6. Product Integration}
+Assemble, Integrate, Test until full system is done.
+Systems plans for AIT in design, sees it through here.
+Quality makes sure build quality is maintainted, tests are performed properly.
+
+\textbf{7. Product Verification}
+Did we build it right?
+
+Model philosiphies
+Breadboard: test model, cheap components, partial designs.
+Engineering model: CLose to flight, cheaper parts, less functionality.
+Engineering Qualification Model: Close to flight, cheaper parts, full functionality.
+Qualification Model: Identical to flight, flight component, flight process.
+Proto-Flight Model: Full functionality, qualified parts, materials, process.
+Tested to higher requirements to check margin.
+Only on first flight deliverable.
+Flight model: Same as proto-flight model, tested to normal requirements.
+
+\textbf{8. Product Validation}
+Did we build the right system?
+Does it meet the needs of the customers / users?
+
+\textbf{Validation vs Verification}
+Verification: Did we build the system how we said we would?
+Validation: Stakeholder expectations (MOEs, and MOPs)
+
+\textbf{9. Product Transition}
+
+\textbf{10-17. Technical Management}
 
 \section{Satellite Systems}
+\noindent\textbf{Primary Uses of Space:} Communication, navigation, observation, exploration, and experimentation. Examples include communication systems like Intelsat 40e and SpaceX Starlink; navigation systems like GPS; observation systems such as Radarsat 2 and Sentinel; and exploration missions like Artemis/Orion, ISS, and the James Webb Space Telescope (JWST).
+\noindent\textbf{A Systems View of Satellites:} Satellites extend the system boundary to space, requiring enabling products such as launch vehicles and ground stations. They host payloads to perform system functions in orbit.
+\noindent\textbf{System Design Drivers:} Key drivers include:
+Cost, which impacts parts, testing equipment, and personnel;
+Schedule, limiting design, testing, and component availability;
+Orbit, affecting thermal, radiation, and atmospheric conditions;
+Lifetime, driving redundancy and reliability requirements;
+Payload, supporting interfaces, power, orientation, and data flow;
+Volume and Mass, dictated by the launcher;
+and Power, determined by orbit and influencing solar panels, batteries, and power distribution.
+\noindent\textbf{Satellite Functional Hierarchy:} Satellites are divided into two primary elements:
+The \textbf{Payload}, which provides the mission capability (e.g., GPS clocks, imaging sensors); and
+The \textbf{Bus}, which supports the payload with power, thermal control, orbit and attitude control, and communication.
+\noindent\textbf{Key Subsystems:} These include:
+\textbf{Structure}, which supports satellite components and interfaces with the launcher;
+\textbf{Thermal Control}, which maintains system temperatures using radiators and heat pipes;
+\textbf{Power}, which provides energy via solar panels, batteries, and distribution systems;
+\textbf{Propulsion}, which adjusts orbit and orientation using chemical, cold gas, or electric systems;
+\textbf{Attitude Control}, which ensures stability and pointing with sensors and actuators (e.g., reaction wheels, star trackers);
+\textbf{Data Handling}, which manages commands, telemetry, and mission data; and
+\textbf{Communications}, which links the satellite to ground stations for telemetry and payload data.
 
 \section{Space Environment}
+\textbf{1. Near-Earth Radiation Environment:}
+\textbf{Van Allen Belts:} Inner Belt (high-energy protons/electrons, $\sim$1,000-6,000 km). Outer Belt (high-energy electrons, $\sim$9,000 km to beyond geostationary orbit).
+\textbf{South Atlantic Anomaly (SAA):} Region of lower magnetic field where radiation penetrates to lower altitudes; can disrupt electronics.
+\textbf{Solar Influence:} Solar cycles ($\sim$11 years): Maximum increases flares and CMEs; minimum increases trapped particles.
+\textbf{2. Cosmic Rays:}
+High-energy particles from outside the solar system, partially deflected by Earth's magnetic field.
+\pagebreak
+\textbf{3. Radiation Effects:}
+\textbf{On Materials:} Degrades optics, structural components, and electrical parts.
+\textbf{Types of Effects:} TID (long-term degradation), SEE (immediate damage, e.g., bit flips, hardware failures).
+\textbf{4. Mitigation Strategies:}
+\textbf{Radiation Shielding:} Straight-line and Monte Carlo models (e.g., Geant).
+\textbf{Designing for Tolerance:} Use radiation-hardened components and fail-safe designs.
+\textbf{5. Thermal Considerations:}
+\textbf{LEO:} Rapid cycling between sunlight ($\sim+120^\circ$C) and shadow ($\sim-100^\circ$C) every 90 minutes.
+\textbf{GEO:} Longer thermal transition periods due to 24-hour orbits.
+\textbf{6. Plasma and Charging:}
+Plasma from solar storms or Earth's magnetosphere can cause charging and electrostatic discharge, damaging systems.
 
 \section{Math}
 \textbf{Dot Product}:
@@ -356,7 +524,7 @@ $\vec{a} \times \vec{b} = (a_y b_z - a_z b_y)\hat{i} - (a_x b_z - a_z b_x)\hat{j
 $\hat{n}_{ab} = \frac{\vec{a} \times \vec{b}}{|\vec{a} \times \vec{b}|}$;
 $\vec{a} \times \vec{b} = |a| |b| \sin \theta \hat{n}_{ab}$.
 \textbf{Matrix x Vector Multiplication}:
-\includegraphics[width=\linewidth]{matrix\_vec\_mult\_as\_process.png}
+\includegraphics[width=0.7\linewidth]{matrix\_vec\_mult\_as\_process.png}
 
 \section{Orbital Mechanics}
 % TODO: see if i'm missing anything here
@@ -369,7 +537,7 @@ K3 - Square of planet's orbital period proportional to cube of length of semi-ma
 \subsubsection{Forces}
 $\vec{F} = m \vec{a} = \odv{\vec{p}}{t}$.
 $\vec{p} = m \vec{v}$.
-\textbf{Impulse on mass $m$:}
+\textbf{Impulse on mass $m$:} (change in momentum when acted upon by a force)
 $I = \int_{t_1}^{t_2} \vec{F} \dd{t} = m \vec{v}_2 - m \vec{v}_1$.
 $\Delta \vec{v} = I / m = F_{net} \Delta t / m$ (if $F_{net}$ const).
 \textbf{Gravitational Constant:}
@@ -502,7 +670,7 @@ Precession, Nutation of the Earth spin axis causes it to drift over time, so epo
 (Precession: Earth's axis rotating around a central axis, Nutation: variations / wiggles in precession)
 
 \subsubsection{Orbital Parameters}
-\includegraphics[width=\linewidth]{3D Orbital Parameters.png}
+\includegraphics[width=.7\linewidth]{3D Orbital Parameters.png}
 Given Position and Velocity vectors, we can calculate orbital elements:
 
 \begin{enumerate}
@@ -568,8 +736,8 @@ $
 \mid \alpha \in [0^\circ, 360^\circ], \beta \in [0, 180^\circ], \gamma \in [0^\circ, 360^\circ]
 $
 
-$
-\vec{v}_{x' y' z'} =
+\scalebox{0.8}{$\vec{v}_{x' y' z'} =$}
+\scalebox{0.8}{$
 \begin{bmatrix}
     \cos \gamma & \sin \gamma & 0 \\
     -\sin \gamma & \cos \gamma & 0 \\
@@ -586,11 +754,11 @@ $
     0 & 0 & 1 \\
 \end{bmatrix}
 \vec{v}_{xyz}
-$
+$}
 
-$Q_{ZXZ} =$
+\scalebox{0.7}{$Q_{ZXZ} =$}
 % scalebox abuse to get this to fit
-\scalebox{0.85}{$
+\scalebox{0.7}{$
 \begin{bmatrix}
 -\sin\alpha \cos\beta \sin\gamma + \cos\alpha \cos\gamma & \cos\alpha \cos\beta \sin\gamma + \sin\alpha \cos\gamma & \sin\beta \sin\gamma \\
 -\cos\alpha \cos\beta \sin\gamma - \cos\alpha \sin\gamma & \cos\alpha \cos\beta \cos\gamma - \sin\alpha \sin\gamma & \sin\beta \cos\gamma \\
@@ -604,9 +772,9 @@ $
 \mid \alpha \in [0, 360^\circ], \beta \in (-90^\circ, 90^\circ), \gamma \in [0^\circ, 360^\circ]
 $
 
-$
-\vec{v}_{x' y' z'}
-= \begin{bmatrix}
+\scalebox{0.7}{$\vec{v}_{x' y' z'} =$}
+\scalebox{0.7}{$
+\begin{bmatrix}
     1 & 0 & 0 \\
     0 & \cos \gamma & \sin \gamma \\
     0 & -\sin \gamma & \cos \gamma \\
@@ -621,15 +789,11 @@ $
     -\sin \alpha & \cos \alpha & 0 \\
     0 & 0 & 1
 \end{bmatrix}
-$
-$
 \vec{v}_{xyz}
-$
+$}
 
-$
-Q_{YPR} =
-$
-\scalebox{0.85}{$
+\scalebox{0.7}{$Q_{YPR} =$}
+\scalebox{0.7}{$
 \begin{bmatrix}
 \cos\alpha \cos\beta & \sin\alpha \cos\beta & -\sin\beta \\
 \cos\alpha \sin\beta \sin\gamma - \sin\alpha \cos\gamma & \sin\alpha \sin\beta \sin\gamma + \cos\alpha \cos\gamma & \cos\beta \sin\gamma \\
@@ -641,16 +805,19 @@ $}
 $
 Q_{GCE \to pfc} = R_Z(\omega) R_X(i) R_Z(\Omega)
 $
-$
-Q_{pfc \to GCE} = Q_{XYZ \to pqw}^T = R_Z(-\Omega) R_X(-i) R_Z(-\omega) =
-$
-\scalebox{0.8}{$
-\begin{bmatrix}
-    -\sin\omega \cos i \sin\Omega + \cos\omega \cos\Omega & -\cos\omega \cos i \sin\Omega - \sin\omega \cos\Omega & \sin i \sin\Omega \\
-    \cos\omega \cos i \sin\Omega + \cos\omega \sin\Omega & \cos\omega \cos i \cos\Omega - \sin\omega \sin\Omega & -\sin i \cos\Omega \\
-    \sin\omega \sin i & \cos\omega \sin i & \cos i
-\end{bmatrix}
-$}
+
+\begin{normalsize}
+    \scalebox{0.54}{$
+    Q_{pfc \to GCE} = Q_{XYZ \to pqw}^T = R_Z(-\Omega) R_X(-i) R_Z(-\omega) =
+    $}
+    \scalebox{0.54}{$
+    \begin{bmatrix}
+        -\sin\omega \cos i \sin\Omega + \cos\omega \cos\Omega & -\cos\omega \cos i \sin\Omega - \sin\omega \cos\Omega & \sin i \sin\Omega \\
+        \cos\omega \cos i \sin\Omega + \cos\omega \sin\Omega & \cos\omega \cos i \cos\Omega - \sin\omega \sin\Omega & -\sin i \cos\Omega \\
+        \sin\omega \sin i & \cos\omega \sin i & \cos i
+    \end{bmatrix}
+    $}
+\end{normalsize}
 
 \subsubsection{Oblateness}
 \textbf{Regression of Node:}
@@ -730,7 +897,7 @@ BW: bandwidth, S: signal, N: noise.
 SNR: $\frac{S}{N} = \frac{P_{sig}}{P_{noise}} = \frac{P_{sig}}{N_0 BW}$
 ($N_0$ is power spectral density of noise (e.g. \si{\watt\per\hertz}).
 Usually associated with thermal noise in system,
-$N_0 = k T$, $k = $ \SI{1.38e-23}{\joule\per\kelvin})
+
 
 \textbf{Symbol Rate:} $R_S = \frac{1}{T_S} = BW$ (inverse of time the symbol takes up)
 
@@ -739,8 +906,8 @@ $N_0 = k T$, $k = $ \SI{1.38e-23}{\joule\per\kelvin})
 \textbf{Average Power:} $P_s = E_S R_S$
 
 \textbf{Probability of Error:} $p_e = Q\left(\frac{s_1 - s_0}{\sigma_1 + \sigma_0}\right) = Q\left(\frac{d}{2 \sigma}\right)$
-$p_{e, OOK} = Q\left(\sqrt{\frac{E_b}{N_0}}\right)$
-$p_{e, BPSK} = Q\left(\sqrt{\frac{2 E_b}{N_0}}\right)$
+$p_{e, OOK} = Q\left(\sqrt{\frac{E_b}{N_0}}\right) = Q(\sqrt{SNR_{lin}})$
+$p_{e, BPSK} = Q\left(\sqrt{\frac{2 E_b}{N_0}}\right) = Q(\sqrt{2 SNR_{lin}})$
 
 \subsection{Link Budget Equation}
 \textbf{Base SI units:} $P_{RX} = P_{TX} L_{TX} G_{TX} L_{FS} L_P G_{RX} L_{RX}$
@@ -755,14 +922,19 @@ RF antennas:
 $l(r) = \frac{P}{4 \pi r^2} \frac{W}{m^2}$
 Gain for all power concentrated in area S: $G = \frac{4 \pi r^2}{S}$
 E.g.
-Parabolic antenna: $G_{par} = \frac{4 \pi A}{\lambda^2} e_A = \left(\frac{\pi d}{\lambda}\right)^2 e_A$
+Parabolic antenna (high directivity): $G_{par} = \frac{4 \pi A}{\lambda^2} e_A = \left(\frac{\pi d}{\lambda}\right)^2 e_A$
+aperture diameter $d$, wavelength $\lambda$, aperture efficiency factor $e_A$.
 
 Optical antenna directional gain scales with wavelength:
 $G_{Tx} = \left(\frac{\pi D}{\lambda}\right)^2$
 
-\subsubsection{Antenna Coverage}
+\subsubsection{Antenna Coverage} (not used in calc?)
 $\theta = \frac{kd}{\lambda}$,
 $G_{par} = \left(\frac{\pi k}{\theta}\right)^2 e_A$
+
+\subsubsection{Free Space Loss}
+$L_{free} = \left(\frac{\lambda}{4 \pi d}\right)^2$,
+$L_{free_{DB}} = 20 \log_{10} \left(\frac{\lambda}{4 \pi d}\right)$.
 
 \subsubsection{Pointing Loss}
 \textbf{RF Antennas} \\
@@ -774,9 +946,21 @@ $1/e^2$ intensity profile BW:
 $\theta_{div} \approx \frac{\lambda}{\pi \omega_0}$,
 and pointing loss: $L_{point}(dB) \approx -8.7 \left(\frac{\Delta \theta}{\theta_{div}}\right)^2$
 
-\textbf{Free-Space Loss} \\
-$L_{free} = \left(\frac{\lambda}{4 \pi d}\right)^2$,
-$L_{free_{DB}} = 20 \log_{10} \left(\frac{\lambda}{4 \pi d}\right)$.
+\textbf{Reciever Gain}
+Same as above for transmitter, just update variables for reciever antenna.
+
+\subsubsection{Reciever Noise}
+$P_{th, RF} = k_b TBW$, or in dBm, $P_{th} (dbm) = -174 \frac{dB}{Hz} + 10 \log_10 BW$
+
+\subsubsection{Noise Figure}
+$N_f$, How much extra noise is injected by reciever electronics.
+
+\subsubsection{Desired SNR}
+$SNR_{BER} = P_{Rx} - P_{noise} = P_{Rx} + 174 - 10 \log_{10} BW - N_f$
+
+Because optical interferometers are hard,
+$SNR_{opt} = \bar{n_s} = \frac{P_{Rx}}{hvR_s}$
+$h =$ \SI{6.62607015e-34}{\joule\per\hertz}
 
 \section{Satellite Attitude \& Orbit Control Systems}
 \textbf{ADCS Subsystem:}
@@ -871,14 +1055,14 @@ $
 i.e. the time derivative of $\vec{B}$ in inertial frame is equal to the time derivative of $\vec{B}$ in the rotating frame,
 plus the correction term $\vec{\omega} \times \vec{B}$.
 
-TODO:
-Translation
-Moment
-Angular Momentum
-Angular Momentum Impulse
-Rigid Body Angular Momentum
-Moment of inertia
-Moment of inertia matrix
+% TODO:
+% Translation
+% Moment
+% Angular Momentum
+% Angular Momentum Impulse
+% Rigid Body Angular Momentum
+% Moment of inertia
+% Moment of inertia matrix
 
 
 \end{multicols*}
