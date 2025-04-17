@@ -466,27 +466,34 @@
 	\end{itemize}
 
 	\section{Network Layer}
-	\subsection{Functions}
-	\textbf{Routing:} Network-wide path determination (seconds) \\
-	\textbf{Forwarding:} Router-local packet movement (nanoseconds)
+	In charge of datagram routing between networks. \textbf{Control plane:} network wide logic. the plane that plans over all route an ip datagram takes.
+	\subsection{Routing}
+	Network-wide path determination (seconds). Determine a route to move datagrams from source to destinatino. \\
+	\subsection{Forwarding}
+	Move packets from router input link to router output link (microseconds). When looking for forwarding table entry for given destination address, use longest prefix that matches destination address. \textbf{Data plane:} local per router, plane that decides data transmission. \\
+	\includegraphics[width=\linewidth]{SCR-20250417-chkv.png}
 
 	\subsection{Service Models}
 	\textbf{Potential Properties:}
 	\begin{itemize}
-		\item Guaranteed delivery
-		\item Bounded delay
-		\item In-order delivery
-		\item Minimum bandwidth
-		\item Security
+		\item Guaranteed delivery - guarantees sent packet is delivered
+		\item Bounded delay - gurantees delivery within a specified delay bound
+		\item In-order delivery - guarantees ordering of sent packets is consistent with ordering of recieved packets
+		\item Minimum bandwidth - Guarantees delivery if packets are sent below a specified bit rate.
+		\item Security - encryption at source, decruption at destination.
+		\item best effort service model. \textbf{Disadvantages} - no guarantees for successful ip diagram delivery, delivery timing or order, or available bandwidth. \textbf{Advantages} - simple for wide accessibility and implementation. Good enough bandwidth. Supplemented with application layer services like datacenters and CDNs to allow services everywhere.
 	\end{itemize}
 
-	\subsection{Router Components}
+	\subsection{Router}
+	Allows multiple devices to communicate with each other on a network. Multiple devices can share one ip address
 	\textbf{Input Ports:} Link-layer functions (hardware) \\
 	\textbf{Switching Fabric:} Connects ports (hardware) \\
 	\textbf{Output Ports:} Transmits packets (hardware) \\
 	\textbf{Routing Processor:} Control plane (software)
+	\includegraphics[width=\linewidth]{SCR-20250417-coig.png}
 
-	\subsection{IP Addressing}
+	\subsection{IP Datagram}
+	Wraps around transport layer segments. 1-1 mapping. \\
 	\textbf{Characteristics:}
 	\begin{itemize}
 		\item IPv4: 32-bit identifier
@@ -500,13 +507,16 @@
 	\textbf{Prefix:} Lowest IP in block + size (bits in network portion)
 
 	\subsection{IP Support Protocols}
-	\textbf{ICMP:} Error reporting (required) \\
 	\textbf{ARP:} Finds MAC for local IP \\
 	\textbf{DHCP:} Dynamic IP assignment
+
+	\textbf{IPv4}
+	\includegraphics[width=\linewidth]{SCR-20250417-cibz.png}
 
 	\subsection{IPv6}
 	\textbf{Format:} 3fff:0000:0000:0000:0123:4567:89AB:CDEF \\
 	\textbf{Shortened:} 3fff::123:4567:89AB:CDEF \\
+	\includegraphics[width=\linewidth]{SCR-20250417-cicx.png}
 	\textbf{IPv4 in IPv6:} ::192.31.20.49
 
 	\textbf{Address Types:}
@@ -514,6 +524,33 @@
 		\item Unicast: Single interface
 		\item Anycast: Set of interfaces (closest)
 		\item Multicast: Group of interfaces (all)
+	\end{itemize}
+
+	\subsection{DHCP (Dynamic Host Configuration Protocol)}
+	Dynamically get IP address upon joining network. Can renew adresses, reuse addresses, and have mobile support. A \textbf{DHCP request} is encapsulated in UDP (transport layer), then IP datagram (network layer), then ethernet (link layer). \\
+	\includegraphics[width=\linewidth]{SCR-20250417-crov.png}
+
+	\textbf{Handshake}
+	\includegraphics[width=\linewidth]{SCR-20250417-cqqv.png}
+
+	\subsection{Subnet}
+	\begin{itemize}
+		\item connection with direct device interface communication. (no intervening router)
+		\item the blue shit in the diagram
+		\item high order bits in ip addresses - common in the same subnet
+		\item low order bits - unique
+	\end{itemize}
+	\includegraphics[width=\linewidth]{SCR-20250417-cspg.png}
+
+	\textbf{ARP - address resolution protocol}
+	Determines the mac address from the IP address.
+
+	\subsection{ARP Protocol}
+	Translates IP addresses to MAC addresses. Uses \textbf{ARP table} to store this mapping. \\
+	\textbf{Algorithm}
+	\begin{itemize}
+		\item Sender $A$ broadcasts $B$'s ip address to every host
+		\item Hosts compare, $B$ identifies it's theirs and sends its mac address towards $A$
 	\end{itemize}
 
 	\section{Link Layer}
@@ -528,14 +565,12 @@
 	\textbf{Implementation:} Hardware (NIC) + software
 
 	\subsection{MAC Addresses}
+	Media Access Control address. Used locally to get a frame to travel across a subnet.
 	\begin{itemize}
-		\item 48-bit (6 bytes)
+		\item 48-bit (6 bytes, 12 HEX digits)
 		\item IEEE managed
 		\item Typically permanent (can be spoofed)
 	\end{itemize}
-
-	\subsection{ARP Protocol}
-	Translates IP addresses to MAC addresses
 
 	\subsection{Ethernet}
 	\textbf{Topologies:}
