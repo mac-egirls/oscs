@@ -933,6 +933,71 @@
 		\item \textbf{Deterrent} – legal notices, sanctions
 	\end{itemize}
 
+	%--------------------------------------------------------------------
+	% Packet Journeys: DHCP, DNS, and HTTP
+	%--------------------------------------------------------------------
+	\section{End–to–End Packet Journeys}
+
+	\subsection{DHCP Address Assignment (Bootstrapping)}
+	\begin{enumerate}
+		\item \textbf{Link‑up, no IP yet}\,:
+		      When the host joins a wired or Wi‑Fi LAN it has no IP address, so it must obtain one via DHCP.
+		\item \textbf{DHCP\,DISCOVER broadcast}\,:
+		      The client crafts a DHCP message and encapsulates it as
+		      \begin{itemize}
+			      \item UDP \emph{src}=68, \emph{dst}=67
+			      \item IPv4 \emph{src}=0.0.0.0, \emph{dst}=255.255.255.255
+			      \item Ethernet \emph{src}=\,client‑MAC, \emph{dst}=FF:FF:FF:FF:FF:FF
+		      \end{itemize}
+		      The frame is flooded by any switches until a DHCP server hears it.
+		\item \textbf{Server processing}\,:
+		      The server demultiplexes the frame, extracts the DHCP request, and allocates network parameters
+		      (IP, subnet mask, default gateway, DNS server, lease time).
+		\item \textbf{DHCP\,OFFER / ACK unicast}\,:
+		      The server replies (UDP\,67\,$\to$\,68) with the chosen configuration.
+		      Now the reply can be unicast because the client’s MAC address is known; the IP header still uses
+		      the offered \emph{yiaddr} field, but Ethernet \emph{dst}=client‑MAC.
+		\item \textbf{Client configuration}\,:
+		      The host installs the assigned IP address and other options; L3/L4 are now ready for normal traffic.
+	\end{enumerate}
+
+	\subsection{DNS Name Resolution}
+	\begin{enumerate}
+		\item \textbf{Need for a destination IP}\,:
+		      To reach \texttt{google.com} the host must map the domain to an IPv4/IPv6 address.
+		\item \textbf{DNS query construction}\,:
+		      A DNS query is built and sent to the resolver address learned from DHCP:
+		      \begin{itemize}
+			      \item UDP \emph{src}=random\_port, \emph{dst}=53
+			      \item IP \emph{src}=client‑IP, \emph{dst}=DNS‑server‑IP
+		      \end{itemize}
+		\item \textbf{ARP first hop}\,:
+		      If the router’s MAC is unknown, the host broadcasts an ARP\,REQUEST; after the ARP\,REPLY,
+		      the frame can be forwarded to the default gateway.
+		\item \textbf{Resolver/recursive lookup}\,:
+		      The ISP resolver consults its cache or walks the DNS hierarchy (root~$\to$~TLD~$\to$~authoritative)
+		      and formulates a DNS\,RESPONSE containing the A/AAAA record(s).
+		\item \textbf{Delivery and caching}\,:
+		      The UDP response traverses the reverse path to the host, which caches the mapping and can now open
+		      connections to the server IP.
+	\end{enumerate}
+
+	\subsection{Fetching a Web Page (HTTP over TCP)}
+	\begin{enumerate}
+		\item \textbf{TCP three‑way handshake}\,:
+		      The client opens a socket to the web‑server IP (default port~80 or~443).
+		      SYN $\rightarrow$\,SYN+ACK $\rightarrow$\,ACK completes connection establishment.
+		\item \textbf{HTTP request/response}\,:
+		      The browser sends an \texttt{HTTP GET /} (or \texttt{HTTPS} inside TLS).
+		      The server replies with the HTML object (and subsequent resources).
+		\item \textbf{Rendering}\,:
+		      The application layer (browser) parses the HTML, issues additional object requests, and renders the page.
+		\item \textbf{End‑to‑end path}\,:
+		      Every packet follows the full route: host~$\to$~access switch~$\to$~edge router~$\to$~ISP core~
+		      $\to$~Google edge~$\to$~Google data‑center, and back, traversing the protocol stack at each hop.
+	\end{enumerate}
+
+
 	\subsection{Protocol Summary by Layer}
 
 	\textbf{Application:} DNS (53), HTTP (80), HTTPS (443), SMTP (25), POP3 (110), IMAP (143), FTP (20/21), TELNET (23), SSH (22), DHCP (67/68), RTP, VoIP, SSL/TLS, MPEG-4, H.264, HTML5, CSS
@@ -944,6 +1009,9 @@
 	\textbf{Link:} Ethernet (802.3), Wi-Fi (802.11), Token Ring (802.5), Bluetooth, Zigbee, Frame Relay, CSMA/CD, Token passing
 
 	\textbf{Physical:} ADSL (G.992), Coaxial cable, Twisted pair copper, Fiber optic, Wireless transmission media
+
+
+	% \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{middle-finger.png}
 
 \end{multicols*}
 
