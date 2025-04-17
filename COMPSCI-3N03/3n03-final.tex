@@ -233,7 +233,7 @@
 	\textbf{Security:} Encryption, authentication
 
 	\subsection{Transport Protocols}
-	A protocol is a set of rules governing the format and meaning of the packets or messages that are exchanged. Protocols implement the services.
+	A protocol is a set of rules governing the format and meaning of the packets or messages that are exchanged. Protocols implement the services. \\
 	\textbf{TCP Service:}
 	\begin{itemize}
 		\item Reliable transport
@@ -284,16 +284,49 @@
 		\item 5xx: Server Error
 	\end{itemize}
 
+	\textbf{Services}
+	\begin{itemize}
+		\item GET: Retrieve data
+		\item HEAD: read a webpage's header
+		\item POST: Create new data
+		\item PUT: update existing data
+		\item DELETE: remove data
+		\item TRACE: echo incoming request
+		\item CONNECT: connect through a proxy
+		\item OPTIONS: query options for a page
+	\end{itemize}
+
 	\subsection{Cookies}
-	Maintain state despite stateless HTTP: response header, request header, browser cookie file, backend database
+	\begin{itemize}
+		\item Stateful client/server interactions
+		\item saves user data and activity in servers
+		\item sent via clients/browsers
+		\item Cookie header line in [[http]] response messag
+		\item Cookie header line in [[http]] request message
+		\item cookie file stored locally, managed by user client
+		\item backend database at the website
+		\item Uses
+		      \begin{itemize}
+			      \item authorization
+			      \item shopping carts
+			      \item recommendations
+			      \item user session state
+		      \end{itemize}
+	\end{itemize}
 
 	\subsection{Web Cache/Proxy}
 	Browser connects to proxy not web server; reduces latency, proxy acts as client+server
 
+	\subsection{MIME type}
+	Multipurpose Internet Mail Extension. Encoding rules.
+	\includegraphics[width=\linewidth]{SCR-20250417-bmxp.png}
+	\includegraphics[width=\linewidth]{SCR-20250417-bmyt.png}
+
 	\subsection{Email Architecture}
+	\includegraphics[width=\linewidth]{SCR-20250417-bixw.png}
 	\textbf{Components:}
 	\begin{itemize}
-		\item User Agents: Mail clients (Outlook, Apple Mail)
+		\item User Agents: For reading and sending email. Mail clients (Outlook, Apple Mail)
 		\item Mail Servers: Mailbox and message queue
 	\end{itemize}
 
@@ -314,33 +347,27 @@
 			      \item Stateless across sessions
 			      \item No remote folders
 		      \end{itemize}
-		\item IMAP: Remote management on server
-		\item HTTP: Web-based email (Gmail, Outlook Web)
+		\item IMAP: Internet message Access Protocol is used for final delivery. Listens to port 143. More secure and more features than POP3.
 	\end{itemize}
 
 	\subsection{DNS (Domain Name System)}
-	\textbf{Functions:}
-	\begin{itemize}
-		\item Hostname/IP translation
-		\item Host/Mail server aliasing
-		\item Load distribution
-		\item Distributed database
-		\item Uses UDP (port 53)
-	\end{itemize}
+	Hierarchical domain based naming scheme with a database to implement it. Maps hostname to IP addresses, called \textbf{resolution}. \textbf{Name server} is in charge of a select group of domains.
+
+	\textbf{How it works}
+	\begin{enumerate}
+		\item application program has hostname, passes it to resolver
+		\item resolver passes *hostname* to DNS server
+		\item DNS server returns IP address, sent as UDP packets
+	\end{enumerate}
+	\includegraphics[width=\linewidth]{SCR-20250417-brck.png}
 
 	\textbf{Hierarchy:}
 	\begin{itemize}
-		\item Root DNS servers (13 logical servers)
-		\item TLD DNS servers (.com, .org, etc.)
-		\item Authoritative DNS servers (organization specific)
-		\item Local DNS servers (ISP caching)
+		\item ICANN (Internet Corporation for Assigned Names and Numbers)
+		\item 250 top level domains, generics and one per country
+		\item top level domains divided into subdomains
 	\end{itemize}
-
-	\textbf{Record Types:}
-	\begin{itemize}
-		\item A: hostname to IP
-		\item MX: mail server
-	\end{itemize}
+	\includegraphics[width=\linewidth]{SCR-20250417-bplh.png}
 
 	\textbf{Vulnerabilities:}
 	\begin{itemize}
