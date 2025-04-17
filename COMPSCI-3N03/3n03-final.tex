@@ -104,6 +104,7 @@
 \begin{multicols*}{4}
 
 	\section{Network Fundamentals}
+	\textbf{Network:} Collection of devices interconnected by a single technology (internet) \\
 	\subsection{Network Uses}
 	\textbf{Business Applications:} Resource/info sharing, communication, client-server model \\
 	\textbf{Home Applications:} Peer-to-peer model \\
@@ -123,14 +124,46 @@
 	\textbf{PAN:} Personal (Bluetooth) \\
 	\textbf{LAN:} Local (Office) \\
 	\textbf{MAN:} Metropolitan (City) \\
-	\textbf{WAN:} Wide (Country/ISP) \\
+	\textbf{WAN:} Wide (Country/ISP (Internet Service Provider), a company). Serve as modern internet backbone. \\
 	\textbf{Internet:} Network of networks (Planet)
+	\includegraphics[width=\linewidth]{SCR-20250416-trqu.png}
 
 	\subsection{Connection Types}
 	\textbf{Internetwork:} Network of smaller networks \\
 	\textbf{Internet:} Set of all connected networks \\
-	\textbf{Gateway:} Device transferring info between layers \\
+	\textbf{Gateway:} Device transferring data between layers \\
+	\textbf{Low-Level Gateways:}
+	\begin{itemize}
+		\item Operate at the lower layers of the network protocol
+		\item More limited in functionality
+		\item Cannot effectively connect different types of networks
+		\item *Focus on basic data transmission*
+	\end{itemize}
+	\textbf{High-Level Gateways:}
+	\begin{itemize}
+		\item Operate at higher layers of the protocol stack (application layer)
+		\item Very specific in their function
+		\item Limited to particular applications or services
+		\item Example: An email gateway that only handles email traffic
+		\item *While powerful for specific uses, they're too specialized for general network connectivity*
+	\end{itemize}
+	\textbf{Best Mid-level Gateways}
+	\begin{itemize}
+		\item "just right"
+		\item Represented by routers, which operate at the network layer
+		\item Provide the optimal balance between functionality and flexibility
+		\item Can effectively route packets between different networks
+		\item \textit{Handle most common networking needs}
+		\item Can connect different types of networks while maintaining good performance
+	\end{itemize}
 	\textbf{Router:} Gateway for network layer information
+
+	\subsection{Transmission Technology}
+	\begin{itemize}
+		\item broadcast links - communication channel shared by all machines in network
+		\item point-to-point - direct connection between two machines
+		\item packet - small unit of data sent over a network.
+	\end{itemize}
 
 	\section{Layered Network Models}
 	\subsection{Design Issues}
@@ -142,21 +175,17 @@
 	\end{itemize}
 
 	\subsection{Layer Communication}
-	\textbf{Vertical:} Between adjacent layers (service) \\
+	\textbf{Vertical:} Between adjacent layers (service), like a gateway \\
 	\textbf{Horizontal:} Between same layers (protocol)
 
-	\subsection{Connection Types}
-	\textbf{Connection-Oriented:} Setup required for usage \\
-	\textbf{Connectionless:} Each message handled separately \\
-	Both can be reliable or unreliable
-
 	\subsection{OSI Model}
-	\textbf{7. Application:} Network apps, end-user access (FTP, SMTP, HTTP) \\
+	Open Systems Interconnection. Makes essential concepts explicit (services, interfaces, protocols). Each layer adds its own header to data. \\
+	\textbf{7. Application:} Network apps, end-user access, protocols (FTP, SMTP, HTTP) \\
 	\textbf{6. Presentation:} Data interpretation/formatting \\
-	\textbf{5. Session:} Maintains connections \\
+	\textbf{5. Session:} provides locality for different transport streams to not confuse individual streams. Estabashing a method of communicatino. \\
 	\textbf{4. Transport:} Process-to-process data transfer, segmentation, reliability (TCP, UDP) \\
-	\textbf{3. Network:} Packet routing between networks (IP) \\
-	\textbf{2. Data Link:} Node-to-node transfer, physical addressing \\
+	\textbf{3. Network:} packet routing between networks (IP) \\
+	\textbf{2. Data Link:} raw bit collection, physical addressing, unit of data in frames \\
 	\textbf{1. Physical:} Raw bit transmission (cables, signals)
 
 	\subsection{TCP/IP Model}
