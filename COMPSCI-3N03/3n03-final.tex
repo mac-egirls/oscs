@@ -497,6 +497,8 @@
 		\item Options field
 	\end{itemize}
 
+	\subsection{TCP interaction example}
+	\includegraphics[width=\linewidth]{telnet.png}
 	\subsection{UDP Checksum Calculation}
 	\textbf{Process:}
 	\begin{itemize}
@@ -672,24 +674,45 @@
 
 	\textbf{Transmission Types:}
 	\begin{itemize}
-		\item Baseband: Frequencies from zero up (wires)
-		\item Passband: Band around carrier frequency (wireless)
+		\item Baseband: Signal occupies frequencies from zero up to a maximum (wires)
+		\item Passband: Schemes that regular amplitude, phase, or frequency of carrier signal to convey bits. The signal occupies a band of frequencies around the frequency of the carrier signal. (wireless/optical)
 	\end{itemize}
 
 	\subsection{Encoding Methods}
-	\textbf{NRZ:} Positive voltage (1), negative voltage (0) \\
-	\textbf{Manchester:} XOR with clock, transition direction indicates bit \\
-	\textbf{NRZI:} Transition (1), no transition (0) \\
-	\textbf{4B/5B:} Limits consecutive same bits
+	\textbf{NRZ:} Use a positive voltage to represent 1, negative for 0. Can use more levels of voltages, then the symbol carries more bits. Symbol rate = baud rate.\\
+	\textbf{Manchester:} Mixes clock signal with data signal by XORing them together. When the clock is XORed with 0 level, it makes a low-to-high transition (logical 0). When XORed with the 1 level, it is inverted and makes a high-to-low transition (logical 1). \\
+	\textbf{NRZI:}  Same as NRZ but code one as a transition and zero as no transition (or other way around). \\
+	\textbf{4B/5B:}  Introduced to limit the number of consecutive 0s or 1s.  Every 4 bits mapped to a 5-bit pattern with a fixed translation table.
+	% ------------- 4B/5B line‑encoding table -------------
+	\textbf{4B/5B Line Encoding}
+
+	{\renewcommand{\arraystretch}{10}% ← raise row height 25 %
+		\begin{tabulary}{\linewidth}{@{}LLLL@{}} \toprule
+			\textbf{Data (4B)} & \textbf{Codeword (5B)} & \textbf{Data (4B)} & \textbf{Codeword (5B)} \\ \midrule
+			0000 & 11110 & 1000 & 10010 \\
+			0001 & 01001 & 1001 & 10011 \\
+			0010 & 10100 & 1010 & 10110 \\
+			0011 & 10101 & 1011 & 10111 \\
+			0100 & 01010 & 1100 & 11010 \\
+			0101 & 01011 & 1101 & 11011 \\
+			0110 & 01110 & 1110 & 11100 \\
+			0111 & 01111 & 1111 & 11101 \\ \bottomrule
+		\end{tabulary}}
+
 
 	\subsection{Passband Modulation}
 	\textbf{ASK:} Amplitude shift keying (different amplitudes) \\
 	\textbf{FSK:} Frequency shift keying (different frequencies) \\
 	\textbf{PSK:} Phase shift keying (different phases)
+	\includegraphics[width=\linewidth]{modulation.png}
+
 
 	\subsection{Multiplexing}
 	\textbf{TDM:} Time division multiplexing (users take turns) \\
-	\textbf{FDM:} Frequency division multiplexing (different bands)
+	\textbf{FTTH:} Deployment of fiber optic cables to provide high data rates to customers. One wavelength can be shared among many houses, up to 100Mbps.
+	\textbf{FDM:} Different channels transmitted in different frequency bands.
+	\textbf{Cable Internet:}Internet over cable reuses the cable television plant. Data sent on a shared cable tree from head-end, not on a dedicated line per subscriber.
+
 
 	\subsection{Transmission Media}
 	\textbf{Guided Media:}
@@ -710,6 +733,13 @@
 		      \end{itemize}
 	\end{itemize}
 
+	\textbf{Transmission Modes:}
+	\begin{itemize}
+		\item Full-Duplex Link: Transmission in both directions at the same time
+		\item Half-Duplex Link: Both direction transmission, but not simultaneously
+		\item Simplex Link: Only one fixed direction at all times, not common
+	\end{itemize}
+
 	\textbf{Unguided Media:}
 	\begin{itemize}
 		\item Terrestrial wireless
@@ -719,15 +749,15 @@
 
 	\subsection{Network Topologies}
 	\textbf{Bus:} Single line, simple, one sender at a time \\
-	\textbf{Star:} Central switch, more cabling, higher reliability \\
-	\textbf{Ring:} Closed loop, token passing, difficult to expand
+	\textbf{Star:} Central switch, more cabling, higher reliability, single point of failure, mutliple devies can communicate simultaneously \\
+	\textbf{Ring:} Closed loop, token passing (one device at a time), difficult to expand, one computer down whole netowrk down
 
 	\subsection{Network Hardware}
 	\textbf{NIC:} Network adapter with MAC address \\
-	\textbf{Hub:} All nodes receive transmissions (insecure) \\
-	\textbf{Switch:} Only intended recipients receive data \\
-	\textbf{Router:} Connects LANs via IP addresses \\
-	\textbf{Gateway:} Connects dissimilar networks
+	\textbf{Hub:} All nodes receive transmissions, slow, insecure \\
+	\textbf{Switch:} Only intended recipients receive data, fast, secure, plug and play \\
+	\textbf{Router:} Connects LANs via IP addresses, can connect across ineternet, needs configuration \\
+	\textbf{Gateway:} Connects dissimilar networks, connect coax to twisted pair.
 
 	\subsection{Wave Properties}
 	\textbf{Frequency (f):} Oscillations per second (Hz) \\
@@ -749,7 +779,7 @@
 	\textbf{Confidentiality:} Only sender/receiver understand content \\
 	\textbf{Message Integrity:} Content unaltered in transit \\
 	\textbf{Authentication:} Verify sender/receiver identity \\
-	\textbf{Operational Security:} Network protection
+	\textbf{Operational Security:} prevent malcious attacks from public network onto private network through firewall
 
 	\subsection{Security Concepts}
 	\textbf{Firewall:} Controls access between networks \\
@@ -774,87 +804,121 @@
 	\end{itemize}
 
 	\subsection{Digital Signatures}
-	Attests to document agreement
+	proof of ownership of some asset they should be verifiable and the signature should not be forgable.
 
 	\subsection{Security Layers}
 	Network layer security provides blanket coverage but not user-level security
+	\section{Network Security Fundamentals}
 
-	\subsection{Network Threats}
-	\textbf{Malware Types:}
+	\subsection{Core Terminology}
 	\begin{itemize}
-		\item Virus: Self-replicating, needs activation
-		\item Worm: Self-replicating, auto-spreads
-		\item Spyware: Monitors users
-		\item Adware: Unwanted advertisements
-		\item Scareware: Fake security warnings
-		\item Trojan: Hidden malicious function
-		\item Ransomware: Encrypts data for ransom
+		\item \textbf{Resource:} Something valuable to the organization that must be protected.
+		\item \textbf{Vulnerability:} A weakness that a threat can exploit to gain unauthorized access to a resource.
+		\item \textbf{Threat:} A potential danger or circumstance that could harm a resource.
+		\item \textbf{Attack:} The act of exploiting a vulnerability to compromise or steal a resource.
+		\item \textbf{Risk:} The likelihood that a resource is lost, modified, or removed (\emph{Risk = Resource + Threat + Vulnerability}).
+		\item \textbf{Counter‑measure:} A safeguard that mitigates a threat or reduces risk.
 	\end{itemize}
 
+	%--------------------------------------------------------------------
+	\subsection{Threat‑Actor Taxonomy}
+	\begin{itemize}
+		\item \textbf{White‑hat:} Ethical testing, permission‐based security audits
+		\item \textbf{Black‑hat:} Malicious financial or political gain
+		\item \textbf{Gray‑hat:} Mix of ethical and malicious activity
+		\item \textbf{Blue‑hat:} External penetration tester prior to release
+		\item \textbf{Script kiddie:} Uses pre‑written exploits with minimal skill
+		\item \textbf{Hacktivist:} Social or political agenda
+		\item \textbf{Phreaker:} Telephony exploits for free calls or network access
+		\item \textbf{Carder:} Steals and trades credit‑card data
+	\end{itemize}
+
+	%--------------------------------------------------------------------
+	\subsection{Security Domains}
+	\begin{itemize}
+		\item \textbf{Physical Security}: Cameras, locks, controlled server‑room access.
+		\item \textbf{Logical / Technical Security}: Password policy, antivirus, firewalls, VPN.
+		\item \textbf{Administrative Security}: Training, phishing simulations, data‑leak prevention.
+	\end{itemize}
+
+	%====================================================================
+	\section{Threat Landscape}
+
+	\subsection{Network Threats}
+	\textbf{Malware Types:}
+	\begin{itemize}
+		\item Virus – self‑replicating; needs user activation
+		\item Worm – self‑replicating; auto‑spreads without user action
+		\item Spyware – covertly monitors users
+		\item Adware – injects unwanted advertisements
+		\item Scareware – fake security warnings to provoke action
+		\item Trojan – legitimate‑looking program with hidden payload
+		\item Ransomware – encrypts data until ransom is paid
+	\end{itemize}
+
+	%--------------------------------------------------------------------
 	\subsection{Attack Types}
 	\textbf{Reconnaissance (Passive):}
 	\begin{itemize}
-		\item Ping Sweep: Identifies network hosts
-		\item Port Scanning: Discovers services
-		\item Packet Sniffing: Captures network data
+		\item Ping Sweep – identify live hosts
+		\item Port Scanning – discover open services
+		\item Packet Sniffing – capture and inspect traffic
 	\end{itemize}
 
 	\textbf{Access Attacks:}
 	\begin{itemize}
-		\item Phishing: Fake emails/websites
-		\item Pharming: Traffic redirection
-		\item MITM: Intercepting connections
+		\item Phishing – deceptive e‑mails / sites for credentials
+		\item Pharming – DNS / hosts‑file redirection
+		\item MITM – intercept traffic
 		      \begin{itemize}
-			      \item Spoofing: False source addressing
-			      \item Hijacking: Session takeover
+			      \item Spoofing – falsify source identity
+			      \item Hijacking – take over authenticated session
 		      \end{itemize}
 	\end{itemize}
 
-	\textbf{DoS Attacks:}
+	\textbf{Denial‑of‑Service (DoS):}
 	\begin{itemize}
-		\item Saturation: Request flooding
-		\item Vulnerability exploitation
+		\item Saturation Flood – overwhelm with requests
+		\item Vulnerability Exploitation – crash service via bug
 	\end{itemize}
 
-	\textbf{DDoS:}
+	\textbf{Distributed DoS (DDoS) Examples:}
 	\begin{itemize}
-		\item SYN flood: Incomplete TCP handshakes
-		\item ICMP flood: Fake ICMP packets
+		\item SYN Flood – half‑open TCP handshakes
+		\item ICMP Flood – excessive echo/response traffic
 	\end{itemize}
 
+	%--------------------------------------------------------------------
 	\subsection{Security Best Practices}
 	\begin{itemize}
-		\item Resource separation (security zones)
-		\item Defense in depth (multiple protection layers)
-		\item Least privilege access
-		\item Adequate protection (all network levels)
-		\item Information restriction
-		\item Task separation/job rotation
+		\item Segmentation / security zones
+		\item Defense‑in‑depth (layered controls)
+		\item Least‑privilege access
+		\item Adequate protection at every OSI layer
+		\item Information‑access restriction
+		\item Separation of duties \& job rotation
 	\end{itemize}
 
-	\subsection{Security Measures}
+	\subsection{Security Measures by Goal}
 	\begin{itemize}
-		\item Preventive: Firewall, locks, security policy
-		\item Detective: Logs, IPS, anti-spoofing, cameras
-		\item Corrective: Fixing vulnerabilities
-		\item Recovery: System restoration
-		\item Deterrence: Attacker discouragement
+		\item \textbf{Preventive} – firewalls, locks, policies
+		\item \textbf{Detective} – logs, IDS/IPS, CCTV
+		\item \textbf{Corrective} – patching, configuration fixes
+		\item \textbf{Recovery} – backups, system restore
+		\item \textbf{Deterrent} – legal notices, sanctions
 	\end{itemize}
 
-	\section{Practice Problems}
-	\subsection{TCP Sequence Numbers}
-	If sequence number = 2512 for a 356-byte segment:
-	\begin{itemize}
-		\item ACK number if received: 2512 + 356 = 2868
-		\item Next sequence number: 2868
-	\end{itemize}
+	\subsection{Protocol Summary by Layer}
 
-	\subsection{Checksum Calculation}
-	\begin{itemize}
-		\item Take one's complement sum of 16-bit chunks
-		\item Invert result
-		\item If checksum wrong for UDP: packet ignored (no retransmission)
-	\end{itemize}
+	\textbf{Application:} DNS (53), HTTP (80), HTTPS (443), SMTP (25), POP3 (110), IMAP (143), FTP (20/21), TELNET (23), SSH (22), DHCP (67/68), RTP, VoIP, SSL/TLS, MPEG-4, H.264, HTML5, CSS
+
+	\textbf{Transport:} TCP, UDP
+
+	\textbf{Network:} IP, ICMP, ARP, IPX, AppleTalk, OSPF, BGP, RIP, MPLS-VPN, EVPN
+
+	\textbf{Link:} Ethernet (802.3), Wi-Fi (802.11), Token Ring (802.5), Bluetooth, Zigbee, Frame Relay, CSMA/CD, Token passing
+
+	\textbf{Physical:} ADSL (G.992), Coaxial cable, Twisted pair copper, Fiber optic, Wireless transmission media
 
 \end{multicols*}
 
