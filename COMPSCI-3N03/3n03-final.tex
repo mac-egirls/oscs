@@ -168,7 +168,7 @@
 	\section{Layered Network Models}
 	Each layer implements a service. Layering provides encapsulation, where each layer adds its own header to data.
 
-	\subsection{Design Issues}
+	\subsection{Layered Network Design Issues}
 	\begin{itemize}
 		\item Reliability/failure handling
 		\item Network growth capability
@@ -501,6 +501,29 @@
 
 	\subsection{TCP interaction example}
 	\includegraphics[width=\linewidth]{telnet.png}
+	\subsection{3-Way Handshake}
+	\textbf{SYN-ACK Process:}
+	\begin{itemize}
+		\item \textbf{Step 1 (SYN):} Client sends SYN packet with initial sequence number x
+		      \begin{itemize}
+			      \item SYN flag = 1
+			      \item Sequence number = x (random)
+		      \end{itemize}
+		\item \textbf{Step 2 (SYN-ACK):} Server responds with SYN-ACK packet
+		      \begin{itemize}
+			      \item SYN flag = 1
+			      \item ACK flag = 1
+			      \item Sequence number = y (random)
+			      \item Acknowledgment number = x+1
+		      \end{itemize}
+		\item \textbf{Step 3 (ACK):} Client completes handshake with ACK
+		      \begin{itemize}
+			      \item ACK flag = 1
+			      \item Sequence number = x+1
+			      \item Acknowledgment number = y+1
+		      \end{itemize}
+	\end{itemize}
+
 	\subsection{UDP Checksum Calculation}
 	\textbf{Process:}
 	\begin{itemize}
@@ -603,7 +626,7 @@
 
 	\subsection{DHCP (Dynamic Host Configuration Protocol)}
 	Dynamically get IP address upon joining network. Can renew adresses, reuse addresses, and have mobile support. A \textbf{DHCP request} is encapsulated in UDP (transport layer), then IP datagram (network layer), then ethernet (link layer). \\
-	\textbf{Handshake}
+	\subsection{DHCP Handshake}
 	\includegraphics[width=\linewidth]{SCR-20250417-elsc.png}
 
 	\subsection{Subnet}
