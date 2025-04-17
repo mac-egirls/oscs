@@ -352,33 +352,37 @@
 	\section{Transport Layer}
 	\textbf{Functions:}
 	\begin{itemize}
-		\item Logical communication between processes
+		\item Communication between applications where from sender process the reciever process is on the same device.
 		\item Implemented in end systems (not routers)
-		\item Segments application messages
-	\end{itemize}
-
-	\subsection{Internet Protocol Stack}
-	\textbf{Network Layer (IP):}
-	\begin{itemize}
-		\item Host-to-host communication
-		\item Best-effort delivery (unreliable)
-		\item No guarantees on delivery, order, or integrity
+		\item Segments application messages and pass to network layer
+		\item Routers read network layer datagrams not transport layer segments
 	\end{itemize}
 
 	\subsection{Multiplexing/Demultiplexing}
 	\textbf{Process:}
 	\begin{itemize}
-		\item Transport layer assigns ports
-		\item Headers identify destination socket
+		\item ensures communication between processes/host on sender\&reciever in transport layer/network layer
+		\item On client side ts layer assigns src/dest ports to segments when multiplexing
+		\item On reciever side, ts layer uses dest port to demultiplex segments into correct sockets
 	\end{itemize}
 
-	\textbf{Identification:}
+	\textbf{Protocols:}
 	\begin{itemize}
-		\item TCP sockets: (source IP, source port, dest IP, dest port)
-		\item UDP sockets: (dest IP, dest port)
+		\item TCP sockets: (source IP, source port, dest IP, dest port) tuple so based on source different sockets are made
+		\item UDP sockets: (dest IP, dest port) tuple so the socket doesn't differentiate between different clients and sends all data to the same process
 	\end{itemize}
 
-	\textbf{Port ranges:} 0-1023 reserved, 0-65535 total
+	\begin{minipage}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{segment-packet.png}
+	\end{minipage}%
+	\begin{minipage}{0.5\linewidth}
+		src/dest port number: 16-bit field, 0-65535
+
+		message: application data
+
+		0-1023 reserved for well-known ports like 80 (HTTP), 25 (SMTP), 53 (DNS), 21 (FTP), 22 (SSH), 23 (TELNET), 443 (HTTPS)
+	\end{minipage}
+
 
 	\subsection{Reliable Data Transfer}
 	\textbf{Error types:}
