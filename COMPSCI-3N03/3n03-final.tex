@@ -166,6 +166,8 @@
 	\end{itemize}
 
 	\section{Layered Network Models}
+	Each layer implements a service. Layering provides encapsulation, where each layer adds its own header to data.
+
 	\subsection{Design Issues}
 	\begin{itemize}
 		\item Reliability/failure handling
@@ -174,12 +176,14 @@
 		\item Security against threats
 	\end{itemize}
 
-	\subsection{Layer Communication}
-	\textbf{Vertical:} Between adjacent layers (service), like a gateway \\
-	\textbf{Horizontal:} Between same layers (protocol)
+	\subsection{Layer services}
+	\textbf{Vertical:} services for uni directional communication from top layer to bottom layer, like a gateway \\
+	\textbf{Horizontal:} protocols for communication between same layers
+	\textbf{connection oriented:} set up for ongoing use, torn down afterwords
+	\textbf{connectionless:} separately and temporary handled messages
 
 	\subsection{OSI Model}
-	Open Systems Interconnection. Makes essential concepts explicit (services, interfaces, protocols). Each layer adds its own header to data. \\
+	Open Systems Interconnection. Makes essential concepts explicit (services, interfaces, protocols). \\
 	\textbf{7. Application:} Network apps, end-user access, protocols (FTP, SMTP, HTTP) \\
 	\textbf{6. Presentation:} Data interpretation/formatting \\
 	\textbf{5. Session:} provides locality for different transport streams to not confuse individual streams. Estabashing a method of communicatino. \\
@@ -187,12 +191,15 @@
 	\textbf{3. Network:} packet routing between networks (IP) \\
 	\textbf{2. Data Link:} raw bit collection, physical addressing, unit of data in frames \\
 	\textbf{1. Physical:} Raw bit transmission (cables, signals)
+	\includegraphics[width=\linewidth]{SCR-20250416-ucdl.png}
 
 	\subsection{TCP/IP Model}
-	\textbf{Application:} TELNET, FTP, SMTP, DNS, HTTP, RTP \\
-	\textbf{Transport:} TCP (reliable, connection-oriented), UDP (unreliable, connectionless) \\
-	\textbf{Internet:} IP packet delivery \\
-	\textbf{Link:} Hardware interface
+	More specific to the internet, heavily relies on protocols, whereas OSI model is more generalized. \\
+	\textbf{4. Application:} TELNET, FTP, SMTP, DNS, HTTP, RTP \\
+	\textbf{3. Transport:} TCP (reliable, connection-oriented), UDP (unreliable, connectionless) \\
+	\textbf{2. Internet:} IP packet delivery, multi-network connection support. \\
+	\textbf{1. Link:} implemented by combinatino of hardware (ethernet, fiberoptics, etc).
+	\includegraphics[width=\linewidth]{SCR-20250416-udrs.png}
 
 	\section{Data Transmission}
 	\textbf{Packet Transmission Delay:} $\frac{L}{R}$ (Length/Rate) \\
@@ -226,6 +233,7 @@
 	\textbf{Security:} Encryption, authentication
 
 	\subsection{Transport Protocols}
+	A protocol is a set of rules governing the format and meaning of the packets or messages that are exchanged. Protocols implement the services.
 	\textbf{TCP Service:}
 	\begin{itemize}
 		\item Reliable transport
