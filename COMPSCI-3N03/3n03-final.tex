@@ -372,16 +372,14 @@
 		\item UDP sockets: (dest IP, dest port) tuple so the socket doesn't differentiate between different clients and sends all data to the same process
 	\end{itemize}
 
-	\begin{minipage}{0.5\linewidth}
-		\includegraphics[width=\linewidth]{segment-packet.png}
-	\end{minipage}%
-	\begin{minipage}{0.5\linewidth}
-		src/dest port number: 16-bit field, 0-65535
 
-		message: application data
+	% \begin{minipage}{0.5\linewidth}
+	% 	src/dest port number: 16-bit field, 0-65535
 
-		0-1023 reserved for well-known ports like 80 (HTTP), 25 (SMTP), 53 (DNS), 21 (FTP), 22 (SSH), 23 (TELNET), 443 (HTTPS)
-	\end{minipage}
+	% 	message: application data
+
+	% 	0-1023 reserved for well-known ports like 80 (HTTP), 25 (SMTP), 53 (DNS), 21 (FTP), 22 (SSH), 23 (TELNET), 443 (HTTPS)
+	% \end{minipage}
 
 
 	\subsection{Reliable Data Transfer}
@@ -413,6 +411,7 @@
 	\end{itemize}
 
 	\textbf{Segment Structure:}
+	\includegraphics[width=\linewidth]{segment-packet.png}
 	\begin{itemize}
 		\item Data field (limited by MSS)
 		\item 32-bit sequence number
