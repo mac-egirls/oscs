@@ -319,8 +319,63 @@
 
 	\subsection{MIME type}
 	Multipurpose Internet Mail Extension. Encoding rules.
-	\includegraphics[width=\linewidth]{SCR-20250417-bmxp.png}
-	\includegraphics[width=\linewidth]{SCR-20250417-bmyt.png}
+	% \begin{table}[!htbp]
+	% 	\tiny
+	% 	\setlength{\tabcolsep}{2pt}
+	% 	\centering
+	% 	\caption{Multipurpose Internet Mail Extension: Encoding Rules}
+	% 	\begin{tabular}{|p{2cm}|p{3cm}|}
+	% 		\hline
+	% 		\textbf{Header}            & \textbf{Meaning}                                     \\
+	% 		\hline
+	% 		MIME-Version:              & Identifies the MIME version                          \\
+	% 		\hline
+	% 		Content-Description:       & Human-readable string telling what is in the message \\
+	% 		\hline
+	% 		Content-Id:                & Unique identifier                                    \\
+	% 		\hline
+	% 		Content-Transfer-Encoding: & How the body is wrapped for transmission             \\
+	% 		\hline
+	% 		Content-Type:              & Type and format of the content                       \\
+	% 		\hline
+	% 	\end{tabular}
+	% \end{table}
+	% ------------------------- MIME header fields -------------------------
+	% ---------------- MIME header fields ----------------
+	\textbf{MIME Header Fields}
+
+	{\renewcommand{\arraystretch}{12}%  <‑‑‑ added
+		\begin{tabulary}{\linewidth}{@{}LL@{}} \toprule
+			\textbf{Header} & \textbf{Meaning} \\ \midrule
+			MIME-Version            & Identifies the MIME version \\
+			Content-Description     & Human‑readable string telling what is in the message \\
+			Content-Id              & Unique identifier \\
+			Content-Transfer-Encoding & How the body is wrapped for transmission \\
+			Content-Type            & Type and format of the content \\
+			\bottomrule
+		\end{tabulary}
+	} % <‑‑‑ closes the local arraystretch change
+
+	% ---------------- MIME content types ----------------
+	\textbf{MIME Content Types}
+
+	{\renewcommand{\arraystretch}{12}%  <‑‑‑ added
+		\begin{tabulary}{\linewidth}{@{}LLL@{}} \toprule
+			\textbf{Type} & \textbf{Example subtypes} & \textbf{Description} \\ \midrule
+			text        & plain, html, xml, css                     & Text in various formats \\
+			image       & gif, jpeg, tiff                           & Pictures \\
+			audio       & basic, mpeg, mp4                          & Sounds \\
+			video       & mpeg, mp4, quicktime                      & Movies \\
+			model       & vrml                                      & 3D model \\
+			application & octet‑stream, pdf, javascript, zip        & Data produced by applications \\
+			message     & http, rfc822                              & Encapsulated message \\
+			multipart   & mixed, alternative, parallel, digest      & Combination of multiple types \\
+			\bottomrule
+		\end{tabulary}
+	}
+
+
+
 
 	\subsection{Email Architecture}
 	\includegraphics[width=\linewidth]{SCR-20250417-bixw.png}
