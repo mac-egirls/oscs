@@ -319,8 +319,63 @@
 
 	\subsection{MIME type}
 	Multipurpose Internet Mail Extension. Encoding rules.
-	\includegraphics[width=\linewidth]{SCR-20250417-bmxp.png}
-	\includegraphics[width=\linewidth]{SCR-20250417-bmyt.png}
+	% \begin{table}[!htbp]
+	% 	\tiny
+	% 	\setlength{\tabcolsep}{2pt}
+	% 	\centering
+	% 	\caption{Multipurpose Internet Mail Extension: Encoding Rules}
+	% 	\begin{tabular}{|p{2cm}|p{3cm}|}
+	% 		\hline
+	% 		\textbf{Header}            & \textbf{Meaning}                                     \\
+	% 		\hline
+	% 		MIME-Version:              & Identifies the MIME version                          \\
+	% 		\hline
+	% 		Content-Description:       & Human-readable string telling what is in the message \\
+	% 		\hline
+	% 		Content-Id:                & Unique identifier                                    \\
+	% 		\hline
+	% 		Content-Transfer-Encoding: & How the body is wrapped for transmission             \\
+	% 		\hline
+	% 		Content-Type:              & Type and format of the content                       \\
+	% 		\hline
+	% 	\end{tabular}
+	% \end{table}
+	% ------------------------- MIME header fields -------------------------
+	% ---------------- MIME header fields ----------------
+	\textbf{MIME Header Fields}
+
+	{\renewcommand{\arraystretch}{12}%  <‑‑‑ added
+		\begin{tabulary}{\linewidth}{@{}LL@{}} \toprule
+			\textbf{Header} & \textbf{Meaning} \\ \midrule
+			MIME-Version            & Identifies the MIME version \\
+			Content-Description     & Human‑readable string telling what is in the message \\
+			Content-Id              & Unique identifier \\
+			Content-Transfer-Encoding & How the body is wrapped for transmission \\
+			Content-Type            & Type and format of the content \\
+			\bottomrule
+		\end{tabulary}
+	} % <‑‑‑ closes the local arraystretch change
+
+	% ---------------- MIME content types ----------------
+	\textbf{MIME Content Types}
+
+	{\renewcommand{\arraystretch}{12}%  <‑‑‑ added
+		\begin{tabulary}{\linewidth}{@{}LLL@{}} \toprule
+			\textbf{Type} & \textbf{Example subtypes} & \textbf{Description} \\ \midrule
+			text        & plain, html, xml, css                     & Text in various formats \\
+			image       & gif, jpeg, tiff                           & Pictures \\
+			audio       & basic, mpeg, mp4                          & Sounds \\
+			video       & mpeg, mp4, quicktime                      & Movies \\
+			model       & vrml                                      & 3D model \\
+			application & octet‑stream, pdf, javascript, zip        & Data produced by applications \\
+			message     & http, rfc822                              & Encapsulated message \\
+			multipart   & mixed, alternative, parallel, digest      & Combination of multiple types \\
+			\bottomrule
+		\end{tabulary}
+	}
+
+
+
 
 	\subsection{Email Architecture}
 	\includegraphics[width=\linewidth]{SCR-20250417-bixw.png}
@@ -400,14 +455,6 @@
 	\end{itemize}
 
 
-	% \begin{minipage}{0.5\linewidth}
-	% 	src/dest port number: 16-bit field, 0-65535
-
-	% 	message: application data
-
-	% 	0-1023 reserved for well-known ports like 80 (HTTP), 25 (SMTP), 53 (DNS), 21 (FTP), 22 (SSH), 23 (TELNET), 443 (HTTPS)
-	% \end{minipage}
-
 
 	\subsection{Reliable Data Transfer}
 	\textbf{Error types:}
@@ -425,6 +472,7 @@
 		\item No congestion control
 		\item Has checksum for error detection
 	\end{itemize}
+
 
 	\subsection{TCP Characteristics}
 	\textbf{Features:}
@@ -448,6 +496,27 @@
 		\item 6-bit flag field
 		\item Options field
 	\end{itemize}
+
+	\subsection{UDP Checksum Calculation}
+	\textbf{Process:}
+	\begin{itemize}
+		\item Covers UDP header + data + pseudo-header
+		\item Sender: Sum all 16-bit words, wrap when overflow, negate the result
+		\item Receiver: Sum all 16-bit words including checksum, result should be all 1's
+	\end{itemize}
+
+	\textbf{Example:}
+	\begin{itemize}
+		\item Data: 0x1234, 0x5678, 0xABCD
+		\item Sum: 0x1234 + 0x5678 = 0x68AC
+		\item Sum: 0x68AC + 0xABCD = 0x11479 (overflow)
+		\item Wrap around: 0x1479 + 0x0001 = 0x147A
+		\item 1's complement: 0xFFFF - 0x147A = 0xEB85
+		\item Checksum field: 0xEB85
+		\item Receiver adds: 0x1234 + 0x5678 + 0xABCD + 0xEB85 = 0x1FFFE
+		\item Wrap around: 0x1FFFE + 0x0001 = 0xFFFF (all 1's)
+	\end{itemize}
+
 
 	\section{Socket Programming}
 	\textbf{Socket:} Interface between application and transport protocol
