@@ -57,7 +57,7 @@ export const courses: Course[] = [
   {
     dir: "COMPSCI-2ME3",
     code: "COMPSCI 2ME3",
-    name: "Software Engineering Practice & Experience",
+    name: "Intro to Software Development",
     sheets: [
       { label: "Midterm", pdf: "2me3-midterm" },
       { label: "Final", pdf: "2me3-final" },
@@ -132,7 +132,7 @@ export const courses: Course[] = [
   {
     dir: "ENGPHYS-3SP3",
     code: "ENGPHYS 3SP3",
-    name: "Signal Processing",
+    name: "Space Systems Engineering",
     sheets: [
       { label: "Final", pdf: "engphys-3sp3-final" },
     ],
