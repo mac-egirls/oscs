@@ -1,0 +1,244 @@
+% IF YOU CAN SEE THIS GO CONTRIBUTE >:(
+
+\documentclass[letterpaper, 8pt]{extarticle}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{courier}
+\usepackage{syntax}
+\usepackage{mathpartir}
+
+% minimal line spacing
+% NOTE: this makes math look bad, only use as a last resort
+% \setstretch{0.1}
+
+% set borders (experimentally determined to minimize cutoff and maximize space on school printers)
+% NOTE: if you wish to tune this, please only do so on your local copy
+\geometry{top=.25in,left=.25in,right=.25in,bottom=.35in}
+
+% make figures work better in multicol
+\newenvironment{Figure}
+{\par\medskip\noindent\minipage}
+{\endminipage\par\medskip}
+
+\pagestyle{empty} % clear page
+
+% rewrite section commands to be smaller
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+	{-1explus -.5ex minus -.2ex}%
+	{0.5ex plus .2ex}%x
+	{\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+	{-1explus -.5ex minus -.2ex}%
+	{0.5ex plus .2ex}%
+	{\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+	{-1ex plus -.5ex minus -.2ex}%
+	{1ex plus .2ex}%
+	{\normalfont\tiny\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0} % disable section numbering
+
+
+% disable indenting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% Custom siunitx defs
+\DeclareSIUnit\noop{\relax}
+\NewDocumentCommand\prefixvalue{m}{%
+	\qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+% Shorthand definitions
+\newcommand{\To}{\Rightarrow}
+\newcommand{\ttt}{\texttt}
+\newcommand{\ra}{\rightarrow}
+
+% condense itemize & enumerate
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate=\enumerate \let\endoldenumerate=\endenumerate \renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+% TODO: CHANGEME
+\title{ClassCode}
+
+\begin{document}
+\raggedright
+\tiny
+
+% make listings look nicer
+\lstset{
+	tabsize = 2, %% set tab space width
+	showstringspaces = false, %% prevent space marking in strings, string is generally printed directly to the console
+	basicstyle = \tiny\ttfamily, %% set listing font and size
+	breaklines = true, %% enable line breaking
+	numberstyle = \tiny,
+	postbreak = \mbox{\textcolor{red}{\(\hookrightarrow\)}\space}
+}
+
+\begin{center}
+	% TODO: CHANGEME
+	{\textbf{Graph Theory Cheat Sheet}} \\
+\end{center}
+% set column spacing rules
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+% NOTE: tweak this based on desired content density / readability
+\begin{multicols*}{4}
+	\section{Fundamental Definitions}
+	\textbf{Order/Size}: Order $|V|$, Size $|E|$ (number of edges). \\
+	\textbf{Trail}: A walk with no repeated edges. \\
+	\textbf{Closed Trail/Circuit}: A trail where endpoints are the same vertex. \\
+	\textbf{Path}: A trail where no vertex is repeated (except potentially endpoints in cycle). \\
+	\textbf{Loop}: a self loop (cycle of length 1). Loops count twice when counting degrees.\\
+	\textbf{Lune}: cycle of length 2 \\
+	\textbf{Cycle}: A path whose endpoints are the same. Graphs are at least 3 cycles. Pseudographs can have a length 1 or 2 cycle, called a loop or loon. \\
+	\textbf{Distance} $d(x,y)$: Length of shortest path. \\
+	\textbf{Diameter}: Length of longest shortest path. \\
+	\textbf{Bridge}: An edge whose removal disconnects $G$; the two resulting subgraphs are called the \textbf{banks} of the bridge.
+	\textbf{Decomposition}: $G$ is decomposable into $H_1, \dots, H_t$ if $H_i$ and $H_j$ have no edges in common and $\bigcup H_i = G$. \\
+
+	\section{Degrees}
+	\textbf{Degree} $\deg v$: Number of edges incident to $v$ ($v \in V$). Loops count twice when counting degrees. \\
+	\textbf{Isolated}: $\deg v = 0$. \\
+	\textbf{End vertex}: $\deg v = 1$. \\
+	\textbf{Handshaking Theorem}: For $v_1, \dots, v_n \in V$ and $q$ edges, $\sum_{i=1}^n \deg v_i = 2q$. \\
+	\textbf{Degree sequence}: Ordering of degrees in non-decreasing order. \\
+	\textbf{Graphic}: Sequence $d_1, \dots, d_p$ is graphic if $\exists G$ with that degree sequence. \\
+	\textbf{Havel-Hakimi Theorem}: Consider the following two sequences and assume sequence (1) is in descending order.
+	\begin{align}
+		s,\  & t_1,\, t_2, \ldots,\, t_s,\, d_1,\, \ldots,\, d_n         \\
+		     & t_1-1,\, t_2-1,\, \ldots,\, t_s-1,\, d_1,\, \ldots,\, d_n
+	\end{align}
+	Then sequence (1) is graphic iff sequence (2) is graphic.
+
+	\section{Trees}
+	\textbf{Definition}: A connected graph is a \textbf{tree} iff it is acyclic. \\
+	\textbf{Forest}: A graph without cycles (collection of trees). \\
+	\textbf{Properties}: $G$ is a tree iff:
+	\begin{enumerate}
+		\item $|V| = |E| + 1$
+		\item There exists exactly one path between 2 vertices.
+	\end{enumerate}
+	\textbf{Bridges theorem}: Every edge of a tree is a bridge. $G$ is a tree iff $G$ is connected and every edge is a bridge.
+
+	\section{Connected Graphs}
+	\textbf{Connected}: $G$ is connected if for every pair of vertices $i$ and $j$ there exists a path between $i$ and $j$. \\
+	\textbf{Theorem}: If $G$ is connected, then $|V| \le |E| + 1$. \\
+	\textbf{Theorem 2.4.2.}: A connected graph with an even number of edges is decomposable into subgraphs each isomorphic to a path of length two.
+
+	\section{Cubic Graphs}
+	\textbf{Definition}: A graph where every vertex has degree 3 (3-regular). \\
+	\textbf{$Q_n$}: Denoted to be an $n+1$ node graph where every vertex is 3. \\
+	\textbf{Decomposition}: If $G$ is cubic, then $G$ has no decomposition into subgraphs, each of which is isomorphic to a path of length four. \\
+	\textbf{Bridges}: A cubic graph with a bridge cannot be decomposed into three 1-factors. \\
+	\textbf{Petersen's Theorem}: A cubic bridgeless graph $G$ has a decomposition into a 1-factor and a 2-factor. It is also decomposable into paths of length 3.
+
+	\section{Hamiltonian \& Eulerian}
+	\textbf{Eulerian Circuit}: Circuit containing every edge of $G$.
+	\textbf{Theorem}: Pseudograph $G$ has Eulerian circuit iff $G$ is connected and degree of every vertex is even. \\
+	\textbf{Eulerian Trail}: Trail containing every edge/vertex.
+	\textbf{Theorem 3.1.6}: Eurlerian trail exists iff $G$ is connected and has precisely two vertices of odd degree. \\
+	\textbf{Eulerian line}: An Eulerian Circuit in an infinite lattice graph. A trail containg every edge and vertex with no beginning vertex or ending vertex.
+	\textbf{One-way Eurlerian trail}: Exists in an infinite lattice graph with one endpoint and includes every edge exactly once. Starting vertex has odd degree and everything else has even degree. \\
+	\textbf{Hamiltonian Cycle}: Cycle containing every vertex. \\
+	\textbf{Hamiltonian Path}: Path containing every vertex. \\
+	\textbf{Hamilton line}: A Hamilton cycle in an infinite lattice graph. It is a connected 2-factor that's spanning path without an end.
+	\textbf{One-way Hamiltonian path}: Exists in an infinite lattice graph and starts at $z$ and has an infinite length and passes through every vertex of the graph.
+	\textbf{Theorem 2.3.1: $K_{2n+1}$} has a decomposition into $n$ Hamiltonian cycles (cannot have all Hamilton cycles for $K_{2n}$). \\
+	\textbf{Theorem 2.3.2 and 2.3.3: $K_{2n}$} decomposable into $n-1$ Hamilton cycles and a 1-factor, or into $n$ Hamilton paths. \\
+	\textbf{Theorem 2.3.4: $K_{2n}$} has a decomposition into $2n-1$ regular paths consistent of one path of each length $k$ for $k = 1, 2, 3, \dots, 2n-1$. \\
+	\textbf{Theorem 2.3.5:} Snarks have no hamiltonian cycle.
+
+	\section{Bipartite Graphs}
+	\textbf{Bipartite}: $K_n$ $n$ vertices and every vertex is adjacent to every other vertex. So $K_n$ has $n \choose 2$ edges. \\
+	\textbf{Theorem}: $G$ is bipartite iff every cycle has even length or $\chi(G) \le 2$. \\
+	\textbf{Complete Bipartite}: $K_{m,n}$ all vertices in a group of $m$ are adjacent to all vertices of a graph with $n$. \\
+	\textbf{$k$-partite graph}: a graph where the vertices are partitioned into $k$ sets, and no two vertices in the same set are adjacent. \\
+
+	\section{Vertex Coloring}
+	\textbf{Vertex Coloring}: Assignment of colors to vertices s.t. adjacent vertices receive different colours. \\
+	\textbf{Chromatic Number} $\chi(G)$: Least number of colours needed to colour $G$. \\
+	\textbf{Strategy to prove $\chi(G) = k$}: (1) Find a $k$-colouring. (2) Prove colouring with $\le k-1$ colours is impossible. \\
+	\textbf{Critical}: $G$ is critical if $\chi(H) < \chi(G)$ for all proper subgraphs $H$ of $G$. \\
+	\textbf{Theorem}: Every graph $G$ has a critical subgraph $H$ s.t. $\chi(H) = \chi(G)$. \\
+	\textbf{Theorem}: If $G$ is critical, then $\forall v \in V$, $\deg v \ge \chi(G) - 1$. \\
+	\textbf{Theorem}: If $G$ is critical, then $(\chi(G) - 1)|V| \le 2|E|$. \\
+	\textbf{Theorem 4.1.1}: The largest graph with $n$ vertices and chromatic number $k$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
+	\textbf{Theorem 4.1.2 (Turan)}: The largest graph with $n$ vertices that contains no subgraph isomorphic to $K_{k+1}$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
+	\textbf{Theorem 4.1.2$^*$}: The largest graph with $n$ vertices that contains no triangle is the complete bipartite graph $K_{n_1, n_2}$ with $n = n_1 + n_2$ and $|n_1 - n_2| \le 1$. (special case of Turan where $k = 2$) \\
+	\textbf{Lemma 4.1.3}: If $G$ is a graph on $n$ vertices that contains no $K_{k+1}$, then there is a $k$-partite graph $H$ with the same vertex set as $G$ such that $\deg_G(z) \le \deg_H(z)$ for every vertex $z$ of $G$.
+
+	\section{Edge Coloring}
+	\textbf{Proper Edge Coloring}: Assignment of colors to edges of $G$ s.t. adjacent edges receive unequal colors. \\
+	\textbf{Edge Chromatic Number} Smallest number of colors needed for proper edge coloring. \\
+	\textbf{1-Factor}: Edges colored with one particular color form a 1-factor. \\
+	\textbf{Theorem}: $k$-regular graphs have an edge chromatic number of $k$ or $k-1$. \\
+	\textbf{Theorem}: The edge chromatic number $\ge$ the maximum degree of any vertex of $G$. \\
+	\textbf{Theorem}: Edge chromatic number of $K_{2n} = 2n-1$. \\
+	\textbf{Theorem}: Edge chromatic number of $K_{2n-1} = 2n-1$. \\
+	\textbf{Ramsey $r(n)$}: Every number $n$ has a number $r(n)$. s.t. any edge coloring of $K_{r(n)}$ with two colors contains either a red $K_n$ or a blue $K_n$. \\
+	\textbf{Ramsey $r(m,n)$}: Every pair $m,n$ has a Ramsay number $r(m,n)$ s.t. any edge-coloring of $K_{r(m,n)}$ with red and blue contains a red $K_m$ or a blue $K_n$. \\
+	\textbf{Theorem}: $r(m,n) \le r(m-1,n) + r(m,n-1)$. \\
+
+	\section{Multigraphs \& Pseudographs}
+	\textbf{Multigraph}: Allows multiple edges between vertices. \\
+	\textbf{Pseudograph}: Allows multiple edges and self-loops. \\
+	\textbf{Walk}: Alternating sequence of vertices/edges $A_1, e_1, A_2, \dots$ where $e_i$ is incident to $A_{i-1}, A_i$. \\
+	\textbf{Open/Closed walk}: Open if $A_1 \ne A_n$; closed if $A_1 = A_n$ (it's a cycle). Length = number of edges. \\
+	\textbf{Trail}: A walk with no repeated edges. \\
+	\textbf{Closed trail/Circuit}: trail whose endpoints are the same vertex. \\
+	\textbf{Path}: A pseudograph trail with no repeated vertices. \\
+	\textbf{Closed Path}: A path whose endpoints are the same vertex. \\
+	\textbf{Eulerian Circuit}: Trail containing every edge in $G$. \\
+	\textbf{Theorem 3.1.1}: If pseudograph $G$ has eulerian circuit, then $G$ is connected and the degree of every vertex is even. \\
+	\textbf{Theorem 3.1.2}: If a pseudograph $G$ is connected, and the degree of every vertex of $G$ is even, then $G$ has an eulerian circuit. \\
+	\textbf{Theorem 3.1.3}: If every vertex in a pseudograph $G$ has positive even degree, then any given vertex of $G$ lies on some circuit of $G$. \\
+	\textbf{Theorem 3.1.4}: If a pseudograph $G$ is regular of degree 4, then $G$ has a decomposition into two 2-factors. \\
+	\textbf{Theorem 3.1.5}: Pseudograph $G$ has a decomposition into cycles iff every vertex of $G$ has even degree. \\
+	\textbf{Theorem 3.1.6}: Pseudograph $G$ has an eulerian trail iff $G$ is connected and has precisely two vertex of odd degree. \\
+	\textbf{Theorem 3.1.7}: If $G$ is connected pseudograph with precisely 2h vertex of odd degree, $h \ne 0$, then there exists $h$ trails in $G$ s.t. each edge of $G$ is in exactly one of these trails. Furthermore, fewwer than $h$ trails with this property cannot be found. \\
+
+	\section{Special Graphs}
+	\textbf{Petersen Graph}: The unique 5-cage; cubic bridgeless. Decomposes into a 1-factor and a 2-factor. \\
+	\includegraphics[width=0.5\linewidth]{petersen-graph.png} \\
+	\textbf{Snark}: 3-regular graph with edge chromatic number 4. A snark has no Hamiltonian cycle. \\
+	\textbf{Heawood Graph}: The unique 6-cage (smallest cubic graph with girth 6). \\
+	\includegraphics[width=0.5\linewidth]{heawood-graph.png} \\
+	\textbf{$k$-regular graph}: a graph where every vertex has degree $k$ \\
+	\textbf{Cages}: Smallest cubic graph with girth $g$. \\
+	\textbf{Wheel} $W_n$: $C_n$ plus one vertex adjacent to all vertices in the cycle. \\
+	\textbf{Subgraph}: a graph $H$ is a subgraph of $G$ if $V(H) \subseteq V(G)$ and $E(H) \subseteq E(G)$. \\
+	\textbf{Proper Subgraph}: a graph $H$ is a proper subgraph of $G$ if $H \ne G$. \\
+	\textbf{Components}: disconnected graphs, islands are the components. \\
+	\textbf{Induced Subgraph}: Subgraph of $G$ where $W \subseteq V$ with every edge $E$ that has both endpoints in $W$. \\
+	\textbf{Isomorphic Graph}: $G_1$ and $G_2$ are isomorphic if $p = |V(G_1)| = |V(G_2)|$ and the vertices of $G_1$ and $G_2$ can be relabelled as 1, $\dots, p$ so that $ij \in E(G_1) \iff ij \in E(G_2)$. \\
+	\textbf{Theorem}: If $G_1$ and $G_2$ are isomorphic, then $G_1$ and $G_2$ have the same number of vertices, edges, and degree sequence. \\
+
+	\textbf{Infinite Lattice Graph $L_2$}: vertices are all points in a plane whose coordinates are both itnegers, and two vertices are adjacent if they have geometric distance equal to one. \\
+\end{multicols*}
+
+\end{document}
