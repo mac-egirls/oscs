@@ -1,0 +1,1079 @@
+\iffalse
+We need to cover the following topics:
+
+- [] Static and Contextual Word Embeddings
+Recurrent Neural Networks and their types
+Attention (encoder-decoder and then self-attention in transformer)
+Sampling
+Co-occurrence Statistics
+Masked Language Models and Pretraining Objectives
+Evaluation of Language Models
+LLM Tokenization
+\fi
+\documentclass[letterpaper,8pt]{extarticle}
+
+% -----------------------
+% Package Imports
+% -----------------------
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage[normalem]{ulem}  % normal emphasis (disable strike-through)
+\usepackage{enumitem}
+\usepackage{tabulary}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{derivative}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{courier}
+\usepackage{syntax}
+\usepackage{mathpartir}
+\usepackage{tabularx}
+
+% -----------------------
+% Geometry settings (minimal margins)
+% -----------------------
+\geometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.35in}
+
+% -----------------------
+% Environment for Figures in multicolumn layouts
+% -----------------------
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage}
+  {\endminipage\par\medskip}
+
+\pagestyle{empty} % remove page numbers
+
+% -----------------------
+% Section formatting (make things more compact)
+% -----------------------
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {-1ex plus -0.5ex minus -0.2ex}%
+  {0.5ex plus 0.2ex}%
+  {\normalfont\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+  {-1ex plus -0.5ex minus -0.2ex}%
+  {0.5ex plus 0.2ex}%
+  {\normalfont\tiny\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+  {-1ex plus -0.5ex minus -0.2ex}%
+  {1ex plus 0.2ex}%
+  {\normalfont\tiny\bfseries\itshape}}
+\makeatother
+\setcounter{secnumdepth}{0} % disable section numbering
+
+% -----------------------
+% Spacing adjustments
+% -----------------------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% -----------------------
+% Custom Commands and Shorthands
+% -----------------------
+\DeclareSIUnit\noop{\relax}
+\NewDocumentCommand\prefixvalue{m}{%
+  \qty[prefix-mode=extract-exponent,print-unity-mantissa=false]{1}{#1\noop}
+}
+
+\newcommand{\To}{\Rightarrow}
+\newcommand{\ttt}{\texttt}
+\newcommand{\ra}{\rightarrow}
+
+% -----------------------
+% Condense itemize and enumerate environments
+% -----------------------
+\let\olditemize\itemize \let\endolditemize\enditemize
+\renewenvironment{itemize}{\olditemize \itemsep0em}{\endolditemize}
+\let\oldenumerate\enumerate \let\endoldenumerate\endenumerate
+\renewenvironment{enumerate}{\oldenumerate \itemsep0em}{\endoldenumerate}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=0pt, leftmargin=*}
+
+% Optional Q&A commands for quick notes
+\newcommand{\question}[1]{{\scriptsize\color{blue}{#1}}}
+\newcommand{\answer}[1]{{\scriptsize #1}}
+
+% -----------------------
+% Title / Header
+% -----------------------
+\title{4NL3 Exam Cheat Sheet}
+\date{}
+
+\begin{document}
+\raggedright
+\tiny
+
+% -----------------------
+% Listings settings (for code snippets)
+% -----------------------
+\lstset{
+  tabsize=2,
+  showstringspaces=false,
+  basicstyle=\tiny\ttfamily,
+  breaklines=true,
+  numberstyle=\tiny,
+  postbreak=\mbox{\textcolor{red}{\(\hookrightarrow\)}\space}
+}
+
+\begin{center}
+  {\textbf{CS 4NL3 Final: Never Learning Edition}}
+\end{center}
+
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{0.8}
+
+% -----------------------
+% Adjust Column Spacing for Multicolumn Layout
+% -----------------------
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+% -----------------------
+% Begin Cheat Sheet Content (Customize as needed)
+% -----------------------
+\begin{multicols*}{5}
+
+% \section{Regular Expressions}
+% \begin{tabularx}{\linewidth}{lX}
+% \toprule
+% \textbf{Pattern} & \textbf{Matches} \\ \midrule
+% \texttt{\textbackslash s} & Whitespace \\ 
+% \texttt{\textbackslash d} & Digit \\ 
+% \texttt{\{N\}} & Exactly N instances of previous item \\ 
+% \texttt{\textbackslash w} & Word character (includes numbers) \\ 
+% \texttt{\textbackslash S, \textbackslash D, \textbackslash W} & Negated versions \\ 
+% \texttt{\textbackslash b} & Word boundary \\ 
+% \texttt{\^} & Start of string \\ 
+% \texttt{\$} & End of string \\ 
+% \texttt{A|B} & A or B \\ 
+% \texttt{[a-z]} & Range (example: a--z) \\ 
+% \texttt{.} & Any character \\ 
+% \texttt{?} & 0 or 1 of preceding char \\ 
+% \texttt{*} & 0 or more of preceding char \\ 
+% \texttt{+} & 1 or more of preceding char \\ 
+% \texttt{.*?} & Non-greedy match \\ \bottomrule
+% \end{tabularx}
+
+% \subsection{Example: Non-Greedy Matching}
+% \begin{lstlisting}
+% text = "<tag>I have something</tag> <tag>but other stuff</tag>"
+% my_regex = r"<tag>.*?</tag>"
+% re.findall(my_regex, text)
+% % Expected output:
+% % ['<tag>I have something</tag>', '<tag>but other stuff</tag>']
+% \end{lstlisting}
+
+% \section{Levenshtein Distance}
+% \resizebox{0.4\columnwidth}{!}{
+% \begin{tabular}{|l|c|}
+% \hline
+% \textbf{Operation} & \textbf{Cost} \\ \hline
+% Insert & 1 \\ \hline
+% Delete & 1 \\ \hline
+% Replace & 2 \\ \hline
+% \end{tabular}
+% }
+
+% Row \(i\), column \(j\): number of operations required to convert the
+% first \(i\) characters of the source to the first \(j\) characters of the target.
+
+% \section{Text Normalization}
+% \begin{itemize}
+%   \item Lowercasing
+%   \item True-casing
+%   \item Punctuation Removal
+%   \item Stopword Removal
+%   \item Stemming
+%   \item Lemmatization
+% \end{itemize}
+
+% \section{N-Gram Language Model}
+% \[
+% P(w \mid h) = \prod_{k=1}^n P(w_k \mid w_{1:k-1})
+% \]
+% \textbf{Note:} The exact history might be rare; hence, the Markov
+% assumption (using only the last \(N\) words) is applied.
+
+% \subsection{Unigram, Bigram, \& N-gram Models}
+% \[
+% P(w_n) \quad,\quad P(w_n \mid w_{n-1}) \quad,\quad P(w_n \mid w_{n-N+1:n-1})
+% \]
+
+% \section{Naive Bayes Classification}
+% \[
+% P(c \mid W) \approx P(W \mid c)P(c)
+% \]
+% where \(P(c)\) is the class prior and \(P(W \mid c)\) is calculated assuming word independence.
+
+% \section{Logistic Regression}
+% For binary classification:
+% \[
+% P(y=1 \mid x) = \sigma(w \cdot x + b)
+% \]
+% with \(\sigma\) as the sigmoid function. For multiclass, the SoftMax function is used:
+% \[
+% \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j} e^{z_j}}
+% \]
+
+% \section{Neural Networks}
+% Key concepts include activation functions and backpropagation.
+% % (Include figures and further details as needed)
+
+% \section{Gradient Descent}
+% Parameter update rule:
+% \[
+% \theta^{t+1} = \theta^t - \eta \nabla L(\theta)
+% \]
+
+% \section{Regularization}
+% L2 Regularization:
+% \[
+% \theta^* = \arg\max_\theta \left[\sum \log P(y \mid x)\right] - \alpha \sum_j \theta_j^2
+% \]
+% L1 Regularization:
+% \[
+% \theta^* = \arg\max_\theta \left[\sum \log P(y \mid x)\right] - \alpha \sum_j |\theta_j|
+% \]
+
+% \section{Cross Validation}
+% \begin{itemize}
+%   \item \textbf{K-Fold:} Split data into \(k\) parts.
+%   \item \textbf{Leave One Out:} Use \(k =\) number of instances.
+% \end{itemize}
+
+% \section{Clustering}
+% \subsection{K-Means}
+% \begin{enumerate}
+%   \item Randomly initialize \(k\) centroids.
+%   \item Assign each point to the nearest centroid.
+%   \item Update centroids based on current assignments.
+%   \item Repeat until convergence.
+% \end{enumerate}
+
+% \section{Similarity Measures}
+% \subsection{Jaccard Similarity}
+% \[
+% J = \frac{|A \cap B|}{|A \cup B|}
+% \]
+% \subsection{Cosine Similarity}
+% \[
+% 1 - \frac{A \cdot B}{\|A\|\|B\|}
+% \]
+
+% \section{TF-IDF}
+% \subsection{Term Frequency (TF)}
+% \begin{tabular}{ll}
+% Binary: & 1 if present, else 0 \\
+% Count: & Frequency of appearance \\
+% Normalized: & Count divided by total terms \\
+% Log-normalized: & \(\log(1+\text{count})\) \\
+% \end{tabular}
+
+% \subsection{Inverse Document Frequency (IDF)}
+% \[
+% \text{IDF}(w,c) = \log\left(\frac{|c|}{|\{d \in c : w \in d\}|}\right)
+% \]
+
+% \section{Topic Modeling}
+% \textbf{Latent Dirichlet Allocation (LDA):}
+% Documents are modeled as mixtures of topics, and topics as distributions over words.
+
+% \section{Model Evaluation}
+% Metrics include Accuracy, Precision, Recall, and F1 Score.
+% \[
+% F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+% \]
+
+\section{Static Word Embeddings}
+% An embedding is \textbf{static} when it has a fixed embedding regardless of its usage.
+\textbf{Distributional Semantics} the idea that a word’s meaning is given by the words that frequently appear nearby.
+
+\subsection{Word2Vec}
+Train a $2$ layer neural network on one of the following tasks
+Given a middle word and contexts from $[w(t-2), w(t+2)]$...
+
+
+\begin{tabularx}{\linewidth}{|X|X|}
+\hline
+    \textbf{Continuous Bag of Words (CBOW)} & \textbf{Skip Gram} \\ \hline
+    Sum the words in the context window ("cumulative bag of words") and predict the missing word in the middle & You have the middle word and you use it to predict the context, individually, one at a time. \\ \hline
+     \includegraphics[width=1\linewidth]{cbow.png}
+&  \includegraphics[width=1\linewidth]{skipgram.png}
+\\ \hline
+    This \textit{smooths over} context words. Worse representation for rare words. Better representations on small corpora. & More seen in practice, better for large corpora (million iterations). Can be sped up with negative sampling where you predict "are they in the context window or not" (binary classification) as opposed to predicting the word directly. \\ \hline
+\end{tabularx}
+Once this model is trained you will have two (one from each layer) weight matrices (an encoder $V \times D$ and decoder $D \times V$). The encoder becomes our embedding matrix.
+
+\subsection{Issues}
+\begin{itemize}
+    \item Black Sheep Problem (Maxim of Quantity: contribute as much
+information as required, but no more Paul Grice)
+\item Type of Similarity (sound, type-of) ``flatted''
+\item Lack of Context - River vs Financial bank
+\item Human Biases
+\item Hard to Interpret
+\end{itemize}
+
+\subsection{PPMI Matrix}
+Instead of weighing words based on which documents they appear in we can weigh them based on which words they co-occur with. Assuming $w,c \in V$
+
+$$PMI(w, c)  = \log_2\left( \frac{P(w, c)}{P(w)P(c)}\right)$$
+
+\textit{If two events $a$ and $b$ are totally unrelated, then $P(a, b) = P(a)P(b)$}
+
+You can represent a word as a vector of their PPMI values with all other words in the vocab!
+$$PPMI(w, c) = \max \left(\log_2\left( \frac{P(w, c)}{P(w)P(c)}\right), 0\right)$$
+
+% You can short-hand the calculation with (assuming $C(w, c)$ is the count of the co-occurrences of $w,c$ (cell in the table) and $\Sigma(w)$ is the sum total of all $w$'s co-occurrences)
+% $$\log_2\left(\frac{C(c, w)\Sigma(V)}{\Sigma(w)\Sigma(c)}\right)$$
+
+% Calculating the co-occurany matrices is the same as
+% $$\begin{bmatrix}
+%  \text{term-doc}  \\ \text{ matrix} \\  \text{(transposed)} \\ V \times D
+% \end{bmatrix} \times \begin{bmatrix}
+% \text{doc-term matrix}  \\ D \times V
+% \end{bmatrix} = \begin{bmatrix} \space  \\ 
+%  \text{term-term matrix}  \\ V\times V \\ \space
+% \end{bmatrix}$$
+
+\subsection{Latent Semantic Indexing (LSI)}
+Factor a $x = \text{term} \times \text{term}$ matrix into $T_0 S_0 D_0$ using Singular Value Decomposition (SVD), where $S_0$ tells you how important a concept is, sort it by decreasing value. So set all low values to $0$ to get an approximate $\hat{x}$.
+\begin{tabularx}{\linewidth}{|X|X|}
+\hline
+    \textbf{Before} & \textbf{After} \\ \hline
+\includegraphics[width=1\linewidth]{lsi\_before.png}
+&  \includegraphics[width=1\linewidth]{lsi\_after.png}
+\\ \hline
+\end{tabularx}
+
+\subsection{Global Vectors (GloVe)}
+
+\begin{enumerate}
+    \item Build the co-occurrence matrix % $ X \in \mathbb{R}^{V \times V}$, where $X_{ij} $ is the number of times word $j$ appears in the context of word $i$
+    \item \textbf{Initialize:} Target word vectors \( w_i \in \mathbb{R}^{D} \), Context word vectors \( \hat{w}_j \in \mathbb{R}^{D} \), Bias terms \( b_i, \hat{b}_j \in \mathbb{R} \) 
+    
+    \item \textbf{Optimize loss function:} $\sum_{i,j=1}^V f(X_{ij}) \left(w_i^\top \hat{w}_j + b_i + \hat{b}_j - \log X_{ij} \right)^2 $ where $f(X_{ij})$ reduces the influence of very frequent or rare word pairs
+    \item \textbf{Final embeddings} $i = w_i + \hat{w}_i$ \end{enumerate}
+
+GloVe vectors use global (whole corpus) co-occurance statistics. This makes them more stable than Word2Vec.
+
+\section{Recurrent Neural Networks (RNN)}
+Forward pass
+\begin{enumerate}
+    \item[] $h_0 \leftarrow 0$
+    \begin{enumerate}
+        \item[] for $i \leftarrow 1$ to $\text{length}(x)$ do
+        \item[] $h_i \leftarrow g(Uh_{i - 1} + W x_i)$
+        \item[] $y_i \leftarrow f(V h_i)$
+        \item[] return $y$
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{Backpropagation} you unroll the network
+
+\textbf{Objective Function} Negative log likelihood $L_{CE} = - \sum_{w \in V} y_t [w] \log \hat{y}_t [w]$
+
+\subsection{With Embedding Layer}
+Before the forward pass, embed $e_t = Ex_t$
+
+\subsection{Weight Tying}
+\begin{tabularx}{\linewidth}{|@{}X@{}|@{}X@{}|}
+\hline
+    \textbf{Before} & \textbf{After} \\ \hline
+    $\begin{array}{l}
+        x_t \in |V| \times 1 \\
+        h_t \in d_2 \times 1 \\
+        y_t \in |V| \times 1 \\
+        E \in |V| \times d_1 \\
+        W \in d_1 \times d_2 \\
+        U \in d_2 \times d_2 \\
+        V \in d_2 \times |V|
+    \end{array}$
+    &
+    $\begin{array}{l}
+        x_t \in |V| \times 1 \\
+        h_t \in d \times 1 \\
+        y_t \in |V| \times 1 \\
+        E \in |V| \times d \\
+        W \in d \times d \\
+        U \in d \times d \\
+        V \in d \times |V| \\
+        E = V^\top
+    \end{array}$
+    \\ \hline
+\end{tabularx}
+
+\subsection{Options for Initialization}
+\begin{tabularx}{\linewidth}{|X|X|X|}
+\hline
+     & \textbf{Yes} & \textbf{No} \\ \hline
+    \textbf{Weight Tying} & Input and outputs matrices are the same & Input and output are separate layers \\ \hline
+    \textbf{Pretraining} & Embeddings are initialized randomly & Embeddings initialized from pretraining \\ \hline
+    \textbf{Weight Freezing} & Embeddings update while training & Input embeddings frozen \\ \hline
+\end{tabularx}
+
+\textit{Low compute?} Initialize pretrained embeddings.
+
+\textit{Worried about rare words?} Untie weights, freeze input.
+
+\subsection{RNN for Sequence Labeling}
+Before NNs, there was (Generative) Hidden Markov Model and (Discriminative) Conditional Random Field. Now, you can take either the last time step of an RNN (assuming all time steps are "remembered"), or weight all the hidden states equally and plug it into an NN classifier. 
+
+\hrule
+\begin{multicols*}{2}
+
+\subsection{RNN Stacking}
+\includegraphics[width=1\linewidth]{stacked\_rnn.png}
+Different layers learn different levels of "abstraction"
+
+\vfill\null
+\columnbreak
+\subsection{Bidirectional RNN}
+\includegraphics[width=1\linewidth]{bidirectional\_rnn.png}
+
+One model reads forward, the other backwards, then concatenate the two hidden states.
+    
+\end{multicols*}
+\hrule
+
+\subsection{Long Short-Term Memory Network (LSTM)}
+
+\includegraphics[width=0.48\linewidth]{lstm.png}
+\includegraphics[width=0.48\linewidth]{lstm\_vis.png}
+
+\subsubsection{Gates (2 columns)}
+\hrule
+\begin{multicols*}{2}
+
+\textbf{Forget Gate}
+Decide what old information to erase from memory.
+$$f_t = \sigma(U_f h_{t -1} + W_f x_t)$$
+$$k_t = c_{t - 1} \cdot f_t$$
+
+\textbf{Mask Content}
+Figure out what new information might be useful.
+
+$g_t = \tanh (U_g h_{t - 1} + W_gx_t)$
+
+\vspace{10px}
+
+\textbf{Add Gate}
+Decide how much of that new information to actually keep.
+$$i_t = \sigma(U_i h_{t - 1} + W_i x_t)$$
+$$j_t = g_t \cdot i_t$$
+
+\textbf{New Context Vector}
+Combine the remembered past with the newly approved content.
+$$c_t = j_t  +k_t$$
+
+\textbf{Output Gate}
+Decide what part of the memory we show to the world.
+$$o_t = \sigma(U_o h_{t - 1} + W_o x_t)$$
+$$h_t = o_t \cdot \tanh (c_t)$$
+
+\end{multicols*}
+\hrule
+
+\subsection{Gated Recurrent Unit (GRU)}
+\includegraphics[width=1\linewidth]{gru.png}
+
+\begin{enumerate}
+    \item \textbf{Interpolation Factor $z_t$}This is like our "slider" between old and new information.
+    \item \textbf{Gate $r_t$} It is like a forget and add vector in one! (Linear Interpolation)
+    \item \textbf{Combine "New" and "Previous" Hidden States $h_t$}
+We use $z_t$ to take from both accordingly
+\end{enumerate}
+
+\subsection{Encoder-Decoder RNN}
+\begin{enumerate}
+    \item Encoder takes input sequence and generates a sequence of states $h^\oplus_n = c = h^d_0$
+    \item Compute a context representation $c$
+    \item Decoder takes context and generates output sequence $h_t^d = g(\hat{y}_{t - 1}, h^d_{t - 1}, c)$
+\end{enumerate}
+
+If we use an Encoder-Decoder RNN, the last hidden state is biased towards information at the end of the sentence which may not contain Information from earlier in the sequence.
+
+\textit{Some ideas:}
+\begin{itemize}
+    \item use $c$ at each step in decoding
+    \item average all encountered hidden states to compute $c$
+    \item weigh them appropriately with attention
+\end{itemize}
+
+\subsection{Encoder-Decoder RNN with Attention}
+\includegraphics[width=1\linewidth]{encoder\_decoder\_rnn\_with\_attention.png}
+We compute
+$$\text{score} (h^d_{i - 1}, h^e_j) = h^d_{i - 1} \cdot h^e_j$$
+(represents how similar these two states are)
+
+Then you use soft-max to normalize that into a probability distribution
+$$\alpha_{ij} = \text{softmax}(\text{score}(h^d_{i - 1}, h^e_j))$$
+This givens you a distribution of those hidden states and how much they are relevant to the current state.
+
+Now we can take a weighted sum of the encoder states at each decoder timestep, this contains the information that is relevant for that step of decoding and changes at each timestep.
+% That weighted sum is your context vector.
+
+\section{Contextualized Word Vectors}
+
+\subsection{Contextualized Word Vector (CoVe)}
+% \includegraphics[width=1\linewidth]{cove.png}
+
+Train an Encoder-Decoder LSTM to translate sentences (use GloVe to initialize embedding layer).
+
+The hidden states of this encoder are the CoVe vectors (contextualized embeddings)
+$$\text{CoVe}(w) = \text{MT-LSTM}(\text{GloVe}(w))$$
+
+These are then concatenated with the GloVe vectors and passed to your downstream model.
+
+
+\subsection{Embeddings from Language Models (ELMo)}
+\includegraphics[width=1\linewidth]{elmo.png}
+\begin{enumerate}
+    \item raw static word embeddings at the first layer
+    \item 2-layer BiLSTM, trained to predict the next word (language modeling), the lower layer will capture syntax, the upper layer will capture semantics
+    \item learned weights to combine them into your final embedding
+\end{enumerate}
+
+This one can distinguish between "play" in sports vs acting. Better performance than CoVe.
+
+\section{Muli-task Modeling}
+Train multiple tasks at the same time. The network may learn useful information for both tasks e.g. Name-Entity Recognition (NER) + Part-of-Speech (POS) Tagging. Earlier layers share parameters, learning representations useful for both tasks.
+
+\section{Self-Attention (Transformers)}
+How similar each word is to all of the words (or previous words) in a sentence, \textbf{including itself}.
+
+
+\hrule
+\begin{multicols*}{2}
+    
+\includegraphics[width=1\linewidth]{self\_attention\_1.png}
+
+\vfill\null
+\columnbreak
+
+\begin{itemize}
+    \item \textbf{Query} current element (being compared to preceding inputs)
+    \item \textbf{Key} preceding input to be compared to current element (other vectors, including itself)
+    \item \textbf{Value} value of preceding element to get weighted and summed
+\end{itemize}
+\end{multicols*}
+
+\hrule
+\begin{multicols*}{2}
+    
+\includegraphics[width=1\linewidth]{self\_attention\_2.png}
+
+\vfill\null
+\columnbreak
+
+
+% \includegraphics[width=1\linewidth]{attention.png}
+
+\begin{itemize}
+    \item $x_t \times W_Q$, $x_t \times W_k$, $x_t \times W_v$ to get queries, keys, values, respectively
+     \item $QK^\top$ similarity between the queries and keys by taking their dot product
+\end{itemize}
+\end{multicols*}
+
+\begin{itemize}
+     \item $\frac{1}{\sqrt{d_k}}$ for numerical stability
+    \item $\text{softmax}$ amongst all the keys $\rightarrow$ element $i$ of this output vector will represent what percentage of this query will be represented by key $i$
+     \item $ \times V$ sums $i^{th}$ element from our SoftMax output with Value $i$ for all $i$ words in our sentence.
+\end{itemize}
+
+Similar idea to what we did before with our CoVe except before our $K$ and $V$ were the same ($Q$ was the decoder state and $K$ was the encoder state).
+
+\hrule
+\begin{multicols*}{2}
+\textbf{Masked Attention} often, we don't want to earlier words to attend to the later words
+\vfill\null
+\columnbreak
+\includegraphics[width=1\linewidth]{masked\_attention.png}
+
+\end{multicols*}
+
+Note we can compute the Attention for each word in parallel. This is super efficient and awesome.
+
+Transformers handle long-range dependencies effectively — they can capture the context of a word at the end of a sentence even if the relevant information appears at the beginning. This is something RNNs often struggle with.
+
+Note we do not necessarily have to use Dot Product, we can use any cosign similarity or a normalized dot product i.e.
+$ = \frac{\text{Dot Product}}{\text{\# of Embedding Values}}$
+    
+\subsection{Multihead Attention}
+We can create multiple heads that learn different functions of what linguistic (or other) features to attend to.
+
+\includegraphics[width=1\linewidth]{multihead\_attention.png}
+
+\section{Tokenization}
+
+\subsection{Byte-Pair Encoding (BPE)}
+Start with single characters in the vocabulary, take the most frequent pair of tokens and concatenate them. Merge greedily in order. This means that token frequencies in test set (after tokenizer is learned) do not affect how the text will be tokenized.
+
+Add \_ symbol to denote the end of a word
+
+We end up with tokens for frequent words and subwords (morphemes).
+
+\subsection{Word Piece}
+Initial vocab is each unit in the vocabulary. Compute pair score $\text{score} = \frac{\text{freq of pair}}{\text{freq of first element} \times \text{freq of second element}}$ this looks similar to PMI! Merge until we have a new vocabulary
+
+We denote each section with two hashtags in front \#\#
+
+\section{Sampling}
+
+\subsection{Top-$k$}
+\begin{itemize}
+    \item Assign probabilities to all words in a vocabulary, model the softmax output
+    \item Sort words by probability and take only the top $k$ words
+    \item Renormalize and sample the next word from these top $k$
+\end{itemize}
+
+Here, we are limiting the distribution by a fixed number of words.
+
+\subsection{Top-$p$}
+\begin{itemize}
+    \item Assign probabilities to all words in a vocabulary, model the softmax output
+    \item Sort words by probability and take only the top $p$ probability mass
+    \item Renormalize and sample the next word from these top $p$
+\end{itemize}
+
+\subsection{Temperature Sampling}
+Reshape the distribution instead of truncating
+$$y = \text{softmax}\left(\frac{u}{\tau}\right)$$
+With temperature sampling $\tau \le 1$, probability of probable words increase and probability of rare words decrease.
+
+So larger $\tau$, more diversity, and as $\tau \rightarrow 0$, less diversity (we approach Top-1 sampling).
+
+\section{Fine-tuning}
+
+\subsection{Bottleneck Adapter}
+add new layers between transformer layers by "projecting" (linear layer) the hidden states down and then back up (plus a residual connection, $r$)
+$$h \leftarrow W_\text{up} \cdot f (W_\text{down} \cdot h) + r$$
+We freeze all other parameters in the model and only update the new layers (FF Up and FF Down)
+
+\subsection{Low-Rank Adaptation (LoRa)}
+learns low-rank matrices in place of the transformer layer weights for keys, values, queries, and output $(W^Q , W^K , W^V , W^O )$
+
+Freeze all original parameters and only update the low-rank adaptations
+
+E.g., you can factor $W \in N x d$ matrix into $A \in N x r$ and $B \in r x d$ Then in the forward pass we compute $h=xW + xAB$
+
+You can use a scaling parameter $a$ to weight the impact of new parameters. For faster inference, merge $AB + W \rightarrow W'$ (after training).
+
+\section{Evaluation of Language Models}
+
+\subsection{Intrinsic}
+\subsubsection{Projection}
+Visualize word vectors in 2D to see if similar words are near each other.
+\subsubsection{Perplexity}
+The inverse probability assigned to test set normalized by length. Lower Perplexity is better, best Perplexity is $1$.
+
+So for example, if Model $A$ has less words in its Vocabulary as opposed to Model $B$, with no other information, Model $A$ is more likely to have a lower perplexity! Model $A$ has fewer options~ even if you were randomly guessing the next word, it is more likely you will get the answer right with model $A$.
+
+It's the inverse of the Probability that the model assigns to the held-out data (lower is better). Instead of simply saying "it's not in the right bin" (like Accuracy), we say, what is the probability that it will be in the right bin.
+
+$$\text{Perplexity}(W) $$ $$= P(w_1w_2\dots w_N)^{ - \frac{1}{N}} = \sqrt[N]{\frac{1}{P(w_1w_2\dots w_N)}}$$
+
+\subsubsection{For an N-gram Language Model}
+$$ = e^{\left(-\frac{1}{N} \sum_{i = 1}^N \log(P(w_i | w_1 \dots w_{i -1}))\right)}$$
+
+\subsection{Extrinsic Evaluation}
+See how well the embedding performs for other downstream tasks.
+
+\subsection{Blue Score}
+How much overlap between generated model and a doc from training data, using different N-grams.
+
+
+\section{Few-Shot Learning}
+\subsection{Original Definition}
+You create a feature representation of each class, and then you want to find which class the instance is closest to. 
+\subsection{Prompting Definition}
+You prompt the model to perform classification.
+
+\textbf{One-Shot:} One example
+\textbf{Zero-Shot:} No examples, only task description
+
+\section{Large Language Models}
+\subsection{GPT-1 (2018)}
+Uni-directional.
+\begin{enumerate}
+    \item Pretrain 12x Decoder-Only transformers for language modelling
+    \item Fine-tunefor Classification (Sentiment, Grammaticality), Question answering, Sentence similarity, Natural langage inference
+    \item They also had an auxillary objective function but it barely made a difference
+\end{enumerate}
+
+\subsection{Bidirectional Encoder Representations from Transformers BERT (2018)}
+
+\subsubsection{Pretraining}
+Used
+\begin{itemize}
+    \item \textbf{Masked Language Modeling:} Instead of predicting $w_n$ given $w_1, \dots, w_{n - 1}$ (i.e. from left to right one by one), remove $n$ random tokens and predict those instead. say, 50\% of tokens.
+    \item \textbf{Next Sentence Prediction} The task is to predict whether or not the given sentence follows the previous sentence.
+    \item \textbf{CLS Token} Before, people were using "start tokens" for the beginning of a sequence. Alternatively [CLS] tokens (which stands for "classification") is the only token that will be used for classification tasks/objectives. By doing that, it encourages the model to encode the *entire meaning of the sentence* (in a way) in this [CLS] token because it is all that is being used to perform the classification.
+\end{itemize}
+
+\subsubsection{Properties}
+\begin{itemize}
+    \item uses word piece tokenization
+    \item encode-only
+    \item 12 transformer layers stacked
+\end{itemize}
+
+\subsubsection{Fine-Tuned}
+\begin{itemize}
+    \item Sentence Pair Classification Tasks
+    \item Single Sentence Classification Tasks
+    \item Question Answering Tasks
+    \item Sentence Tagging Tasks
+\end{itemize}
+
+\subsection{GPT-2 (2018)}
+Higher quality training data. 40GB of test.
+
+\subsection{RoBERTa (2019)}
+
+BERT improved
+\begin{itemize}
+    \item Dynamic masks: different masks for each sentence
+    \item No next-sentence prediction, turns out you can get a lot more out of increasing the context size and doing more masked prediction
+    \item expanded masked language model context size
+    \item larger mini-batches
+    \item bye-pair tokenization
+    \item more data
+    \item longer training
+\end{itemize}
+
+\subsection{GPT-3 (2020)}
+More data. 570GB of test.
+
+Strong improvement on the LAMBADA (common sense) dataset.
+
+\subsection{Sentence-BERT (SBERT) (2018)}
+Used to create sentence embeddings.
+
+[CLS] token embeddings or averaged hidden states perform poorly, so... use BERT base model to create high-quality sentence embeddings. How?
+
+\begin{itemize}
+    \item Pool encoding for each sentence
+    \item Concatenate vectors with element-wise difference
+    \item Linear for classification (entailed, contradict, or neutral)
+\end{itemize}
+
+Often competitive with LLM encodings of sentences and generally much quicker.
+
+\subsection{Llama Models (2023-2025)}
+Models are very similar to other transformer LLMs (esp. GPT-3)
+
+\begin{itemize}
+    \item Train on publicly available data (Llama 1) and scraped data (Llama 2 \& 3)
+    \item From 7B to 70B model sizes, context length 4K
+    \item  Llama 3 uses Direct Preference Optimization to learn rank w/o Reward Model
+\end{itemize}
+
+\section{Properties of MLM Pretraining}
+\begin{itemize}
+    \item Contextual word representations
+\item improved generalization
+\item seeing wide range texts, fill in missing words
+\item fine tunable
+\item Robustness to missing data
+\end{itemize}
+
+
+\section{Extra Last Minute Topics}
+
+\subsection{Stochastic Parrot}
+LLMs cannot understand language, they are just convincing (bullshit)
+
+\subsection{Octopus}
+Models cannot learn meaning (not grounded in reality)
+
+\subsection{BBQ}
+The idea is that if enough Information is not provided, the model should say the data is Unknown, it is biased if it chooses a group.
+
+\subsection{Reinforcement Learning (RL)}
+The concept that you have some context (state) and need to choose a class (action), but you don't know if the output is good right away. We need to trace it back to determine which actions were helpful. A reward signal comes from actions taken by an agent and is used to update a policy that guides the agent's actions.
+
+\subsection{Reinforcement with Human Feedback (RLHF)}
+
+
+\includegraphics[width=1\linewidth]{rlhf.png}
+
+\subsection{Instruction Tuning}
+Fine-tuning on data that contains instructions and answers.
+
+How to get data:
+\begin{enumerate}
+    \item Have people write examples
+    \item  find examples from existing data e.g. QA, summarization
+    \item use the instructions given to the annotators
+    \item generate examples with LLMs and manually check instances before adding to the training data
+\end{enumerate}
+
+(FLAN and T5)
+
+\subsection{Mixture of Experts (MoE)}
+\begin{enumerate}
+    \item different "expert" models can be created for different tasks/domain
+    \item let an NN decide which expert to use
+    \item you can set unused experts activations to 0 (more efficient)
+\end{enumerate}
+
+\section{Calcs}
+\subsection{Sigmoid}
+$$\sigma(x) = \frac{1}{1 + e^{-x}}$$
+
+Theoretical Temperature controlled sigmoid
+$$\sigma(x, T) = \frac{1}{1 + e^{-x/T}}$$
+
+\subsection{Log Rules}
+
+$\ln({a}^x) = x\ln(a)$;
+$\ln({a}{b}) = \ln(a) + \ln(b)$;
+$\ln(\frac{a}{b}) = \ln(a) - \ln(b)$
+
+\subsection{Element wise multiplication}
+$a \odot b = [1, 2] \odot [4, 3] = [4, 6]$
+
+\subsection{Cross Entropy Loss}
+Given the true token $t$, and predicted probability for token $x = p_x$
+$$L_{CE} = -\log(p_{t})$$
+
+\subsection{Softmax}
+Given a vector $X$, we want to create a probability distribution of the elements in the vector. 
+$$softmax(X) = \frac{e^{x_i}}{\sum_{j}^{|X|} e^{x_j}}$$
+
+\subsubsection{Softmax with Temperature}
+$$softmax_\tau(X) = \frac{e^{(x_i/
+\tau)}}{\sum_{j}^{|X|} e^{(x_j/\tau)}}$$
+
+The vector components should be $logits$, so $X$ should not already be a probability distribution. Make sure you $\log$ The vector before you apply softmax.
+
+\subsection{Matrix Multipication}
+\[
+A = \begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}, \quad
+B = \begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix}
+\]
+
+\[
+C = AB = \begin{bmatrix}
+a_{11}b_{11} + a_{12}b_{21} & a_{11}b_{12} + a_{12}b_{22} \\
+a_{21}b_{11} + a_{22}b_{21} & a_{21}b_{12} + a_{22}b_{22}
+\end{bmatrix}
+\]
+
+\subsection{Matrix Transpose}
+
+\hrule
+\begin{multicols*}{2}
+\(
+A = \begin{bmatrix}
+a & b \\
+c & d \\
+e & f
+\end{bmatrix}
+\)
+
+\(
+A^\top = \begin{bmatrix}
+a & c & e \\
+b & d & f
+\end{bmatrix}
+\)
+
+\end{multicols*}
+\hrule
+
+
+
+\subsection{Gradient Descent Rule}
+\[
+f = wx + b, \quad L = f^2
+\]
+
+\[
+\frac{\partial L}{\partial w} = \frac{\partial L}{\partial f} \cdot \frac{\partial f}{\partial w}
+= 2f \cdot x = 2(wx + b) \cdot x
+\]
+
+\[
+\frac{\partial L}{\partial b} = \frac{\partial L}{\partial f} \cdot \frac{\partial f}{\partial b}
+= 2f \cdot 1 = 2(wx + b)
+\]
+
+\section{Review Questions}
+\subsection{PPMI}
+You will be given a term-doc matrix. Your job is to calculate the term-term matrix via a self dot-product -- resulting in the following. Then sum each column/row, and the sum of that row - as seen below.
+
+\includegraphics[width=1\linewidth]{cooccurances.png}
+\begin{align*}
+&PPMI(like, person) = \log_2\left(\frac{P(like, person)}{P(like)P(person)}\right)  \\
+&= \log_2\left(\frac{24/243}{(72/243)(81/243)}\right) = \log_2(2) = 1
+\end{align*}
+
+\subsubsection{RNN Passthrough}
+\includegraphics[width=1\linewidth]{lstm\_question.png}
+Given the outlined in \textbf{Recursive Neural Network}, find $f_t, k_t, c_t, i_t, j_t, g_t, o_t, h_t$.
+
+\vspace{0.1cm}
+Answer: to Solve, just perform matrix multiplication (dot product) or pairwise multiplication where necessary.
+
+\subsection{Self-Attention Passthrough}
+\includegraphics[width=1\linewidth]{attention\_problem.png}
+
+
+\begin{align*}
+Q &= x_tW_Q = 
+\begin{bmatrix}
+3 & 3 \\
+-2 & -2
+\end{bmatrix} \quad
+K = x_tW_K = 
+\begin{bmatrix}
+-1 & -1 \\
+-1 & 0
+\end{bmatrix} \\
+V &= x_tW_V =
+\begin{bmatrix}
+2 & -5 \\
+-1 & 1
+\end{bmatrix}
+\end{align*}
+
+Question gives us $d_K$, the number of columns in $K=2$. 
+
+\begin{align}
+    QK^T=\begin{bmatrix}
+-6 & -3 \\
+4 & 2
+\end{bmatrix} & \quad
+A = d_K^{-1}QK^T=
+\begin{bmatrix}
+-3 & -1.5 \\
+2 & 1
+\end{bmatrix}
+\end{align}
+
+Typically we solve for $(d_K^{-1/2})QK^T$, but here the question asks for $d_K^{-1}(QK^T)$. Note $K=K^T$ here. Shortform this to $A$.
+
+$$softmax(A) = \begin{bmatrix}
+softmax([-3 & -1.5]) \\
+softmax([2 & 1])
+\end{bmatrix}$$
+
+To solve softmax of a matrix, you have to solve it row by row or column by column. Since we did $QK^t$, we do row by row.
+% \begin{align*}
+%  = \begin{bmatrix}
+%     \frac{e^{-3}}{e^{-3}+e^{-1.5}} & \frac{e^{-1.5}}{e^{-3}+e^{-1.5}} \\
+%     \frac{e^{2}}{e^{2}+e} & \frac{e}{e^{2}+e}
+% \end{bmatrix} 
+% \end{align*}
+\begin{align*}
+\text{softmax}(A) V = \begin{bmatrix}
+    \frac{e^{-3}}{e^{-3}+e^{-1.5}} & \frac{e^{-1.5}}{e^{-3}+e^{-1.5}} \\
+    \frac{e^{2}}{e^{2}+e} & \frac{e}{e^{2}+e}
+\end{bmatrix} \begin{bmatrix}
+2 & -5 \\
+-1 & 1
+\end{bmatrix}
+\end{align*}
+
+\subsection{WordPiece Tokenization}
+Given the following corpus, compute the first 2 merges using WordPiece: \verb|raw, how, how, wow, wow, who|
+
+\subsubsection{Merge Step 1:}
+Reconstruct the corpus using token pairs, then calculate scores via $S(h, t) = \frac{C(h,t)}{C(h)C(t)}$. Merge highest score greedily. Hack: Keep track of what was updated -- rows with non-updated tokens don't need to be touched.
+
+\begin{verbatim}
+C: r=1, h=2, w=3, #a=1, #o=5, #h=1, #w=5
+
+r #a:  1  -- S() = 1/(1*1) = 1 <<<
+#a #w: 1 -- s() = 1/(1*5) = 1/5
+h #o:  2  -- S() = 2/(2*5) = 1/5 
+#o #w: 4 -- S() = 4/(5*5) = 4/25
+w #o:  2  -- S() = 2/(3*5) = 2/15
+w #h:  1  -- S() = 1/(3*1) = 1/3
+\end{verbatim}
+
+\subsubsection{Merge Step 2:}
+When we reconstruct the token pairings, use the longest substring match. Thus, we use \verb|ra| instead of \verb|r|.
+\begin{verbatim}
+C: h=2, w=3, #o=5, #h=1, #w=5, >updated> ra=1, r=0, #a=0
+ra #w: 1  -- S() = 1/(1*5) = 1/5
+h #o:  2  -- S() = 2/(2*5) = 1/5 
+#o #w: 4  -- S() = 4/(5*5) = 4/25
+w #o:  2  -- S() = 2/(3*5) = 2/15
+w #h:  1  -- S() = 1/(3*1) = 1/3 << 
+\end{verbatim}
+\subsubsection{Tokenization Result}
+\verb|1x(ra #w), 2x(h #o #w), 2x(w #o #w), 1x(wh #o)|
+\subsection{BPE Tokenization}
+Given the same corpus as above, compute the first 2 merges using BPE
+
+\subsubsection{Merge Step 1}
+Find the counts of all present token pairs
+\begin{verbatim}
+C: r, a, w, h, o, _
+
+r a  -- 1
+a w  -- 1
+w _  -- 5 << 
+h o  -- 3
+o w  -- 4
+w o  -- 2
+w h  -- 1
+o _  -- 1
+\end{verbatim}
+
+Merge \verb|w_|.
+
+\subsubsection{Merge Step 2}
+\begin{verbatim}
+C: r a w h o _ w_
+
+r a   -- 1
+a w_  -- 1
+h o   -- 3
+o w_  -- 4 <<
+w o   -- 2
+w h   -- 1
+o _   -- 1
+\end{verbatim}
+
+Merge \verb|o w_|.
+
+Final Vocab:
+\begin{verbatim}
+Vocab: r a w h o _ w_ ow_
+
+1x  r a w_
+2x  h ow_
+2x  w ow_
+1x  w h o _
+\end{verbatim}
+
+
+
+
+
+
+\end{multicols*}
+
+\end{document}
