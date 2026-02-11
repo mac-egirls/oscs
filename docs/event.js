@@ -26,7 +26,7 @@ function downloadFile(){
     if (selected.length != 0){
         console.log(selected);
         var link = document.createElement('a');
-        link.href = `https://github.com/err53/oscs/releases/download/latest/${selected[0].innerText}`
+        link.href = `https://github.com/mac-egirls/oscs/releases/download/latest/${selected[0].innerText}`
         link.target = "_blank";
         link.click();
     }else{
@@ -39,7 +39,7 @@ function openFile(){
     if (selected.length != 0){
         console.log(selected);
         var link = document.createElement('a');
-        link.href = `https://api.xianzhaoduan.com/oscs/getPDF?file=${selected[0].innerText}`
+        link.href = `https://github.com/mac-egirls/oscs/releases/download/latest/${selected[0].innerText}`
         link.target = "_blank"
         link.click();
     }else{
@@ -49,7 +49,7 @@ function openFile(){
 
 function openGitHub(){
     var link = document.createElement('a');
-    link.href = 'https://github.com/err53/oscs'
+    link.href = 'https://github.com/mac-egirls/oscs'
     link.target = "_blank"
     link.click();
 }

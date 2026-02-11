@@ -1,9 +1,9 @@
 async function update() {
-    // Fetch all releases and update the <ul> label  
+    // Fetch all releases and update the <ul> label
     var requestOptions = {
         method: 'GET'
     };
-    fetch("https://api.xianzhaoduan.com/oscs/getReleases", requestOptions)
+    fetch("https://api.github.com/repos/mac-egirls/oscs/releases", requestOptions)
     .then(res => res.json().then(
         data => {
             console.log(data);
