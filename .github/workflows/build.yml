@@ -17,12 +17,51 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+      - name: Install TeX Live
+        uses: TeX-Live/setup-texlive-action@v3
         with:
-          root_file: "**/*.tex"
-          glob_root_file: true
-          work_in_root_file_dir: true
+          packages: |
+            scheme-basic
+            latexmk
+            extsizes
+            booktabs
+            braket
+            clrscode3e
+            courier
+            derivative
+            enumitem
+            l3backend
+            listings
+            mathpartir
+            mdwtools
+            multirow
+            pgf
+            physics
+            setspace
+            siunitx
+            soul
+            svg
+            tabulary
+            ulem
+            wrapfig
+            xcolor
+            collection-fontsrecommended
+
+      - name: Compile LaTeX documents
+        run: |
+          find . -name '*.tex' -not -path './template/*' -not -path './site/*' -print0 \
+            | xargs -0 -I{} -P $(nproc) sh -c '
+                dir=$(dirname "{}")
+                file=$(basename "{}")
+                echo "::group::Compiling {}"
+                cd "$dir" && latexmk -pdf -interaction=nonstopmode -halt-on-error "$file" 2>&1
+                status=$?
+                echo "::endgroup::"
+                if [ $status -ne 0 ]; then
+                  echo "::error file={}::LaTeX compilation failed for {}"
+                  exit 1
+                fi
+              '
 
       - name: Create release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -38,7 +77,7 @@ jobs:
       - name: Organize PDFs for site
         run: |
           mkdir -p pdfs
-          find . -name "*.pdf" -not -path "./site/*" -not -path "./pdfs/*" | while read -r pdf; do
+          find . -name "*.pdf" -not -path "./site/*" -not -path "./pdfs/*" -not -path "./template/*" | while read -r pdf; do
             dir=$(dirname "$pdf" | sed 's|^\./||')
             mkdir -p "pdfs/$dir"
             cp "$pdf" "pdfs/$dir/"
