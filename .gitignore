@@ -405,3 +405,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,visualstudiocode,latex
+
+### Astro site ###
+site/node_modules/
+site/dist/
+site/.astro/
+site/public/pdfs/

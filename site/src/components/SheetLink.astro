@@ -1,0 +1,19 @@
+---
+interface Props {
+  label: string;
+  dir: string;
+  pdf: string;
+}
+
+const { label, dir, pdf } = Astro.props;
+const viewUrl = `${import.meta.env.BASE_URL}/pdfs/${dir}/${pdf}.pdf`;
+const downloadUrl = `https://github.com/mac-egirls/oscs/releases/download/latest/${pdf}.pdf`;
+---
+
+<li class="sheet-row">
+  <span class="sheet-label">{label}</span>
+  <span class="sheet-actions">
+    <a class="btn btn-view" href={viewUrl} target="_blank" rel="noopener">View</a>
+    <a class="btn btn-download" href={downloadUrl} download>Download</a>
+  </span>
+</li>

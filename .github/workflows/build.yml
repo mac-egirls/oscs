@@ -1,21 +1,31 @@
-name: Build LaTeX document
+name: Build & Deploy
+
 on:
   push:
     branches:
-    - main
+      - main
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: "**/*.tex"
           glob_root_file: true
           work_in_root_file_dir: true
-      - uses: "marvinpinto/action-automatic-releases@latest"
+
+      - name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
@@ -24,4 +34,62 @@ jobs:
           files: |
             LICENSE
             **/*.pdf
-          
+
+      - name: Organize PDFs for site
+        run: |
+          mkdir -p pdfs
+          find . -name "*.pdf" -not -path "./site/*" -not -path "./pdfs/*" | while read -r pdf; do
+            dir=$(dirname "$pdf" | sed 's|^\./||')
+            mkdir -p "pdfs/$dir"
+            cp "$pdf" "pdfs/$dir/"
+          done
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: pdfs/
+
+  build_site:
+    needs: build_latex
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pdfs
+          path: site/public/pdfs
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: site
+
+      - name: Build site
+        run: npm run build
+        working-directory: site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build_site
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

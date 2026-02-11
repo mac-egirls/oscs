@@ -1,0 +1,20 @@
+---
+import SheetLink from "./SheetLink.astro";
+import type { Course } from "../data/courses";
+
+interface Props {
+  course: Course;
+}
+
+const { course } = Astro.props;
+---
+
+<div class="course-card">
+  <div class="course-code">{course.code}</div>
+  <div class="course-name">{course.name}</div>
+  <ul class="sheet-list">
+    {course.sheets.map((sheet) => (
+      <SheetLink label={sheet.label} dir={course.dir} pdf={sheet.pdf} />
+    ))}
+  </ul>
+</div>

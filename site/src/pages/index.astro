@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import CourseCard from "../components/CourseCard.astro";
+import Footer from "../components/Footer.astro";
+import { departments, getCoursesByDepartment } from "../data/courses";
+---
+
+<Layout title="OSCS — Open Source Cheat Sheets">
+  <Header />
+  <main class="main-content">
+    {departments.map((dept) => {
+      const deptCourses = getCoursesByDepartment(dept.id);
+      if (deptCourses.length === 0) return null;
+      return (
+        <section class="dept-section">
+          <h2 class="dept-heading">{dept.name}</h2>
+          <div class="card-grid">
+            {deptCourses.map((course) => (
+              <CourseCard course={course} />
+            ))}
+          </div>
+        </section>
+      );
+    })}
+  </main>
+  <Footer />
+</Layout>
