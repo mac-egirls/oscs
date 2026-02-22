@@ -44,6 +44,7 @@ const { title } = Astro.props;
         frame.src = url;
         newTab.href = url;
         modal.showModal();
+        document.body.style.overflow = 'hidden';
       });
 
       closeBtn.addEventListener('click', () => {
@@ -56,6 +57,10 @@ const { title } = Astro.props;
           modal.close();
           frame.src = '';
         }
+      });
+
+      modal.addEventListener('close', () => {
+        document.body.style.overflow = '';
       });
     </script>
   </body>
