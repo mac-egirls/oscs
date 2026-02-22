@@ -28,6 +28,9 @@ which gives you GitHub Pro.
 2. [Setup Docker and Devcontainer Plugin](https://code.visualstudio.com/docs/devcontainers/containers)
 3. (Re)open repository in a Devcontainer
 
+The devcontainer uses a minimal TeX Live base image and installs only the packages listed in `tl_packages`.
+If your `.tex` file requires a package not already listed there, add it to `tl_packages` and rebuild the container.
+
 ## Local Baremetal Setup
 1. [Install VS Code](https://code.visualstudio.com)
 2. [Install LaTeX Locally](https://www.latex-project.org/get)
