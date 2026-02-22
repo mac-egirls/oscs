@@ -2,7 +2,9 @@ version: "3.2"
 
 services:
   vscode:
-    build: .
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
     volumes:
       - ../:/workspace
       # Docker socket to access Docker server
