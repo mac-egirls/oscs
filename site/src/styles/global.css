@@ -185,6 +185,10 @@ a:hover {
   border-radius: 4px;
   transition: background 0.15s, color 0.15s;
   white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
 }
 
 .btn-view {
@@ -224,6 +228,49 @@ a:hover {
 
 .footer-inner p {
   margin-bottom: 0.25rem;
+}
+
+/* PDF Modal */
+.pdf-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0;
+  width: 90vw;
+  height: 90vh;
+  max-width: 90vw;
+  max-height: 90vh;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.pdf-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.pdf-modal-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.pdf-modal-frame {
+  flex: 1;
+  width: 100%;
+  border: none;
 }
 
 /* Responsive */

@@ -22,5 +22,41 @@ const { title } = Astro.props;
   </head>
   <body>
     <slot />
+
+    <dialog id="pdf-modal" class="pdf-modal">
+      <div class="pdf-modal-header">
+        <a id="pdf-modal-newtab" class="btn btn-download" href="#" target="_blank" rel="noopener">Open in new tab</a>
+        <button class="btn btn-download" id="pdf-modal-close" aria-label="Close">✕</button>
+      </div>
+      <iframe id="pdf-modal-frame" class="pdf-modal-frame" src="" title="PDF Viewer"></iframe>
+    </dialog>
+
+    <script>
+      const modal = document.getElementById('pdf-modal') as HTMLDialogElement;
+      const frame = document.getElementById('pdf-modal-frame') as HTMLIFrameElement;
+      const newTab = document.getElementById('pdf-modal-newtab') as HTMLAnchorElement;
+      const closeBtn = document.getElementById('pdf-modal-close') as HTMLButtonElement;
+
+      document.addEventListener('click', (e) => {
+        const btn = (e.target as Element).closest('[data-pdf-url]') as HTMLElement | null;
+        if (!btn) return;
+        const url = btn.dataset.pdfUrl!;
+        frame.src = url;
+        newTab.href = url;
+        modal.showModal();
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.close();
+        frame.src = '';
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.close();
+          frame.src = '';
+        }
+      });
+    </script>
   </body>
 </html>
