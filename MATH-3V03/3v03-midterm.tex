@@ -110,9 +110,12 @@
 \begin{multicols*}{4}
 	\section{Fundamental Definitions}
 	\textbf{Order/Size}: Order $|V|$, Size $|E|$ (number of edges). \\
+	\textbf{Walk}: Alternating sequence of vertices/edges $A_1, e_1, A_2, \dots$ where $e_i$ is incident to $A_{i-1}, A_i$. \\
+	\textbf{Open/Closed walk}: Open if $A_1 \ne A_n$; closed if $A_1 = A_n$ (it's a cycle). Length = number of edges. \\
 	\textbf{Trail}: A walk with no repeated edges. \\
 	\textbf{Closed Trail/Circuit}: A trail where endpoints are the same vertex. \\
 	\textbf{Path}: A trail where no vertex is repeated (except potentially endpoints in cycle). \\
+	\textbf{Closed Path}: A path whose endpoints are the same vertex. \\
 	\textbf{Loop}: a self loop (cycle of length 1). Loops count twice when counting degrees.\\
 	\textbf{Lune}: cycle of length 2 \\
 	\textbf{Cycle}: A path whose endpoints are the same. Graphs are at least 3 cycles. Pseudographs can have a length 1 or 2 cycle, called a loop or loon. \\
@@ -208,12 +211,6 @@
 	\section{Multigraphs \& Pseudographs}
 	\textbf{Multigraph}: Allows multiple edges between vertices. \\
 	\textbf{Pseudograph}: Allows multiple edges and self-loops. \\
-	\textbf{Walk}: Alternating sequence of vertices/edges $A_1, e_1, A_2, \dots$ where $e_i$ is incident to $A_{i-1}, A_i$. \\
-	\textbf{Open/Closed walk}: Open if $A_1 \ne A_n$; closed if $A_1 = A_n$ (it's a cycle). Length = number of edges. \\
-	\textbf{Trail}: A walk with no repeated edges. \\
-	\textbf{Closed trail/Circuit}: trail whose endpoints are the same vertex. \\
-	\textbf{Path}: A pseudograph trail with no repeated vertices. \\
-	\textbf{Closed Path}: A path whose endpoints are the same vertex. \\
 	\textbf{Eulerian Circuit}: Trail containing every edge in $G$. \\
 	\textbf{Theorem 3.1.1}: If pseudograph $G$ has eulerian circuit, then $G$ is connected and the degree of every vertex is even. \\
 	\textbf{Theorem 3.1.2}: If a pseudograph $G$ is connected, and the degree of every vertex of $G$ is even, then $G$ has an eulerian circuit. \\
