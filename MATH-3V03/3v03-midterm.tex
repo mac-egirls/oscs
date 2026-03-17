@@ -238,6 +238,39 @@
 	\textbf{Theorem}: If $G_1$ and $G_2$ are isomorphic, then $G_1$ and $G_2$ have the same number of vertices, edges, and degree sequence. \\
 
 	\textbf{Infinite Lattice Graph $L_2$}: vertices are all points in a plane whose coordinates are both itnegers, and two vertices are adjacent if they have geometric distance equal to one. \\
+
+	\section{Counting}
+	\textbf{Problem.} \textit{How many subgraphs isomorphic to $K_{1,3}$ are in $K_n$?} Choose 4 vertices from $n$ vertices: $nC4$. Every choice has 4 possibilities to form $K_{1,3}$ subgraph. So answer is $4 nC4$. \\
+	\textbf{Problem.} \textit{How many 1-factors are there in $K_{2h}$?} There are $2h-1$ first pairs, $2h-3$ second pairs, so $(2h-1)(2h-3)(2h-5) \cdots (3)(1)$ possible pair combinations. Then multiply and divide by $(2h-2)(2h-4) \cdots (4)(2) = 2^{h-1}(h-1)!$ to get $(2h-1)!/(2^{h-1}(h-1)!)$. \\
+	% giving up on this one since it's too long and requires an identity with $e$.
+	% \textbf{Problem.} \textit{How many 1-factors are in the graph $G = K_{n,n}$ minus a 1-factor?} Also called the derangements of $n$ objects. Let $D_n$ denote the number of derangements. Clearly, $D_1 = 0$ and $D_2 = 1$. Denote a node $a$ to be coloured red, and $a'$ to be its blue counterpart. Then the number of 1-factors containing $ij'$ and $ji'$ are $D_{n-1}$, so $(n-1)D_{n-2}$ possibilities. And 1-factors containing $ij'$ but not $ji'$ are $D_{n-1}$ possibilities, so $(n-1)D_{n-1}$ possiblities. Then $D_n = (n-1)(D_{n-1} + D_{n-2}) \Rightarrow D_n - nD_{n-1} = -(D_{n-1} - (n-1)D_{n-2})$. Substiting $n := n-1$, which is $D_{n-1} - (n-1)D_{n-2} = -(D_{n-2} - (n-2)D_{n-3})$, we get $D_n - nD_{n-1} = (-1)^2(D_{n-2} - (n-2)D_{n-3})$ and repetition will get $D_{n} - nD_{n-1} = (-1)n^{-2}(D_2 - D_1) = (-1)^{n-2} = (-1)^n$ so we have $D_n = nD_{n-1} + (-1)^n$. Dividing by $n! = (n-1)!n, we get
+	\section{Spanning Trees}
+	\textbf{Theorem 5.2.1.} The number of spanning trees in $K_n$ is $s(K_n) = n^{n-2}$.
+	\textbf{Constructing a sequence}:
+	\begin{enumerate}
+		\item Identify all the leaves (vertices with degree 1) currently in the tree.
+		\item Select the leaf with the smallest label.
+		\item Find the unique vertex adjacent to this leaf and add that neighbor's label to the sequence.
+		\item Remove the selected leaf and its incident edge from the tree.
+		\item Repeat steps 1 through 4 until only two vertices and one edge remain.
+		\item The resulting list of recorded labels is the sequence of length $n-2$.
+	\end{enumerate}
+	\textbf{Theorem.} The number of spanning trees in a complete bipartite graph $K_{m,n}$ is $s(K_{m,n} = m^{n-1}n^{m-1})$ \\
+	\textbf{Theorem 5.3.1.} the number of spanning trees in the graph $K_{2,n}$ is $n2^{n-1}$. \\
+	\textbf{Proof.} For the unique case $K_{3, n}$: There are three blue vertices $a, b,$ and $c$, and $n$ red vertices.
+
+	In any spanning tree of $K_{3, n}$ either each of the pairs $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ has distance two as in Figure 5.3.2, or one of the pairs has distance four as in Figure 5.3.3. \\
+	\includegraphics[width=0.45\linewidth]{figure-5.3.2.png} \includegraphics[width=0.5\linewidth]{figure-5.3.3.png} \\
+	We count the number of spanning trees in Figure 5.3.2. There are $n$ ways to choose the vertex $x$. For each of the remaining $n-1$ red vertices, there are three possibilities. Each is either adjacent to $a$, to $b$, or to $c$. Thus there are $n 3^{n-1}$ spanning trees with each pair $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ having distance two.
+
+	For Figure 5.3.3, if the points $y$ and $z$ are chosen, there are six possibilities for the path of length four, since there are three ways to choose the center point (in the figure, $b$), and $y$ and $z$ can be interchanged. There are $\binom{n}{2} = \frac{n(n-1)}{2}$ ways to choose the pair $y$ and $z$, and for each of the remaining $n-2$ red vertices there are again three possibilities. Hence for Figure 5.3.3 there are $6 \frac{n(n-1)}{2} 3^{n-2} = n(n-1) 3^{n-1}$ different spanning trees. So the total number is $n 3^{n-1} + n(n-1) 3^{n-1} = n^2 3^{n-1}$.
+
+	\section{Magic Graphs}
+	\textbf{Magic Graph:} $G$ is magic if the edges of $G$ can be labeled by the numbers $1,2,3,\dots, q$ so that the sum of the labels of all the edges incident with any vertex is the same. \\
+
+	\textbf{Theorem 6.1.1.} $K_{n,n}$ is magic for $n \ne 2$.
+	\textbf{Theorem 6.1.2.} If a bipartite graph $G$ is decomposable into two Hamilton cycles, then $G$ is magic.
+
 \end{multicols*}
 
 \end{document}
