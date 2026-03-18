@@ -257,20 +257,40 @@
 	\end{enumerate}
 	\textbf{Theorem.} The number of spanning trees in a complete bipartite graph $K_{m,n}$ is $s(K_{m,n} = m^{n-1}n^{m-1})$ \\
 	\textbf{Theorem 5.3.1.} the number of spanning trees in the graph $K_{2,n}$ is $n2^{n-1}$. \\
-	\textbf{Proof.} For the unique case $K_{3, n}$: There are three blue vertices $a, b,$ and $c$, and $n$ red vertices.
+	% \textbf{Proof.} For the unique case $K_{3, n}$: There are three blue vertices $a, b,$ and $c$, and $n$ red vertices.
 
-	In any spanning tree of $K_{3, n}$ either each of the pairs $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ has distance two as in Figure 5.3.2, or one of the pairs has distance four as in Figure 5.3.3. \\
-	\includegraphics[width=0.45\linewidth]{figure-5.3.2.png} \includegraphics[width=0.5\linewidth]{figure-5.3.3.png} \\
-	We count the number of spanning trees in Figure 5.3.2. There are $n$ ways to choose the vertex $x$. For each of the remaining $n-1$ red vertices, there are three possibilities. Each is either adjacent to $a$, to $b$, or to $c$. Thus there are $n 3^{n-1}$ spanning trees with each pair $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ having distance two.
+	% In any spanning tree of $K_{3, n}$ either each of the pairs $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ has distance two as in Figure 5.3.2, or one of the pairs has distance four as in Figure 5.3.3. \\
+	% \includegraphics[width=0.45\linewidth]{figure-5.3.2.png} \includegraphics[width=0.5\linewidth]{figure-5.3.3.png} \\
+	% We count the number of spanning trees in Figure 5.3.2. There are $n$ ways to choose the vertex $x$. For each of the remaining $n-1$ red vertices, there are three possibilities. Each is either adjacent to $a$, to $b$, or to $c$. Thus there are $n 3^{n-1}$ spanning trees with each pair $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ having distance two.
 
-	For Figure 5.3.3, if the points $y$ and $z$ are chosen, there are six possibilities for the path of length four, since there are three ways to choose the center point (in the figure, $b$), and $y$ and $z$ can be interchanged. There are $\binom{n}{2} = \frac{n(n-1)}{2}$ ways to choose the pair $y$ and $z$, and for each of the remaining $n-2$ red vertices there are again three possibilities. Hence for Figure 5.3.3 there are $6 \frac{n(n-1)}{2} 3^{n-2} = n(n-1) 3^{n-1}$ different spanning trees. So the total number is $n 3^{n-1} + n(n-1) 3^{n-1} = n^2 3^{n-1}$.
+	% For Figure 5.3.3, if the points $y$ and $z$ are chosen, there are six possibilities for the path of length four, since there are three ways to choose the center point (in the figure, $b$), and $y$ and $z$ can be interchanged. There are $\binom{n}{2} = \frac{n(n-1)}{2}$ ways to choose the pair $y$ and $z$, and for each of the remaining $n-2$ red vertices there are again three possibilities. Hence for Figure 5.3.3 there are $6 \frac{n(n-1)}{2} 3^{n-2} = n(n-1) 3^{n-1}$ different spanning trees. So the total number is $n 3^{n-1} + n(n-1) 3^{n-1} = n^2 3^{n-1}$.
 
 	\section{Magic Graphs}
 	\textbf{Magic Graph:} $G$ is magic if the edges of $G$ can be labeled by the numbers $1,2,3,\dots, q$ so that the sum of the labels of all the edges incident with any vertex is the same. \\
 
-	\textbf{Theorem 6.1.1.} $K_{n,n}$ is magic for $n \ne 2$.
-	\textbf{Theorem 6.1.2.} If a bipartite graph $G$ is decomposable into two Hamilton cycles, then $G$ is magic.
+	\textbf{Theorem 6.1.1.} $K_{n,n}$ is magic for $n \ne 2$. \\
+	\textbf{Theorem 6.1.2.} If a bipartite graph $G$ is decomposable into two Hamilton cycles, then $G$ is magic. \\
+	\textbf{Theorem 6.1.3.} If a graph $G$ is decomposable into two magic spanning subgraphs $G_1$ and $G_2$ where $G_2$ is regular, then $G$ is magic. \\
+	\textbf{Theorem:} sum of labels at any given vertex is different from the sum of the labels at any other vertex \\
+	\textbf{Conjecture:} Every connected graph different from $K_2$ is antimagic.
 
+	\section{Graceful graphs/trees}
+	\textbf{Graceful Graphs:} A tree is graceful if the label on any edge equals the difference between the labels of the two endpoints. Vertices must be labled $1,2,3,\dots,n$ and edges $1,2,3,\dots,n-1$. \\
+	\textbf{Theorem 6.1.4.} if a tree $T$ with $n$ edges is graceful, then the complete graph $K_{2n+1}$ is decomposable into $2n+1$ trees, each isomorphic to the given tree $T$. \\
+	\textbf{Consecutive Labeling:} tree $T$ is consecutive if its vertices and edges can be labeled with the numbers $1,2,3,\dots, 2n-1$ s.t. every edge label equals diff of labels of its two incident vertices. \\
+	\textbf{Theorem 6.1.5.} if a tree $T$ is graceful, then $T$ is consecutive. \textbf{Proof:} relable all vertices $k$ with $2k-1$ and recalculate edges to get a consecutive graph.
+
+	\section{Conservative Graphs}
+	\textbf{Semantics:} Labels on a directed graph add when label is on an in edge, and subtract on an out edge \\
+	\textbf{Conservative Graph/Kirchhoff's Current Law:} In a directed labeling of a conservative graph, the sum of the incoming labels is equal to the sum of the outgoing labels at each vertex. \\
+	\textbf{Theorem 6.2.1.} If $G$ is decomposable into two Hamilton cycles, then $G$ is conservative and strongly conservative. \\
+	\textbf{Kirchhoff's Global Current Law:} If $G$ is a labeled, directed graph such that Kirchhoff's Current Law holds at every vertex of $G$ except a particular vertex $a$, then Kirchhoff's Current Law also holds at vertex $a$. \\
+	\textbf{Strongly Conservative:} A graph $G$ is strongly conservative if for every number $h$ there exists a directed labeling of the edges of $G$ with numbers $h+1, h+2, \dots, h+|E|$ s.t. Kirchhoff's Current Law holds at every vertex. \\
+	\textbf{Theorem 6.2.3.} If $G$ is decomposable into two subgraphs $H_1$ and $H_2$, and if $H_1$ is conservative, and $H_2$ is strongly conservative, then $G$ is conservative. Moreover, if both $H_1$ and $H_2$ are strongly conservative, then $G$ is strongly conservative. \\
+	\textbf{Theorem 6.2.4.} If graph $G$ has $n$ vertices with $n$ odd, and $G$ is decomposable into three Hamilton cycles, then $G$ is strongly conservative. \\
+	\textbf{Theorem 6.2.5.} If $n$ is odd, $n \ge 5$, then $K_n$ is conservative. \\
+	\textbf{Theorem 6.2.6.} For $n \ge 3$, the wheel with $n$ spokes, $W_n$, is conservative. \\
+	\textbf{Theorem 6.2.7.} If $n$ is even, $n \ge 4$, then $K_n$ is conservative. \\
 \end{multicols*}
 
 \end{document}
