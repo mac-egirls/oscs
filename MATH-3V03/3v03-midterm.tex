@@ -170,8 +170,8 @@
 	\textbf{One-way Eurlerian trail}: Exists in an infinite lattice graph with one endpoint and includes every edge exactly once. Starting vertex has odd degree and everything else has even degree. \\
 	\textbf{Hamiltonian Cycle}: Cycle containing every vertex. \\
 	\textbf{Hamiltonian Path}: Path containing every vertex. \\
-	\textbf{Hamilton line}: A Hamilton cycle in an infinite lattice graph. It is a connected 2-factor that's spanning path without an end.
-	\textbf{One-way Hamiltonian path}: Exists in an infinite lattice graph and starts at $z$ and has an infinite length and passes through every vertex of the graph.
+	\textbf{Hamilton line}: A Hamilton cycle in an infinite lattice graph. It is a connected 2-factor that's spanning path without an end. \\
+	\textbf{One-way Hamiltonian path}: Exists in an infinite lattice graph and starts at $z$ and has an infinite length and passes through every vertex of the graph. \\
 	\textbf{Theorem 2.3.1: $K_{2n+1}$} has a decomposition into $n$ Hamiltonian cycles (cannot have all Hamilton cycles for $K_{2n}$). \\
 	\textbf{Theorem 2.3.2 and 2.3.3: $K_{2n}$} decomposable into $n-1$ Hamilton cycles and a 1-factor, or into $n$ Hamilton paths. \\
 	\textbf{Theorem 2.3.4: $K_{2n}$} has a decomposition into $2n-1$ regular paths consistent of one path of each length $k$ for $k = 1, 2, 3, \dots, 2n-1$. \\
@@ -183,18 +183,18 @@
 	\textbf{Complete Bipartite}: $K_{m,n}$ all vertices in a group of $m$ are adjacent to all vertices of a graph with $n$. \\
 	\textbf{$k$-partite graph}: a graph where the vertices are partitioned into $k$ sets, and no two vertices in the same set are adjacent. \\
 
-	\section{Vertex Coloring}
-	\textbf{Vertex Coloring}: Assignment of colors to vertices s.t. adjacent vertices receive different colours. \\
-	\textbf{Chromatic Number} $\chi(G)$: Least number of colours needed to colour $G$. \\
-	\textbf{Strategy to prove $\chi(G) = k$}: (1) Find a $k$-colouring. (2) Prove colouring with $\le k-1$ colours is impossible. \\
-	\textbf{Critical}: $G$ is critical if $\chi(H) < \chi(G)$ for all proper subgraphs $H$ of $G$. \\
-	\textbf{Theorem}: Every graph $G$ has a critical subgraph $H$ s.t. $\chi(H) = \chi(G)$. \\
-	\textbf{Theorem}: If $G$ is critical, then $\forall v \in V$, $\deg v \ge \chi(G) - 1$. \\
-	\textbf{Theorem}: If $G$ is critical, then $(\chi(G) - 1)|V| \le 2|E|$. \\
-	\textbf{Theorem 4.1.1}: The largest graph with $n$ vertices and chromatic number $k$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
-	\textbf{Theorem 4.1.2 (Turan)}: The largest graph with $n$ vertices that contains no subgraph isomorphic to $K_{k+1}$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
-	\textbf{Theorem 4.1.2$^*$}: The largest graph with $n$ vertices that contains no triangle is the complete bipartite graph $K_{n_1, n_2}$ with $n = n_1 + n_2$ and $|n_1 - n_2| \le 1$. (special case of Turan where $k = 2$) \\
-	\textbf{Lemma 4.1.3}: If $G$ is a graph on $n$ vertices that contains no $K_{k+1}$, then there is a $k$-partite graph $H$ with the same vertex set as $G$ such that $\deg_G(z) \le \deg_H(z)$ for every vertex $z$ of $G$.
+	% \section{Vertex Coloring}
+	% \textbf{Vertex Coloring}: Assignment of colors to vertices s.t. adjacent vertices receive different colours. \\
+	% \textbf{Chromatic Number} $\chi(G)$: Least number of colours needed to colour $G$. \\
+	% \textbf{Strategy to prove $\chi(G) = k$}: (1) Find a $k$-colouring. (2) Prove colouring with $\le k-1$ colours is impossible. \\
+	% \textbf{Critical}: $G$ is critical if $\chi(H) < \chi(G)$ for all proper subgraphs $H$ of $G$. \\
+	% \textbf{Theorem}: Every graph $G$ has a critical subgraph $H$ s.t. $\chi(H) = \chi(G)$. \\
+	% \textbf{Theorem}: If $G$ is critical, then $\forall v \in V$, $\deg v \ge \chi(G) - 1$. \\
+	% \textbf{Theorem}: If $G$ is critical, then $(\chi(G) - 1)|V| \le 2|E|$. \\
+	% \textbf{Theorem 4.1.1}: The largest graph with $n$ vertices and chromatic number $k$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
+	% \textbf{Theorem 4.1.2 (Turan)}: The largest graph with $n$ vertices that contains no subgraph isomorphic to $K_{k+1}$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
+	% \textbf{Theorem 4.1.2$^*$}: The largest graph with $n$ vertices that contains no triangle is the complete bipartite graph $K_{n_1, n_2}$ with $n = n_1 + n_2$ and $|n_1 - n_2| \le 1$. (special case of Turan where $k = 2$) \\
+	% \textbf{Lemma 4.1.3}: If $G$ is a graph on $n$ vertices that contains no $K_{k+1}$, then there is a $k$-partite graph $H$ with the same vertex set as $G$ such that $\deg_G(z) \le \deg_H(z)$ for every vertex $z$ of $G$.
 
 	\section{Edge Coloring}
 	\textbf{Proper Edge Coloring}: Assignment of colors to edges of $G$ s.t. adjacent edges receive unequal colors. \\
@@ -222,10 +222,10 @@
 
 	\section{Special Graphs}
 	\textbf{Petersen Graph}: The unique 5-cage; cubic bridgeless. Decomposes into a 1-factor and a 2-factor. \\
-	\includegraphics[width=0.5\linewidth]{petersen-graph.png} \\
-	\textbf{Snark}: 3-regular graph with edge chromatic number 4. A snark has no Hamiltonian cycle. \\
-	\textbf{Heawood Graph}: The unique 6-cage (smallest cubic graph with girth 6). \\
+	\includegraphics[width=0.45\linewidth]{petersen-graph.png}
 	\includegraphics[width=0.5\linewidth]{heawood-graph.png} \\
+	\textbf{Snark}: 3-regular graph with edge chromatic number 4. A snark has no Hamiltonian cycle. \\
+	\textbf{Heawood Graph}: The unique 6-cage (smallest cubic graph with girth 6). Figure 4.2.4. \\
 	\textbf{$k$-regular graph}: a graph where every vertex has degree $k$ \\
 	\textbf{Cages}: Smallest cubic graph with girth $g$. \\
 	\textbf{Circle} $C_n$: $n$ vertices in a cycle. \\
@@ -256,7 +256,6 @@
 		\item The resulting list of recorded labels is the sequence of length $n-2$.
 	\end{enumerate}
 	\textbf{Theorem.} The number of spanning trees in a complete bipartite graph $K_{m,n}$ is $s(K_{m,n} = m^{n-1}n^{m-1})$ \\
-	\textbf{Theorem 5.3.1.} the number of spanning trees in the graph $K_{2,n}$ is $n2^{n-1}$. \\
 	% \textbf{Proof.} For the unique case $K_{3, n}$: There are three blue vertices $a, b,$ and $c$, and $n$ red vertices.
 
 	% In any spanning tree of $K_{3, n}$ either each of the pairs $\{a, b\}$, $\{a, c\}$, and $\{b, c\}$ has distance two as in Figure 5.3.2, or one of the pairs has distance four as in Figure 5.3.3. \\
@@ -291,6 +290,46 @@
 	\textbf{Theorem 6.2.5.} If $n$ is odd, $n \ge 5$, then $K_n$ is conservative. \\
 	\textbf{Theorem 6.2.6.} For $n \ge 3$, the wheel with $n$ spokes, $W_n$, is conservative. \\
 	\textbf{Theorem 6.2.7.} If $n$ is even, $n \ge 4$, then $K_n$ is conservative. \\
+
+	\section{Spanning Tree Algorithms}
+	\textbf{Algo for unweighted graph:}
+	\begin{enumerate}
+		\item Start with any edge $e$ and add it and its endpoints to the tree
+		\item Check whether the neighbors of the vertices in the tree are in the tree. If not, add them and their incident edges to the tree.
+		\item Repeat until all vertices are in the tree.
+	\end{enumerate}
+	\textbf{Algo for weighted graph (Kruskal's):}
+	\begin{enumerate}
+		\item Select the edge with the smallest weight. If it does not create a cycle, add it to the tree.
+		\item Repeat until all vertices are in the tree.
+	\end{enumerate}
+	\section{Matching}
+	\textbf{Matching}: A matching in a bipartite graph is a subgraph that is regular with degree 1. \\
+	\textbf{M-Alternating Path}: Given a matching M, an M-alternating path is a path that alternates between edges in M and edges not in M. \\
+	\textbf{M-Augmenting Path}: An M-alternating path that joins two unmatched vertices. \\
+	\textbf{Theorem}: A matching M is maximal if and only if there are no M-augmenting paths. \\
+	\textbf{Hungarian Algorithm}: A greedy algorithm to find a maximal matching in a bipartite graph.
+	\begin{enumerate}
+		\item Start with any matching M.
+		\item Find an M-augmenting path.
+		\item Add the edges in the M-augmenting path to the matching and remove the edges that are in the path from the matching.
+		\item Repeat until no M-augmenting paths are found.
+	\end{enumerate}
+	\section{Binary Trees \& Prefix Codes}
+	\textbf{Rooted Tree}: A directed tree with a root node with indegree 1. \\
+	\textbf{Binary Tree}: A rooted tree where every vertex has outdegree at most 2. \\
+	\textbf{Alphabet}: A finite set of symbols. \\
+	\textbf{Code}: A set of sequences of symbols from an alphabet \\
+	\textbf{Prefix Code}: A code where no codeword is a prefix of another cdeword. \\
+	\textbf{Prefix Code Tree}: A binary tree with left edges labeled 0 and right edges labeled 1, paths from the root to a leaf form the codewords in a prefix code. \\
+	\textbf{Weighted Binary Tree}: A binary tree where each leaf is assigned a weight equal to how often the symbol appears in the message. The weight of the tree is the sum of the weights of the leaves each multiplied by the depth of the leaf. Minimizing the weight of the tree is equivalent to finding a minimal encoding tree. \\
+	\textbf{Multiset}: A set where elements can appear multiple times. Given a Multiset of weights $M$, a \textbf{minimum weight binary tree} is a binary tree with the minimum weight that encodes the symbols in $M$. \\
+	\textbf{Huffman Algorithm}: A greedy algorithm to find a minimum weight binary tree.
+	\begin{enumerate}
+		\item Select two smallest weights $w_1, w_2$ in $M$. Create parent labeled $w_1 + w_2$ with leaves $w_1, w_2$. Cross out $w_1, w_2$ in $M$; add $w_1 + w_2$ to $M$.
+		\item Repeat: Select two smallest in $M$. If one labels an existing vertex (subtree root), attach that subtree; else create new leaves. Label new vertex with sum, cross out the two in $M$, replace with their sum.
+		\item Stop when $|M| = 1$; $T$ is the minimum-weight binary tree.
+	\end{enumerate}
 \end{multicols*}
 
 \end{document}
