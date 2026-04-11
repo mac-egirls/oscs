@@ -360,6 +360,11 @@
 	\textbf{Map}: A plane drawing of a connected, bridgeless, planar multigraph. \\
 	\textbf{Normal Map}: A map that is cubic. \\
 	\textbf{Country}: A region of a map. Adjacent countries share an edge. \\
+	\textbf{Empire ($m$-pire)}: A collection of $m$ disjoint countries is an empire (or $m$-pire). Two empires are adjacent if they share a common boundary edge. \\
+	\textbf{Figure 9.3.2 (Kim).} A symmetric map of twelve mutually adjacent $2$-pires. \\
+	\textbf{Theorem 9.3.1 (Heawood, 1890).} Every $2$-pire map can be colored with $12$ colors, and there exist $2$-pire maps that require $12$ colors. \\
+	\textbf{Theorem 9.3.2 (Heawood).} Every $m$-pire map can be colored with $6m$ colors. \\
+	\textbf{Theorem 9.3.3 (Heawood, Jackson, Ringel).} For every $m > 1$, there exists a map in the plane with $6m$ mutually adjacent $m$-pires. \\
 	\textbf{Map Coloring Problem}: Color the countries of a map using the fewest colors such that no two adjacent countries have the same color. \\
 	\textbf{Dual}: A multigraph $G(M)$ is a dual of a map $M$ if the vertices of $G(M)$ are the faces of $M$, and two vertices of $G(M)$ are adjacent if and only if the corresponding faces of $M$ share an edge. This multigraph is planar. $G(G(M)) = M$ for $p \ge 4$. \\
 	\textbf{Theorem 8.2.1/3 (Tait)} If a normal map has a coloring of the countries using $4$ colors, then the edges of the map can be properly colored using $3$ colors. Vice versa is also true. \\
@@ -395,6 +400,20 @@
 	\textbf{Theorem 9.1.5.} The crossing number of $K_{m,n}$ satisfies the inequality $cr(K_{m,n}) \le \lfloor m/2 \rfloor \lfloor (m-1)/2 \rfloor \lfloor n/2 \rfloor \lfloor (n-1)/2 \rfloor$ \\
 	\textbf{Theorem 9.1.6.} The crossing number of $K_{3,n}$ is $cr(K_{3,n}) = \lfloor n/2 \rfloor \lfloor (n-1)/2 \rfloor$ \\
 	\textbf{Theorem 9.1.7.} The crossing number of $K_{4,n}$ is $cr(K_{4,n}) = 2 \lfloor n/2 \rfloor \lfloor (n-1)/2 \rfloor$ \\
+
+	\section{Thickness and Splitting Number}
+	\textbf{Thickness} $\theta(G)$: Minimum $t$ such that $G = H_1 \cup \cdots \cup H_t$ where each $H_i$ is planar (union of edge-disjoint planar subgraphs); no decomposition into fewer than $t$ planar subgraphs exists.
+	\textbf{Theorem 9.2.1.} $p,q$ vertices/edges: $\theta(G)\ge q/(3p-6)$. \\
+	\textbf{Theorem 9.2.2.} $G$ bipartite, $p,q$ as above: $\theta(G)\ge q/(2p-4)$. \\
+	\textbf{Theorem 9.2.3.} $\theta(K_n)=\lfloor(n+7)/6\rfloor$ for $n\neq 9,10$; $\theta(K_n)=3$ for $n\in\{9,10\}$. (9.2.1, $n\ge 3$: $\theta(K_n)\ge\lceil n(n-1)/(6(n-2))\rceil=\lfloor(n+7)/6\rfloor$.) \\
+	\textbf{Partial ($K_{m,n}$).} $\theta(K_{m,n})\ge mn/(2(m+n-2))$; if $mn$ even, $\theta(K_{m,n})=\lceil mn/(2(m+n-2))\rceil$ (9.2.2). \\
+	\textbf{Identifying vertices}: Let $u,v \in V(G)$. Build $G'$ by replacing $u$ and $v$ with one new vertex $w$, with $w$ adjacent to every vertex that was adjacent to $u$ or $v$ in $G$. This is \textbf{identifying} $u$ and $v$. (Often the two vertices are denoted by the same symbol before identifying.) \\
+	\textbf{Splitting a vertex}: Replace $w \in V(G)$ by two vertices $u$ and $v$ so $u$ is adjacent to some of $w$'s former neighbors and $v$ to the rest; $u$ and $v$ need not be adjacent. \textbf{Splitting} and \textbf{identifying} are opposite operations. \\
+	\textbf{Splitting number} $\sigma(G)$: Smallest $K$ such that $G$ can be obtained from a planar graph $H$ by $K$ vertex identifications; equivalently, the minimum number of vertex splittings needed to turn $G$ into a planar graph $H$. Such an $H$ is a \textbf{planar splitting} of $G$. \\
+	\textbf{Examples:} $\sigma(K_5)=1$, $\sigma(K_6)=2$, $\sigma(K_7)=3$, $\sigma(K_8)=4$, $\sigma(K_9)=6$. \\
+	\textbf{Theorem 9.2.4 (Hartsfield, Jackson, Ringel).} $n\le 10$: $\sigma(K_n)=\lceil(n-3)(n-4)/6\rceil$. \\
+	\textbf{Theorem 9.2.5 (Jackson, Ringel).} $m,n\ge 2$: $\sigma(K_{m,n})=\lceil(m-2)(n-2)/2\rceil$. \\
+	\textbf{Inequality:} With $p = |V|$, $q = |E|$, $\displaystyle \frac{q - 3p + 6}{3} \le \sigma(G)$.
 
 	\section{Rotations on Graphs}
 	\textbf{Rotation of G}: A rotation ($\rho$) of $G$ is a coloration of vertices of some cubic graph $G$ such that each vertex is black or white. Black vertices indicate clockwise and white vertices indicate counterclockwise. A graph $G$ has $2^{|V|}$ possible rotations.\\
