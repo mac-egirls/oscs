@@ -343,7 +343,7 @@
 	\textbf{Outside Triangle}: The triangle representing the outside of a shape. \\
 	\textbf{Convex}: A region in a plane drawing of a planar graph s.t. whenever any two points on the boundary of or in the region are connected by a straight line segment, the straight line segment lies entirely inside the region. \\
 	\includegraphics[width=0.6\linewidth]{figure-8.4.2.png} \\
-	\textbf{Coin graph}: a graph where every vertex is a coin and two vertices are adjacent iff the coins touch.
+	\textbf{Coin graph}: a graph where every vertex is a coin and two vertices are adjacent iff the coins touch. \\
 	\textbf{Penny graph}: A coin graph where every coin is the same size. \\
 
 	\textbf{Theorem 8.1.1 (Euler's Polyhedral Formula)}: If $G$ is a connected planar graph with $p$ vertices, $q$ edges, and $r$ regions/faces, then $p - q + r = 2$. Proof uses induction on number of cycles in graph.\\
@@ -353,7 +353,7 @@
 	\textbf{Theorem 8.1.5}: If $G$ is a planar bipartite graph with $p$ vertices and $p \geq 3$, then $q \leq 2p - 4$. \\
 	\textbf{Theorem 8.1.7}: Every planar graph has at least one vertex with degree $\leq 5$. \\
 	\textbf{Theorem 8.1.8}: Suppose $G$ is a planar graph with $p \geq 4$. Let $p_i$ be the number of vertices of degree $i$. Then $3p_3 + 2p_4 + p_5 = 12 + p_7 + 2p_8 + 3p_9 + \cdots$. \\
-	\textbf{Theorem 8.4.1. (Wagner).} Every planar graph has a plane drawing where every edge is a straight line. If such a drawing exists, $G$ is \textbf{stretchable}.
+	\textbf{Theorem 8.4.1. (Wagner).} Every planar graph has a plane drawing where every edge is a straight line. If such a drawing exists, $G$ is \textbf{stretchable}. \\
 	\textbf{Theorem 8.4.2. (Koebe).} Every planar graph is a coin graph.
 
 	\section{Country Coloring}
@@ -362,10 +362,6 @@
 	\textbf{Normal Map}: A map that is cubic. \\
 	\textbf{Country}: A region of a map. Adjacent countries share an edge. \\
 	\textbf{Empire ($m$-pire)}: A collection of $m$ disjoint countries is an empire (or $m$-pire). Two empires are adjacent if they share a common boundary edge. \\
-	\textbf{Figure 9.3.2 (Kim).} A symmetric map of twelve mutually adjacent $2$-pires. \\
-	\textbf{Theorem 9.3.1 (Heawood, 1890).} Every $2$-pire map can be colored with $12$ colors, and there exist $2$-pire maps that require $12$ colors. \\
-	\textbf{Theorem 9.3.2 (Heawood).} Every $m$-pire map can be colored with $6m$ colors. \\
-	\textbf{Theorem 9.3.3 (Heawood, Jackson, Ringel).} For every $m > 1$, there exists a map in the plane with $6m$ mutually adjacent $m$-pires. \\
 	\textbf{Map Coloring Problem}: Color the countries of a map using the fewest colors such that no two adjacent countries have the same color. \\
 	\textbf{Dual}: A multigraph $G(M)$ is a dual of a map $M$ if the vertices of $G(M)$ are the faces of $M$, and two vertices of $G(M)$ are adjacent if and only if the corresponding faces of $M$ share an edge. This multigraph is planar. $G(G(M)) = M$ for $p \ge 4$. \\
 	\textbf{Theorem 8.2.1/3 (Tait)} If a normal map has a coloring of the countries using $4$ colors, then the edges of the map can be properly colored using $3$ colors. Vice versa is also true. \\
@@ -379,6 +375,17 @@
 	\textbf{Theorem.} If $M$ is maximal planar map, $p \ge 4$, then $G(M)$ is a normal map.
 	\textbf{Lemma 8.3.1}:No map in the plane has five mutually adjacent countries. Proof: If it did, the dual would contain a subgraph isomorphic to $K_5$, which is not planar. \\
 	\textbf{Five Color Theorem}: The countries of every normal map in the plane can be colored with five colors. \\
+	\textbf{Theorem 9.3.1 (Heawood, 1890).} Every $2$-pire map can be colored with $12$ colors, and there exist $2$-pire maps that require $12$ colors. \\
+	\textbf{Theorem 9.3.2 (Heawood).} Every $m$-pire map can be colored with $6m$ colors. \\
+	\textbf{Theorem 9.3.3 (Heawood, Jackson, Ringel).} For every $m > 1$, there exists a map in the plane with $6m$ mutually adjacent $m$-pires. \\
+	\textbf{Problem.} Find a 2-pire map in the plane with the largest number of 2-pires such that every pair of 2-pires is adjacent twice.
+	\textbf{Solution.} Let $n$ be the number of $2$-pires in the map. Then the dual of the map has $2n$ vertices and $2\binom{n}{2} = n(n-1)$ edges. We know by **Theorem 8.1.3** that $q \leq 3p - 6$, so in this instance $n(n-1) \leq 6n-6 \Rightarrow n^2 - 7n + 6 \leq 0 \Rightarrow (n-1)(n-6) \leq 0$. Since $n-1$ is positive, $n-6 \leq 0$, hence $n \leq 6$. \\
+	\includegraphics[width=0.25\linewidth]{empire-problem1.png}
+	\includegraphics[width=0.35\linewidth]{heawood-twelve.png}
+	\includegraphics[width=0.35\linewidth]{earth-moon.png} \\
+	\textbf{Earth-Moon Problem.} Disconnected places called Earth and Moon. What is the smallest number $k_2$ of colors so that every earth-moon map can be colored by $k_2$ colors? Each $2$-pire must have country on both earth and moon. \\
+	\textbf{Solution.} Find a 2-pire map in the plane with the largest number of 2-pires such that every pair of 2-pires is adjacent twice. See above left most figure. \\
+	\textbf{Problem.} Find a 2-pire map in the plane with the largest number of 2-pires such that every pair of 2-pires is adjacent twice. \textbf{Solution.} See fig-59.
 
 	\section{Measuring Closeness to Planarity}
 	\textbf{Subdivision:} graph $G$ is a subdivision of $H$ if $G$ is $H$ with some vertices of degree 2 added. All graphs are subdivisions of themselves. \\
@@ -420,7 +427,7 @@
 	\textbf{Rotation of G}: A rotation ($\rho$) of $G$ is a coloration of vertices of some cubic graph $G$ such that each vertex is black or white. Black vertices indicate clockwise and white vertices indicate counterclockwise. A graph $G$ has $2^{|V|}$ possible rotations.\\
 	\textbf{Rotations Induce Curcuits}: A rotation $\rho$ induces cicuits in a graph: Start at an edge and travel along it in one of the two directions. If you hit a black vertex, turn clockwise until you find an edge to continue walking along, and counterclockwise if you hit a white vertex. Continue until you return to the same starting edge and direction. NOTE, circuits induced by rotations may have repeated vertices and edges used in both directions.\\
 	\includegraphics[width=0.35\linewidth]{figure-10.1.2.png}
-	\includegraphics[width=0.35\linewidth]{figure-10.1.3.png} \\
+	\includegraphics[width=0.35\linewidth]{figure-10.1.3.png} 	\includegraphics[width=0.25\linewidth]{fig-59.png} \\
 	\textbf{Definition $r(\rho)$}: A rotation $\rho$ partitions $G$ into $r(\rho)$ circuits. Different rotations $\rho$ may induce different numbers of circuits. \\
 	\textbf{Circular Rotation}: A rotation $\rho$ is circular if it induces a single circuit. \\
 	\textbf{Scheme}: A listing of each vertex in a graph where each vertex is numbered and assigned a list of vertices it is adjacent to. Esentially an adjacency list of a graph.\\
@@ -443,10 +450,9 @@
 	\textbf{Theorem 10.2.3}: The complete bipartite graph $K_{3,3}$ is not planar. \\
 	Proof: If $K_{3,3}$ were planar, then it would have a rotation $\rho$ such that $p-q+r(\rho) = 2$. However, $K_{3,3}$ has 6 vertices and 9 edges, so $p-q+r(\rho) = 6-9+r(\rho) = 2$, so $r(\rho) = 5$, which would mean that the average circuit length is $(9*2)/5 = 3.6$ since each edge is used twice (both directions), but the shortest circuit length is 4, so $K_{3,3}$ cannot be planar. \\
 	\textbf{Theorem 10.2.5}: A maximal planar graph $G$ with three or more vertices is connected and has no bridge. \\
-	Proof outline: Suppose $G$ is not connected, we can add an edge to connect two components without creating a crossing, so $G$ was not maximal. Suppose $G$ has a bridge, we can add an edge such that one circuit containing the bridge becomes two circuits, so by the planar rotation definition, adding this edge keeps the graph planar, so$G$ was not maximal. \\
+	% Proof outline: Suppose $G$ is not connected, we can add an edge to connect two components without creating a crossing, so $G$ was not maximal. Suppose $G$ has a bridge, we can add an edge such that one circuit containing the bridge becomes two circuits, so by the planar rotation definition, adding this edge keeps the graph planar, so$G$ was not maximal. \\
 	\textbf{Theorem 10.2.6}: Every planar rotation $\rho$ of a maximal planar graph $G$ has the property that every circuit induced by $\rho$ has length 3. \\
-	Proof outline: Case that length $\geq 5$: In a circuit of length at least 5, at least one pair of vertices is not adjacent, otherwise the graph contains a subgraph isomorphic to $K_5$, which is not planar. create an edge between these two vertices, thereby creating two circuits from one and adding an edge, so this new graph is therefore planar by the planar rotation definition, meaning $G$ was not maximal.\\
-	Case that length $= 4$: In a circuit of length 4, if any two vertices are not adjacent, do the same as previous case. Otherwise, create a new vertex and connect it to all 4 vertices in the cycle, thereby creating 4 circuits from one and adding 4 edges and 1 vertex, so this new graph is therefore planar by the planar rotation definition, meaning $G$ was not maximal.\\
+	% Proof outline: Case that length $\geq 5$: In a circuit of length at least 5, at least one pair of vertices is not adjacent, otherwise the graph contains a subgraph isomorphic to $K_5$, which is not planar. create an edge between these two vertices, thereby creating two circuits from one and adding an edge, so this new graph is therefore planar by the planar rotation definition, meaning $G$ was not maximal.\\ Case that length $= 4$: In a circuit of length 4, if any two vertices are not adjacent, do the same as previous case. Otherwise, create a new vertex and connect it to all 4 vertices in the cycle, thereby creating 4 circuits from one and adding 4 edges and 1 vertex, so this new graph is therefore planar by the planar rotation definition, meaning $G$ was not maximal.\\
 	\textbf{Theorem 10.2.9}: A connected graph that can be drawn in the plane with no crossings has a planar rotation. \textbf{Proof}: Take the plane drawing and assign all vertices black, resulting in a circuit for each region, so by the planar rotation definition, the graph has a planar rotation. \\
 
 	\section{Genus of a Graph}
@@ -454,11 +460,10 @@
 	\textbf{Embeddable}: $G$ embeds in $S_g$ if it can be drawn on $S_g$ with no edge crossings. If $G$ embeds in $S_g$, it embeds in $S_{g+1}$. \\
 	\textbf{Genus} $\gamma(G)$: Minimal $g$ such that $G$ embeds in $S_g$. Then $\gamma(G)=g$ means $G$ embeds in $S_g$ but not in $S_{g-1}$. Planar $\Leftrightarrow$ $\gamma(G)=0$. \\
 	\textbf{Genus (Alternative Definition)}: For connected $G$ and maximal $\rho$, $p-q+r(\rho)=2-2\gamma(G)$ ($g$ nonnegative integer; agrees with planar rotation when $\gamma=0$). E.g.\ $K_7$: $p=7$, $q=21$, $r(\rho)=14$ $\Rightarrow$ $7-21+14=0=2-2(1)$ so $\gamma(K_7)=1$; similarly $\gamma(K_{4,4})=1$. \\
-	\textbf{Mapping onto a Rectangle}: Proof of $\gamma(K_5)=\gamma(K_{3,3})=1$ (torus) \\
-	\includegraphics[width=0.5\linewidth]{figure-10.3.4.png} \\
-	Proof of $\gamma(K_7)=\gamma(K_{4,4})=1$ (torus) \\
-	\includegraphics[width=0.25\linewidth]{figure-10.3.6.png}
-	\includegraphics[width=0.25\linewidth]{figure-10.3.7.png} \\
+	\textbf{Mapping onto a Rectangle}: Proof of $\gamma(K_5)=\gamma(K_{3,3})=\gamma(K_7)=\gamma(K_{4,4})=1$ (torus) \\
+	\includegraphics[width=0.45\linewidth]{figure-10.3.4.png}
+	\includegraphics[width=0.22\linewidth]{figure-10.3.6.png}
+	\includegraphics[width=0.22\linewidth]{figure-10.3.7.png} \\
 	\textbf{Maximal rotation}: $\rho$ is maximal if $r(\rho)$ is as large as possible; when a planar rotation is maximal (Thm 10.1.2: $p-q+r(\rho)\le 2$, even). \\
 	\textbf{Theorem 10.3.1}: If every circuit induced by $\rho$ has length three, then $\rho$ is a maximal rotation. \\
 	\textbf{Theorem 10.3.2}: In a bipartite $G$, if every circuit induced by $\rho$ has length four, then $\rho$ is maximal. \\
