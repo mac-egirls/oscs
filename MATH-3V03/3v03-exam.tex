@@ -224,8 +224,8 @@
 
 	\section{Special Graphs}
 	\textbf{Petersen Graph}: The unique 5-cage; cubic bridgeless. Decomposes into a 1-factor and a 2-factor. \\
-	\includegraphics[width=0.45\linewidth]{petersen-graph.png}
-	\includegraphics[width=0.5\linewidth]{heawood-graph.png} \\
+	\includegraphics[width=0.25\linewidth]{petersen-graph.png}
+	\includegraphics[width=0.35\linewidth]{heawood-graph.png} \\
 	\textbf{Snark}: 3-regular graph with edge chromatic number 4. A snark has no Hamiltonian cycle. \\
 	\textbf{Heawood Graph}: The unique 6-cage (smallest cubic graph with girth 6). Figure 4.2.4. \\
 	\textbf{$k$-regular graph}: a graph where every vertex has degree $k$ \\
@@ -340,7 +340,7 @@
 	\textbf{Face}: A region of the plane that is bounded by edges. \\
 	\textbf{Plane Drawing}: A drawing of the graph in the plane with no crossings. \\
 	\textbf{Outside Triangle}: The triangle representing the outside of a shape. \\
-	\textbf{Convex}: A region in a plane drawing of a planar graph s.t. whenever any two points on the boundary of or in the region are connected by a strait line segment, the straight line segment lies entirely inside the region. \\
+	\textbf{Convex}: A region in a plane drawing of a planar graph s.t. whenever any two points on the boundary of or in the region are connected by a straight line segment, the straight line segment lies entirely inside the region. \\
 	\includegraphics[width=0.6\linewidth]{figure-8.4.2.png} \\
 	\textbf{Coin graph}: a graph where every vertex is a coin and two vertices are adjacent iff the coins touch.
 	\textbf{Penny graph}: A coin graph where every coin is the same size. \\
@@ -413,13 +413,13 @@
 	\textbf{Examples:} $\sigma(K_5)=1$, $\sigma(K_6)=2$, $\sigma(K_7)=3$, $\sigma(K_8)=4$, $\sigma(K_9)=6$. \\
 	\textbf{Theorem 9.2.4 (Hartsfield, Jackson, Ringel).} $n\le 10$: $\sigma(K_n)=\lceil(n-3)(n-4)/6\rceil$. \\
 	\textbf{Theorem 9.2.5 (Jackson, Ringel).} $m,n\ge 2$: $\sigma(K_{m,n})=\lceil(m-2)(n-2)/2\rceil$. \\
-	\textbf{Inequality:} With $p = |V|$, $q = |E|$, $\displaystyle \frac{q - 3p + 6}{3} \le \sigma(G)$.
+	\textbf{Inequality:} With $p = |V|$, $q = |E|$, $(q - 3p + 6)/3 \le \sigma(G)$.
 
 	\section{Rotations on Graphs}
 	\textbf{Rotation of G}: A rotation ($\rho$) of $G$ is a coloration of vertices of some cubic graph $G$ such that each vertex is black or white. Black vertices indicate clockwise and white vertices indicate counterclockwise. A graph $G$ has $2^{|V|}$ possible rotations.\\
 	\textbf{Rotations Induce Curcuits}: A rotation $\rho$ induces cicuits in a graph: Start at an edge and travel along it in one of the two directions. If you hit a black vertex, turn clockwise until you find an edge to continue walking along, and counterclockwise if you hit a white vertex. Continue until you return to the same starting edge and direction. NOTE, circuits induced by rotations may have repeated vertices and edges used in both directions.\\
-	\includegraphics[width=0.45\linewidth]{figure-10.1.2.png}
-	\includegraphics[width=0.45\linewidth]{figure-10.1.3.png}
+	\includegraphics[width=0.35\linewidth]{figure-10.1.2.png}
+	\includegraphics[width=0.35\linewidth]{figure-10.1.3.png} \\
 	\textbf{Definition $r(\rho)$}: A rotation $\rho$ partitions $G$ into $r(\rho)$ circuits. Different rotations $\rho$ may induce different numbers of circuits. \\
 	\textbf{Circular Rotation}: A rotation $\rho$ is circular if it induces a single circuit. \\
 	\textbf{Scheme}: A listing of each vertex in a graph where each vertex is numbered and assigned a list of vertices it is adjacent to. Esentially an adjacency list of a graph.\\
@@ -453,11 +453,11 @@
 	\textbf{Embeddable}: $G$ embeds in $S_g$ if it can be drawn on $S_g$ with no edge crossings. If $G$ embeds in $S_g$, it embeds in $S_{g+1}$. \\
 	\textbf{Genus} $\gamma(G)$: Minimal $g$ such that $G$ embeds in $S_g$. Then $\gamma(G)=g$ means $G$ embeds in $S_g$ but not in $S_{g-1}$. Planar $\Leftrightarrow$ $\gamma(G)=0$. \\
 	\textbf{Genus (Alternative Definition)}: For connected $G$ and maximal $\rho$, $p-q+r(\rho)=2-2\gamma(G)$ ($g$ nonnegative integer; agrees with planar rotation when $\gamma=0$). E.g.\ $K_7$: $p=7$, $q=21$, $r(\rho)=14$ $\Rightarrow$ $7-21+14=0=2-2(1)$ so $\gamma(K_7)=1$; similarly $\gamma(K_{4,4})=1$. \\
-	\textbf{Mapping onto a Rectangle}: Proof of $\gamma(K_5)=\gamma(K_{3,3})=1$ (torus)
-	\includegraphics[width=\linewidth]{figure-10.3.4.png} \\
-	Proof of $\gamma(K_7)=\gamma(K_{4,4})=1$ (torus)
-	\includegraphics[width=0.45\linewidth]{figure-10.3.6.png}
-	\includegraphics[width=0.45\linewidth]{figure-10.3.7.png} \\
+	\textbf{Mapping onto a Rectangle}: Proof of $\gamma(K_5)=\gamma(K_{3,3})=1$ (torus) \\
+	\includegraphics[width=0.5\linewidth]{figure-10.3.4.png} \\
+	Proof of $\gamma(K_7)=\gamma(K_{4,4})=1$ (torus) \\
+	\includegraphics[width=0.25\linewidth]{figure-10.3.6.png}
+	\includegraphics[width=0.25\linewidth]{figure-10.3.7.png} \\
 	\textbf{Maximal rotation}: $\rho$ is maximal if $r(\rho)$ is as large as possible; when a planar rotation is maximal (Thm 10.1.2: $p-q+r(\rho)\le 2$, even). \\
 	\textbf{Theorem 10.3.1}: If every circuit induced by $\rho$ has length three, then $\rho$ is a maximal rotation. \\
 	\textbf{Theorem 10.3.2}: In a bipartite $G$, if every circuit induced by $\rho$ has length four, then $\rho$ is maximal. \\
