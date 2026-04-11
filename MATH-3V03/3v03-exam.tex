@@ -183,18 +183,18 @@
 	\textbf{Complete Bipartite}: $K_{m,n}$ all vertices in a group of $m$ are adjacent to all vertices of a graph with $n$. \\
 	\textbf{$k$-partite graph}: a graph where the vertices are partitioned into $k$ sets, and no two vertices in the same set are adjacent. \\
 
-	% \section{Vertex Coloring}
-	% \textbf{Vertex Coloring}: Assignment of colors to vertices s.t. adjacent vertices receive different colours. \\
-	% \textbf{Chromatic Number} $\chi(G)$: Least number of colours needed to colour $G$. \\
-	% \textbf{Strategy to prove $\chi(G) = k$}: (1) Find a $k$-colouring. (2) Prove colouring with $\le k-1$ colours is impossible. \\
-	% \textbf{Critical}: $G$ is critical if $\chi(H) < \chi(G)$ for all proper subgraphs $H$ of $G$. \\
-	% \textbf{Theorem}: Every graph $G$ has a critical subgraph $H$ s.t. $\chi(H) = \chi(G)$. \\
-	% \textbf{Theorem}: If $G$ is critical, then $\forall v \in V$, $\deg v \ge \chi(G) - 1$. \\
-	% \textbf{Theorem}: If $G$ is critical, then $(\chi(G) - 1)|V| \le 2|E|$. \\
-	% \textbf{Theorem 4.1.1}: The largest graph with $n$ vertices and chromatic number $k$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
-	% \textbf{Theorem 4.1.2 (Turan)}: The largest graph with $n$ vertices that contains no subgraph isomorphic to $K_{k+1}$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
-	% \textbf{Theorem 4.1.2$^*$}: The largest graph with $n$ vertices that contains no triangle is the complete bipartite graph $K_{n_1, n_2}$ with $n = n_1 + n_2$ and $|n_1 - n_2| \le 1$. (special case of Turan where $k = 2$) \\
-	% \textbf{Lemma 4.1.3}: If $G$ is a graph on $n$ vertices that contains no $K_{k+1}$, then there is a $k$-partite graph $H$ with the same vertex set as $G$ such that $\deg_G(z) \le \deg_H(z)$ for every vertex $z$ of $G$.
+	\section{Vertex Coloring}
+	\textbf{Vertex Coloring}: Assignment of colors to vertices s.t. adjacent vertices receive different colours. \\
+	\textbf{Chromatic Number} $\chi(G)$: Least number of colours needed to colour $G$. \\
+	\textbf{Strategy to prove $\chi(G) = k$}: (1) Find a $k$-colouring. (2) Prove colouring with $\le k-1$ colours is impossible. \\
+	\textbf{Critical}: $G$ is critical if $\chi(H) < \chi(G)$ for all proper subgraphs $H$ of $G$. \\
+	\textbf{Theorem}: Every graph $G$ has a critical subgraph $H$ s.t. $\chi(H) = \chi(G)$. \\
+	\textbf{Theorem}: If $G$ is critical, then $\forall v \in V$, $\deg v \ge \chi(G) - 1$. \\
+	\textbf{Theorem}: If $G$ is critical, then $(\chi(G) - 1)|V| \le 2|E|$. \\
+	\textbf{Theorem 4.1.1}: The largest graph with $n$ vertices and chromatic number $k$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
+	\textbf{Theorem 4.1.2 (Turan)}: The largest graph with $n$ vertices that contains no subgraph isomorphic to $K_{k+1}$ is a complete $k$-partite graph $K_{n_1, n_2, \ldots, n_k}$ with $n = n_1 + n_2 + \cdots + n_k$ and $|n_i - n_j| \le 1$. \\
+	\textbf{Theorem 4.1.2$^*$}: The largest graph with $n$ vertices that contains no triangle is the complete bipartite graph $K_{n_1, n_2}$ with $n = n_1 + n_2$ and $|n_1 - n_2| \le 1$. (special case of Turan where $k = 2$) \\
+	\textbf{Lemma 4.1.3}: If $G$ is a graph on $n$ vertices that contains no $K_{k+1}$, then there is a $k$-partite graph $H$ with the same vertex set as $G$ such that $\deg_G(z) \le \deg_H(z)$ for every vertex $z$ of $G$.
 
 	\section{Edge Coloring}
 	\textbf{Proper Edge Coloring}: Assignment of colors to edges of $G$ s.t. adjacent edges receive unequal colors. \\
@@ -244,6 +244,8 @@
 	\textbf{Problem.} \textit{How many 1-factors are there in $K_{2h}$?} There are $2h-1$ first pairs, $2h-3$ second pairs, so $(2h-1)(2h-3)(2h-5) \cdots (3)(1)$ possible pair combinations. Then multiply and divide by $(2h-2)(2h-4) \cdots (4)(2) = 2^{h-1}(h-1)!$ to get $(2h-1)!/(2^{h-1}(h-1)!)$. \\
 	% giving up on this one since it's too long and requires an identity with $e$.
 	% \textbf{Problem.} \textit{How many 1-factors are in the graph $G = K_{n,n}$ minus a 1-factor?} Also called the derangements of $n$ objects. Let $D_n$ denote the number of derangements. Clearly, $D_1 = 0$ and $D_2 = 1$. Denote a node $a$ to be coloured red, and $a'$ to be its blue counterpart. Then the number of 1-factors containing $ij'$ and $ji'$ are $D_{n-1}$, so $(n-1)D_{n-2}$ possibilities. And 1-factors containing $ij'$ but not $ji'$ are $D_{n-1}$ possibilities, so $(n-1)D_{n-1}$ possiblities. Then $D_n = (n-1)(D_{n-1} + D_{n-2}) \Rightarrow D_n - nD_{n-1} = -(D_{n-1} - (n-1)D_{n-2})$. Substiting $n := n-1$, which is $D_{n-1} - (n-1)D_{n-2} = -(D_{n-2} - (n-2)D_{n-3})$, we get $D_n - nD_{n-1} = (-1)^2(D_{n-2} - (n-2)D_{n-3})$ and repetition will get $D_{n} - nD_{n-1} = (-1)n^{-2}(D_2 - D_1) = (-1)^{n-2} = (-1)^n$ so we have $D_n = nD_{n-1} + (-1)^n$. Dividing by $n! = (n-1)!n, we get$
+	\textbf{Problem.} \textit{Problem. How many 1-factors are in the graph $G = K_{n,n}$ minus a 1-factor?}
+	$D_n = n!\left(\frac 1 {2!} - \frac 1 {3!} + \cdots + \frac{(-1)^{n-1}}{(n-1)!} + \frac{(-1)^n}{n!}\right)$
 	\section{Spanning Trees}
 	\textbf{Theorem 5.2.1.} The number of spanning trees in $K_n$ is $s(K_n) = n^{n-2}$.
 	\textbf{Constructing a sequence}:
@@ -266,7 +268,7 @@
 
 	\section{Magic Graphs}
 	\textbf{Magic Graph:} $G$ is magic if the edges of $G$ can be labeled by the numbers $1,2,3,\dots, q$ so that the sum of the labels of all the edges incident with any vertex is the same. \\
-
+	\textbf{Anti Graph:} $G$ is antimagic if no 2 vertices have the same sum.
 	\textbf{Theorem 6.1.1.} $K_{n,n}$ is magic for $n \ne 2$. \\
 	\textbf{Theorem 6.1.2.} If a bipartite graph $G$ is decomposable into two Hamilton cycles, then $G$ is magic. \\
 	\textbf{Theorem 6.1.3.} If a graph $G$ is decomposable into two magic spanning subgraphs $G_1$ and $G_2$ where $G_2$ is regular, then $G$ is magic. \\
@@ -330,6 +332,140 @@
 		\item Repeat: Select two smallest in $M$. If one labels an existing vertex (subtree root), attach that subtree; else create new leaves. Label new vertex with sum, cross out the two in $M$, replace with their sum.
 		\item Stop when $|M| = 1$; $T$ is the minimum-weight binary tree.
 	\end{enumerate}
+
+	\section{Planar Graphs}
+	\textbf{Planar Graph}: A graph that can be drawn on a plane without any edges crossing. \\
+	\textbf{Face}: A region of the plane that is bounded by edges. \\
+	\textbf{Plane Drawing}: A drawing of the graph in the plane with no crossings. \\
+	\textbf{Outside Triangle}: The triangle representing the outside of a shape. \\
+	\textbf{Convex}: A region in a plane drawing of a planar graph s.t. whenever any two points on the boundary of or in the region are connected by a strait line segment, the straight line segment lies entirely inside the region. \\
+	\includegraphics[width=0.6\linewidth]{figure-8.4.2.png} \\
+	\textbf{Coin graph}: a graph where every vertex is a coin and two vertices are adjacent iff the coins touch.
+	\textbf{Penny graph}: A coin graph where every coin is the same size. \\
+
+	\textbf{Theorem 8.1.1 (Euler's Polyhedral Formula)}: If $G$ is a connected planar graph with $p$ vertices, $q$ edges, and $r$ regions/faces, then $p - q + r = 2$. Proof uses induction on number of cycles in graph.\\
+	\textbf{Maximal Planar Graph}: A graph is maximal planar if adding any edge would create a non-planar graph. \\
+	\textbf{Theorem 8.1.2}: If $G$ is a maximal planar graph with $p$ vertices and $p \geq 3$, then $q = 3p - 6$. \\
+	\textbf{Theorem 8.1.4/6}: The graphs $K_5$ and $K_{3,3}$ are not planar. \\
+	\textbf{Theorem 8.1.5}: If $G$ is a planar bipartite graph with $p$ vertices and $p \geq 3$, then $q \leq 2p - 4$. \\
+	\textbf{Theorem 8.1.7}: Every planar graph has at least one vertex with degree $\leq 5$. \\
+	\textbf{Theorem 8.1.8}: Suppose $G$ is a planar graph with $p \geq 4$. Let $p_i$ be the number of vertices of degree $i$. Then $3p_3 + 2p_4 + p_5 = 12 + p_7 + 2p_8 + 3p_9 + \cdots$. \\
+	\textbf{Theorem 8.4.1. (Wagner).} Every planar graph has a plane drawing where every edge is a straight line. If such a drawing exists, $G$ is \textbf{stretchable}.
+	\textbf{Theorem 8.4.2. (Koebe).} Every planar graph is a coin graph.
+
+	\section{Country Coloring}
+	\textbf{Lune}: A region of a plane drawing of a multigraph containing two edges. \\
+	\textbf{Map}: A plane drawing of a connected, bridgeless, planar multigraph. \\
+	\textbf{Normal Map}: A map that is cubic. \\
+	\textbf{Country}: A region of a map. Adjacent countries share an edge. \\
+	\textbf{Map Coloring Problem}: Color the countries of a map using the fewest colors such that no two adjacent countries have the same color. \\
+	\textbf{Dual}: A multigraph $G(M)$ is a dual of a map $M$ if the vertices of $G(M)$ are the faces of $M$, and two vertices of $G(M)$ are adjacent if and only if the corresponding faces of $M$ share an edge. This multigraph is planar. $G(G(M)) = M$ for $p \ge 4$. \\
+	\textbf{Theorem 8.2.1/3 (Tait)} If a normal map has a coloring of the countries using $4$ colors, then the edges of the map can be properly colored using $3$ colors. Vice versa is also true. \\
+	\textbf{Lemma 8.2.2}: Given a finite number of simple closed curves (cycles) in the plane, the regions defined by those curves are colorable with $2$ colors. \\
+	\textbf{Theorem 8.2.4/5}: If in a normal map the edges are properly colored using $3$ colors, then the vertices can be labeled black or white so that around any given country, the number of black vertices minus the number of white vertices is always a multiple of $3$. Vice versa is also true. \\
+	\textbf{Theorem 8.2.6 (Four Color Theorem)}: Every normal map can be colored using $4$ colors. \\
+	\textbf{Theorem 8.2.7}: In every planar cubic bridgeless graph, the edges are properly colored using $3$ colors. Equivalent to Four Color Theorem. \\
+	If $D$ is a plane drawing of a maximal planar graph with at least $4$ vertices, then $G(D)$ is a normal map. \\
+	\textbf{Theorem 8.2.8 (Dual version of Four Color Theorem)}: The vertices of every maximal planar graph with at least $4$ vertices can be can be colored with at most $4$ colors. \\
+	\textbf{Theorem 8.2.9}: The vertices of every planar graph can be colored with at most $4$ colors. \\
+	\textbf{Theorem.} If $M$ is maximal planar map, $p \ge 4$, then $G(M)$ is a normal map.
+	\textbf{Lemma 8.3.1}:No map in the plane has five mutually adjacent countries. Proof: If it did, the dual would contain a subgraph isomorphic to $K_5$, which is not planar. \\
+	\textbf{Five Color Theorem}: The countries of every normal map in the plane can be colored with five colors. \\
+
+	\section{Measuring Closeness to Planarity}
+	\textbf{Subdivision:} graph $G$ is a subdivision of $H$ if $G$ is $H$ with some vertices of degree 2 added. All graphs are subdivisions of themselves. \\
+	\textbf{Theorem.} If $G$ is not planar, then a subdivision of $G$ is not planar. \\
+	\textbf{Theorem 9.1.1.} If a graph $G$ contains a subgraph that is a subdivision of $K_{5}$ or of $K_{3,3}$, then $G$ is not planar. \\
+	\textbf{Theorem.} Assume that $G$ is a graph with the property that $G$ is not planar, and for every edge $e$ of $G$, the graph $G-e$ is planar. Then $G$ is either a subdivision of $K_{5}$ or a subdivision of $K_{3,3}$. \\
+	\textbf{Theorem 9.1.2.} (Kuratowski). If $G$ is a nonplanar graph, then $G$ contains a subgraph that is a subdivision of $K_{5}$ or of $K_{3,3}$. \\
+	\textbf{Simple Drawing}: A simple drawing of a graph in the plane is a drawing in which:
+	\begin{enumerate}
+		\item[a)] any two distinct edges have at most one crossing.
+		\item[b)] any two edges incident with the same vertex do not cross.
+		\item[c)] no three edges cross in a common point.
+	\end{enumerate}
+	\textbf{Multiple Crossing:} If more than 2 edges cross at the same point, it's called a multiple crossing. \\
+	\textbf{Crossing Number:} There exists a drawing of $G$ that has the minimum number of crossings such that $G$ also has no multiple crossings. That min number is called crossing number, denoted $cr(G)$. Such a drawing is always a simple drawing. Crossing number of all planar graphs is 0. $cr(K_{5})=1$ and $cr(K_{3,3})=1$ \\
+	\textbf{Theorem 9.1.3.} Every simple drawing of $K_{4}$ in the plane has either zero or one crossing. \\
+	\textbf{Theorem 9.1.4.} The crossing number of $K_{6}$ is $cr(K_{6})=3$. \\
+	For a complete graph $K_{n}$, the following inequality holds:
+	\[ cr(K_{n}) \le \frac{1}{4}\left\lfloor\frac{n}{2}\right\rfloor\left\lfloor\frac{n-1}{2}\right\rfloor\left\lfloor\frac{n-2}{2}\right\rfloor\left\lfloor\frac{n-3}{2}\right\rfloor \]
+	For a complete bipartite graph $K_{m,n}$, we have so:
+	\begin{align*}
+		cr(K_{2t,2s})     & \le t(t-1)s(s-1) \\
+		cr(K_{2t+1,2s+1}) & \le t^{2}s^{2}   \\
+		cr(K_{2t+1,2s})   & \le t^{2}s(s-1)
+	\end{align*}
+	\textbf{Theorem 9.1.5.} The crossing number of $K_{m,n}$ satisfies the inequality
+	\[ cr(K_{m,n}) \le \left\lfloor\frac{m}{2}\right\rfloor\left\lfloor\frac{m-1}{2}\right\rfloor\left\lfloor\frac{n}{2}\right\rfloor\left\lfloor\frac{n-1}{2}\right\rfloor \]
+	\textbf{Theorem 9.1.6.} The crossing number of $K_{3,n}$ is
+	\[ cr(K_{3,n}) = \left\lfloor\frac{n}{2}\right\rfloor\left\lfloor\frac{n-1}{2}\right\rfloor \]
+	\textbf{Theorem 9.1.7.} The crossing number of $K_{4,n}$ is
+	\[ cr(K_{4,n}) = \left\lfloor\frac{n}{2}\right\rfloor\left\lfloor\frac{n-1}{2}\right\rfloor \]
+	\section*{Thickness and Splitting Number}
+	\textbf{Definition:} Thickness - denoted $\theta(G)$, is min number of planar subgraphs in a decomposition of $G$ into planar subgraphs. So $\theta(G)=t$ means there are decompositions of $G$ s.t.
+	\[ G=H_{1}\cup \dots \cup H_{t} \]
+	Where $H_{i}$ is planar, and fewer decompositions is not possible.
+	\textbf{Theorem 9.2.1.} If $G$ is a graph with $p$ vertices and $q$ edges, then
+	\[ \theta(G) \ge \frac{q}{3p-6} \]
+	\textbf{Theorem 9.2.2.} If $G$ is a bipartite graph with $p$ vertices and $q$ edges, then
+	\[ \theta(G) \ge \frac{q}{2p-4} \]
+
+	\section{Rotations on Graphs}
+	\textbf{Rotation of G}: A rotation ($\rho$) of $G$ is a coloration of vertices of some cubic graph $G$ such that each vertex is black or white. Black vertices indicate clockwise and white vertices indicate counterclockwise. A graph $G$ has $2^{|V|}$ possible rotations.\\
+	\textbf{Rotations Induce Curcuits}: A rotation $\rho$ induces cicuits in a graph: Start at an edge and travel along it in one of the two directions. If you hit a black vertex, turn clockwise until you find an edge to continue walking along, and counterclockwise if you hit a white vertex. Continue until you return to the same starting edge and direction. NOTE, circuits induced by rotations may have repeated vertices and edges used in both directions.\\
+	\includegraphics[width=0.45\linewidth]{figure-10.1.2.png}
+	\includegraphics[width=0.45\linewidth]{figure-10.1.3.png}
+	\textbf{Definition $r(\rho)$}: A rotation $\rho$ partitions $G$ into $r(\rho)$ circuits. Different rotations $\rho$ may induce different numbers of circuits. \\
+	\textbf{Circular Rotation}: A rotation $\rho$ is circular if it induces a single circuit. \\
+	\textbf{Scheme}: A listing of each vertex in a graph where each vertex is numbered and assigned a list of vertices it is adjacent to. Esentially an adjacency list of a graph.\\
+	\textbf{Rotation of Vertices}: A rotation for a particular vertex is an ordered cyclic listing of vertices adjacent to that vertex. Example above shows how that listing can be used to describe a rotation. \\
+	\textbf{Theorem 10.1.1}: If vertex $v$ has degree $d$, then there are $(d-1)!$ rotations of $v$. \\
+	\textbf{Deriving circuits from schemes}:
+	\begin{enumerate}
+		\item Pick edge $uv$
+		\item Scheme of $v$ is $v: \dots ux \dots$. Pick $x$ to be next.
+		\item Continue until $uv$ is reached again.
+	\end{enumerate}
+	\textbf{Theorem 10.1.2}: Given a connected graph with $p$ vertices and $q$ edges, and a rotation $\rho$ which induces $r(\rho)$ circuits, the inequality $p-q+r(\rho) \leq 2$ holds. Furthermore, the alternating sum $p-q+r(\rho)$ is even. \\
+	The proof for this uses induction on the number of cycles in the graph. \\
+	\section{Planar Graphs With Rotations}
+	\textbf{Definition} If $G$ is connected, and there exists a rotation $\rho$ of $G$ such that $p-q+r(\rho) = 2$, then $\rho$ is a \textbf{planar rotation} of $G$ and $G$ is a \textbf{connected planar graph}. If $G$ is not connected, consider the connected subgraphs of $G$. If each subgraph satisfies the above conditions, the entire graph is \textbf{planar}. \\
+	\textbf{Theorem 10.2.1}: If $G$ has a bridge, then for any rotation $\rho$ of $G$, the bridge occurs in both directions in one curcit induced by $\rho$. \\
+	Proof idea: A circuit starting on one side of the bridge and crossing it must come back since its closed, so it must cross the bridge in both directions. \\
+	\textbf{Theorem 10.2.2}: If $H$ is a subgraph of planar graph $G$, then $H$ is planar. \\
+	Many theorems in this section are repeats of planar graph theorems, but they use rotations to prove them, for example:
+	\textbf{Theorem 10.2.3}: The complete bipartite graph $K_{3,3}$ is not planar. \\
+	Proof: If $K_{3,3}$ were planar, then it would have a rotation $\rho$ such that $p-q+r(\rho) = 2$. However, $K_{3,3}$ has 6 vertices and 9 edges, so $p-q+r(\rho) = 6-9+r(\rho) = 2$, so $r(\rho) = 5$, which would mean that the average circuit length is $(9*2)/5 = 3.6$ since each edge is used twice (both directions), but the shortest circuit length is 4, so $K_{3,3}$ cannot be planar. \\
+	\textbf{Theorem 10.2.5}: A maximal planar graph $G$ with three or more vertices is connected and has no bridge. \\
+	Proof outline: Suppose $G$ is not connected, we can add an edge to connect two components without creating a crossing, so $G$ was not maximal. Suppose $G$ has a bridge, we can add an edge such that one circuit containing the bridge becomes two circuits, so by the planar rotation definition, adding this edge keeps the graph planar, so$G$ was not maximal. \\
+	\textbf{Theorem 10.2.6}: Every planar rotation $\rho$ of a maximal planar graph $G$ has the property that every circuit induced by $\rho$ has length 3. \\
+	Proof outline: Case that length $\geq 5$: In a circuit of length at least 5, at least one pair of vertices is not adjacent, otherwise the graph contains a subgraph isomorphic to $K_5$, which is not planar. create an edge between these two vertices, thereby creating two circuits from one and adding an edge, so this new graph is therefore planar by the planar rotation definition, meaning $G$ was not maximal.\\
+	Case that length $= 4$: In a circuit of length 4, if any two vertices are not adjacent, do the same as previous case. Otherwise, create a new vertex and connect it to all 4 vertices in the cycle, thereby creating 4 circuits from one and adding 4 edges and 1 vertex, so this new graph is therefore planar by the planar rotation definition, meaning $G$ was not maximal.\\
+	\textbf{Theorem 10.2.9}: A connected graph that can be drawn in the plane with no crossings has a planar rotation. \textbf{Proof}: Take the plane drawing and assign all vertices black, resulting in a circuit for each region, so by the planar rotation definition, the graph has a planar rotation. \\
+
+	\section{Genus of a Graph}
+	\textbf{Orientable Surface of Genus $g$ or $S_g$}: Sphere is $S_0$ (no handles); torus $S_1$ (one handle); in general attach $g$ handles to a sphere. Planar graphs embed in $S_0$ (sphere = plane $+$ point at $\infty$). \\
+	\textbf{Embeddable}: $G$ embeds in $S_g$ if it can be drawn on $S_g$ with no edge crossings. If $G$ embeds in $S_g$, it embeds in $S_{g+1}$. \\
+	\textbf{Genus} $\gamma(G)$: Minimal $g$ such that $G$ embeds in $S_g$. Then $\gamma(G)=g$ means $G$ embeds in $S_g$ but not in $S_{g-1}$. Planar $\Leftrightarrow$ $\gamma(G)=0$. \\
+	\textbf{Genus (Alternative Definition)}: For connected $G$ and maximal $\rho$, $p-q+r(\rho)=2-2\gamma(G)$ ($g$ nonnegative integer; agrees with planar rotation when $\gamma=0$). E.g.\ $K_7$: $p=7$, $q=21$, $r(\rho)=14$ $\Rightarrow$ $7-21+14=0=2-2(1)$ so $\gamma(K_7)=1$; similarly $\gamma(K_{4,4})=1$. \\
+	\textbf{Mapping onto a Rectangle}: Proof of $\gamma(K_5)=\gamma(K_{3,3})=1$ (torus)
+	\includegraphics[width=\linewidth]{figure-10.3.4.png} \\
+	Proof of $\gamma(K_7)=\gamma(K_{4,4})=1$ (torus)
+	\includegraphics[width=0.45\linewidth]{figure-10.3.6.png}
+	\includegraphics[width=0.45\linewidth]{figure-10.3.7.png} \\
+	\textbf{Maximal rotation}: $\rho$ is maximal if $r(\rho)$ is as large as possible; when a planar rotation is maximal (Thm 10.1.2: $p-q+r(\rho)\le 2$, even). \\
+	\textbf{Theorem 10.3.1}: If every circuit induced by $\rho$ has length three, then $\rho$ is a maximal rotation. \\
+	\textbf{Theorem 10.3.2}: In a bipartite $G$, if every circuit induced by $\rho$ has length four, then $\rho$ is maximal. \\
+	\textbf{Theorem 10.3.3--10.3.4 (Ringel)}: $\displaystyle \gamma(K_{m,n})=\left\lceil\frac{(m-2)(n-2)}{4}\right\rceil$ for $m,n\ge 2$. (Proof idea: bipartite $\Rightarrow$ shortest induced circuit $\ge 4$, so $2q\ge 4r(\rho)$; combine with $p-q+r(\rho)=2-2g$.) \\
+	\textbf{Rule $\Delta^*$}: If row $i$ is $\ldots,j,k,\ldots$, then row $k$ is $\ldots,i,j,\ldots$ $\Rightarrow$ every induced circuit has length three (triangular faces). \\
+	\textbf{Rule $R^*$}: If row $i$ is $\ldots,j,k,l,\ldots$, then row $k$ is $\ldots,l,i,j,\ldots$. Rules $\Delta^*$ and $R^*$ are equivalent. \\
+	\textbf{Note}: $K_8$ has no rotation with all circuits length $3$ since $2q=56$ is not divisible by $3$. \\
+	\textbf{Theorem}: Lower bound on $\gamma(K_n)$ from $2q\ge 3r(\rho)$ and $p-q+r(\rho)=2-2g$ for maximal $\rho$. \\
+	\textbf{Theorem 10.3.6 (Ringel, Youngs)}: $\displaystyle \gamma(K_n)=\left\lceil\frac{(n-3)(n-4)}{12}\right\rceil$ for $n\ge 3$. \\
+	\textbf{Theorem 10.3.7 (Heawood)}: If $G$ is critical with chromatic number $\chi$ and $\gamma(G)\le g$ with $g\ge 1$, then $\displaystyle \chi(G) \le \left\lfloor\frac{7+\sqrt{48g+1}}{2}\right\rfloor$ (the Heawood number $H(g)$). For $g=0$ this is not Heawood; use the Four Color Theorem instead. \\
+	\textbf{Theorem 10.3.8 (Map Color Theorem)}: For every $g\ge 1$, there exists a critical graph $G$ and $\gamma(G) \ge g$ and $\displaystyle \chi (G) = \left \lfloor \frac{7 + \sqrt{1 + 48g}} 2\right \rfloor$
+
 \end{multicols*}
 
 \end{document}
